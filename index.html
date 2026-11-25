@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Mobile-first 916 (22K) gold advance booking decision calculator — compare walk-in, bulk making-charge tier, max booking resale arbitrage, and existing gold swap breakevens." />
+  <meta name="theme-color" content="#b88424" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="916 Planner" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b88424'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='24' fill='%23ffffff'%3E916%3C/text%3E%3C/svg%3E" />
+  <title>916 Gold Booking Planner</title>
+  <style>
+    :root {
+      --bg: hsl(40, 26%, 96%);
+      --surface: hsl(0, 0%, 100%);
+      --surface-2: hsl(38, 22%, 93%);
+      --border: hsl(36, 16%, 85%);
+      --border-strong: hsl(36, 14%, 76%);
+      --text: hsl(222, 24%, 13%);
+      --text-muted: hsl(220, 10%, 44%);
+      --gold: hsl(38, 72%, 39%);
+      --gold-soft: hsla(38, 76%, 45%, 0.12);
+      --gold-fg: hsl(0, 0%, 100%);
+      --green: hsl(154, 62%, 32%);
+      --green-soft: hsla(154, 62%, 36%, 0.12);
+      --amber: hsl(32, 86%, 38%);
+      --amber-soft: hsla(32, 88%, 45%, 0.14);
+      --red: hsl(354, 68%, 46%);
+      --red-soft: hsla(354, 68%, 48%, 0.11);
+      --blue: hsl(212, 72%, 44%);
+      --blue-soft: hsla(212, 72%, 46%, 0.12);
+      --shadow-sm: 0 1px 2px hsla(220, 24%, 13%, 0.05);
+      --shadow-md: 0 8px 24px hsla(220, 24%, 13%, 0.12);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg: hsl(222, 18%, 9%);
+      --surface: hsl(222, 16%, 13%);
+      --surface-2: hsl(222, 15%, 17%);
+      --border: hsl(222, 12%, 22%);
+      --border-strong: hsl(222, 12%, 30%);
+      --text: hsl(40, 18%, 93%);
+      --text-muted: hsl(220, 10%, 63%);
+      --gold: hsl(42, 78%, 56%);
+      --gold-soft: hsla(42, 78%, 56%, 0.15);
+      --gold-fg: hsl(222, 22%, 10%);
+      --green: hsl(152, 58%, 48%);
+      --green-soft: hsla(152, 58%, 48%, 0.15);
+      --amber: hsl(36, 88%, 58%);
+      --amber-soft: hsla(36, 88%, 58%, 0.16);
+      --red: hsl(356, 76%, 62%);
+      --red-soft: hsla(356, 76%, 62%, 0.15);
+      --blue: hsl(210, 82%, 62%);
+      --blue-soft: hsla(210, 82%, 62%, 0.16);
+      --shadow-sm: 0 1px 3px hsla(0, 0%, 0%, 0.25);
+      --shadow-md: 0 12px 32px hsla(0, 0%, 0%, 0.45);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      font-size: 14px;
+      padding-bottom: calc(78px + env(safe-area-inset-bottom));
+    }
+
+    .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+    .hidden { display: none !important; }
+
+    /* Top App Header */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .topbar-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--gold);
+      color: var(--gold-fg);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .brand-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .icon-btn {
+      height: 36px;
+      padding: 0 11px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .icon-btn:hover { border-color: var(--gold); }
+    .icon-btn.active {
+      background: var(--gold-soft);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Surface Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Hero Rate Input */
+    .rate-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    .delta-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--surface-2);
+    }
+    .rate-stepper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .step-btn {
+      height: 46px;
+      min-width: 52px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.08s, border-color 0.15s;
+    }
+    .step-btn:active { transform: scale(0.96); }
+    .step-btn:hover { border-color: var(--gold); }
+    .rate-box {
+      flex: 1;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 0 12px;
+      gap: 4px;
+    }
+    .rate-box:focus-within { border-color: var(--gold); }
+    .rate-box span { color: var(--text-muted); font-size: 14px; font-weight: 600; }
+    .rate-box input {
+      width: 104px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 21px;
+      font-weight: 800;
+      text-align: center;
+      outline: none;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 28px;
+      accent-color: var(--gold);
+      cursor: pointer;
+      margin: 0;
+    }
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: -2px;
+      margin-bottom: 10px;
+    }
+
+    /* Preset Chips */
+    .chip-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .chip-strip::-webkit-scrollbar { display: none; }
+    .chip {
+      flex-shrink: 0;
+      height: 32px;
+      padding: 0 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .chip:hover { border-color: var(--gold); }
+    .chip.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--gold-fg);
+    }
+
+    /* Quick Showroom Controls */
+    .quick-controls {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 640px) {
+      .quick-controls { grid-template-columns: 1fr 1.25fr; }
+    }
+    .ctrl-block-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .ctrl-block-head span:first-child { color: var(--text-muted); font-weight: 600; }
+    .seg-row {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .seg-btn {
+      flex: 1;
+      min-width: 44px;
+      height: 36px;
+      padding: 0 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .seg-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--gold-fg);
+    }
+
+    /* Collapsible Assumptions Drawer */
+    .drawer {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 680px) {
+      .drawer { grid-template-columns: 1fr 1fr; }
+    }
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+    }
+    .field span { color: var(--text-muted); font-weight: 500; }
+    .field input[type="number"] {
+      height: 38px;
+      padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      width: 100%;
+    }
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text);
+      cursor: pointer;
+      padding: 4px 0;
+    }
+    .check-row input { width: 17px; height: 17px; accent-color: var(--gold); }
+
+    /* Hero Verdict Card */
+    .verdict-card {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .verdict-top {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    @media (min-width: 680px) {
+      .verdict-top {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+    .badge-green { background: var(--green-soft); color: var(--green); }
+    .badge-amber { background: var(--amber-soft); color: var(--amber); }
+    .badge-blue  { background: var(--blue-soft);  color: var(--blue); }
+    .badge-red   { background: var(--red-soft);   color: var(--red); }
+
+    .verdict-headline {
+      margin: 4px 0 2px;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+    }
+    .verdict-sub {
+      margin: 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .kpi {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 9px 10px;
+    }
+    .kpi-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+    .kpi-val { font-size: 15px; font-weight: 800; margin-top: 2px; }
+    @media (max-width: 400px) {
+      .kpi-val { font-size: 13.5px; }
+    }
+
+    .old-strip {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .old-strip-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .old-strip-text { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+    /* Regime Price Ruler */
+    .ruler-wrap { display: flex; flex-direction: column; gap: 5px; }
+    .ruler-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 4px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .ruler {
+      position: relative;
+      height: 30px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .ruler-seg {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0 4px;
+    }
+    .ruler-pin {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2.5px;
+      background: var(--text);
+      pointer-events: none;
+    }
+    .ruler-pin::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 1.5px solid var(--surface);
+    }
+
+    /* Desktop Tabs & Mobile Bottom Nav */
+    .desktop-tabs {
+      display: none;
+      gap: 6px;
+      background: var(--surface);
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    @media (min-width: 720px) {
+      body { padding-bottom: 24px; }
+      .desktop-tabs { display: flex; }
+      .bottom-nav { display: none !important; }
+    }
+    .dtab-btn {
+      flex: 1;
+      height: 38px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .dtab-btn.active {
+      background: var(--gold);
+      color: var(--gold-fg);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      box-shadow: 0 -4px 16px hsla(0, 0%, 0%, 0.08);
+    }
+    .bnav-btn {
+      border: 0;
+      background: transparent;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 6px 4px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .bnav-btn svg { width: 20px; height: 20px; stroke-width: 2; }
+    .bnav-btn.active {
+      color: var(--gold);
+      background: var(--gold-soft);
+    }
+
+    /* Scenario Cards Grid */
+    .strat-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 560px) {
+      .strat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .strat-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .strat-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .strat-card:active { transform: scale(0.99); }
+    .strat-card.is-selected { border-color: var(--gold); }
+    .strat-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .strat-title { font-weight: 800; font-size: 14px; }
+    .strat-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+    .mc-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .strat-net {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .kv-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+    }
+    .kv {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .kv span:first-child { color: var(--text-muted); }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    th {
+      text-align: left;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 7px 6px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .num { text-align: right; }
+    tr.click-row { cursor: pointer; }
+    tr.click-row:hover { background: var(--surface-2); }
+    tr.is-cur { background: var(--gold-soft); font-weight: 700; }
+
+    /* Two-column split for desktop receipt inspector */
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 760px) {
+      .split-2 { grid-template-columns: 1fr 1fr; }
+    }
+    .sub-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sub-box h3 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Notice Box */
+    .warn-box {
+      padding: 9px 11px;
+      border-radius: 8px;
+      background: var(--amber-soft);
+      color: var(--amber);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Pieces Simulator */
+    .pieces-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    @media (min-width: 680px) {
+      .pieces-inputs { grid-template-columns: repeat(5, 1fr); }
+    }
+    .out-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    @media (min-width: 680px) {
+      .out-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* Checklist */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .check-item input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--gold);
+    }
+    .check-item.done span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* Mobile Bottom Sheet / Desktop Hover Math Popover */
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: hsla(220, 30%, 6%, 0.55);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+    }
+    @media (min-width: 640px) {
+      .sheet-backdrop { align-items: center; padding: 16px; }
+    }
+    .sheet {
+      width: 100%;
+      max-width: 520px;
+      max-height: 86vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px 18px 0 0;
+      padding: 16px 16px calc(18px + env(safe-area-inset-bottom));
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .sheet { border-radius: 16px; padding: 18px; }
+    }
+    .sheet-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .close-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hover-tip {
+      position: fixed;
+      z-index: 55;
+      pointer-events: none;
+      width: 390px;
+      max-width: calc(100vw - 24px);
+      background: var(--surface);
+      border: 1.5px solid var(--gold);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: var(--shadow-md);
+      font-size: 12px;
+    }
+
+    .c-green { color: var(--green); }
+    .c-amber { color: var(--amber); }
+    .c-red   { color: var(--red); }
+    .c-blue  { color: var(--blue); }
+    .c-muted { color: var(--text-muted); }
+    .fw-700  { font-weight: 700; }
+    .fw-800  { font-weight: 800; }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top App Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">916</div>
+        <div style="min-width:0">
+          <h1>916 Gold Booking Planner</h1>
+          <div id="headerMeta" class="brand-sub mono">Booked ₹11,715/g · Max 102.433g · Adv ₹1.20L</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="toggleDrawerBtn" class="icon-btn" type="button" aria-expanded="false">⚙ Setup</button>
+        <button id="themeBtn" class="icon-btn" type="button" aria-label="Toggle theme">◐</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Rate & Counter Controls -->
+    <section class="card" aria-label="Gold rate and parameters">
+      <div class="rate-header">
+        <span class="section-label">Today's 916 Gold Rate</span>
+        <span id="rateDeltaPill" class="delta-pill mono"></span>
+      </div>
+
+      <div class="rate-stepper">
+        <button id="stepDown" class="step-btn" type="button">−₹50</button>
+        <div class="rate-box">
+          <span>₹</span>
+          <input id="rateInput" type="number" inputmode="numeric" min="8000" max="25000" step="5" value="13715" aria-label="Purchase day 916 gold rate per gram" />
+          <span>/g</span>
+        </div>
+        <button id="stepUp" class="step-btn" type="button">+₹50</button>
+      </div>
+
+      <input id="rateSlider" type="range" min="9500" max="17000" step="5" value="13715" aria-label="Gold rate slider" />
+      <div class="slider-ticks mono">
+        <span>₹9,500</span>
+        <span id="bookedTickLabel">₹11,715 (Booked)</span>
+        <span>₹14,000</span>
+        <span>₹17,000</span>
+      </div>
+
+      <!-- Quick Scenario Chips -->
+      <div class="chip-strip" role="group" aria-label="Quick gold rate presets">
+        <button class="chip" data-preset="11000" type="button">Drop ₹11,000</button>
+        <button class="chip" data-preset="11715" type="button">Flat ₹11,715</button>
+        <button class="chip" data-preset="12400" type="button">₹7.5L Zone ₹12,400</button>
+        <button class="chip" data-preset="13000" type="button">₹13,000</button>
+        <button class="chip" data-preset="13715" type="button">+₹2k ₹13,715</button>
+        <button class="chip" data-preset="14500" type="button">₹14,500</button>
+        <button class="chip" data-preset="15000" type="button">Boom ₹15,000</button>
+      </div>
+
+      <!-- Essential Counter Negotiations (MC% & Separate Shop Cut%) -->
+      <div class="quick-controls">
+        <div>
+          <div class="ctrl-block-head">
+            <span>≥₹7.5L Making Charge</span>
+            <span id="effGoldLbl" class="mono c-muted">Gold @ ₹11,715/g</span>
+          </div>
+          <div class="seg-row">
+            <button class="seg-btn" data-group="mcDisc" data-val="3" type="button">3%</button>
+            <button class="seg-btn" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
+            <button class="seg-btn" data-group="mcDisc" data-val="4" type="button">4%</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="ctrl-block-head">
+            <span>Separate-Shop 916 Cut</span>
+            <span id="resaleRateLbl" class="mono fw-700">₹13,441/g</span>
+          </div>
+          <div class="seg-row">
+            <button class="seg-btn" data-group="cut" data-val="0" type="button">0%</button>
+            <button class="seg-btn" data-group="cut" data-val="1" type="button">1%</button>
+            <button class="seg-btn" data-group="cut" data-val="2" type="button">2%</button>
+            <button class="seg-btn" data-group="cut" data-val="3" type="button">3%</button>
+            <button class="seg-btn" data-group="cut" data-val="4" type="button">4%</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collapsible Advanced Booking & Scheme Setup Drawer -->
+      <div id="setupDrawer" class="drawer hidden">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <span class="section-label">Booking &amp; Scheme Terms</span>
+          <div class="field-grid">
+            <label class="field"><span>Booked 916 Rate (₹/g)</span><input id="inpR0" type="number" step="5" value="11715" /></label>
+            <label class="field"><span>Max Booked Weight (g)</span><input id="inpWMax" type="number" step="0.001" value="102.433" /></label>
+            <label class="field"><span>Advance Paid (₹)</span><input id="inpAdv" type="number" step="1000" value="120000" /></label>
+            <label class="field"><span>Std MC below ₹7.5L (%)</span><input id="inpMcStd" type="number" step="0.5" value="11" /></label>
+            <label class="field"><span>Custom ≥₹7.5L MC (%)</span><input id="inpMcDisc" type="number" step="0.1" value="3" /></label>
+            <label class="field"><span>Custom Shop Cut (%)</span><input id="inpCut" type="number" step="0.25" value="2" /></label>
+          </div>
+          <div>
+            <div class="ctrl-block-head"><span>₹7.5L Threshold Measured On</span></div>
+            <div class="seg-row">
+              <button class="seg-btn" data-group="basis" data-val="gold" type="button">Gold Value Only</button>
+              <button class="seg-btn" data-group="basis" data-val="bill" type="button">Total Bill (incl. MC+GST)</button>
+            </div>
+            <label class="check-row" style="margin-top:6px;">
+              <input id="chkRingCounts" type="checkbox" checked />
+              <span>8g ring (18% MC) counts toward ₹7.5L total</span>
+            </label>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <span class="section-label">Existing 24g 916 Chain</span>
+          <div class="seg-row">
+            <button class="seg-btn" data-group="old" data-val="auto" type="button">Auto (Best)</button>
+            <button class="seg-btn" data-group="old" data-val="keep" type="button">Keep</button>
+            <button class="seg-btn" data-group="old" data-val="sell" type="button">Sell &amp; Swap</button>
+          </div>
+          <div class="field-grid">
+            <label class="field"><span>Old Gold Value (₹)</span><input id="inpOldGold" type="number" step="1000" value="275000" /></label>
+            <label class="field"><span>Old MC Paid (%)</span><input id="inpOldMc" type="number" step="0.5" value="11" /></label>
+          </div>
+          <div id="setupOldSummary" class="mono c-muted" style="font-size:12px;"></div>
+          <div style="margin-top:auto;display:flex;justify-content:flex-end;">
+            <button id="resetBtn" class="icon-btn" type="button">↺ Reset Defaults</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instant Decision Banner -->
+    <section class="card verdict-card" aria-label="Recommended purchase action">
+      <div class="verdict-top">
+        <div>
+          <span id="verdictBadge" class="badge badge-green"></span>
+          <h2 id="verdictHeadline" class="verdict-headline"></h2>
+          <p id="verdictSub" class="verdict-sub"></p>
+        </div>
+      </div>
+
+      <div class="kpi-strip">
+        <div class="kpi">
+          <div class="kpi-lbl">Saved vs Walk-In</div>
+          <div id="kpiSaved" class="kpi-val mono c-green"></div>
+        </div>
+        <div class="kpi">
+          <div id="kpiNetLbl" class="kpi-lbl">Net Cost (32g)</div>
+          <div id="kpiNet" class="kpi-val mono"></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">Bank Transfer</div>
+          <div id="kpiBank" class="kpi-val mono"></div>
+        </div>
+      </div>
+
+      <!-- Integrated Existing 24g Chain Recommendation -->
+      <div id="oldVerdictStrip" class="old-strip">
+        <div class="old-strip-head">
+          <span id="oldBadge" class="badge"></span>
+          <span id="oldMetrics" class="mono c-muted" style="font-size:11.5px;"></span>
+        </div>
+        <p id="oldVerdictMsg" class="old-strip-text"></p>
+      </div>
+
+      <!-- 3-Zone Price Ruler -->
+      <div class="ruler-wrap">
+        <div class="ruler-meta">
+          <span>Decision Zones</span>
+          <span id="rulerThresholds" class="mono"></span>
+        </div>
+        <div id="regimeRuler" class="ruler"></div>
+      </div>
+    </section>
+
+    <!-- Desktop Tab Bar -->
+    <nav class="desktop-tabs" role="tablist" aria-label="Views">
+      <button class="dtab-btn" data-tab="decide" type="button">1. Decide &amp; Bills</button>
+      <button class="dtab-btn" data-tab="rates" type="button">2. Chart &amp; Rate Table</button>
+      <button class="dtab-btn" data-tab="pieces" type="button">3. Showroom Pieces &amp; Old 24g</button>
+      <button class="dtab-btn" data-tab="check" type="button">4. Counter Checklist</button>
+    </nav>
+
+    <!-- TAB 1: DECIDE & LINE-BY-LINE BILLS -->
+    <section id="view-decide" class="view-pane" style="display:flex;flex-direction:column;gap:12px;">
+      <div class="strat-grid" id="stratGrid"></div>
+
+      <!-- Selected Strategy Receipt Breakdown -->
+      <div class="card" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;">
+          <div>
+            <div class="section-label">Exact Counter Receipt Breakdown</div>
+            <div id="inspSubtitle" class="fw-700" style="font-size:14.5px;margin-top:2px;"></div>
+          </div>
+          <div class="seg-row" style="flex:0 1 auto;">
+            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:52px;" data-inspect="S0" type="button">Walk-In</button>
+            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:44px;" data-inspect="S1" type="button">S1</button>
+            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:44px;" data-inspect="S2" type="button">S2</button>
+            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:44px;" data-inspect="S3" type="button">S3</button>
+          </div>
+        </div>
+
+        <div class="split-2">
+          <div class="sub-box">
+            <h3><span id="inspBuyTitle">Step 1 · At Showroom (Buy)</span><span id="inspBuyWt" class="mono c-muted"></span></h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Item (916)</th><th class="num">Gold</th><th class="num">MC</th><th class="num">GST</th><th class="num">Total</th></tr>
+                </thead>
+                <tbody id="inspBuyRows" class="mono"></tbody>
+              </table>
+            </div>
+            <div id="inspSettlement" class="kv-list"></div>
+          </div>
+
+          <div class="sub-box" style="justify-content:space-between;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <h3><span>Step 2 · Resale &amp; Walk-In Savings</span><span id="inspResaleRate" class="mono c-muted"></span></h3>
+              <div id="inspResaleList" class="kv-list" style="border-top:0;padding-top:0;"></div>
+            </div>
+            <div id="inspOutcome" class="kv-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: CHART & RATE TABLE -->
+    <section id="view-rates" class="view-pane hidden" style="display:flex;flex-direction:column;gap:12px;">
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
+          <div>
+            <div class="section-label">Total Savings vs Walk-In (No Scheme)</div>
+            <div class="c-muted" style="font-size:12px;">Tap or click anywhere on the chart to test that rate</div>
+          </div>
+          <div style="display:flex;gap:12px;font-size:11.5px;font-weight:600;">
+            <span style="display:flex;align-items:center;gap:5px;"><i style="width:12px;height:2.5px;background:var(--amber);display:inline-block;"></i>S1 (32g)</span>
+            <span style="display:flex;align-items:center;gap:5px;"><i style="width:12px;height:2.5px;background:var(--blue);display:inline-block;"></i>S2 (₹7.5L)</span>
+            <span style="display:flex;align-items:center;gap:5px;"><i style="width:12px;height:2.5px;background:var(--green);display:inline-block;"></i>S3 (102g)</span>
+          </div>
+        </div>
+        <svg id="chartSvg" viewBox="0 0 760 250" style="width:100%;height:auto;display:block;cursor:crosshair;touch-action:none;"></svg>
+      </div>
+
+      <div class="card" style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
+          <div class="section-label">Rate Reference Table</div>
+          <span class="c-muted" style="font-size:11.5px;">Tap any cell for exact math · Hover on desktop</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>916 Rate</th>
+                <th class="num">Walk-In</th>
+                <th class="num">S1 (32g)</th>
+                <th class="num">S2 (₹7.5L)</th>
+                <th class="num">S3 (102g)</th>
+                <th>Best Move</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody" class="mono"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: SHOWROOM EXACT WEIGHTS & OLD 24g CHAIN -->
+    <section id="view-pieces" class="view-pane hidden" style="display:flex;flex-direction:column;gap:12px;">
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;">
+          <div>
+            <div class="section-label">Showroom Exact-Weight Calculator</div>
+            <div class="c-muted" style="font-size:12px;">Type real piece tag weights at the counter to verify ₹7.5L discount &amp; booking cap</div>
+          </div>
+          <div id="piecesStatus" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+        </div>
+
+        <div class="pieces-inputs">
+          <label class="field"><span>Keep: Chain (g)</span><input id="pwChain" type="number" step="0.01" min="0" value="24.00" /></label>
+          <label class="field"><span>Keep: Ring (g · 18%)</span><input id="pwRing" type="number" step="0.01" min="0" value="8.00" /></label>
+          <label class="field"><span>Resell Piece 1 (g)</span><input id="pwEx1" type="number" step="0.01" min="0" value="20.00" /></label>
+          <label class="field"><span>Resell Piece 2 (g)</span><input id="pwEx2" type="number" step="0.01" min="0" value="13.00" /></label>
+          <label class="field"><span>Resell Piece 3 (g)</span><input id="pwEx3" type="number" step="0.01" min="0" value="0.00" /></label>
+        </div>
+
+        <div id="piecesOutput" class="out-grid"></div>
+      </div>
+
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
+          <div>
+            <div class="section-label">Existing 24g 916 Chain — All-In Breakevens</div>
+            <div id="oldSubLine" class="c-muted" style="font-size:12px;"></div>
+          </div>
+          <span id="oldSaleBadge" class="badge badge-blue mono"></span>
+        </div>
+        <div id="oldCardsGrid" class="out-grid"></div>
+      </div>
+    </section>
+
+    <!-- TAB 4: MARCH 24 CHECKLIST & GUARDRAILS -->
+    <section id="view-check" class="view-pane hidden" style="display:flex;flex-direction:column;gap:12px;">
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="section-label">Purchase-Day Checklist</div>
+          <button id="clearChecksBtn" class="icon-btn" style="height:30px;font-size:11.5px;" type="button">Uncheck All</button>
+        </div>
+        <div id="checklistWrap" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+
+      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+        <div class="section-label">Key Booking T&amp;C Guardrails</div>
+        <div class="sub-box">
+          <h3><span>1. Partial Redemption Advance Lock-In (Clause 2 &amp; 4)</span></h3>
+          <div class="c-muted" style="font-size:12.5px;">No cash refunds; unused balances carry forward (auto-converted on Day 356 into a coin at <strong>15% MC</strong>). Confirm before billing whether the <strong>full advance</strong> adjusts on smaller purchases:</div>
+          <div id="prorataSummary" class="mono" style="font-size:12px;display:flex;flex-direction:column;gap:3px;"></div>
+        </div>
+        <div class="sub-box">
+          <h3><span>2. MC Always Uses Redemption-Day Rate (Clause 1)</span></h3>
+          <div id="clause1Note" class="c-muted" style="font-size:12.5px;"></div>
+        </div>
+        <div class="sub-box">
+          <h3><span>3. No Gold Coins / Pick Plain Stone-Free 916 (Clause 3)</span></h3>
+          <div class="c-muted" style="font-size:12.5px;">Advance cannot be used for gold coins or special-priced items. For extra resale pieces, pick plain 916 chains/bangles with zero stones or enamel so you get lowest MC and full weight on resale.</div>
+        </div>
+        <div class="sub-box">
+          <h3><span>4. ₹1.90L Cash Limit &amp; Bank Trail</span></h3>
+          <div class="c-muted" style="font-size:12.5px;">Max cash accepted is ₹1,90,000; balance must move via NEFT/RTGS/UPI/Card (verify daily bank limits 2 days ahead). Organized buyers also pay above ₹10,000 via bank transfer — note short-term capital gains tax rules on realized arbitrage profit.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Sticky Bottom Navigation -->
+  <nav class="bottom-nav" aria-label="Mobile navigation">
+    <button class="bnav-btn" data-tab="decide" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Decide</span>
+    </button>
+    <button class="bnav-btn" data-tab="rates" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+      <span>Rates</span>
+    </button>
+    <button class="bnav-btn" data-tab="pieces" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Pieces</span>
+    </button>
+    <button class="bnav-btn" data-tab="check" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+      <span>Check</span>
+    </button>
+  </nav>
+
+  <!-- Mobile Tap Bottom Sheet for Exact Math -->
+  <div id="mathModal" class="sheet-backdrop hidden" role="dialog" aria-modal="true" aria-label="Exact calculation breakdown">
+    <div class="sheet">
+      <div class="sheet-head">
+        <strong id="modalTitle" style="font-size:15px;">Exact Breakdown</strong>
+        <button id="closeModalBtn" class="close-btn" type="button" aria-label="Close">×</button>
+      </div>
+      <div id="modalBody"></div>
+      <button id="modalApplyRateBtn" class="icon-btn active" style="justify-content:center;height:42px;font-size:13px;" type="button">Use This Gold Rate in Calculator</button>
+    </div>
+  </div>
+
+  <!-- Desktop Hover Math Popover -->
+  <div id="hoverTip" class="hover-tip hidden"></div>
+
+  <script>
+    const STORAGE_KEY = 'gold916_planner_v1';
+    const W_CHAIN = 24;
+    const W_RING = 8;
+    const W_KEEP = 32;
+    const MC_RING = 0.18;
+    const GST = 0.03;
+    const THRESH = 750000;
+    const MAX_CASH = 190000;
+
+    const DEFAULT_STATE = {
+      R0: 11715,
+      W_MAX: 102.433,
+      ADVANCE: 120000,
+      R1: 13715,
+      mcDisc: 3.0,
+      mcStd: 11.0,
+      cut: 2.0,
+      basis: 'gold',
+      ringCounts: true,
+      old: 'auto',
+      oldGold: 275000,
+      oldMc: 11.0,
+      tab: 'decide',
+      inspect: 'S3',
+      pinnedInspect: false,
+      pieces: { c: 24, r: 8, e1: 20, e2: 13, e3: 0 },
+      checks: {},
+      theme: null
+    };
+
+    let state = loadState();
+    let matrixCache = new Map();
+    let activeHoverKey = '';
+    let modalRate = null;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(DEFAULT_STATE);
+        const parsed = JSON.parse(raw);
+        return {
+          ...structuredClone(DEFAULT_STATE),
+          ...parsed,
+          pieces: { ...DEFAULT_STATE.pieces, ...(parsed.pieces || {}) },
+          checks: { ...(parsed.checks || {}) }
+        };
+      } catch {
+        return structuredClone(DEFAULT_STATE);
+      }
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+    }
+
+    function applyTheme() {
+      let t = state.theme;
+      if (!t) {
+        const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        t = sysDark ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+      document.getElementById('themeBtn').textContent = t === 'dark' ? '☀' : '☾';
+    }
+
+    const fmtINR = (n, sign = false) => {
+      const a = Math.round(Math.abs(n));
+      const p = (n < 0 && a > 0) ? '−' : (sign && n > 0 && a > 0 ? '+' : '');
+      return p + '₹' + a.toLocaleString('en-IN');
+    };
+
+    const fmtL = (n) => {
+      const a = Math.abs(n);
+      const p = n < 0 ? '−' : '';
+      if (a >= 100000) return p + '₹' + (a / 100000).toFixed(2) + 'L';
+      if (a >= 1000) return p + '₹' + (a / 1000).toFixed(1) + 'k';
+      return p + '₹' + Math.round(a);
+    };
+
+    function getOldCost() {
+      const gold = Math.max(0, state.oldGold);
+      const mc = gold * (state.oldMc / 100);
+      const gst = (gold + mc) * GST;
+      return { gold, mc, gst, totalPaid: gold + mc + gst, friction: mc + gst };
+    }
+
+    function itemCost(weight, R1, mcFrac, lockedWeight = weight, useBooking = true) {
+      const wLock = useBooking ? Math.min(weight, Math.max(0, lockedWeight)) : 0;
+      const wEx = Math.max(0, weight - wLock);
+      const Reff = Math.min(state.R0, R1);
+      const gold = wLock * Reff + wEx * R1;
+      const mc = weight * R1 * mcFrac;
+      const gst = (gold + mc) * GST;
+      return { weight, gold, mc, gst, total: gold + mc + gst };
+    }
+
+    function unitCost(R1, mcFrac) {
+      return (Math.min(state.R0, R1) + mcFrac * R1) * (1 + GST);
+    }
+
+    function getW75(R1) {
+      const Reff = Math.min(state.R0, R1);
+      const uDisc = unitCost(R1, state.mcDisc / 100);
+      const uRing = unitCost(R1, MC_RING);
+      let w;
+      if (state.basis === 'gold') {
+        w = state.ringCounts ? (THRESH / Reff) : (W_RING + THRESH / Reff);
+      } else {
+        const rBill = W_RING * uRing;
+        w = state.ringCounts ? (W_RING + Math.max(0, THRESH - rBill) / uDisc) : (W_RING + THRESH / uDisc);
+      }
+      return Math.max(W_KEEP, Math.min(state.W_MAX, w));
+    }
+
+    function computeAll(R1, oldSetting = state.old) {
+      const mcDisc = state.mcDisc / 100;
+      const mcStd = state.mcStd / 100;
+      const cut = state.cut / 100;
+      const resaleRate = R1 * (1 - cut);
+      const oldC = getOldCost();
+      const oldSale = W_CHAIN * resaleRate;
+
+      const makeWalkIn = (oldProc) => {
+        const chain = itemCost(W_CHAIN, R1, mcStd, 0, false);
+        const ring = itemCost(W_RING, R1, MC_RING, 0, false);
+        const extra = itemCost(0, R1, mcStd, 0, false);
+        const bill = chain.total + ring.total;
+        const goldVal = chain.gold + ring.gold;
+        const bal = bill;
+        const cash = Math.min(MAX_CASH, bal);
+        const bank = Math.max(0, bal - MAX_CASH);
+        return { id: 'S0', totalW: W_KEEP, wEx: 0, mcNonRing: mcStd, chain, ring, extra, bill, goldVal, bal, cash, bank, extraResale: 0, flipPL: 0, net: bill - oldProc, isWalkIn: true };
+      };
+
+      const makeBooked = (id, totalW, mcNonRing, oldProc) => {
+        const wEx = Math.max(0, totalW - W_KEEP);
+        const chain = itemCost(W_CHAIN, R1, mcNonRing, W_CHAIN, true);
+        const ring = itemCost(W_RING, R1, MC_RING, W_RING, true);
+        const extra = itemCost(wEx, R1, mcNonRing, wEx, true);
+        const bill = chain.total + ring.total + extra.total;
+        const goldVal = chain.gold + ring.gold + extra.gold;
+        const bal = Math.max(0, bill - state.ADVANCE);
+        const cash = Math.min(MAX_CASH, bal);
+        const bank = Math.max(0, bal - MAX_CASH);
+        const extraResale = wEx * resaleRate;
+        const flipPL = extraResale - extra.total;
+        return { id, totalW, wEx, mcNonRing, chain, ring, extra, bill, goldVal, bal, cash, bank, extraResale, flipPL, net: bill - extraResale - oldProc, isWalkIn: false };
+      };
+
+      const w75 = getW75(R1);
+      const p1 = makeBooked('S1', W_KEEP, mcStd, 0);
+      const p2 = makeBooked('S2', w75, mcDisc, 0);
+      const p3 = makeBooked('S3', state.W_MAX, mcDisc, 0);
+
+      let best = 'S1';
+      let minNet = p1.net;
+      if (p2.net < minNet - 0.5) { best = 'S2'; minNet = p2.net; }
+      if (p3.net < minNet - 0.5) { best = 'S3'; minNet = p3.net; }
+
+      const bestChainCost = best === 'S1' ? p1.chain.total : (best === 'S2' ? p2.chain.total : p3.chain.total);
+      const oldHistPL = oldSale - oldC.totalPaid;
+      const oldSwapPL = oldSale - bestChainCost;
+      const recOldSell = (oldHistPL >= -0.5) && (oldSwapPL >= -0.5);
+      const effectiveOld = oldSetting === 'auto' ? (recOldSell ? 'sell' : 'keep') : oldSetting;
+      const oldProc = effectiveOld === 'sell' ? oldSale : 0;
+
+      const S0 = makeWalkIn(oldProc);
+      const S1 = makeBooked('S1', W_KEEP, mcStd, oldProc);
+      const S2 = makeBooked('S2', w75, mcDisc, oldProc);
+      const S3 = makeBooked('S3', state.W_MAX, mcDisc, oldProc);
+
+      S0.saveWalkIn = 0; S0.overS1 = S1.net - S0.net;
+      S1.saveWalkIn = S0.net - S1.net; S1.overS1 = 0;
+      S2.saveWalkIn = S0.net - S2.net; S2.overS1 = S1.net - S2.net;
+      S3.saveWalkIn = S0.net - S3.net; S3.overS1 = S1.net - S3.net;
+
+      return { S0, S1, S2, S3, best, resaleRate, oldSale, oldProc, oldHistPL, oldSwapPL, recOldSell, effectiveOld, oldC };
+    }
+
+    function getThresholds() {
+      const mcDisc = state.mcDisc / 100;
+      const mcStd = state.mcStd / 100;
+      const cut = state.cut / 100;
+      const oldC = getOldCost();
+      const dDisc = (1 - cut) - mcDisc * (1 + GST);
+      const dStd = (1 - cut) - mcStd * (1 + GST);
+      const rFlip = dDisc > 0 ? (state.R0 * (1 + GST)) / dDisc : Infinity;
+      const rFlipStd = dStd > 0 ? (state.R0 * (1 + GST)) / dStd : Infinity;
+
+      let rTier = null;
+      for (let r = Math.max(7000, Math.round(state.R0 * 0.75)); r <= state.R0 * 1.9; r += 2) {
+        if (computeAll(r, 'keep').S2.overS1 >= 0) { rTier = r; break; }
+      }
+
+      const rOldHistBE = oldC.totalPaid / (W_CHAIN * (1 - cut));
+      const rOldSellRec = Math.max(rOldHistBE, rFlip);
+      const rDoubleDisc = dDisc > 0 ? (state.R0 * (1 + GST) + oldC.friction / W_CHAIN) / dDisc : Infinity;
+      const rDoubleStd = dStd > 0 ? (state.R0 * (1 + GST) + oldC.friction / W_CHAIN) / dStd : Infinity;
+      const lhsFree = (state.W_MAX - W_RING) * (1 - cut) - ((state.W_MAX - W_RING) * mcDisc + W_RING * MC_RING) * (1 + GST);
+      const rFreeRing = lhsFree > 0 ? (state.W_MAX * state.R0 * (1 + GST)) / lhsFree : Infinity;
+
+      return { rTier, rFlip, rFlipStd, rOldHistBE, rOldSellRec, rDoubleDisc, rDoubleStd, rFreeRing };
+    }
+
+    function syncControls() {
+      document.getElementById('headerMeta').textContent =
+        `Booked ₹${state.R0.toLocaleString('en-IN')}/g · Max ${state.W_MAX}g · Adv ${fmtL(state.ADVANCE)}`;
+      document.getElementById('bookedTickLabel').textContent = `₹${state.R0.toLocaleString('en-IN')} (Booked)`;
+
+      document.getElementById('rateInput').value = state.R1;
+      document.getElementById('rateSlider').value = Math.max(9500, Math.min(17000, state.R1));
+      document.getElementById('inpR0').value = state.R0;
+      document.getElementById('inpWMax').value = state.W_MAX;
+      document.getElementById('inpAdv').value = state.ADVANCE;
+      document.getElementById('inpMcStd').value = state.mcStd;
+      document.getElementById('inpMcDisc').value = state.mcDisc;
+      document.getElementById('inpCut').value = state.cut;
+      document.getElementById('inpOldGold').value = state.oldGold;
+      document.getElementById('inpOldMc').value = state.oldMc;
+      document.getElementById('chkRingCounts').checked = state.ringCounts;
+
+      document.getElementById('pwChain').value = state.pieces.c;
+      document.getElementById('pwRing').value = state.pieces.r;
+      document.getElementById('pwEx1').value = state.pieces.e1;
+      document.getElementById('pwEx2').value = state.pieces.e2;
+      document.getElementById('pwEx3').value = state.pieces.e3;
+
+      document.querySelectorAll('.seg-btn[data-group]').forEach(b => {
+        const g = b.dataset.group;
+        b.classList.toggle('active', String(state[g]) === b.dataset.val);
+      });
+      document.querySelectorAll('.chip[data-preset]').forEach(c => {
+        c.classList.toggle('active', Number(c.dataset.preset) === state.R1);
+      });
+      document.querySelectorAll('[data-tab]').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === state.tab);
+      });
+      document.querySelectorAll('.view-pane').forEach(p => {
+        p.classList.toggle('hidden', p.id !== 'view-' + state.tab);
+      });
+      document.querySelectorAll('[data-inspect]').forEach(b => {
+        b.classList.toggle('active', b.dataset.inspect === state.inspect);
+      });
+    }
+
+    function renderVerdict(data, th) {
+      const delta = state.R1 - state.R0;
+      const dPill = document.getElementById('rateDeltaPill');
+      dPill.textContent = `${fmtINR(delta, true)} (${delta >= 0 ? '+' : ''}${((delta / state.R0) * 100).toFixed(1)}%)`;
+      dPill.className = 'delta-pill mono ' + (delta > 0 ? 'c-green' : (delta < 0 ? 'c-amber' : 'c-muted'));
+
+      document.getElementById('effGoldLbl').textContent = `Gold @ ₹${Math.min(state.R0, state.R1).toLocaleString('en-IN')}/g`;
+      document.getElementById('resaleRateLbl').textContent = `₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
+      document.getElementById('setupOldSummary').textContent =
+        `All-in paid last year: ${fmtINR(data.oldC.totalPaid)} (Gold ${fmtINR(data.oldC.gold)} + MC ${fmtINR(data.oldC.mc)} + GST ${fmtINR(data.oldC.gst)})`;
+
+      const vBadge = document.getElementById('verdictBadge');
+      const vHead = document.getElementById('verdictHeadline');
+      const vSub = document.getElementById('verdictSub');
+      const win = data[data.best];
+
+      if (data.best === 'S1') {
+        vBadge.className = 'badge badge-amber';
+        vBadge.textContent = 'Regime 1 · Buy 32g Only';
+        vHead.textContent = 'Buy only your 24g chain + 8g ring (32g). Skip extra resale.';
+        vSub.textContent = state.R1 <= state.R0
+          ? `Lower market rate applies (${fmtINR(data.S1.bill)}). Flipping extra gold loses ${fmtINR(-data.S2.overS1)}.`
+          : `Rate lock saves ${fmtINR(data.S1.saveWalkIn)} vs walk-in. Extra ₹7.5L flip still loses ${fmtINR(-data.S2.overS1)} vs S1.`;
+      } else if (data.best === 'S2') {
+        vBadge.className = 'badge badge-blue';
+        vBadge.textContent = 'Regime 2 · ₹7.5L Sweet Spot';
+        vHead.textContent = `Buy ${data.S2.totalW.toFixed(1)}g (${state.mcDisc}% MC), sell ${data.S2.wEx.toFixed(1)}g extra — stop before ${state.W_MAX}g.`;
+        vSub.textContent = `${fmtINR(data.S1.saveWalkIn)} rate-lock saving + ${fmtINR(data.S2.overS1)} extra from unlocking ${state.mcDisc}% MC. Max 102g only beats S2 above ${fmtINR(th.rFlip)}/g.`;
+      } else {
+        vBadge.className = 'badge badge-green';
+        vBadge.textContent = 'Regime 3 · Max Out Booking';
+        vHead.textContent = `Buy full ${state.W_MAX}g (${state.mcDisc}% MC), keep 32g, sell ${data.S3.wEx.toFixed(1)}g extra.`;
+        vSub.textContent = `Every extra gram earns pure cash profit (${fmtINR(data.S3.flipPL, true)} on ${data.S3.wEx.toFixed(1)}g) plus ${fmtINR(data.S1.chain.total - data.S3.chain.total)} MC saved on your 24g chain.`;
+      }
+
+      const kSaved = document.getElementById('kpiSaved');
+      kSaved.textContent = fmtINR(win.saveWalkIn, true);
+      kSaved.className = 'kpi-val mono ' + (win.saveWalkIn > 0 ? 'c-green' : 'c-muted');
+
+      document.getElementById('kpiNetLbl').textContent = data.effectiveOld === 'sell' ? 'Net Outflow (incl. Old)' : 'Net Cost (32g)';
+      const kNet = document.getElementById('kpiNet');
+      kNet.textContent = win.net < 0 ? '+' + fmtINR(-win.net) + ' Profit' : fmtINR(win.net);
+      kNet.className = 'kpi-val mono ' + (win.net < 0 ? 'c-green' : '');
+
+      document.getElementById('kpiBank').textContent = fmtL(win.bank);
+
+      // Existing 24g Chain Verdict
+      const oBadge = document.getElementById('oldBadge');
+      const oMet = document.getElementById('oldMetrics');
+      const oMsg = document.getElementById('oldVerdictMsg');
+      oMet.textContent = `Sale ${fmtINR(data.oldSale)} · vs Paid: ${fmtINR(data.oldHistPL, true)} · Swap: ${fmtINR(data.oldSwapPL, true)}`;
+
+      if (data.oldSwapPL < 0 && data.oldHistPL < 0) {
+        oBadge.className = 'badge badge-red';
+        oBadge.textContent = 'Old 24g · Keep Untouched';
+        oMsg.textContent = `Do not sell: resale is ${fmtINR(-data.oldHistPL)} below your ${fmtINR(data.oldC.totalPaid)} bill from last year and loses ${fmtINR(-data.oldSwapPL)} on replacement. Wait for ${fmtINR(th.rOldSellRec)}+/g.` + (state.old === 'sell' ? ' (Forced Sell is ON in Setup.)' : '');
+      } else if (data.oldSwapPL >= 0 && data.oldHistPL < 0) {
+        oBadge.className = 'badge badge-amber';
+        oBadge.textContent = 'Old 24g · Keep (Below Paid)';
+        oMsg.textContent = `Swap is cash-positive (${fmtINR(data.oldSwapPL, true)}), but resale is still ${fmtINR(-data.oldHistPL)} short of last year's ${fmtINR(data.oldC.totalPaid)} bill. Full breakeven at ${fmtINR(th.rOldHistBE)}/g.`;
+      } else if (data.oldHistPL >= 0 && data.oldSwapPL < 0) {
+        oBadge.className = 'badge badge-amber';
+        oBadge.textContent = 'Old 24g · Keep (High New MC)';
+        oMsg.textContent = `Resale beats last year's bill (${fmtINR(data.oldHistPL, true)}), but replacing at ${state.mcStd}% MC loses ${fmtINR(-data.oldSwapPL)}. Needs ₹7.5L discount or ${fmtINR(th.rFlipStd)}+/g.`;
+      } else if (state.R1 >= th.rDoubleDisc) {
+        oBadge.className = 'badge badge-green';
+        oBadge.textContent = 'Old 24g · Strong Sell & Swap';
+        oMsg.textContent = `Recovers BOTH last year's ${fmtINR(data.oldC.friction)} MC+GST AND the new chain's MC+GST (+${fmtINR(data.oldSwapPL)} swap cash, ${fmtINR(data.oldHistPL, true)} above last year's bill).`;
+      } else {
+        oBadge.className = 'badge badge-green';
+        oBadge.textContent = 'Old 24g · Sell & Swap Recommended';
+        oMsg.textContent = `If retaining only 1 chain + 1 ring: recovers full ${fmtINR(data.oldC.totalPaid)} paid (${fmtINR(data.oldHistPL, true)}), earns ${fmtINR(data.oldSwapPL, true)} swap profit, and frees ${fmtL(data.oldSale)} upfront.`;
+      }
+
+      // Ruler
+      const minR = 10000, maxR = 16500;
+      const pct = (r) => Math.max(0, Math.min(100, ((r - minR) / (maxR - minR)) * 100));
+      const pT = th.rTier ? pct(th.rTier) : 100;
+      const pF = pct(th.rFlip);
+      const pO = pct(th.rOldSellRec);
+      const pC = pct(state.R1);
+
+      document.getElementById('rulerThresholds').textContent =
+        `₹7.5L: ${th.rTier ? fmtINR(th.rTier) : '—'} · Max: ${fmtINR(th.rFlip)} · Old 24g: ${fmtINR(th.rOldSellRec)}`;
+
+      document.getElementById('regimeRuler').innerHTML = `
+        <div class="ruler-seg" style="width:${pT}%;background:var(--amber-soft);color:var(--amber);border-right:1px dashed var(--amber);">${pT > 16 ? '32g' : ''}</div>
+        <div class="ruler-seg" style="width:${Math.max(0, pF - pT)}%;background:var(--blue-soft);color:var(--blue);border-right:1px dashed var(--green);">${(pF - pT) > 10 ? '₹7.5L' : ''}</div>
+        <div class="ruler-seg" style="width:${Math.max(0, 100 - pF)}%;background:var(--green-soft);color:var(--green);">${(100 - pF) > 18 ? 'Max 102g' : ''}</div>
+        ${th.rOldSellRec >= minR && th.rOldSellRec <= maxR ? `<div style="position:absolute;top:0;bottom:0;left:${pO}%;border-left:1.5px dashed var(--gold);pointer-events:none;"></div>` : ''}
+        <div class="ruler-pin" style="left:${pC}%;"></div>
+      `;
+    }
+
+    function renderCardsAndInspector(data) {
+      const specs = [
+        { s: data.S0, title: 'Walk-In 32g', sub: 'No booking / full R1', mc: `${state.mcStd}% MC` },
+        { s: data.S1, title: 'S1 · Booked 32g', sub: 'Sell 0g extra', mc: `${state.mcStd}% MC` },
+        { s: data.S2, title: `S2 · ₹7.5L (${data.S2.totalW.toFixed(1)}g)`, sub: `Sell ${data.S2.wEx.toFixed(1)}g extra`, mc: `${state.mcDisc}% MC` },
+        { s: data.S3, title: `S3 · Max ${state.W_MAX}g`, sub: `Sell ${data.S3.wEx.toFixed(1)}g extra`, mc: `${state.mcDisc}% MC` }
+      ];
+
+      document.getElementById('stratGrid').innerHTML = specs.map(({ s, title, sub, mc }) => {
+        const isBest = s.id === data.best;
+        const isSel = s.id === state.inspect;
+        const netTxt = s.net < 0 ? '+' + fmtINR(-s.net) + ' Profit' : fmtINR(s.net);
+        const saveClr = s.saveWalkIn > 0 ? 'c-green' : (s.saveWalkIn < 0 ? 'c-red' : 'c-muted');
+        return `
+          <article class="strat-card ${isSel ? 'is-selected' : ''}" data-pick-card="${s.id}">
+            <div class="strat-head">
+              <div>
+                <div class="strat-title">${title} ${isBest ? '<span class="badge badge-green" style="padding:2px 6px;font-size:10px;margin-left:3px;">Best</span>' : ''}</div>
+                <div class="strat-sub">${sub}</div>
+              </div>
+              <span class="mc-tag mono">${mc}</span>
+            </div>
+            <div class="strat-net mono ${s.net < 0 ? 'c-green' : ''}">${netTxt}</div>
+            <div class="kv-list">
+              <div class="kv"><span>Showroom Bill</span><span class="mono fw-700">${fmtINR(s.bill)}</span></div>
+              <div class="kv"><span>Cash / Bank</span><span class="mono">${fmtL(s.cash)} / ${fmtL(s.bank)}</span></div>
+              ${s.wEx > 0.001 ? `<div class="kv"><span>Flip P/L</span><span class="mono fw-700 ${s.flipPL >= 0 ? 'c-green' : 'c-amber'}">${fmtINR(s.flipPL, true)}</span></div>` : `<div class="kv"><span>Gold Rate</span><span class="mono">${s.isWalkIn ? fmtINR(state.R1) : fmtINR(Math.min(state.R0, state.R1))}/g</span></div>`}
+              <div class="kv" style="padding-top:4px;border-top:1px solid var(--border);margin-top:2px;">
+                <span class="fw-700">${s.isWalkIn ? 'Baseline' : 'Saved vs Walk-In'}</span>
+                <span class="mono fw-800 ${saveClr}">${s.isWalkIn ? '₹0 Ref' : fmtINR(s.saveWalkIn, true)}</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      document.querySelectorAll('[data-pick-card]').forEach(el => {
+        el.addEventListener('click', () => {
+          state.inspect = el.dataset.pickCard;
+          state.pinnedInspect = true;
+          update();
+        });
+      });
+
+      // Inspector details
+      const s = data[state.inspect];
+      const lbls = {
+        S0: 'Walk-In 32g (No Scheme / No Booking)',
+        S1: 'S1 · Booked 32g Only (No Resale)',
+        S2: `S2 · ₹7.5L Tier (${s.totalW.toFixed(2)}g) & Sell ${s.wEx.toFixed(2)}g`,
+        S3: `S3 · Max ${state.W_MAX}g & Sell ${s.wEx.toFixed(2)}g`
+      };
+      document.getElementById('inspSubtitle').textContent = lbls[s.id];
+      document.getElementById('inspBuyTitle').textContent = s.isWalkIn ? 'Step 1 · Walk-In Counter (No Scheme)' : 'Step 1 · At Showroom (Using Booking)';
+      document.getElementById('inspBuyWt').textContent = `${s.totalW.toFixed(2)}g`;
+      document.getElementById('inspResaleRate').textContent = `Resale @ ₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
+
+      const mcLbl = (s.mcNonRing * 100).toFixed((s.mcNonRing * 100) % 1 === 0 ? 0 : 1);
+      const mkRow = (name, it) => `<tr><td style="font-family:var(--font-sans);">${name}</td><td class="num">${fmtINR(it.gold)}</td><td class="num">${fmtINR(it.mc)}</td><td class="num">${fmtINR(it.gst)}</td><td class="num fw-700">${fmtINR(it.total)}</td></tr>`;
+      let rows = mkRow(`24g Chain (${mcLbl}%)`, s.chain) + mkRow(`8g Ring (18%)`, s.ring);
+      if (s.wEx > 0.001) rows += mkRow(`Extra ${s.wEx.toFixed(2)}g (${mcLbl}%)`, s.extra);
+      document.getElementById('inspBuyRows').innerHTML = rows;
+
+      const lockAmt = Math.max(0, state.ADVANCE - 0.10 * s.goldVal);
+      document.getElementById('inspSettlement').innerHTML = s.isWalkIn ? `
+        <div class="kv fw-700"><span>Total Walk-In Bill</span><span class="mono">${fmtINR(s.bill)}</span></div>
+        <div class="kv"><span>Max Cash / Bank Transfer</span><span class="mono">${fmtINR(s.cash)} + ${fmtINR(s.bank)}</span></div>
+      ` : `
+        <div class="kv fw-700"><span>Gross Showroom Bill (Gold: ${fmtINR(s.goldVal)})</span><span class="mono">${fmtINR(s.bill)}</span></div>
+        <div class="kv"><span>Less: Advance Paid</span><span class="mono">−${fmtINR(state.ADVANCE)}</span></div>
+        <div class="kv fw-700"><span>Balance Due at Counter</span><span class="mono">${fmtINR(s.bal)}</span></div>
+        <div class="kv"><span>Max Cash (₹1.90L) / Bank Transfer</span><span class="mono">${fmtINR(s.cash)} + ${fmtINR(s.bank)}</span></div>
+        ${lockAmt > 500 ? `<div class="warn-box">⚠ Confirm Clause 2: if advance is applied 10% pro-rata, ${fmtINR(lockAmt)} could remain carried forward.</div>` : ''}
+      `;
+
+      let rList = '';
+      if (s.isWalkIn) {
+        rList = `<div class="c-muted" style="font-size:12.5px;">Unbooked reference bill at full ${fmtINR(state.R1)}/g with ${state.mcStd}% MC on chain and 18% MC on ring.</div>`;
+      } else {
+        const rateSave = data.S0.bill - data.S1.bill;
+        rList += `<div class="kv"><span>1. Booking Rate-Lock Saving (32g)</span><span class="mono fw-700 ${rateSave > 0 ? 'c-green' : 'c-muted'}">${fmtINR(rateSave, true)}</span></div>`;
+        if (s.id !== 'S1') {
+          rList += `<div class="kv"><span>2. ₹7.5L MC Discount (24g Chain)</span><span class="mono fw-700 c-green">+${fmtINR(data.S1.chain.total - s.chain.total)}</span></div>`;
+        }
+        if (s.wEx > 0.001) {
+          rList += `<div class="kv"><span>3. Sell Extra ${s.wEx.toFixed(2)}g → ${fmtINR(s.extraResale)} (P/L)</span><span class="mono fw-700 ${s.flipPL >= 0 ? 'c-green' : 'c-amber'}">${fmtINR(s.flipPL, true)}</span></div>`;
+        }
+      }
+      if (data.effectiveOld === 'sell') {
+        const sw = data.oldProc - s.chain.total;
+        rList += `
+          <div class="kv" style="padding-top:6px;border-top:1px solid var(--border);margin-top:4px;"><span>Sell Old 24g Chain</span><span class="mono fw-700">+${fmtINR(data.oldProc)}</span></div>
+          <div class="kv"><span>vs Paid Last Year (${fmtINR(data.oldC.totalPaid)})</span><span class="mono fw-700 ${data.oldHistPL >= 0 ? 'c-green' : 'c-red'}">${fmtINR(data.oldHistPL, true)}</span></div>
+          <div class="kv"><span>Swap P/L vs New 24g</span><span class="mono fw-700 ${sw >= 0 ? 'c-green' : 'c-red'}">${fmtINR(sw, true)}</span></div>
+        `;
+      }
+      document.getElementById('inspResaleList').innerHTML = rList;
+
+      const totSold = s.wEx + (data.effectiveOld === 'sell' ? W_CHAIN : 0);
+      const totRec = s.extraResale + data.oldProc;
+      document.getElementById('inspOutcome').innerHTML = `
+        <div class="kv"><span>Total Sold (${totSold.toFixed(1)}g) → Recovered</span><span class="mono fw-700">${fmtINR(totRec)}</span></div>
+        <div class="kv"><span>Retained Gold After Wedding</span><span>${data.effectiveOld === 'sell' ? '32g (New 24g + 8g)' : '56g (Old 24g + New 32g)'}</span></div>
+        <div class="kv fw-800" style="font-size:14px;padding-top:4px;">
+          <span>${s.net < 0 ? 'Final NET CASH PROFIT' : 'Final Net Cost'}</span>
+          <span class="mono ${s.net < 0 ? 'c-green' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span>
+        </div>
+        <div class="kv fw-700">
+          <span>Total Saved vs Walk-In</span>
+          <span class="mono ${s.saveWalkIn > 0 ? 'c-green' : (s.saveWalkIn < 0 ? 'c-red' : 'c-muted')}">${s.isWalkIn ? 'Reference (₹0)' : fmtINR(s.saveWalkIn, true)}</span>
+        </div>
+      `;
+    }
+
+    function buildMathSheetHTML(r, d, stratKey) {
+      const id = stratKey === 'BEST' ? d.best : stratKey;
+      const s = d[id];
+      const mcPct = (s.mcNonRing * 100).toFixed((s.mcNonRing * 100) % 1 === 0 ? 0 : 1);
+      const names = { S0: 'Walk-In 32g (No Scheme)', S1: 'S1 · Booked 32g', S2: `S2 · ₹7.5L (${s.totalW.toFixed(2)}g)`, S3: `S3 · Max ${state.W_MAX}g` };
+      const mkR = (l, it) => `<tr><td style="font-family:var(--font-sans);">${l}</td><td class="num">${fmtINR(it.gold)}</td><td class="num">${fmtINR(it.mc)}</td><td class="num">${fmtINR(it.gst)}</td><td class="num fw-700">${fmtINR(it.total)}</td></tr>`;
+      let rows = mkR(`24g Chain (${mcPct}%)`, s.chain) + mkR(`8g Ring (18%)`, s.ring);
+      if (s.wEx > 0.001) rows += mkR(`Extra ${s.wEx.toFixed(2)}g (${mcPct}%)`, s.extra);
+
+      return `
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <strong style="font-size:13px;">${names[id]} @ <span class="mono">₹${r.toLocaleString('en-IN')}/g</span></strong>
+            <span class="mc-tag mono">${s.isWalkIn ? `Full R1 · ${mcPct}%` : `${mcPct}% MC · ${state.cut}% Cut`}</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Item (916)</th><th class="num">Gold</th><th class="num">MC</th><th class="num">GST</th><th class="num">Total</th></tr></thead>
+              <tbody class="mono">${rows}</tbody>
+            </table>
+          </div>
+          <div class="kv-list">
+            <div class="kv fw-700"><span>Total Showroom Bill (${s.totalW.toFixed(2)}g)</span><span class="mono">${fmtINR(s.bill)}</span></div>
+            ${!s.isWalkIn ? `<div class="kv"><span>After ${fmtL(state.ADVANCE)} Adv → Cash / Bank</span><span class="mono">${fmtL(s.cash)} + ${fmtL(s.bank)}</span></div>` : ''}
+            ${s.wEx > 0.001 ? `
+              <div class="kv"><span>− Sell Extra ${s.wEx.toFixed(2)}g @ ₹${d.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g</span><span class="mono">−${fmtINR(s.extraResale)}</span></div>
+              <div class="kv"><span>↳ Extra Flip P/L</span><span class="mono fw-700 ${s.flipPL >= 0 ? 'c-green' : 'c-amber'}">${fmtINR(s.flipPL, true)}</span></div>
+            ` : ''}
+            ${d.effectiveOld === 'sell' ? `
+              <div class="kv"><span>− Sell Old 24g Chain</span><span class="mono">−${fmtINR(d.oldProc)}</span></div>
+              <div class="kv"><span>↳ Old 24g vs Paid (${fmtL(d.oldC.totalPaid)})</span><span class="mono ${d.oldHistPL >= 0 ? 'c-green' : 'c-red'}">${fmtINR(d.oldHistPL, true)}</span></div>
+            ` : ''}
+            <div class="kv fw-800" style="font-size:14px;padding-top:6px;border-top:1px solid var(--border);margin-top:2px;">
+              <span>${s.net < 0 ? '= Final NET PROFIT' : '= Final Net Cost (32g)'}</span>
+              <span class="mono ${s.net < 0 ? 'c-green' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span>
+            </div>
+            ${!s.isWalkIn ? `
+              <div class="kv fw-700"><span>Saved vs Walk-In (${fmtINR(d.S0.net)})</span><span class="mono ${s.saveWalkIn >= 0 ? 'c-green' : 'c-red'}">${fmtINR(s.saveWalkIn, true)}</span></div>
+              ${id !== 'S1' ? `<div class="kv"><span>Extra vs S1 32g (${fmtINR(d.S1.net)})</span><span class="mono ${s.overS1 >= 0 ? 'c-green' : 'c-red'}">${fmtINR(s.overS1, true)}</span></div>` : ''}
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderChartAndTable(th) {
+      const svg = document.getElementById('chartSvg');
+      const W = 760, H = 250, pL = 64, pR = 18, pT = 18, pB = 28;
+      const plotW = W - pL - pR, plotH = H - pT - pB;
+      const rMin = 10000, rMax = 16500;
+      const pts1 = [], pts2 = [], pts3 = [];
+      let yMin = -50000, yMax = 300000;
+
+      for (let r = rMin; r <= rMax; r += 100) {
+        const d = computeAll(r, 'keep');
+        pts1.push([r, d.S1.saveWalkIn]);
+        pts2.push([r, d.S2.saveWalkIn]);
+        pts3.push([r, d.S3.saveWalkIn]);
+        yMin = Math.min(yMin, d.S1.saveWalkIn, d.S2.saveWalkIn, d.S3.saveWalkIn);
+        yMax = Math.max(yMax, d.S1.saveWalkIn, d.S2.saveWalkIn, d.S3.saveWalkIn);
+      }
+      yMin = Math.floor(yMin / 50000) * 50000;
+      yMax = Math.ceil(yMax / 50000) * 50000;
+
+      const xOf = (r) => pL + ((r - rMin) / (rMax - rMin)) * plotW;
+      const yOf = (y) => pT + (1 - (y - yMin) / (yMax - yMin)) * plotH;
+      const pathOf = (pts) => pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${xOf(p[0]).toFixed(1)},${yOf(p[1]).toFixed(1)}`).join(' ');
+
+      const cur = computeAll(state.R1, 'keep');
+      const xC = xOf(Math.max(rMin, Math.min(rMax, state.R1)));
+      const xT = th.rTier ? Math.max(pL, Math.min(W - pR, xOf(th.rTier))) : W - pR;
+      const xF = Math.max(pL, Math.min(W - pR, xOf(th.rFlip)));
+
+      let h = '';
+      h += `<rect x="${xT}" y="${pT}" width="${Math.max(0, xF - xT)}" height="${plotH}" fill="var(--blue)" opacity="0.08"/>`;
+      h += `<rect x="${xF}" y="${pT}" width="${Math.max(0, (W - pR) - xF)}" height="${plotH}" fill="var(--green)" opacity="0.09"/>`;
+
+      const step = (yMax - yMin) > 380000 ? 100000 : 50000;
+      for (let y = Math.ceil(yMin / step) * step; y <= yMax; y += step) {
+        const py = yOf(y);
+        const z = y === 0;
+        h += `<line x1="${pL}" y1="${py}" x2="${W - pR}" y2="${py}" stroke="var(--border-strong)" stroke-width="${z ? 1.4 : 0.7}" ${z ? '' : 'stroke-dasharray="3 3"'} opacity="${z ? 1 : 0.6}"/>`;
+        const lbl = z ? '₹0 (Walk)' : (y > 0 ? `+${Math.round(y / 1000)}k` : `−${Math.round(Math.abs(y) / 1000)}k`);
+        h += `<text x="${pL - 7}" y="${py + 4}" text-anchor="end" font-size="11" fill="${z ? 'var(--text)' : 'var(--text-muted)'}" font-family="monospace">${lbl}</text>`;
+      }
+
+      [10000, state.R0, 13000, 14000, 15000, 16500].forEach(r => {
+        const px = xOf(r);
+        h += `<line x1="${px}" y1="${pT + plotH}" x2="${px}" y2="${pT + plotH + 5}" stroke="var(--border-strong)"/>`;
+        h += `<text x="${px}" y="${H - 7}" text-anchor="middle" font-size="11" fill="${r === state.R0 ? 'var(--text)' : 'var(--text-muted)'}" font-weight="${r === state.R0 ? '700' : '400'}" font-family="monospace">₹${r.toLocaleString('en-IN')}</text>`;
+      });
+
+      if (th.rTier && th.rTier >= rMin && th.rTier <= rMax) {
+        h += `<line x1="${xT}" y1="${pT}" x2="${xT}" y2="${pT + plotH}" stroke="var(--blue)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+        h += `<text x="${xT + 4}" y="${pT + 14}" font-size="11" fill="var(--blue)" font-family="monospace">₹7.5L: ₹${Math.round(th.rTier)}</text>`;
+      }
+      if (th.rFlip >= rMin && th.rFlip <= rMax) {
+        h += `<line x1="${xF}" y1="${pT}" x2="${xF}" y2="${pT + plotH}" stroke="var(--green)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+        h += `<text x="${xF + 4}" y="${pT + 28}" font-size="11" fill="var(--green)" font-family="monospace">Max: ₹${Math.round(th.rFlip)}</text>`;
+      }
+
+      h += `<path d="${pathOf(pts1)}" fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="5 3"/>`;
+      h += `<path d="${pathOf(pts2)}" fill="none" stroke="var(--blue)" stroke-width="2.4"/>`;
+      h += `<path d="${pathOf(pts3)}" fill="none" stroke="var(--green)" stroke-width="2.6"/>`;
+
+      h += `<line x1="${xC}" y1="${pT}" x2="${xC}" y2="${pT + plotH}" stroke="var(--text)" stroke-width="1.3" opacity="0.55"/>`;
+      h += `<circle cx="${xC}" cy="${yOf(cur.S1.saveWalkIn)}" r="4.5" fill="var(--amber)" stroke="var(--surface)" stroke-width="1.5"/>`;
+      h += `<circle cx="${xC}" cy="${yOf(cur.S2.saveWalkIn)}" r="5" fill="var(--blue)" stroke="var(--surface)" stroke-width="1.6"/>`;
+      h += `<circle cx="${xC}" cy="${yOf(cur.S3.saveWalkIn)}" r="5.5" fill="var(--green)" stroke="var(--surface)" stroke-width="1.8"/>`;
+
+      svg.innerHTML = h;
+      svg.dataset.meta = JSON.stringify({ W, pL, pR, rMin, rMax });
+
+      // Table
+      const base = [10500, 11000, state.R0, 12000, 12400, 13000, 13715, 14500, 15000, 16000];
+      if (th.rTier && th.rTier > 10500 && th.rTier < 16000) base.push(Math.round(th.rTier));
+      if (th.rFlip > 10500 && th.rFlip < 16000) base.push(Math.round(th.rFlip));
+      if (th.rOldSellRec > 10500 && th.rOldSellRec < 16000) base.push(Math.round(th.rOldSellRec));
+      const rates = Array.from(new Set(base)).sort((a, b) => a - b);
+
+      matrixCache.clear();
+      document.getElementById('matrixBody').innerHTML = rates.map(r => {
+        const d = computeAll(r);
+        matrixCache.set(r, d);
+        const curRow = Math.abs(r - state.R1) < 15;
+        const winCls = d.best === 'S1' ? 'c-amber' : (d.best === 'S2' ? 'c-blue' : 'c-green');
+        const winTxt = (d.best === 'S1' ? 'S1 · 32g' : (d.best === 'S2' ? 'S2 · ₹7.5L' : 'S3 · 102g')) + (d.recOldSell ? ' + Old' : '');
+        const mkSub = (v) => `<div style="font-size:10.5px;" class="${v > 0 ? 'c-green' : (v < 0 ? 'c-red' : 'c-muted')}">${fmtINR(v, true)}</div>`;
+        return `
+          <tr class="click-row ${curRow ? 'is-cur' : ''}" data-r="${r}">
+            <td data-s="BEST">₹${r.toLocaleString('en-IN')}</td>
+            <td data-s="S0" class="num c-muted">${fmtINR(d.S0.net)}</td>
+            <td data-s="S1" class="num">${fmtINR(d.S1.net)}${mkSub(d.S1.saveWalkIn)}</td>
+            <td data-s="S2" class="num">${fmtINR(d.S2.net)}${mkSub(d.S2.saveWalkIn)}</td>
+            <td data-s="S3" class="num">${fmtINR(d.S3.net)}${mkSub(d.S3.saveWalkIn)}</td>
+            <td data-s="BEST" class="${winCls} fw-700" style="font-family:var(--font-sans);">${winTxt}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderPiecesAndOld(data, th) {
+      const { c: wC, r: wR, e1, e2, e3 } = state.pieces;
+      const wE = Math.max(0, e1) + Math.max(0, e2) + Math.max(0, e3);
+      const wTot = wC + wR + wE;
+      const Reff = Math.min(state.R0, state.R1);
+
+      let qualVal;
+      if (state.basis === 'gold') {
+        const wLNR = Math.min(wC + wE, Math.max(0, state.W_MAX - wR));
+        const gNR = wLNR * Reff + Math.max(0, (wC + wE) - wLNR) * state.R1;
+        const gR = Math.min(wR, state.W_MAX) * Reff + Math.max(0, wR - state.W_MAX) * state.R1;
+        qualVal = state.ringCounts ? (gNR + gR) : gNR;
+      } else {
+        const cT = itemCost(wC + wE, state.R1, state.mcDisc / 100, Math.max(0, state.W_MAX - wR), true);
+        const rT = itemCost(wR, state.R1, MC_RING, Math.min(wR, state.W_MAX), true);
+        qualVal = state.ringCounts ? (cT.total + rT.total) : cT.total;
+      }
+
+      const hits75 = qualVal >= THRESH - 1;
+      const inCap = wTot <= state.W_MAX + 0.001;
+      const mcUse = hits75 ? state.mcDisc / 100 : state.mcStd / 100;
+      const shortG = Math.max(0, THRESH - qualVal) / (state.basis === 'gold' ? Reff : unitCost(state.R1, state.mcDisc / 100));
+
+      let rem = state.W_MAX;
+      const ci = itemCost(wC, state.R1, mcUse, rem, true); rem = Math.max(0, rem - wC);
+      const ri = itemCost(wR, state.R1, MC_RING, rem, true); rem = Math.max(0, rem - wR);
+      const ei = itemCost(wE, state.R1, mcUse, rem, true);
+      const bill = ci.total + ri.total + ei.total;
+      const bal = Math.max(0, bill - state.ADVANCE);
+      const cash = Math.min(MAX_CASH, bal);
+      const bank = Math.max(0, bal - MAX_CASH);
+      const exRes = wE * data.resaleRate;
+      const flipPL = exRes - ei.total;
+      const net = bill - exRes - data.oldProc;
+      const walkInC = itemCost(wC, state.R1, state.mcStd / 100, 0, false).total + itemCost(wR, state.R1, MC_RING, 0, false).total - data.oldProc;
+      const saveW = walkInC - net;
+
+      document.getElementById('piecesStatus').innerHTML = `
+        <span class="badge ${hits75 ? 'badge-green' : 'badge-amber'}">${hits75 ? `✓ ₹7.5L Met (${state.mcDisc}% MC)` : `Need +${shortG.toFixed(2)}g (${state.mcStd}% MC)`}</span>
+        <span class="badge ${inCap ? 'badge-blue' : 'badge-red'}">${inCap ? `${wTot.toFixed(2)}g / ${state.W_MAX}g` : `+${(wTot - state.W_MAX).toFixed(2)}g over cap`}</span>
+      `;
+
+      document.getElementById('piecesOutput').innerHTML = `
+        <div class="kpi"><div class="kpi-lbl">Bill (${wTot.toFixed(2)}g)</div><div class="kpi-val mono">${fmtINR(bill)}</div><div class="mono c-muted" style="font-size:11px;">${fmtL(cash)} Cash · ${fmtL(bank)} Bank</div></div>
+        <div class="kpi"><div class="kpi-lbl">Sell Extra ${wE.toFixed(2)}g</div><div class="kpi-val mono">${fmtINR(exRes)}</div><div class="mono ${flipPL >= 0 ? 'c-green' : 'c-amber'}" style="font-size:11px;">Flip: ${fmtINR(flipPL, true)}</div></div>
+        <div class="kpi"><div class="kpi-lbl">Net (${(wC + wR).toFixed(1)}g Kept)</div><div class="kpi-val mono ${net < 0 ? 'c-green' : ''}">${net < 0 ? '+' + fmtINR(-net) : fmtINR(net)}</div><div class="mono c-muted" style="font-size:11px;">Walk-In: ${fmtINR(walkInC)}</div></div>
+        <div class="kpi"><div class="kpi-lbl">Saved vs Walk-In</div><div class="kpi-val mono ${saveW >= 0 ? 'c-green' : 'c-red'}">${fmtINR(saveW, true)}</div><div class="mono c-muted" style="font-size:11px;">${hits75 ? `${state.mcDisc}% MC active` : `${state.mcStd}% Std MC`}</div></div>
+      `;
+
+      // Old 24g chain cards
+      const plStd = data.oldSale - data.S1.chain.total;
+      const plDisc = data.oldSale - data.S3.chain.total;
+      const net4c = data.S3.bill - (state.W_MAX - W_RING) * data.resaleRate;
+
+      document.getElementById('oldSubLine').textContent =
+        `Paid last year: ${fmtINR(data.oldC.gold)} gold + ${state.oldMc}% MC (${fmtINR(data.oldC.mc)}) + 3% GST (${fmtINR(data.oldC.gst)}) = ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g)`;
+      document.getElementById('oldSaleBadge').textContent = `Sale Today: ${fmtINR(data.oldSale)}`;
+
+      document.getElementById('oldCardsGrid').innerHTML = `
+        <div class="kpi">
+          <div class="kpi-lbl">1. vs Last Year's Bill</div>
+          <div class="kpi-val mono ${data.oldHistPL >= 0 ? 'c-green' : 'c-red'}">${fmtINR(data.oldHistPL, true)}</div>
+          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">BE: ${fmtINR(th.rOldHistBE)}/g</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">2. Swap @ ${state.mcStd}% MC</div>
+          <div class="kpi-val mono ${plStd >= 0 ? 'c-green' : 'c-red'}">${fmtINR(plStd, true)}</div>
+          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">BE: ${fmtINR(th.rFlipStd)}/g</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">3. Swap @ ${state.mcDisc}% MC</div>
+          <div class="kpi-val mono ${plDisc >= 0 ? 'c-green' : 'c-red'}">${fmtINR(plDisc, true)}</div>
+          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">BE: ${fmtINR(th.rFlip)} · Both MC: ${fmtINR(th.rDoubleDisc)}</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-lbl">4. Max 94.4g Combo</div>
+          <div class="kpi-val mono ${net4c <= 0 ? 'c-green' : ''}">${net4c <= 0 ? '+' + fmtINR(-net4c) : fmtINR(net4c)}</div>
+          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">Free 1 Chain+Ring: ${fmtINR(th.rFreeRing)}/g</div>
+        </div>
+      `;
+    }
+
+    function renderChecklist(data, th) {
+      const win = data[data.best];
+      const items = [
+        { id: 'c1', txt: `Confirm morning 916 board rate (now ${fmtINR(state.R1)}/g → best: <strong>${data.best === 'S1' ? 'Buy 32g' : (data.best === 'S2' ? `Hit ₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX}g`)}</strong>, saving <strong>${fmtINR(win.saveWalkIn, true)}</strong> vs walk-in).` },
+        { id: 'c2', txt: `Call 2–3 separate local jewelers before billing to confirm exact 916 HUID buyback cut (set to <strong>${state.cut}% = ${fmtINR(data.resaleRate)}/g</strong>).` },
+        { id: 'c3', txt: `Confirm Clause 2 with the showroom: full <strong>${fmtINR(state.ADVANCE)}</strong> advance adjusts on partial buy, ₹7.5L basis (gold value vs bill), and whether the 8g ring counts.` },
+        { id: 'c4', txt: `Keep bank transfer ready 2 days early: <strong>${data.best}</strong> needs <strong>${fmtINR(win.cash)}</strong> cash (max ₹1.90L) + <strong>${fmtINR(win.bank)}</strong> via NEFT/RTGS/UPI/Card.` },
+        { id: 'c5', txt: `Existing 24g chain decision: <strong>${data.recOldSell ? 'SELL & SWAP' : 'KEEP UNTOUCHED'}</strong> (full ${fmtINR(data.oldC.totalPaid)} all-in breakeven starts at <strong>${fmtINR(th.rOldSellRec)}/g</strong>).` },
+        { id: 'c6', txt: `Buy <strong>plain, zero-stone, zero-enamel 916</strong> pieces for any extra resale gold and carry the original HUID invoice to the separate buyer.` }
+      ];
+
+      document.getElementById('checklistWrap').innerHTML = items.map(it => {
+        const done = !!state.checks[it.id];
+        return `
+          <label class="check-item ${done ? 'done' : ''}">
+            <input type="checkbox" data-chk="${it.id}" ${done ? 'checked' : ''} />
+            <span>${it.txt}</span>
+          </label>
+        `;
+      }).join('');
+
+      document.querySelectorAll('[data-chk]').forEach(el => {
+        el.addEventListener('change', () => {
+          state.checks[el.dataset.chk] = el.checked;
+          saveState();
+          renderChecklist(data, th);
+        });
+      });
+
+      const l1 = Math.max(0, state.ADVANCE - 0.10 * data.S1.goldVal);
+      const l2 = Math.max(0, state.ADVANCE - 0.10 * data.S2.goldVal);
+      document.getElementById('prorataSummary').innerHTML = `
+        <div>• S1 (32g): 10% pro-rata = ${fmtINR(0.10 * data.S1.goldVal)} → <strong>${fmtINR(l1)}</strong> potentially carried forward</div>
+        <div>• S2 (${data.S2.totalW.toFixed(1)}g): 10% pro-rata = ${fmtINR(0.10 * data.S2.goldVal)} → <strong>${fmtINR(l2)}</strong> potentially carried forward</div>
+        <div>• S3 (${state.W_MAX}g): <strong>₹0 locked</strong> (100% redeemed)</div>
+      `;
+      document.getElementById('clause1Note').textContent =
+        `Even with gold capped at ${fmtINR(state.R0)}/g, MC% multiplies purchase-day rate (${fmtINR(state.R1)}/g). Thresholds at ${state.mcDisc}% MC & ${state.cut}% cut: S1 < ${th.rTier ? fmtINR(th.rTier) : '—'} · S2 ${th.rTier ? fmtINR(th.rTier) : '—'}–${fmtINR(th.rFlip - 1)} · S3 ${fmtINR(th.rFlip)}+ · Sell Old 24g ${fmtINR(th.rOldSellRec)}+.`;
+    }
+
+    function update() {
+      const data = computeAll(state.R1);
+      const th = getThresholds();
+      if (!state.pinnedInspect) state.inspect = data.best;
+      syncControls();
+      renderVerdict(data, th);
+      renderCardsAndInspector(data);
+      renderChartAndTable(th);
+      renderPiecesAndOld(data, th);
+      renderChecklist(data, th);
+      saveState();
+    }
+
+    // Event Wiring
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme');
+      state.theme = cur === 'dark' ? 'light' : 'dark';
+      applyTheme();
+      saveState();
+    });
+
+    document.getElementById('toggleDrawerBtn').addEventListener('click', (e) => {
+      const d = document.getElementById('setupDrawer');
+      const open = d.classList.toggle('hidden');
+      e.currentTarget.classList.toggle('active', !open);
+      e.currentTarget.setAttribute('aria-expanded', String(!open));
+    });
+
+    document.getElementById('stepDown').addEventListener('click', () => {
+      state.R1 = Math.max(8000, state.R1 - 50);
+      state.pinnedInspect = false;
+      update();
+    });
+    document.getElementById('stepUp').addEventListener('click', () => {
+      state.R1 = Math.min(25000, state.R1 + 50);
+      state.pinnedInspect = false;
+      update();
+    });
+    document.getElementById('rateSlider').addEventListener('input', (e) => {
+      state.R1 = Number(e.target.value);
+      state.pinnedInspect = false;
+      update();
+    });
+    document.getElementById('rateInput').addEventListener('input', (e) => {
+      const v = Number(e.target.value);
+      if (v >= 5000 && v <= 30000) {
+        state.R1 = v;
+        state.pinnedInspect = false;
+        update();
+      }
+    });
+
+    document.querySelectorAll('.chip[data-preset]').forEach(c => {
+      c.addEventListener('click', () => {
+        state.R1 = Number(c.dataset.preset);
+        state.pinnedInspect = false;
+        update();
+      });
+    });
+
+    document.querySelectorAll('.seg-btn[data-group]').forEach(b => {
+      b.addEventListener('click', () => {
+        const g = b.dataset.group;
+        const v = b.dataset.val;
+        state[g] = (g === 'mcDisc' || g === 'cut') ? Number(v) : v;
+        state.pinnedInspect = false;
+        update();
+      });
+    });
+
+    document.querySelectorAll('[data-tab]').forEach(b => {
+      b.addEventListener('click', () => {
+        state.tab = b.dataset.tab;
+        hideHoverTip();
+        syncControls();
+        saveState();
+      });
+    });
+
+    document.querySelectorAll('[data-inspect]').forEach(b => {
+      b.addEventListener('click', () => {
+        state.inspect = b.dataset.inspect;
+        state.pinnedInspect = true;
+        update();
+      });
+    });
+
+    const bindNum = (id, key, min, max) => {
+      document.getElementById(id).addEventListener('input', (e) => {
+        const v = Number(e.target.value);
+        if (!Number.isNaN(v) && v >= min && v <= max) { state[key] = v; update(); }
+      });
+    };
+    bindNum('inpR0', 'R0', 4000, 30000);
+    bindNum('inpWMax', 'W_MAX', 32, 500);
+    bindNum('inpAdv', 'ADVANCE', 0, 5000000);
+    bindNum('inpMcStd', 'mcStd', 0, 30);
+    bindNum('inpMcDisc', 'mcDisc', 0, 20);
+    bindNum('inpCut', 'cut', 0, 15);
+    bindNum('inpOldGold', 'oldGold', 0, 5000000);
+    bindNum('inpOldMc', 'oldMc', 0, 30);
+
+    document.getElementById('chkRingCounts').addEventListener('change', (e) => {
+      state.ringCounts = e.target.checked;
+      update();
+    });
+
+    [['pwChain', 'c'], ['pwRing', 'r'], ['pwEx1', 'e1'], ['pwEx2', 'e2'], ['pwEx3', 'e3']].forEach(([id, k]) => {
+      document.getElementById(id).addEventListener('input', (e) => {
+        const v = Number(e.target.value);
+        if (!Number.isNaN(v) && v >= 0) { state.pieces[k] = v; update(); }
+      });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      const keepTheme = state.theme;
+      state = structuredClone(DEFAULT_STATE);
+      state.theme = keepTheme;
+      update();
+    });
+
+    document.getElementById('clearChecksBtn').addEventListener('click', () => {
+      state.checks = {};
+      update();
+    });
+
+    // Chart tap/click scrub
+    document.getElementById('chartSvg').addEventListener('pointerdown', (e) => {
+      const svg = e.currentTarget;
+      const meta = JSON.parse(svg.dataset.meta || '{}');
+      if (!meta.W) return;
+      const rect = svg.getBoundingClientRect();
+      const x = (e.clientX - rect.left) * (meta.W / rect.width);
+      const frac = Math.max(0, Math.min(1, (x - meta.pL) / (meta.W - meta.pL - meta.pR)));
+      state.R1 = Math.round((meta.rMin + frac * (meta.rMax - meta.rMin)) / 25) * 25;
+      state.pinnedInspect = false;
+      update();
+    });
+
+    // Matrix hover (desktop) + tap modal (mobile & desktop)
+    const tipEl = document.getElementById('hoverTip');
+    function hideHoverTip() { activeHoverKey = ''; tipEl.classList.add('hidden'); }
+
+    const matrixEl = document.getElementById('matrixBody');
+    matrixEl.addEventListener('mousemove', (e) => {
+      if (window.matchMedia('(hover: none)').matches) return;
+      const td = e.target.closest('td[data-s]');
+      const tr = e.target.closest('tr[data-r]');
+      if (!td || !tr) { hideHoverTip(); return; }
+      const r = Number(tr.dataset.r);
+      const sKey = td.dataset.s;
+      const key = `${r}:${sKey}`;
+      if (key !== activeHoverKey) {
+        const d = matrixCache.get(r);
+        if (!d) return;
+        tipEl.innerHTML = buildMathSheetHTML(r, d, sKey);
+        tipEl.classList.remove('hidden');
+        activeHoverKey = key;
+      }
+      const pad = 14, rect = tipEl.getBoundingClientRect();
+      let left = e.clientX + pad, top = e.clientY + pad;
+      if (left + rect.width + 10 > window.innerWidth) left = Math.max(10, e.clientX - rect.width - pad);
+      if (top + rect.height + 10 > window.innerHeight) top = Math.max(10, e.clientY - rect.height - pad);
+      tipEl.style.left = left + 'px';
+      tipEl.style.top = top + 'px';
+    });
+    matrixEl.addEventListener('mouseleave', hideHoverTip);
+    window.addEventListener('scroll', hideHoverTip, true);
+
+    matrixEl.addEventListener('click', (e) => {
+      const td = e.target.closest('td[data-s]');
+      const tr = e.target.closest('tr[data-r]');
+      if (!td || !tr) return;
+      hideHoverTip();
+      const r = Number(tr.dataset.r);
+      const d = matrixCache.get(r);
+      if (!d) return;
+      modalRate = r;
+      document.getElementById('modalTitle').textContent = `Exact Math @ ₹${r.toLocaleString('en-IN')}/g`;
+      document.getElementById('modalBody').innerHTML = buildMathSheetHTML(r, d, td.dataset.s);
+      document.getElementById('mathModal').classList.remove('hidden');
+    });
+
+    const closeModal = () => document.getElementById('mathModal').classList.add('hidden');
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    document.getElementById('mathModal').addEventListener('click', (e) => {
+      if (e.target.id === 'mathModal') closeModal();
+    });
+    document.getElementById('modalApplyRateBtn').addEventListener('click', () => {
+      if (modalRate) {
+        state.R1 = modalRate;
+        state.pinnedInspect = false;
+        update();
+      }
+      closeModal();
+    });
+
+    applyTheme();
+    update();
+  </script>
+</body>
+</html>
