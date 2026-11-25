@@ -3,96 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Mobile-first 916 (22K) gold advance booking decision calculator — compare walk-in, bulk making-charge tier, max booking resale arbitrage, and existing gold swap breakevens." />
-  <meta name="theme-color" content="#b88424" />
+  <meta name="description" content="Mobile-first 916 (22K) gold advance booking decision ledger. Compare walk-in cost, bulk making charge unlock, max booking resale, and existing gold swap breakevens." />
+  <meta name="theme-color" content="#116a4c" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="916 Planner" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23b88424'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='24' fill='%23ffffff'%3E916%3C/text%3E%3C/svg%3E" />
-  <title>916 Gold Booking Planner</title>
+  <meta name="apple-mobile-web-app-title" content="916 Ledger" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23116a4c'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='22' fill='%23ffffff'%3E916%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
+  <title>916 Gold Booking Ledger</title>
   <style>
     :root {
-      --bg: hsl(40, 26%, 96%);
-      --surface: hsl(0, 0%, 100%);
-      --surface-2: hsl(38, 22%, 93%);
-      --border: hsl(36, 16%, 85%);
-      --border-strong: hsl(36, 14%, 76%);
-      --text: hsl(222, 24%, 13%);
-      --text-muted: hsl(220, 10%, 44%);
-      --gold: hsl(38, 72%, 39%);
-      --gold-soft: hsla(38, 76%, 45%, 0.12);
-      --gold-fg: hsl(0, 0%, 100%);
-      --green: hsl(154, 62%, 32%);
-      --green-soft: hsla(154, 62%, 36%, 0.12);
-      --amber: hsl(32, 86%, 38%);
-      --amber-soft: hsla(32, 88%, 45%, 0.14);
-      --red: hsl(354, 68%, 46%);
-      --red-soft: hsla(354, 68%, 48%, 0.11);
-      --blue: hsl(212, 72%, 44%);
-      --blue-soft: hsla(212, 72%, 46%, 0.12);
-      --shadow-sm: 0 1px 2px hsla(220, 24%, 13%, 0.05);
-      --shadow-md: 0 8px 24px hsla(220, 24%, 13%, 0.12);
-      --radius: 14px;
-      --radius-sm: 10px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      /* 60-30-10 Monochrome + Deep Forest Emerald Accent (Light Mode) */
+      --bg: #F8F8F7;
+      --surface: #FFFFFF;
+      --surface-elevated: #F2F3F2;
+      --border: rgba(17, 19, 21, 0.09);
+      --border-strong: rgba(17, 19, 21, 0.18);
+      --text: #111315;
+      --text-secondary: #4B525A;
+      --text-muted: #6E7680;
+
+      --accent: #116A4C;
+      --accent-hover: #0D563D;
+      --accent-soft: #EAF4EF;
+      --accent-fg: #FFFFFF;
+
+      /* Desaturated Editorial Spot Pastels */
+      --pos: #116A4C;
+      --pos-bg: #EAF4EF;
+      --warn: #8A5A0A;
+      --warn-bg: #FBF3E1;
+      --neg: #A33333;
+      --neg-bg: #FCEEEE;
+      --info: #1E5D8C;
+      --info-bg: #E9F3FA;
+
+      --radius: 8px;
+      --radius-sm: 6px;
+      --ease: cubic-bezier(0.32, 0.72, 0, 1);
+      --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
     [data-theme="dark"] {
-      --bg: hsl(222, 18%, 9%);
-      --surface: hsl(222, 16%, 13%);
-      --surface-2: hsl(222, 15%, 17%);
-      --border: hsl(222, 12%, 22%);
-      --border-strong: hsl(222, 12%, 30%);
-      --text: hsl(40, 18%, 93%);
-      --text-muted: hsl(220, 10%, 63%);
-      --gold: hsl(42, 78%, 56%);
-      --gold-soft: hsla(42, 78%, 56%, 0.15);
-      --gold-fg: hsl(222, 22%, 10%);
-      --green: hsl(152, 58%, 48%);
-      --green-soft: hsla(152, 58%, 48%, 0.15);
-      --amber: hsl(36, 88%, 58%);
-      --amber-soft: hsla(36, 88%, 58%, 0.16);
-      --red: hsl(356, 76%, 62%);
-      --red-soft: hsla(356, 76%, 62%, 0.15);
-      --blue: hsl(210, 82%, 62%);
-      --blue-soft: hsla(210, 82%, 62%, 0.16);
-      --shadow-sm: 0 1px 3px hsla(0, 0%, 0%, 0.25);
-      --shadow-md: 0 12px 32px hsla(0, 0%, 0%, 0.45);
+      /* Elevation-Lightening Depth Model (Level 0 -> Level 1 -> Level 2) */
+      --bg: #0A0B0D;
+      --surface: #131519;
+      --surface-elevated: #1C2026;
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.18);
+      --text: #F2F4F7;
+      --text-secondary: #B4BCC6;
+      --text-muted: #838C98;
+
+      --accent: #2BB686;
+      --accent-hover: #36C795;
+      --accent-soft: rgba(43, 182, 134, 0.14);
+      --accent-fg: #071A13;
+
+      --pos: #2BB686;
+      --pos-bg: rgba(43, 182, 134, 0.14);
+      --warn: #D9A243;
+      --warn-bg: rgba(217, 162, 67, 0.15);
+      --neg: #E06C6C;
+      --neg-bg: rgba(224, 108, 108, 0.15);
+      --info: #62A8DC;
+      --info-bg: rgba(98, 168, 220, 0.15);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { -webkit-tap-highlight-color: transparent; }
+    html { -webkit-tap-highlight-color: transparent; overflow-x: clip; }
     body {
       margin: 0;
+      min-height: 100dvh;
       font-family: var(--font-sans);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.45;
       font-size: 14px;
-      padding-bottom: calc(78px + env(safe-area-inset-bottom));
+      line-height: 1.5;
+      overflow-x: clip;
+      padding-bottom: calc(72px + env(safe-area-inset-bottom));
     }
 
     .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+    .nowrap { white-space: nowrap; }
     .hidden { display: none !important; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
 
-    /* Top App Header */
+    /* 5-State Control Foundation */
+    button, input { font-family: inherit; }
+    button:focus-visible, input:focus-visible, summary:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+    }
+    button:disabled, input:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Sticky Header (56px, 8pt grid) */
     .topbar {
       position: sticky;
       top: 0;
       z-index: 30;
+      height: 56px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 10px 16px;
-      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
     }
     .topbar-inner {
-      max-width: 980px;
+      width: 100%;
+      max-width: 960px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
     }
     .brand {
       display: flex;
@@ -101,455 +136,482 @@
       min-width: 0;
     }
     .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      background: var(--gold);
-      color: var(--gold-fg);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: var(--accent-fg);
       display: grid;
       place-items: center;
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: -0.02em;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
       flex-shrink: 0;
     }
-    .brand h1 {
-      margin: 0;
+    .brand-title {
       font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      font-weight: 600;
+      letter-spacing: -0.015em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .brand-sub {
-      font-size: 11.5px;
+    .brand-meta {
+      display: none;
+      font-size: 12px;
       color: var(--text-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    }
+    @media (min-width: 640px) {
+      .brand-meta { display: inline; margin-left: 8px; }
     }
     .top-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       flex-shrink: 0;
     }
-    .icon-btn {
+    .btn-ghost {
       height: 36px;
-      padding: 0 11px;
-      border-radius: 9px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      background: var(--surface-2);
+      background: var(--surface);
       color: var(--text);
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      transition: background 0.15s, border-color 0.15s;
+      justify-content: center;
+      gap: 6px;
+      transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
     }
-    .icon-btn:hover { border-color: var(--gold); }
-    .icon-btn.active {
-      background: var(--gold-soft);
-      border-color: var(--gold);
-      color: var(--gold);
+    .btn-ghost:hover { background: var(--surface-elevated); border-color: var(--border-strong); }
+    .btn-ghost:active { transform: scale(0.98); }
+    .btn-ghost[aria-expanded="true"] {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
     }
+    .btn-icon { width: 36px; padding: 0; }
 
-    /* Main Container */
-    .container {
-      max-width: 980px;
+    /* Shell */
+    .app-shell {
+      width: 100%;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 14px 14px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
     }
 
-    /* Surface Card */
-    .card {
+    /* Band 1: Rate Control & Quick Counter Inputs (Flat Editorial Surface) */
+    .control-band {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px;
-      box-shadow: var(--shadow-sm);
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
+    }
+    @media (min-width: 768px) {
+      .app-shell { padding: 24px 24px 32px; display: flex; flex-direction: column; gap: 24px; }
+      .control-band { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
     }
 
-    /* Hero Rate Input */
-    .rate-header {
+    .rate-top-row {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
-    .section-label {
-      font-size: 12px;
-      font-weight: 700;
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
       color: var(--text-muted);
+      margin: 0;
     }
-    .delta-pill {
+    .delta-text {
       font-size: 12px;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: var(--surface-2);
+      font-weight: 600;
     }
-    .rate-stepper {
-      display: flex;
-      align-items: center;
+
+    .rate-input-row {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) 48px;
       gap: 8px;
-      margin-bottom: 10px;
+      align-items: center;
+      margin-bottom: 8px;
     }
     .step-btn {
-      height: 46px;
-      min-width: 52px;
-      padding: 0 10px;
-      border-radius: var(--radius-sm);
+      height: 48px;
+      width: 48px;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--surface-2);
+      background: var(--surface-elevated);
       color: var(--text);
       font-family: var(--font-mono);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
-      transition: transform 0.08s, border-color 0.15s;
+      display: grid;
+      place-items: center;
+      transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
     }
-    .step-btn:active { transform: scale(0.96); }
-    .step-btn:hover { border-color: var(--gold); }
-    .rate-box {
-      flex: 1;
-      height: 46px;
+    .step-btn:hover { border-color: var(--border-strong); background: var(--bg); }
+    .step-btn:active { transform: scale(0.98); }
+
+    .rate-field {
+      height: 48px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--bg);
-      border: 1.5px solid var(--border-strong);
-      border-radius: var(--radius-sm);
-      padding: 0 12px;
       gap: 4px;
+      padding: 0 12px;
+      transition: border-color 0.2s var(--ease);
     }
-    .rate-box:focus-within { border-color: var(--gold); }
-    .rate-box span { color: var(--text-muted); font-size: 14px; font-weight: 600; }
-    .rate-box input {
-      width: 104px;
+    .rate-field:focus-within { border-color: var(--accent); }
+    .rate-prefix, .rate-suffix {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .rate-field input {
+      width: 112px;
       border: 0;
       background: transparent;
       color: var(--text);
       font-family: var(--font-mono);
-      font-size: 21px;
-      font-weight: 800;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       text-align: center;
-      outline: none;
+      padding: 0;
     }
+    .rate-field input:focus-visible { box-shadow: none; }
 
     input[type="range"] {
       width: 100%;
-      height: 28px;
-      accent-color: var(--gold);
-      cursor: pointer;
+      height: 32px;
       margin: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
     }
-    .slider-ticks {
+    .slider-scale {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
       color: var(--text-muted);
-      margin-top: -2px;
-      margin-bottom: 10px;
+      margin-top: -4px;
+      margin-bottom: 12px;
     }
 
-    /* Preset Chips */
-    .chip-strip {
+    .preset-strip {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       overflow-x: auto;
-      padding-bottom: 2px;
+      padding: 2px 0;
       scrollbar-width: none;
     }
-    .chip-strip::-webkit-scrollbar { display: none; }
-    .chip {
+    .preset-strip::-webkit-scrollbar { display: none; }
+    .preset-btn {
       flex-shrink: 0;
       height: 32px;
-      padding: 0 11px;
-      border-radius: 999px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
+      background: var(--bg);
+      color: var(--text-secondary);
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.15s;
+      transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--ease);
     }
-    .chip:hover { border-color: var(--gold); }
-    .chip.active {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--gold-fg);
+    .preset-btn:hover { border-color: var(--border-strong); color: var(--text); }
+    .preset-btn:active { transform: scale(0.98); }
+    .preset-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--accent-fg);
+      font-weight: 600;
     }
 
-    /* Quick Showroom Controls */
-    .quick-controls {
+    /* Two Essential Counter Parameters */
+    .counter-params {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 12px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 640px) {
+      .counter-params { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 20px; }
+    }
+    .param-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .param-head span:first-child { color: var(--text-secondary); font-weight: 500; }
+
+    .seg-group {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .seg-opt {
+      height: 36px;
+      border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0 6px;
+      white-space: nowrap;
+      transition: background-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.12s var(--ease);
+    }
+    .seg-opt:last-child { border-right: 0; }
+    .seg-opt:hover { background: var(--surface-elevated); color: var(--text); }
+    .seg-opt:active { transform: scale(0.98); }
+    .seg-opt.active {
+      background: var(--accent);
+      color: var(--accent-fg);
+      font-weight: 600;
+    }
+
+    /* Collapsible Setup Drawer */
+    .setup-drawer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+    @media (min-width: 680px) {
+      .setup-drawer { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+    }
+    .setup-group { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+    .setup-title { font-size: 13px; font-weight: 600; margin: 0; color: var(--text); }
+    .input-2col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .field label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .field input[type="number"] {
+      height: 40px;
+      width: 100%;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      transition: border-color 0.2s var(--ease);
+    }
+    .field input[type="number"]:hover { border-color: var(--border-strong); }
+    .field input[type="number"]:focus { border-color: var(--accent); }
+    .check-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .check-line input { width: 16px; height: 16px; accent-color: var(--accent); flex-shrink: 0; }
+
+    /* Band 2: Editorial Verdict Strip (Single Dominant Metric + Flat Ledger Rows, Zero Nested Boxes) */
+    .verdict-band {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .verdict-band { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+    }
+
+    .verdict-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .verdict-header {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+      }
+    }
+    .verdict-copy { min-width: 0; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 8px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .tag-pos  { background: var(--pos-bg);  color: var(--pos); }
+    .tag-warn { background: var(--warn-bg); color: var(--warn); }
+    .tag-neg  { background: var(--neg-bg);  color: var(--neg); }
+    .tag-info { background: var(--info-bg); color: var(--info); }
+
+    .verdict-h1 {
+      margin: 8px 0 4px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--text);
+    }
+    @media (min-width: 640px) { .verdict-h1 { font-size: 22px; } }
+    .verdict-desc {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+      max-width: 62ch;
+    }
+
+    .verdict-primary-stat {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
       padding-top: 12px;
       border-top: 1px solid var(--border);
     }
     @media (min-width: 640px) {
-      .quick-controls { grid-template-columns: 1fr 1.25fr; }
-    }
-    .ctrl-block-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-    .ctrl-block-head span:first-child { color: var(--text-muted); font-weight: 600; }
-    .seg-row {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-    .seg-btn {
-      flex: 1;
-      min-width: 44px;
-      height: 36px;
-      padding: 0 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text-muted);
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .seg-btn.active {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--gold-fg);
-    }
-
-    /* Collapsible Assumptions Drawer */
-    .drawer {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--border);
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 680px) {
-      .drawer { grid-template-columns: 1fr 1fr; }
-    }
-    .field-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 12px;
-    }
-    .field span { color: var(--text-muted); font-weight: 500; }
-    .field input[type="number"] {
-      height: 38px;
-      padding: 0 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 600;
-      width: 100%;
-    }
-    .check-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12.5px;
-      color: var(--text);
-      cursor: pointer;
-      padding: 4px 0;
-    }
-    .check-row input { width: 17px; height: 17px; accent-color: var(--gold); }
-
-    /* Hero Verdict Card */
-    .verdict-card {
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .verdict-top {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    @media (min-width: 680px) {
-      .verdict-top {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+      .verdict-primary-stat {
+        flex-direction: column;
+        align-items: flex-end;
+        padding-top: 0;
+        border-top: 0;
+        flex-shrink: 0;
       }
     }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      width: fit-content;
-    }
-    .badge-green { background: var(--green-soft); color: var(--green); }
-    .badge-amber { background: var(--amber-soft); color: var(--amber); }
-    .badge-blue  { background: var(--blue-soft);  color: var(--blue); }
-    .badge-red   { background: var(--red-soft);   color: var(--red); }
+    .stat-caption { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .stat-hero { font-size: 24px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
 
-    .verdict-headline {
-      margin: 4px 0 2px;
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.015em;
-      line-height: 1.25;
-    }
-    .verdict-sub {
-      margin: 0;
-      font-size: 12.5px;
-      color: var(--text-muted);
-    }
-
-    .kpi-strip {
+    /* Two-column flat figure bar (Replaces cluttered 3-equal-card grid) */
+    .figure-bar {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .kpi {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 9px 10px;
-    }
-    .kpi-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; }
-    .kpi-val { font-size: 15px; font-weight: 800; margin-top: 2px; }
-    @media (max-width: 400px) {
-      .kpi-val { font-size: 13.5px; }
-    }
-
-    .old-strip {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
+    .figure-cell {
+      padding: 12px 0;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
+      min-width: 0;
+      overflow: hidden;
     }
-    .old-strip-head {
+    .figure-cell:first-child { padding-right: 12px; border-right: 1px solid var(--border); }
+    .figure-cell:last-child { padding-left: 12px; }
+    .figure-lbl { font-size: 12px; color: var(--text-muted); }
+    .figure-val { font-size: clamp(15px, 4.2vw, 17px); font-weight: 700; white-space: nowrap; }
+    .figure-sub { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Existing 24g Chain Inline Ledger Row */
+    .old-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .old-row-top {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
+      gap: 6px 12px;
     }
-    .old-strip-text { font-size: 12px; color: var(--text-muted); margin: 0; }
+    .old-nums {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .old-note { margin: 0; font-size: 12.5px; color: var(--text-secondary); }
 
-    /* Regime Price Ruler */
-    .ruler-wrap { display: flex; flex-direction: column; gap: 5px; }
-    .ruler-meta {
+    /* Minimal Regime Scale Bar */
+    .regime-block { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .regime-labels {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 4px;
+      gap: 4px 12px;
       font-size: 11.5px;
       color: var(--text-muted);
     }
-    .ruler {
+    .regime-track {
       position: relative;
-      height: 30px;
-      border-radius: 8px;
+      height: 10px;
+      border-radius: 4px;
       overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--bg);
+      background: var(--surface-elevated);
       display: flex;
-      font-size: 11px;
-      font-weight: 700;
     }
-    .ruler-seg {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      overflow: hidden;
-      padding: 0 4px;
-    }
-    .ruler-pin {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 2.5px;
-      background: var(--text);
-      pointer-events: none;
-    }
-    .ruler-pin::after {
-      content: "";
+    .regime-seg { height: 100%; }
+    .regime-marker {
       position: absolute;
       top: -2px;
-      left: 50%;
+      bottom: -2px;
+      width: 3px;
+      background: var(--text);
+      border-radius: 2px;
       transform: translateX(-50%);
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--gold);
-      border: 1.5px solid var(--surface);
+      pointer-events: none;
     }
 
-    /* Desktop Tabs & Mobile Bottom Nav */
-    .desktop-tabs {
+    /* Desktop Underline Navigation */
+    .desktop-nav {
       display: none;
-      gap: 6px;
-      background: var(--surface);
-      padding: 5px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
     }
-    @media (min-width: 720px) {
-      body { padding-bottom: 24px; }
-      .desktop-tabs { display: flex; }
-      .bottom-nav { display: none !important; }
+    @media (min-width: 768px) {
+      body { padding-bottom: 32px; }
+      .desktop-nav { display: flex; }
+      .mobile-nav { display: none !important; }
     }
-    .dtab-btn {
-      flex: 1;
-      height: 38px;
+    .dnav-btn {
+      height: 44px;
       border: 0;
-      border-radius: 8px;
+      border-bottom: 2px solid transparent;
       background: transparent;
       color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 2px;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
     }
-    .dtab-btn.active {
-      background: var(--gold);
-      color: var(--gold-fg);
-    }
+    .dnav-btn:hover { color: var(--text); }
+    .dnav-btn.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
 
-    .bottom-nav {
+    /* Mobile Fixed Bottom Nav (Thumb-first, 64px height) */
+    .mobile-nav {
       position: fixed;
       left: 0;
       right: 0;
@@ -559,489 +621,637 @@
       border-top: 1px solid var(--border);
       padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 4px;
-      box-shadow: 0 -4px 16px hsla(0, 0%, 0%, 0.08);
     }
-    .bnav-btn {
+    .mnav-btn {
+      height: 52px;
       border: 0;
+      border-radius: var(--radius-sm);
       background: transparent;
       color: var(--text-muted);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
-      padding: 6px 4px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .bnav-btn svg { width: 20px; height: 20px; stroke-width: 2; }
-    .bnav-btn.active {
-      color: var(--gold);
-      background: var(--gold-soft);
-    }
-
-    /* Scenario Cards Grid */
-    .strat-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-    @media (min-width: 560px) {
-      .strat-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 900px) {
-      .strat-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    .strat-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      padding: 13px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: border-color 0.15s, transform 0.1s;
-    }
-    .strat-card:active { transform: scale(0.99); }
-    .strat-card.is-selected { border-color: var(--gold); }
-    .strat-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 6px;
-    }
-    .strat-title { font-weight: 800; font-size: 14px; }
-    .strat-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
-    .mc-tag {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 6px;
-      background: var(--surface-2);
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
-    .strat-net {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .kv-list {
-      display: flex;
-      flex-direction: column;
       gap: 4px;
-      font-size: 12px;
-      padding-top: 6px;
-      border-top: 1px solid var(--border);
-    }
-    .kv {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .kv span:first-child { color: var(--text-muted); }
-
-    /* Tables */
-    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-    }
-    th {
-      text-align: left;
-      color: var(--text-muted);
+      font-size: 11px;
       font-weight: 600;
-      padding: 7px 6px;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.15s var(--ease), background-color 0.15s var(--ease), transform 0.12s var(--ease);
     }
-    td {
-      padding: 8px 6px;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
-    }
-    .num { text-align: right; }
-    tr.click-row { cursor: pointer; }
-    tr.click-row:hover { background: var(--surface-2); }
-    tr.is-cur { background: var(--gold-soft); font-weight: 700; }
+    .mnav-btn:active { transform: scale(0.96); }
+    .mnav-btn svg { width: 20px; height: 20px; stroke-width: 1.75; }
+    .mnav-btn.active { color: var(--accent); background: var(--accent-soft); }
 
-    /* Two-column split for desktop receipt inspector */
+    /* View Panes */
+    .view-pane {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+    @media (min-width: 768px) {
+      .view-pane { padding: 0; gap: 24px; }
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+    @media (min-width: 768px) { .panel { padding: 20px 24px; } }
+    .panel-h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .panel-sub {
+      margin: 2px 0 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* Tab 1: Flat Selectable Strategy Ledger Rows */
+    .strat-list {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      overflow: hidden;
+    }
+    @media (min-width: 820px) {
+      .strat-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .strat-row {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      border-left: 3px solid transparent;
+      background: var(--surface);
+      color: var(--text);
+      padding: 14px 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.12s var(--ease);
+    }
+    .strat-row:last-child { border-bottom: 0; }
+    @media (min-width: 820px) {
+      .strat-row:nth-child(odd) { border-right: 1px solid var(--border); }
+      .strat-row:nth-last-child(-n+2) { border-bottom: 0; }
+    }
+    .strat-row:hover { background: var(--surface-elevated); }
+    .strat-row:active { transform: scale(0.995); }
+    .strat-row.is-selected {
+      border-left-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .strat-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .strat-name { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .strat-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .strat-price { text-align: right; flex-shrink: 0; }
+    .strat-net { font-size: 16px; font-weight: 700; white-space: nowrap; }
+    .strat-save { font-size: 12px; font-weight: 600; white-space: nowrap; }
+    .strat-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Receipt Breakdown (Zero Horizontal Scroll at 360px!) */
     .split-2 {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 20px;
     }
     @media (min-width: 760px) {
-      .split-2 { grid-template-columns: 1fr 1fr; }
+      .split-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
     }
-    .sub-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .sub-box h3 {
+    .col-block { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .col-head {
       margin: 0;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 600;
       display: flex;
       justify-content: space-between;
+      align-items: baseline;
       gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
     }
-
-    /* Notice Box */
-    .warn-box {
-      padding: 9px 11px;
-      border-radius: 8px;
-      background: var(--amber-soft);
-      color: var(--amber);
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    /* Pieces Simulator */
-    .pieces-inputs {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-    @media (min-width: 680px) {
-      .pieces-inputs { grid-template-columns: repeat(5, 1fr); }
-    }
-    .out-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-top: 12px;
-    }
-    @media (min-width: 680px) {
-      .out-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-
-    /* Checklist */
-    .check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 11px 12px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: 13px;
-    }
-    .check-item input {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      flex-shrink: 0;
-      accent-color: var(--gold);
-    }
-    .check-item.done span {
-      text-decoration: line-through;
-      color: var(--text-muted);
-    }
-
-    /* Mobile Bottom Sheet / Desktop Hover Math Popover */
-    .sheet-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 60;
-      background: hsla(220, 30%, 6%, 0.55);
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 0;
-    }
-    @media (min-width: 640px) {
-      .sheet-backdrop { align-items: center; padding: 16px; }
-    }
-    .sheet {
-      width: 100%;
-      max-width: 520px;
-      max-height: 86vh;
-      overflow-y: auto;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px 18px 0 0;
-      padding: 16px 16px calc(18px + env(safe-area-inset-bottom));
-      box-shadow: var(--shadow-md);
+    .rcpt-row {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
+      gap: 2px;
+    }
+    .rcpt-row:last-child { border-bottom: 0; }
+    .rcpt-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       gap: 12px;
+      font-size: 13px;
     }
-    @media (min-width: 640px) {
-      .sheet { border-radius: 16px; padding: 18px; }
+    .rcpt-detail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 10px;
+      font-size: 11.5px;
+      color: var(--text-muted);
     }
-    .sheet-head {
+    .kv-list { display: flex; flex-direction: column; gap: 6px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 12.5px; }
+    .kv { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; min-width: 0; }
+    .kv span:first-child { color: var(--text-secondary); min-width: 0; }
+    .kv span:last-child { white-space: nowrap; flex-shrink: 0; }
+    .kv-total { font-size: 14px; font-weight: 700; padding-top: 6px; border-top: 1px solid var(--border); color: var(--text); }
+    .kv-total span:first-child { color: var(--text); }
+
+    .note-inline {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--warn-bg);
+      color: var(--warn);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    /* Tab 2: Chart + Responsive Mobile Ledger / Desktop Table */
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+    .legend-swatch { width: 12px; height: 2.5px; display: inline-block; }
+
+    .rates-desktop { display: none; overflow-x: auto; }
+    .rates-mobile { display: flex; flex-direction: column; }
+    @media (min-width: 680px) {
+      .rates-desktop { display: block; }
+      .rates-mobile { display: none; }
+    }
+
+    .mrate-row {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mrate-row:first-child { padding-top: 4px; }
+    .mrate-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .mrate-row.is-cur {
+      background: var(--accent-soft);
+      margin: 0 -16px;
+      padding: 12px 16px;
+    }
+    .mrate-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
+    }
+    .mrate-btns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .mrate-btn {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      padding: 8px 6px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: border-color 0.15s var(--ease), transform 0.12s var(--ease);
+    }
+    .mrate-btn:hover { border-color: var(--border-strong); }
+    .mrate-btn:active { transform: scale(0.98); }
+    .mrate-btn.is-win { border-color: var(--accent); background: var(--surface); }
+    .mrate-btn-k { font-size: 10.5px; color: var(--text-muted); font-weight: 500; }
+    .mrate-btn-v { font-size: 12.5px; font-weight: 700; }
+    .mrate-btn-s { font-size: 11px; font-weight: 600; }
+
+    table.desktop-tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    table.desktop-tbl th {
+      text-align: left;
+      color: var(--text-muted);
+      font-weight: 500;
+      padding: 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    table.desktop-tbl td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    table.desktop-tbl .num { text-align: right; }
+    table.desktop-tbl tr.is-cur { background: var(--accent-soft); }
+    table.desktop-tbl tbody tr:hover { background: var(--surface-elevated); }
+    .tbl-cell-btn {
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+      cursor: pointer;
+      text-align: inherit;
+      width: 100%;
+    }
+    .tbl-cell-btn:hover { text-decoration: underline; text-decoration-style: dotted; }
+
+    /* Tab 3: Pieces + Old 24g Ledger */
+    .pieces-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
     }
-    .close-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 700;
+    @media (min-width: 680px) {
+      .pieces-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    }
+    .ledger-2x2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+    .ledger-cell {
+      padding: 12px 8px 12px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .ledger-cell:nth-child(even) { padding: 12px 0 12px 12px; border-left: 1px solid var(--border); }
+    .ledger-cell:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 2px; }
+
+    /* Tab 4: Minimalist Checklist & Editorial Accordions */
+    .check-list { display: flex; flex-direction: column; }
+    .check-row-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
       cursor: pointer;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .check-row-item:last-child { border-bottom: 0; }
+    .check-row-item input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+    .check-row-item.done span { text-decoration: line-through; color: var(--text-muted); }
+
+    details.editorial-acc {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+    details.editorial-acc:last-child { border-bottom: 0; padding-bottom: 0; }
+    details.editorial-acc summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    details.editorial-acc summary::-webkit-details-marker { display: none; }
+    details.editorial-acc summary::after {
+      content: "+";
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    details.editorial-acc[open] summary::after { content: "-"; }
+    .acc-body {
+      padding-top: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
     }
 
-    .hover-tip {
+    /* Bottom Sheet Modal (Level 2 Elevation) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(10, 11, 13, 0.52);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    @media (min-width: 640px) { .modal-backdrop { align-items: center; padding: 16px; } }
+    .modal-sheet {
+      width: 100%;
+      max-width: 480px;
+      max-height: 85dvh;
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 12px 12px 0 0;
+      padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    [data-theme="dark"] .modal-sheet {
+      background: var(--surface-elevated);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    @media (min-width: 640px) { .modal-sheet { border-radius: var(--radius); padding: 20px; } }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .btn-primary {
+      height: 44px;
+      width: 100%;
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: var(--accent-fg);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s var(--ease), transform 0.15s var(--ease);
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    /* Desktop Hover Popover */
+    .hover-popover {
       position: fixed;
       z-index: 55;
       pointer-events: none;
-      width: 390px;
+      width: 380px;
       max-width: calc(100vw - 24px);
       background: var(--surface);
-      border: 1.5px solid var(--gold);
-      border-radius: 12px;
-      padding: 12px;
-      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 14px;
       font-size: 12px;
     }
+    [data-theme="dark"] .hover-popover {
+      background: var(--surface-elevated);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
 
-    .c-green { color: var(--green); }
-    .c-amber { color: var(--amber); }
-    .c-red   { color: var(--red); }
-    .c-blue  { color: var(--blue); }
+    .c-pos   { color: var(--pos); }
+    .c-warn  { color: var(--warn); }
+    .c-neg   { color: var(--neg); }
+    .c-info  { color: var(--info); }
     .c-muted { color: var(--text-muted); }
+    .fw-600  { font-weight: 600; }
     .fw-700  { font-weight: 700; }
-    .fw-800  { font-weight: 800; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Top App Bar -->
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <div class="brand-mark">916</div>
-        <div style="min-width:0">
-          <h1>916 Gold Booking Planner</h1>
-          <div id="headerMeta" class="brand-sub mono">Booked ₹11,715/g · Max 102.433g · Adv ₹1.20L</div>
+        <span class="brand-mark" aria-hidden="true">916</span>
+        <div style="min-width:0;">
+          <span class="brand-title">916 Gold Ledger</span>
+          <span id="headerMeta" class="brand-meta mono"></span>
         </div>
       </div>
       <div class="top-actions">
-        <button id="toggleDrawerBtn" class="icon-btn" type="button" aria-expanded="false">⚙ Setup</button>
-        <button id="themeBtn" class="icon-btn" type="button" aria-label="Toggle theme">◐</button>
+        <button id="setupBtn" data-agent="setup-toggle" class="btn-ghost" type="button" aria-expanded="false" aria-controls="setupDrawer">Setup</button>
+        <button id="themeBtn" data-agent="theme-toggle" class="btn-ghost btn-icon" type="button" aria-label="Switch color theme">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <main class="container">
+  <main id="appMain" class="app-shell">
 
-    <!-- Hero Rate & Counter Controls -->
-    <section class="card" aria-label="Gold rate and parameters">
-      <div class="rate-header">
-        <span class="section-label">Today's 916 Gold Rate</span>
-        <span id="rateDeltaPill" class="delta-pill mono"></span>
+    <!-- Band 1: Board Rate & Counter Negotiations -->
+    <section class="control-band" aria-labelledby="rateHeading">
+      <div class="rate-top-row">
+        <p id="rateHeading" class="eyebrow">Today's 916 board rate</p>
+        <span id="deltaReadout" class="delta-text mono"></span>
       </div>
 
-      <div class="rate-stepper">
-        <button id="stepDown" class="step-btn" type="button">−₹50</button>
-        <div class="rate-box">
-          <span>₹</span>
-          <input id="rateInput" type="number" inputmode="numeric" min="8000" max="25000" step="5" value="13715" aria-label="Purchase day 916 gold rate per gram" />
-          <span>/g</span>
+      <div class="rate-input-row">
+        <button id="stepDown" data-agent="rate-step-down" class="step-btn" type="button" aria-label="Decrease rate by 50 rupees">-50</button>
+        <div class="rate-field">
+          <span class="rate-prefix" aria-hidden="true">₹</span>
+          <label for="rateInput" class="sr-only">Purchase day 916 gold rate per gram in rupees</label>
+          <input id="rateInput" data-agent="rate-input" type="number" inputmode="numeric" autocomplete="off" min="8000" max="25000" step="5" value="13715" />
+          <span class="rate-suffix" aria-hidden="true">/g</span>
         </div>
-        <button id="stepUp" class="step-btn" type="button">+₹50</button>
+        <button id="stepUp" data-agent="rate-step-up" class="step-btn" type="button" aria-label="Increase rate by 50 rupees">+50</button>
       </div>
 
-      <input id="rateSlider" type="range" min="9500" max="17000" step="5" value="13715" aria-label="Gold rate slider" />
-      <div class="slider-ticks mono">
+      <label for="rateSlider" class="sr-only">Adjust 916 gold rate</label>
+      <input id="rateSlider" data-agent="rate-slider" type="range" min="9500" max="17000" step="5" value="13715" />
+      <div class="slider-scale mono">
         <span>₹9,500</span>
-        <span id="bookedTickLabel">₹11,715 (Booked)</span>
-        <span>₹14,000</span>
+        <span id="bookedScaleLbl">₹11,715 booked</span>
         <span>₹17,000</span>
       </div>
 
-      <!-- Quick Scenario Chips -->
-      <div class="chip-strip" role="group" aria-label="Quick gold rate presets">
-        <button class="chip" data-preset="11000" type="button">Drop ₹11,000</button>
-        <button class="chip" data-preset="11715" type="button">Flat ₹11,715</button>
-        <button class="chip" data-preset="12400" type="button">₹7.5L Zone ₹12,400</button>
-        <button class="chip" data-preset="13000" type="button">₹13,000</button>
-        <button class="chip" data-preset="13715" type="button">+₹2k ₹13,715</button>
-        <button class="chip" data-preset="14500" type="button">₹14,500</button>
-        <button class="chip" data-preset="15000" type="button">Boom ₹15,000</button>
+      <div class="preset-strip" role="group" aria-label="Quick rate presets">
+        <button class="preset-btn" data-preset="11000" type="button">₹11,000 Drop</button>
+        <button class="preset-btn" data-preset="11715" type="button">₹11,715 Flat</button>
+        <button class="preset-btn" data-preset="12400" type="button">₹12,400 Tier</button>
+        <button class="preset-btn" data-preset="13000" type="button">₹13,000</button>
+        <button class="preset-btn" data-preset="13715" type="button">₹13,715 (+2k)</button>
+        <button class="preset-btn" data-preset="14500" type="button">₹14,500</button>
+        <button class="preset-btn" data-preset="15000" type="button">₹15,000 Boom</button>
       </div>
 
-      <!-- Essential Counter Negotiations (MC% & Separate Shop Cut%) -->
-      <div class="quick-controls">
+      <div class="counter-params">
         <div>
-          <div class="ctrl-block-head">
-            <span>≥₹7.5L Making Charge</span>
-            <span id="effGoldLbl" class="mono c-muted">Gold @ ₹11,715/g</span>
+          <div class="param-head">
+            <span>Making charge at ₹7.5L+</span>
+            <span id="billedGoldLbl" class="mono c-muted"></span>
           </div>
-          <div class="seg-row">
-            <button class="seg-btn" data-group="mcDisc" data-val="3" type="button">3%</button>
-            <button class="seg-btn" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
-            <button class="seg-btn" data-group="mcDisc" data-val="4" type="button">4%</button>
+          <div class="seg-group" role="group" aria-label="Discounted making charge">
+            <button class="seg-opt" data-group="mcDisc" data-val="3" type="button">3%</button>
+            <button class="seg-opt" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
+            <button class="seg-opt" data-group="mcDisc" data-val="4" type="button">4%</button>
           </div>
         </div>
 
         <div>
-          <div class="ctrl-block-head">
-            <span>Separate-Shop 916 Cut</span>
-            <span id="resaleRateLbl" class="mono fw-700">₹13,441/g</span>
+          <div class="param-head">
+            <span>Separate-shop 916 buyback cut</span>
+            <span id="buybackRateLbl" class="mono fw-600"></span>
           </div>
-          <div class="seg-row">
-            <button class="seg-btn" data-group="cut" data-val="0" type="button">0%</button>
-            <button class="seg-btn" data-group="cut" data-val="1" type="button">1%</button>
-            <button class="seg-btn" data-group="cut" data-val="2" type="button">2%</button>
-            <button class="seg-btn" data-group="cut" data-val="3" type="button">3%</button>
-            <button class="seg-btn" data-group="cut" data-val="4" type="button">4%</button>
+          <div class="seg-group" role="group" aria-label="Separate shop resale deduction">
+            <button class="seg-opt" data-group="cut" data-val="0" type="button">0%</button>
+            <button class="seg-opt" data-group="cut" data-val="1" type="button">1%</button>
+            <button class="seg-opt" data-group="cut" data-val="2" type="button">2%</button>
+            <button class="seg-opt" data-group="cut" data-val="3" type="button">3%</button>
+            <button class="seg-opt" data-group="cut" data-val="4" type="button">4%</button>
           </div>
         </div>
       </div>
 
-      <!-- Collapsible Advanced Booking & Scheme Setup Drawer -->
-      <div id="setupDrawer" class="drawer hidden">
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <span class="section-label">Booking &amp; Scheme Terms</span>
-          <div class="field-grid">
-            <label class="field"><span>Booked 916 Rate (₹/g)</span><input id="inpR0" type="number" step="5" value="11715" /></label>
-            <label class="field"><span>Max Booked Weight (g)</span><input id="inpWMax" type="number" step="0.001" value="102.433" /></label>
-            <label class="field"><span>Advance Paid (₹)</span><input id="inpAdv" type="number" step="1000" value="120000" /></label>
-            <label class="field"><span>Std MC below ₹7.5L (%)</span><input id="inpMcStd" type="number" step="0.5" value="11" /></label>
-            <label class="field"><span>Custom ≥₹7.5L MC (%)</span><input id="inpMcDisc" type="number" step="0.1" value="3" /></label>
-            <label class="field"><span>Custom Shop Cut (%)</span><input id="inpCut" type="number" step="0.25" value="2" /></label>
+      <!-- Collapsible Advanced Setup -->
+      <div id="setupDrawer" class="setup-drawer hidden">
+        <div class="setup-group">
+          <h2 class="setup-title">Booking &amp; scheme terms</h2>
+          <div class="input-2col">
+            <div class="field"><label for="inpR0">Booked rate (₹/g)</label><input id="inpR0" type="number" autocomplete="off" step="5" value="11715" /></div>
+            <div class="field"><label for="inpWMax">Max weight (g)</label><input id="inpWMax" type="number" autocomplete="off" step="0.001" value="102.433" /></div>
+            <div class="field"><label for="inpAdv">Advance paid (₹)</label><input id="inpAdv" type="number" autocomplete="off" step="1000" value="120000" /></div>
+            <div class="field"><label for="inpMcStd">Standard MC (%)</label><input id="inpMcStd" type="number" autocomplete="off" step="0.5" value="11" /></div>
+            <div class="field"><label for="inpMcDisc">Custom ₹7.5L MC (%)</label><input id="inpMcDisc" type="number" autocomplete="off" step="0.1" value="3" /></div>
+            <div class="field"><label for="inpCut">Custom shop cut (%)</label><input id="inpCut" type="number" autocomplete="off" step="0.25" value="2" /></div>
           </div>
           <div>
-            <div class="ctrl-block-head"><span>₹7.5L Threshold Measured On</span></div>
-            <div class="seg-row">
-              <button class="seg-btn" data-group="basis" data-val="gold" type="button">Gold Value Only</button>
-              <button class="seg-btn" data-group="basis" data-val="bill" type="button">Total Bill (incl. MC+GST)</button>
+            <div class="param-head"><span>₹7.5L threshold basis</span></div>
+            <div class="seg-group" role="group" aria-label="Threshold basis">
+              <button class="seg-opt" data-group="basis" data-val="gold" type="button">Gold value only</button>
+              <button class="seg-opt" data-group="basis" data-val="bill" type="button">Total bill</button>
             </div>
-            <label class="check-row" style="margin-top:6px;">
-              <input id="chkRingCounts" type="checkbox" checked />
-              <span>8g ring (18% MC) counts toward ₹7.5L total</span>
-            </label>
           </div>
+          <label class="check-line" for="chkRingCounts">
+            <input id="chkRingCounts" type="checkbox" checked />
+            <span>8g ring (18% MC) counts toward ₹7.5L total</span>
+          </label>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <span class="section-label">Existing 24g 916 Chain</span>
-          <div class="seg-row">
-            <button class="seg-btn" data-group="old" data-val="auto" type="button">Auto (Best)</button>
-            <button class="seg-btn" data-group="old" data-val="keep" type="button">Keep</button>
-            <button class="seg-btn" data-group="old" data-val="sell" type="button">Sell &amp; Swap</button>
+        <div class="setup-group">
+          <h2 class="setup-title">Existing 24g 916 chain</h2>
+          <div class="seg-group" role="group" aria-label="Existing 24g chain strategy">
+            <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto (best)</button>
+            <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
+            <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell &amp; swap</button>
           </div>
-          <div class="field-grid">
-            <label class="field"><span>Old Gold Value (₹)</span><input id="inpOldGold" type="number" step="1000" value="275000" /></label>
-            <label class="field"><span>Old MC Paid (%)</span><input id="inpOldMc" type="number" step="0.5" value="11" /></label>
+          <div class="input-2col">
+            <div class="field"><label for="inpOldGold">Old gold value (₹)</label><input id="inpOldGold" type="number" autocomplete="off" step="1000" value="275000" /></div>
+            <div class="field"><label for="inpOldMc">Old MC paid (%)</label><input id="inpOldMc" type="number" autocomplete="off" step="0.5" value="11" /></div>
           </div>
-          <div id="setupOldSummary" class="mono c-muted" style="font-size:12px;"></div>
+          <div id="setupOldInfo" class="mono c-muted" style="font-size:12px;"></div>
           <div style="margin-top:auto;display:flex;justify-content:flex-end;">
-            <button id="resetBtn" class="icon-btn" type="button">↺ Reset Defaults</button>
+            <button id="resetBtn" class="btn-ghost" type="button">Reset defaults</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Instant Decision Banner -->
-    <section class="card verdict-card" aria-label="Recommended purchase action">
-      <div class="verdict-top">
-        <div>
-          <span id="verdictBadge" class="badge badge-green"></span>
-          <h2 id="verdictHeadline" class="verdict-headline"></h2>
-          <p id="verdictSub" class="verdict-sub"></p>
+    <!-- Band 2: Primary Verdict Ledger -->
+    <section class="verdict-band" aria-labelledby="verdictTitle">
+      <div class="verdict-header">
+        <div class="verdict-copy">
+          <span id="verdictTag" class="tag tag-pos"></span>
+          <h1 id="verdictTitle" class="verdict-h1"></h1>
+          <p id="verdictDesc" class="verdict-desc"></p>
+        </div>
+        <div class="verdict-primary-stat">
+          <span class="stat-caption">Saved vs walk-in (no scheme)</span>
+          <span id="heroSaved" class="stat-hero mono c-pos"></span>
         </div>
       </div>
 
-      <div class="kpi-strip">
-        <div class="kpi">
-          <div class="kpi-lbl">Saved vs Walk-In</div>
-          <div id="kpiSaved" class="kpi-val mono c-green"></div>
+      <div class="figure-bar">
+        <div class="figure-cell">
+          <span id="figNetLbl" class="figure-lbl">Net cost (32g kept)</span>
+          <span id="figNetVal" class="figure-val mono"></span>
+          <span id="figNetSub" class="figure-sub mono"></span>
         </div>
-        <div class="kpi">
-          <div id="kpiNetLbl" class="kpi-lbl">Net Cost (32g)</div>
-          <div id="kpiNet" class="kpi-val mono"></div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-lbl">Bank Transfer</div>
-          <div id="kpiBank" class="kpi-val mono"></div>
+        <div class="figure-cell">
+          <span class="figure-lbl">Bank transfer needed</span>
+          <span id="figBankVal" class="figure-val mono"></span>
+          <span id="figBankSub" class="figure-sub mono"></span>
         </div>
       </div>
 
-      <!-- Integrated Existing 24g Chain Recommendation -->
-      <div id="oldVerdictStrip" class="old-strip">
-        <div class="old-strip-head">
-          <span id="oldBadge" class="badge"></span>
-          <span id="oldMetrics" class="mono c-muted" style="font-size:11.5px;"></span>
+      <div class="old-row">
+        <div class="old-row-top">
+          <span id="oldTag" class="tag"></span>
+          <div id="oldNums" class="old-nums mono"></div>
         </div>
-        <p id="oldVerdictMsg" class="old-strip-text"></p>
+        <p id="oldNote" class="old-note"></p>
       </div>
 
-      <!-- 3-Zone Price Ruler -->
-      <div class="ruler-wrap">
-        <div class="ruler-meta">
-          <span>Decision Zones</span>
-          <span id="rulerThresholds" class="mono"></span>
+      <div class="regime-block">
+        <div class="regime-labels">
+          <span>Decision zones</span>
+          <span id="regimeSummary" class="mono"></span>
         </div>
-        <div id="regimeRuler" class="ruler"></div>
+        <div id="regimeTrack" class="regime-track" aria-hidden="true"></div>
       </div>
     </section>
 
-    <!-- Desktop Tab Bar -->
-    <nav class="desktop-tabs" role="tablist" aria-label="Views">
-      <button class="dtab-btn" data-tab="decide" type="button">1. Decide &amp; Bills</button>
-      <button class="dtab-btn" data-tab="rates" type="button">2. Chart &amp; Rate Table</button>
-      <button class="dtab-btn" data-tab="pieces" type="button">3. Showroom Pieces &amp; Old 24g</button>
-      <button class="dtab-btn" data-tab="check" type="button">4. Counter Checklist</button>
+    <!-- Desktop Tabs -->
+    <nav class="desktop-nav" role="tablist" aria-label="Planner sections">
+      <button class="dnav-btn" data-tab="compare" data-agent="tab-compare" role="tab" type="button">Compare &amp; Receipt</button>
+      <button class="dnav-btn" data-tab="rates" data-agent="tab-rates" role="tab" type="button">Chart &amp; Rates</button>
+      <button class="dnav-btn" data-tab="pieces" data-agent="tab-pieces" role="tab" type="button">Showroom Pieces</button>
+      <button class="dnav-btn" data-tab="check" data-agent="tab-check" role="tab" type="button">Counter Checklist</button>
     </nav>
 
-    <!-- TAB 1: DECIDE & LINE-BY-LINE BILLS -->
-    <section id="view-decide" class="view-pane" style="display:flex;flex-direction:column;gap:12px;">
-      <div class="strat-grid" id="stratGrid"></div>
+    <!-- TAB 1: COMPARE & COUNTER RECEIPT -->
+    <section id="view-compare" class="view-pane" aria-label="Scenario comparison">
+      <div id="stratList" class="strat-list" role="group" aria-label="Purchase strategies"></div>
 
-      <!-- Selected Strategy Receipt Breakdown -->
-      <div class="card" style="display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;">
+      <div class="panel">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
           <div>
-            <div class="section-label">Exact Counter Receipt Breakdown</div>
-            <div id="inspSubtitle" class="fw-700" style="font-size:14.5px;margin-top:2px;"></div>
+            <h2 class="panel-h2">Counter receipt breakdown</h2>
+            <p id="inspHeading" class="panel-sub"></p>
           </div>
-          <div class="seg-row" style="flex:0 1 auto;">
-            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:52px;" data-inspect="S0" type="button">Walk-In</button>
-            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:44px;" data-inspect="S1" type="button">S1</button>
-            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:44px;" data-inspect="S2" type="button">S2</button>
-            <button class="seg-btn" style="height:30px;font-size:11.5px;min-width:44px;" data-inspect="S3" type="button">S3</button>
+          <div class="seg-group" style="width:auto;" role="group" aria-label="Inspect strategy bill">
+            <button class="seg-opt" style="padding:0 12px;" data-inspect="S0" type="button">Walk-in</button>
+            <button class="seg-opt" style="padding:0 12px;" data-inspect="S1" type="button">S1</button>
+            <button class="seg-opt" style="padding:0 12px;" data-inspect="S2" type="button">S2</button>
+            <button class="seg-opt" style="padding:0 12px;" data-inspect="S3" type="button">S3</button>
           </div>
         </div>
 
         <div class="split-2">
-          <div class="sub-box">
-            <h3><span id="inspBuyTitle">Step 1 · At Showroom (Buy)</span><span id="inspBuyWt" class="mono c-muted"></span></h3>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>Item (916)</th><th class="num">Gold</th><th class="num">MC</th><th class="num">GST</th><th class="num">Total</th></tr>
-                </thead>
-                <tbody id="inspBuyRows" class="mono"></tbody>
-              </table>
-            </div>
+          <div class="col-block">
+            <h3 class="col-head"><span id="inspBuyTitle">Step 1: Showroom purchase</span><span id="inspBuyWt" class="mono c-muted"></span></h3>
+            <div id="inspBuyRows"></div>
             <div id="inspSettlement" class="kv-list"></div>
           </div>
 
-          <div class="sub-box" style="justify-content:space-between;">
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <h3><span>Step 2 · Resale &amp; Walk-In Savings</span><span id="inspResaleRate" class="mono c-muted"></span></h3>
-              <div id="inspResaleList" class="kv-list" style="border-top:0;padding-top:0;"></div>
+          <div class="col-block" style="justify-content:space-between;">
+            <div class="col-block">
+              <h3 class="col-head"><span>Step 2: Resale &amp; savings</span><span id="inspResaleRate" class="mono c-muted"></span></h3>
+              <div id="inspResaleRows" class="kv-list" style="border-top:0;padding-top:0;"></div>
             </div>
             <div id="inspOutcome" class="kv-list"></div>
           </div>
@@ -1049,38 +1259,39 @@
       </div>
     </section>
 
-    <!-- TAB 2: CHART & RATE TABLE -->
-    <section id="view-rates" class="view-pane hidden" style="display:flex;flex-direction:column;gap:12px;">
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
+    <!-- TAB 2: CHART & RATES -->
+    <section id="view-rates" class="view-pane hidden" aria-label="Rate curves and table">
+      <div class="panel">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px;">
           <div>
-            <div class="section-label">Total Savings vs Walk-In (No Scheme)</div>
-            <div class="c-muted" style="font-size:12px;">Tap or click anywhere on the chart to test that rate</div>
+            <h2 class="panel-h2">Savings vs walk-in (no scheme)</h2>
+            <p class="panel-sub">Tap anywhere on the chart to test that 916 rate.</p>
           </div>
-          <div style="display:flex;gap:12px;font-size:11.5px;font-weight:600;">
-            <span style="display:flex;align-items:center;gap:5px;"><i style="width:12px;height:2.5px;background:var(--amber);display:inline-block;"></i>S1 (32g)</span>
-            <span style="display:flex;align-items:center;gap:5px;"><i style="width:12px;height:2.5px;background:var(--blue);display:inline-block;"></i>S2 (₹7.5L)</span>
-            <span style="display:flex;align-items:center;gap:5px;"><i style="width:12px;height:2.5px;background:var(--green);display:inline-block;"></i>S3 (102g)</span>
+          <div class="chart-legend">
+            <span class="legend-item"><i class="legend-swatch" style="background:var(--warn);"></i>S1 (32g)</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:var(--info);"></i>S2 (₹7.5L)</span>
+            <span class="legend-item"><i class="legend-swatch" style="background:var(--accent);"></i>S3 (102g)</span>
           </div>
         </div>
-        <svg id="chartSvg" viewBox="0 0 760 250" style="width:100%;height:auto;display:block;cursor:crosshair;touch-action:none;"></svg>
+        <svg id="chartSvg" viewBox="0 0 760 260" style="width:100%;height:auto;display:block;cursor:crosshair;touch-action:none;" role="img" aria-label="Savings curve across 916 gold rates"></svg>
       </div>
 
-      <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
-          <div class="section-label">Rate Reference Table</div>
-          <span class="c-muted" style="font-size:11.5px;">Tap any cell for exact math · Hover on desktop</span>
+      <div class="panel">
+        <div>
+          <h2 class="panel-h2">Rate reference ledger</h2>
+          <p class="panel-sub">Tap any strategy for exact rupee math. Hover on desktop.</p>
         </div>
-        <div class="table-wrap">
-          <table>
+        <div id="matrixMobile" class="rates-mobile"></div>
+        <div class="rates-desktop">
+          <table class="desktop-tbl">
             <thead>
               <tr>
                 <th>916 Rate</th>
-                <th class="num">Walk-In</th>
+                <th class="num">Walk-in</th>
                 <th class="num">S1 (32g)</th>
                 <th class="num">S2 (₹7.5L)</th>
                 <th class="num">S3 (102g)</th>
-                <th>Best Move</th>
+                <th>Best action</th>
               </tr>
             </thead>
             <tbody id="matrixBody" class="mono"></tbody>
@@ -1089,111 +1300,115 @@
       </div>
     </section>
 
-    <!-- TAB 3: SHOWROOM EXACT WEIGHTS & OLD 24g CHAIN -->
-    <section id="view-pieces" class="view-pane hidden" style="display:flex;flex-direction:column;gap:12px;">
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;">
+    <!-- TAB 3: SHOWROOM PIECES & EXISTING 24g CHAIN -->
+    <section id="view-pieces" class="view-pane hidden" aria-label="Showroom piece weight calculator">
+      <div class="panel">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px;">
           <div>
-            <div class="section-label">Showroom Exact-Weight Calculator</div>
-            <div class="c-muted" style="font-size:12px;">Type real piece tag weights at the counter to verify ₹7.5L discount &amp; booking cap</div>
+            <h2 class="panel-h2">Showroom exact-weight check</h2>
+            <p class="panel-sub">Enter actual tag weights of pieces at the counter to verify the ₹7.5L discount and booking cap.</p>
           </div>
-          <div id="piecesStatus" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+          <div id="piecesTags" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
         </div>
 
-        <div class="pieces-inputs">
-          <label class="field"><span>Keep: Chain (g)</span><input id="pwChain" type="number" step="0.01" min="0" value="24.00" /></label>
-          <label class="field"><span>Keep: Ring (g · 18%)</span><input id="pwRing" type="number" step="0.01" min="0" value="8.00" /></label>
-          <label class="field"><span>Resell Piece 1 (g)</span><input id="pwEx1" type="number" step="0.01" min="0" value="20.00" /></label>
-          <label class="field"><span>Resell Piece 2 (g)</span><input id="pwEx2" type="number" step="0.01" min="0" value="13.00" /></label>
-          <label class="field"><span>Resell Piece 3 (g)</span><input id="pwEx3" type="number" step="0.01" min="0" value="0.00" /></label>
+        <div class="pieces-grid">
+          <div class="field"><label for="pwChain">Keep chain (g)</label><input id="pwChain" type="number" autocomplete="off" step="0.01" min="0" value="24.00" /></div>
+          <div class="field"><label for="pwRing">Keep ring (g, 18%)</label><input id="pwRing" type="number" autocomplete="off" step="0.01" min="0" value="8.00" /></div>
+          <div class="field"><label for="pwEx1">Resell piece 1 (g)</label><input id="pwEx1" type="number" autocomplete="off" step="0.01" min="0" value="20.00" /></div>
+          <div class="field"><label for="pwEx2">Resell piece 2 (g)</label><input id="pwEx2" type="number" autocomplete="off" step="0.01" min="0" value="13.00" /></div>
+          <div class="field"><label for="pwEx3">Resell piece 3 (g)</label><input id="pwEx3" type="number" autocomplete="off" step="0.01" min="0" value="0.00" /></div>
         </div>
 
-        <div id="piecesOutput" class="out-grid"></div>
+        <div id="piecesLedger" class="ledger-2x2"></div>
       </div>
 
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
+      <div class="panel">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;">
           <div>
-            <div class="section-label">Existing 24g 916 Chain — All-In Breakevens</div>
-            <div id="oldSubLine" class="c-muted" style="font-size:12px;"></div>
+            <h2 class="panel-h2">Existing 24g chain breakevens</h2>
+            <p id="oldChainSub" class="panel-sub"></p>
           </div>
-          <span id="oldSaleBadge" class="badge badge-blue mono"></span>
+          <span id="oldSalePill" class="tag tag-info mono"></span>
         </div>
-        <div id="oldCardsGrid" class="out-grid"></div>
+        <div id="oldLedger" class="kv-list" style="border-top:0;padding-top:0;"></div>
       </div>
     </section>
 
-    <!-- TAB 4: MARCH 24 CHECKLIST & GUARDRAILS -->
-    <section id="view-check" class="view-pane hidden" style="display:flex;flex-direction:column;gap:12px;">
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div class="section-label">Purchase-Day Checklist</div>
-          <button id="clearChecksBtn" class="icon-btn" style="height:30px;font-size:11.5px;" type="button">Uncheck All</button>
+    <!-- TAB 4: COUNTER CHECKLIST & T&C ACCORDIONS -->
+    <section id="view-check" class="view-pane hidden" aria-label="Purchase day checklist">
+      <div class="panel">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <h2 class="panel-h2">Purchase-day checklist</h2>
+          <button id="clearChecksBtn" class="btn-ghost" style="height:32px;font-size:12px;" type="button">Reset ticks</button>
         </div>
-        <div id="checklistWrap" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <div id="checkList" class="check-list"></div>
       </div>
 
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div class="section-label">Key Booking T&amp;C Guardrails</div>
-        <div class="sub-box">
-          <h3><span>1. Partial Redemption Advance Lock-In (Clause 2 &amp; 4)</span></h3>
-          <div class="c-muted" style="font-size:12.5px;">No cash refunds; unused balances carry forward (auto-converted on Day 356 into a coin at <strong>15% MC</strong>). Confirm before billing whether the <strong>full advance</strong> adjusts on smaller purchases:</div>
-          <div id="prorataSummary" class="mono" style="font-size:12px;display:flex;flex-direction:column;gap:3px;"></div>
-        </div>
-        <div class="sub-box">
-          <h3><span>2. MC Always Uses Redemption-Day Rate (Clause 1)</span></h3>
-          <div id="clause1Note" class="c-muted" style="font-size:12.5px;"></div>
-        </div>
-        <div class="sub-box">
-          <h3><span>3. No Gold Coins / Pick Plain Stone-Free 916 (Clause 3)</span></h3>
-          <div class="c-muted" style="font-size:12.5px;">Advance cannot be used for gold coins or special-priced items. For extra resale pieces, pick plain 916 chains/bangles with zero stones or enamel so you get lowest MC and full weight on resale.</div>
-        </div>
-        <div class="sub-box">
-          <h3><span>4. ₹1.90L Cash Limit &amp; Bank Trail</span></h3>
-          <div class="c-muted" style="font-size:12.5px;">Max cash accepted is ₹1,90,000; balance must move via NEFT/RTGS/UPI/Card (verify daily bank limits 2 days ahead). Organized buyers also pay above ₹10,000 via bank transfer — note short-term capital gains tax rules on realized arbitrage profit.</div>
+      <div class="panel">
+        <h2 class="panel-h2">Booking terms &amp; guardrails</h2>
+        <div>
+          <details class="editorial-acc" open>
+            <summary>Partial redemption advance lock-in (Clauses 2 &amp; 4)</summary>
+            <div class="acc-body">
+              <p style="margin:0 0 8px;">Advances are non-refundable in cash, and unclosed balances auto-convert on Day 356 into a gold coin with 15% making charge. Confirm whether the full advance adjusts on a partial bill:</p>
+              <div id="prorataLines" class="mono" style="font-size:12px;display:flex;flex-direction:column;gap:4px;"></div>
+            </div>
+          </details>
+          <details class="editorial-acc">
+            <summary>Making charge uses purchase-day rate (Clause 1)</summary>
+            <div id="clause1Text" class="acc-body"></div>
+          </details>
+          <details class="editorial-acc">
+            <summary>No gold coins or special-priced items (Clause 3)</summary>
+            <div class="acc-body">Pick plain, stone-free, enamel-free 916 chains or bangles for extra resale weight so you receive the discounted MC at billing and full weight valuation at the separate buyer.</div>
+          </details>
+          <details class="editorial-acc">
+            <summary>₹1.90L cash limit, bank transfers &amp; tax note</summary>
+            <div class="acc-body">Max cash accepted at the showroom is ₹1,90,000; the balance must go via NEFT, RTGS, UPI, or card. Verify daily transfer limits 2 days ahead. Organized buyers also pay above ₹10,000 by bank transfer, so keep short-term capital gains tax rules in mind on realized profit.</div>
+          </details>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Mobile Sticky Bottom Navigation -->
-  <nav class="bottom-nav" aria-label="Mobile navigation">
-    <button class="bnav-btn" data-tab="decide" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      <span>Decide</span>
+  <!-- Mobile Bottom Nav -->
+  <nav class="mobile-nav" aria-label="Primary navigation">
+    <button class="mnav-btn" data-tab="compare" data-agent="mob-tab-compare" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Compare</span>
     </button>
-    <button class="bnav-btn" data-tab="rates" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    <button class="mnav-btn" data-tab="rates" data-agent="mob-tab-rates" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
       <span>Rates</span>
     </button>
-    <button class="bnav-btn" data-tab="pieces" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <button class="mnav-btn" data-tab="pieces" data-agent="mob-tab-pieces" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <span>Pieces</span>
     </button>
-    <button class="bnav-btn" data-tab="check" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+    <button class="mnav-btn" data-tab="check" data-agent="mob-tab-check" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
       <span>Check</span>
     </button>
   </nav>
 
-  <!-- Mobile Tap Bottom Sheet for Exact Math -->
-  <div id="mathModal" class="sheet-backdrop hidden" role="dialog" aria-modal="true" aria-label="Exact calculation breakdown">
-    <div class="sheet">
-      <div class="sheet-head">
-        <strong id="modalTitle" style="font-size:15px;">Exact Breakdown</strong>
-        <button id="closeModalBtn" class="close-btn" type="button" aria-label="Close">×</button>
+  <!-- Bottom Sheet / Modal for Exact Math -->
+  <div id="mathModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <h2 id="modalTitle" class="panel-h2">Exact breakdown</h2>
+        <button id="modalCloseBtn" data-agent="modal-close" class="btn-ghost btn-icon" type="button" aria-label="Close breakdown">×</button>
       </div>
       <div id="modalBody"></div>
-      <button id="modalApplyRateBtn" class="icon-btn active" style="justify-content:center;height:42px;font-size:13px;" type="button">Use This Gold Rate in Calculator</button>
+      <button id="modalApplyBtn" data-agent="modal-apply-rate" class="btn-primary" type="button">Use this 916 rate</button>
     </div>
   </div>
 
-  <!-- Desktop Hover Math Popover -->
-  <div id="hoverTip" class="hover-tip hidden"></div>
+  <!-- Desktop Hover Popover -->
+  <div id="hoverPopover" class="hover-popover hidden" aria-hidden="true"></div>
 
   <script>
-    const STORAGE_KEY = 'gold916_planner_v1';
+    const STORAGE_KEY = 'gold916_ledger_v2';
     const W_CHAIN = 24;
     const W_RING = 8;
     const W_KEEP = 32;
@@ -1215,7 +1430,7 @@
       old: 'auto',
       oldGold: 275000,
       oldMc: 11.0,
-      tab: 'decide',
+      tab: 'compare',
       inspect: 'S3',
       pinnedInspect: false,
       pieces: { c: 24, r: 8, e1: 20, e2: 13, e3: 0 },
@@ -1232,12 +1447,12 @@
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return structuredClone(DEFAULT_STATE);
-        const parsed = JSON.parse(raw);
+        const p = JSON.parse(raw);
         return {
           ...structuredClone(DEFAULT_STATE),
-          ...parsed,
-          pieces: { ...DEFAULT_STATE.pieces, ...(parsed.pieces || {}) },
-          checks: { ...(parsed.checks || {}) }
+          ...p,
+          pieces: { ...DEFAULT_STATE.pieces, ...(p.pieces || {}) },
+          checks: { ...(p.checks || {}) }
         };
       } catch {
         return structuredClone(DEFAULT_STATE);
@@ -1255,18 +1470,21 @@
         t = sysDark ? 'dark' : 'light';
       }
       document.documentElement.setAttribute('data-theme', t);
-      document.getElementById('themeBtn').textContent = t === 'dark' ? '☀' : '☾';
+      const icon = document.getElementById('themeIcon');
+      icon.innerHTML = t === 'dark'
+        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
     }
 
-    const fmtINR = (n, sign = false) => {
+    const fmtINR = (n, showSign = false) => {
       const a = Math.round(Math.abs(n));
-      const p = (n < 0 && a > 0) ? '−' : (sign && n > 0 && a > 0 ? '+' : '');
+      const p = (n < 0 && a > 0) ? '-' : (showSign && n > 0 && a > 0 ? '+' : '');
       return p + '₹' + a.toLocaleString('en-IN');
     };
 
     const fmtL = (n) => {
       const a = Math.abs(n);
-      const p = n < 0 ? '−' : '';
+      const p = (n < 0 && a >= 1) ? '-' : '';
       if (a >= 100000) return p + '₹' + (a / 100000).toFixed(2) + 'L';
       if (a >= 1000) return p + '₹' + (a / 1000).toFixed(1) + 'k';
       return p + '₹' + Math.round(a);
@@ -1398,10 +1616,8 @@
     }
 
     function syncControls() {
-      document.getElementById('headerMeta').textContent =
-        `Booked ₹${state.R0.toLocaleString('en-IN')}/g · Max ${state.W_MAX}g · Adv ${fmtL(state.ADVANCE)}`;
-      document.getElementById('bookedTickLabel').textContent = `₹${state.R0.toLocaleString('en-IN')} (Booked)`;
-
+      document.getElementById('headerMeta').textContent = `Booked ₹${state.R0.toLocaleString('en-IN')}/g · Max ${state.W_MAX}g · Adv ${fmtL(state.ADVANCE)}`;
+      document.getElementById('bookedScaleLbl').textContent = `₹${state.R0.toLocaleString('en-IN')} booked`;
       document.getElementById('rateInput').value = state.R1;
       document.getElementById('rateSlider').value = Math.max(9500, Math.min(17000, state.R1));
       document.getElementById('inpR0').value = state.R0;
@@ -1420,280 +1636,253 @@
       document.getElementById('pwEx2').value = state.pieces.e2;
       document.getElementById('pwEx3').value = state.pieces.e3;
 
-      document.querySelectorAll('.seg-btn[data-group]').forEach(b => {
-        const g = b.dataset.group;
-        b.classList.toggle('active', String(state[g]) === b.dataset.val);
-      });
-      document.querySelectorAll('.chip[data-preset]').forEach(c => {
-        c.classList.toggle('active', Number(c.dataset.preset) === state.R1);
-      });
+      document.querySelectorAll('.seg-opt[data-group]').forEach(b => b.classList.toggle('active', String(state[b.dataset.group]) === b.dataset.val));
+      document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.classList.toggle('active', Number(b.dataset.preset) === state.R1));
       document.querySelectorAll('[data-tab]').forEach(b => {
-        b.classList.toggle('active', b.dataset.tab === state.tab);
+        const active = b.dataset.tab === state.tab;
+        b.classList.toggle('active', active);
+        if (b.getAttribute('role') === 'tab') b.setAttribute('aria-selected', String(active));
       });
-      document.querySelectorAll('.view-pane').forEach(p => {
-        p.classList.toggle('hidden', p.id !== 'view-' + state.tab);
-      });
-      document.querySelectorAll('[data-inspect]').forEach(b => {
-        b.classList.toggle('active', b.dataset.inspect === state.inspect);
-      });
+      document.querySelectorAll('.view-pane').forEach(p => p.classList.toggle('hidden', p.id !== 'view-' + state.tab));
+      document.querySelectorAll('[data-inspect]').forEach(b => b.classList.toggle('active', b.dataset.inspect === state.inspect));
     }
 
     function renderVerdict(data, th) {
       const delta = state.R1 - state.R0;
-      const dPill = document.getElementById('rateDeltaPill');
-      dPill.textContent = `${fmtINR(delta, true)} (${delta >= 0 ? '+' : ''}${((delta / state.R0) * 100).toFixed(1)}%)`;
-      dPill.className = 'delta-pill mono ' + (delta > 0 ? 'c-green' : (delta < 0 ? 'c-amber' : 'c-muted'));
+      const dEl = document.getElementById('deltaReadout');
+      dEl.textContent = `${fmtINR(delta, true)} (${delta >= 0 ? '+' : ''}${((delta / state.R0) * 100).toFixed(1)}%)`;
+      dEl.className = 'delta-text mono ' + (delta > 0 ? 'c-pos' : (delta < 0 ? 'c-warn' : 'c-muted'));
 
-      document.getElementById('effGoldLbl').textContent = `Gold @ ₹${Math.min(state.R0, state.R1).toLocaleString('en-IN')}/g`;
-      document.getElementById('resaleRateLbl').textContent = `₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
-      document.getElementById('setupOldSummary').textContent =
-        `All-in paid last year: ${fmtINR(data.oldC.totalPaid)} (Gold ${fmtINR(data.oldC.gold)} + MC ${fmtINR(data.oldC.mc)} + GST ${fmtINR(data.oldC.gst)})`;
+      document.getElementById('billedGoldLbl').textContent = `Gold @ ₹${Math.min(state.R0, state.R1).toLocaleString('en-IN')}/g`;
+      document.getElementById('buybackRateLbl').textContent = `₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
+      document.getElementById('setupOldInfo').textContent = `Paid last year: ${fmtINR(data.oldC.totalPaid)} (Gold ${fmtINR(data.oldC.gold)} + MC ${fmtINR(data.oldC.mc)} + GST ${fmtINR(data.oldC.gst)})`;
 
-      const vBadge = document.getElementById('verdictBadge');
-      const vHead = document.getElementById('verdictHeadline');
-      const vSub = document.getElementById('verdictSub');
+      const tag = document.getElementById('verdictTag');
+      const title = document.getElementById('verdictTitle');
+      const desc = document.getElementById('verdictDesc');
       const win = data[data.best];
 
       if (data.best === 'S1') {
-        vBadge.className = 'badge badge-amber';
-        vBadge.textContent = 'Regime 1 · Buy 32g Only';
-        vHead.textContent = 'Buy only your 24g chain + 8g ring (32g). Skip extra resale.';
-        vSub.textContent = state.R1 <= state.R0
-          ? `Lower market rate applies (${fmtINR(data.S1.bill)}). Flipping extra gold loses ${fmtINR(-data.S2.overS1)}.`
-          : `Rate lock saves ${fmtINR(data.S1.saveWalkIn)} vs walk-in. Extra ₹7.5L flip still loses ${fmtINR(-data.S2.overS1)} vs S1.`;
+        tag.className = 'tag tag-warn';
+        tag.textContent = 'Regime 1 · Buy 32g only';
+        title.textContent = 'Buy only your 24g chain and 8g ring.';
+        desc.textContent = state.R1 <= state.R0
+          ? `Lower market rate applies (${fmtINR(data.S1.bill)}). Buying extra gold to resell loses ${fmtINR(-data.S2.overS1)}.`
+          : `Rate lock saves ${fmtINR(data.S1.saveWalkIn)} vs walk-in. Extra ₹7.5L resale still loses ${fmtINR(-data.S2.overS1)} compared to S1.`;
       } else if (data.best === 'S2') {
-        vBadge.className = 'badge badge-blue';
-        vBadge.textContent = 'Regime 2 · ₹7.5L Sweet Spot';
-        vHead.textContent = `Buy ${data.S2.totalW.toFixed(1)}g (${state.mcDisc}% MC), sell ${data.S2.wEx.toFixed(1)}g extra — stop before ${state.W_MAX}g.`;
-        vSub.textContent = `${fmtINR(data.S1.saveWalkIn)} rate-lock saving + ${fmtINR(data.S2.overS1)} extra from unlocking ${state.mcDisc}% MC. Max 102g only beats S2 above ${fmtINR(th.rFlip)}/g.`;
+        tag.className = 'tag tag-info';
+        tag.textContent = 'Regime 2 · ₹7.5L tier';
+        title.textContent = `Buy ${data.S2.totalW.toFixed(1)}g (${state.mcDisc}% MC) and sell ${data.S2.wEx.toFixed(1)}g extra.`;
+        desc.textContent = `Unlocks ${state.mcDisc}% MC on your kept 24g chain (${fmtINR(data.S2.overS1, true)} over S1). Stop before ${state.W_MAX}g; full booking only beats S2 above ${fmtINR(th.rFlip)}/g.`;
       } else {
-        vBadge.className = 'badge badge-green';
-        vBadge.textContent = 'Regime 3 · Max Out Booking';
-        vHead.textContent = `Buy full ${state.W_MAX}g (${state.mcDisc}% MC), keep 32g, sell ${data.S3.wEx.toFixed(1)}g extra.`;
-        vSub.textContent = `Every extra gram earns pure cash profit (${fmtINR(data.S3.flipPL, true)} on ${data.S3.wEx.toFixed(1)}g) plus ${fmtINR(data.S1.chain.total - data.S3.chain.total)} MC saved on your 24g chain.`;
+        tag.className = 'tag tag-pos';
+        tag.textContent = 'Regime 3 · Max booking';
+        title.textContent = `Max out ${state.W_MAX}g (${state.mcDisc}% MC) and sell ${data.S3.wEx.toFixed(1)}g extra.`;
+        desc.textContent = `Every extra gram nets resale profit (${fmtINR(data.S3.flipPL, true)} on ${data.S3.wEx.toFixed(1)}g) plus ${fmtINR(data.S1.chain.total - data.S3.chain.total)} MC saved on your 24g chain.`;
       }
 
-      const kSaved = document.getElementById('kpiSaved');
-      kSaved.textContent = fmtINR(win.saveWalkIn, true);
-      kSaved.className = 'kpi-val mono ' + (win.saveWalkIn > 0 ? 'c-green' : 'c-muted');
+      const hSaved = document.getElementById('heroSaved');
+      hSaved.textContent = fmtINR(win.saveWalkIn, true);
+      hSaved.className = 'stat-hero mono ' + (win.saveWalkIn > 0 ? 'c-pos' : 'c-muted');
 
-      document.getElementById('kpiNetLbl').textContent = data.effectiveOld === 'sell' ? 'Net Outflow (incl. Old)' : 'Net Cost (32g)';
-      const kNet = document.getElementById('kpiNet');
-      kNet.textContent = win.net < 0 ? '+' + fmtINR(-win.net) + ' Profit' : fmtINR(win.net);
-      kNet.className = 'kpi-val mono ' + (win.net < 0 ? 'c-green' : '');
+      document.getElementById('figNetLbl').textContent = data.effectiveOld === 'sell' ? 'Net outlay (old 24g sold)' : 'Net cost (32g kept)';
+      const fNet = document.getElementById('figNetVal');
+      fNet.textContent = win.net < 0 ? '+' + fmtINR(-win.net) : fmtINR(win.net);
+      fNet.className = 'figure-val mono ' + (win.net < 0 ? 'c-pos' : '');
+      document.getElementById('figNetSub').textContent = win.net < 0 ? 'Net cash profit' : `Walk-in ${fmtL(data.S0.net)}`;
+      document.getElementById('figBankVal').textContent = fmtL(win.bank);
+      document.getElementById('figBankSub').textContent = `+ ${fmtL(win.cash)} cash`;
 
-      document.getElementById('kpiBank').textContent = fmtL(win.bank);
-
-      // Existing 24g Chain Verdict
-      const oBadge = document.getElementById('oldBadge');
-      const oMet = document.getElementById('oldMetrics');
-      const oMsg = document.getElementById('oldVerdictMsg');
-      oMet.textContent = `Sale ${fmtINR(data.oldSale)} · vs Paid: ${fmtINR(data.oldHistPL, true)} · Swap: ${fmtINR(data.oldSwapPL, true)}`;
+      // Old 24g chain recommendation
+      const oTag = document.getElementById('oldTag');
+      const oNums = document.getElementById('oldNums');
+      const oNote = document.getElementById('oldNote');
+      oNums.innerHTML = `<span class="nowrap">Sale ${fmtINR(data.oldSale)}</span><span class="nowrap">vs Paid: ${fmtINR(data.oldHistPL, true)}</span><span class="nowrap">Swap: ${fmtINR(data.oldSwapPL, true)}</span>`;
 
       if (data.oldSwapPL < 0 && data.oldHistPL < 0) {
-        oBadge.className = 'badge badge-red';
-        oBadge.textContent = 'Old 24g · Keep Untouched';
-        oMsg.textContent = `Do not sell: resale is ${fmtINR(-data.oldHistPL)} below your ${fmtINR(data.oldC.totalPaid)} bill from last year and loses ${fmtINR(-data.oldSwapPL)} on replacement. Wait for ${fmtINR(th.rOldSellRec)}+/g.` + (state.old === 'sell' ? ' (Forced Sell is ON in Setup.)' : '');
+        oTag.className = 'tag tag-neg';
+        oTag.textContent = 'Old 24g · Keep untouched';
+        oNote.textContent = `Do not sell: resale is ${fmtINR(-data.oldHistPL)} below your ${fmtINR(data.oldC.totalPaid)} bill from last year and loses ${fmtINR(-data.oldSwapPL)} on replacement. Wait for ${fmtINR(th.rOldSellRec)}+/g.` + (state.old === 'sell' ? ' Forced Sell is currently enabled in Setup.' : '');
       } else if (data.oldSwapPL >= 0 && data.oldHistPL < 0) {
-        oBadge.className = 'badge badge-amber';
-        oBadge.textContent = 'Old 24g · Keep (Below Paid)';
-        oMsg.textContent = `Swap is cash-positive (${fmtINR(data.oldSwapPL, true)}), but resale is still ${fmtINR(-data.oldHistPL)} short of last year's ${fmtINR(data.oldC.totalPaid)} bill. Full breakeven at ${fmtINR(th.rOldHistBE)}/g.`;
+        oTag.className = 'tag tag-warn';
+        oTag.textContent = 'Old 24g · Keep (below paid)';
+        oNote.textContent = `Swap is cash-positive (${fmtINR(data.oldSwapPL, true)}), but resale is still ${fmtINR(-data.oldHistPL)} below your ${fmtINR(data.oldC.totalPaid)} bill. Full breakeven starts at ${fmtINR(th.rOldHistBE)}/g.`;
       } else if (data.oldHistPL >= 0 && data.oldSwapPL < 0) {
-        oBadge.className = 'badge badge-amber';
-        oBadge.textContent = 'Old 24g · Keep (High New MC)';
-        oMsg.textContent = `Resale beats last year's bill (${fmtINR(data.oldHistPL, true)}), but replacing at ${state.mcStd}% MC loses ${fmtINR(-data.oldSwapPL)}. Needs ₹7.5L discount or ${fmtINR(th.rFlipStd)}+/g.`;
+        oTag.className = 'tag tag-warn';
+        oTag.textContent = 'Old 24g · Keep (high MC)';
+        oNote.textContent = `Resale beats last year's bill (${fmtINR(data.oldHistPL, true)}), but replacing at ${state.mcStd}% MC loses ${fmtINR(-data.oldSwapPL)}. Cross ₹7.5L or wait for ${fmtINR(th.rFlipStd)}+/g.`;
       } else if (state.R1 >= th.rDoubleDisc) {
-        oBadge.className = 'badge badge-green';
-        oBadge.textContent = 'Old 24g · Strong Sell & Swap';
-        oMsg.textContent = `Recovers BOTH last year's ${fmtINR(data.oldC.friction)} MC+GST AND the new chain's MC+GST (+${fmtINR(data.oldSwapPL)} swap cash, ${fmtINR(data.oldHistPL, true)} above last year's bill).`;
+        oTag.className = 'tag tag-pos';
+        oTag.textContent = 'Old 24g · Strong sell & swap';
+        oNote.textContent = `Recovers both last year's ${fmtINR(data.oldC.friction)} MC+GST and the new chain's MC+GST (${fmtINR(data.oldSwapPL, true)} swap profit, ${fmtINR(data.oldHistPL, true)} over last year's bill).`;
       } else {
-        oBadge.className = 'badge badge-green';
-        oBadge.textContent = 'Old 24g · Sell & Swap Recommended';
-        oMsg.textContent = `If retaining only 1 chain + 1 ring: recovers full ${fmtINR(data.oldC.totalPaid)} paid (${fmtINR(data.oldHistPL, true)}), earns ${fmtINR(data.oldSwapPL, true)} swap profit, and frees ${fmtL(data.oldSale)} upfront.`;
+        oTag.className = 'tag tag-pos';
+        oTag.textContent = 'Old 24g · Sell & swap';
+        oNote.textContent = `If keeping 1 chain and 1 ring after the wedding: recovers your full ${fmtINR(data.oldC.totalPaid)} bill (${fmtINR(data.oldHistPL, true)}), adds ${fmtINR(data.oldSwapPL, true)} swap cash, and frees ${fmtL(data.oldSale)} upfront.`;
       }
 
-      // Ruler
+      // Minimal 10px regime track
       const minR = 10000, maxR = 16500;
       const pct = (r) => Math.max(0, Math.min(100, ((r - minR) / (maxR - minR)) * 100));
       const pT = th.rTier ? pct(th.rTier) : 100;
       const pF = pct(th.rFlip);
-      const pO = pct(th.rOldSellRec);
       const pC = pct(state.R1);
 
-      document.getElementById('rulerThresholds').textContent =
-        `₹7.5L: ${th.rTier ? fmtINR(th.rTier) : '—'} · Max: ${fmtINR(th.rFlip)} · Old 24g: ${fmtINR(th.rOldSellRec)}`;
-
-      document.getElementById('regimeRuler').innerHTML = `
-        <div class="ruler-seg" style="width:${pT}%;background:var(--amber-soft);color:var(--amber);border-right:1px dashed var(--amber);">${pT > 16 ? '32g' : ''}</div>
-        <div class="ruler-seg" style="width:${Math.max(0, pF - pT)}%;background:var(--blue-soft);color:var(--blue);border-right:1px dashed var(--green);">${(pF - pT) > 10 ? '₹7.5L' : ''}</div>
-        <div class="ruler-seg" style="width:${Math.max(0, 100 - pF)}%;background:var(--green-soft);color:var(--green);">${(100 - pF) > 18 ? 'Max 102g' : ''}</div>
-        ${th.rOldSellRec >= minR && th.rOldSellRec <= maxR ? `<div style="position:absolute;top:0;bottom:0;left:${pO}%;border-left:1.5px dashed var(--gold);pointer-events:none;"></div>` : ''}
-        <div class="ruler-pin" style="left:${pC}%;"></div>
+      document.getElementById('regimeSummary').textContent = `₹7.5L: ${th.rTier ? fmtINR(th.rTier) : 'N/A'} · Max: ${fmtINR(th.rFlip)} · Old 24g: ${fmtINR(th.rOldSellRec)}`;
+      document.getElementById('regimeTrack').innerHTML = `
+        <div class="regime-seg" style="width:${pT}%;background:var(--warn-bg);border-right:1px solid var(--warn);"></div>
+        <div class="regime-seg" style="width:${Math.max(0, pF - pT)}%;background:var(--info-bg);border-right:1px solid var(--accent);"></div>
+        <div class="regime-seg" style="width:${Math.max(0, 100 - pF)}%;background:var(--pos-bg);"></div>
+        <div class="regime-marker" style="left:${pC}%;"></div>
       `;
     }
 
-    function renderCardsAndInspector(data) {
+    function renderReceiptRows(s) {
+      const mcLbl = (s.mcNonRing * 100).toFixed((s.mcNonRing * 100) % 1 === 0 ? 0 : 1);
+      const mk = (name, it) => `
+        <div class="rcpt-row">
+          <div class="rcpt-main"><span>${name}</span><strong class="mono">${fmtINR(it.total)}</strong></div>
+          <div class="rcpt-detail mono"><span class="nowrap">Gold ${fmtINR(it.gold)}</span><span class="nowrap">MC ${fmtINR(it.mc)}</span><span class="nowrap">GST ${fmtINR(it.gst)}</span></div>
+        </div>`;
+      let html = mk(`24g Chain (${mcLbl}%)`, s.chain) + mk(`8g Ring (18%)`, s.ring);
+      if (s.wEx > 0.001) html += mk(`Extra ${s.wEx.toFixed(2)}g (${mcLbl}%)`, s.extra);
+      return html;
+    }
+
+    function renderCompareAndReceipt(data) {
       const specs = [
-        { s: data.S0, title: 'Walk-In 32g', sub: 'No booking / full R1', mc: `${state.mcStd}% MC` },
-        { s: data.S1, title: 'S1 · Booked 32g', sub: 'Sell 0g extra', mc: `${state.mcStd}% MC` },
-        { s: data.S2, title: `S2 · ₹7.5L (${data.S2.totalW.toFixed(1)}g)`, sub: `Sell ${data.S2.wEx.toFixed(1)}g extra`, mc: `${state.mcDisc}% MC` },
-        { s: data.S3, title: `S3 · Max ${state.W_MAX}g`, sub: `Sell ${data.S3.wEx.toFixed(1)}g extra`, mc: `${state.mcDisc}% MC` }
+        { s: data.S0, name: 'Walk-in 32g (Baseline)', sub: `No booking, full ${fmtINR(state.R1)}/g, ${state.mcStd}% MC` },
+        { s: data.S1, name: 'S1 · Booked 32g', sub: `Rate lock, ${state.mcStd}% MC, sell 0g` },
+        { s: data.S2, name: `S2 · ₹7.5L (${data.S2.totalW.toFixed(1)}g)`, sub: `${state.mcDisc}% MC, sell ${data.S2.wEx.toFixed(1)}g extra` },
+        { s: data.S3, name: `S3 · Max ${state.W_MAX}g`, sub: `${state.mcDisc}% MC, sell ${data.S3.wEx.toFixed(1)}g extra` }
       ];
 
-      document.getElementById('stratGrid').innerHTML = specs.map(({ s, title, sub, mc }) => {
+      document.getElementById('stratList').innerHTML = specs.map(({ s, name, sub }) => {
         const isBest = s.id === data.best;
         const isSel = s.id === state.inspect;
-        const netTxt = s.net < 0 ? '+' + fmtINR(-s.net) + ' Profit' : fmtINR(s.net);
-        const saveClr = s.saveWalkIn > 0 ? 'c-green' : (s.saveWalkIn < 0 ? 'c-red' : 'c-muted');
+        const netTxt = s.net < 0 ? '+' + fmtINR(-s.net) + ' profit' : fmtINR(s.net);
+        const saveCls = s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
         return `
-          <article class="strat-card ${isSel ? 'is-selected' : ''}" data-pick-card="${s.id}">
-            <div class="strat-head">
+          <button type="button" class="strat-row ${isSel ? 'is-selected' : ''}" data-agent="strat-${s.id}" data-pick="${s.id}">
+            <div class="strat-top">
               <div>
-                <div class="strat-title">${title} ${isBest ? '<span class="badge badge-green" style="padding:2px 6px;font-size:10px;margin-left:3px;">Best</span>' : ''}</div>
+                <div class="strat-name">${name}${isBest ? '<span class="tag tag-pos" style="height:20px;font-size:10px;">Best</span>' : ''}</div>
                 <div class="strat-sub">${sub}</div>
               </div>
-              <span class="mc-tag mono">${mc}</span>
-            </div>
-            <div class="strat-net mono ${s.net < 0 ? 'c-green' : ''}">${netTxt}</div>
-            <div class="kv-list">
-              <div class="kv"><span>Showroom Bill</span><span class="mono fw-700">${fmtINR(s.bill)}</span></div>
-              <div class="kv"><span>Cash / Bank</span><span class="mono">${fmtL(s.cash)} / ${fmtL(s.bank)}</span></div>
-              ${s.wEx > 0.001 ? `<div class="kv"><span>Flip P/L</span><span class="mono fw-700 ${s.flipPL >= 0 ? 'c-green' : 'c-amber'}">${fmtINR(s.flipPL, true)}</span></div>` : `<div class="kv"><span>Gold Rate</span><span class="mono">${s.isWalkIn ? fmtINR(state.R1) : fmtINR(Math.min(state.R0, state.R1))}/g</span></div>`}
-              <div class="kv" style="padding-top:4px;border-top:1px solid var(--border);margin-top:2px;">
-                <span class="fw-700">${s.isWalkIn ? 'Baseline' : 'Saved vs Walk-In'}</span>
-                <span class="mono fw-800 ${saveClr}">${s.isWalkIn ? '₹0 Ref' : fmtINR(s.saveWalkIn, true)}</span>
+              <div class="strat-price">
+                <div class="strat-net mono ${s.net < 0 ? 'c-pos' : ''}">${netTxt}</div>
+                <div class="strat-save mono ${saveCls}">${s.isWalkIn ? 'Reference' : fmtINR(s.saveWalkIn, true)}</div>
               </div>
             </div>
-          </article>
-        `;
+            <div class="strat-meta mono">
+              <span class="nowrap">Bill ${fmtINR(s.bill)}</span>
+              <span class="nowrap">Bank ${fmtL(s.bank)}</span>
+              ${s.wEx > 0.001 ? `<span class="nowrap ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">Flip ${fmtINR(s.flipPL, true)}</span>` : ''}
+            </div>
+          </button>`;
       }).join('');
 
-      document.querySelectorAll('[data-pick-card]').forEach(el => {
+      document.querySelectorAll('[data-pick]').forEach(el => {
         el.addEventListener('click', () => {
-          state.inspect = el.dataset.pickCard;
+          state.inspect = el.dataset.pick;
           state.pinnedInspect = true;
           update();
         });
       });
 
-      // Inspector details
       const s = data[state.inspect];
-      const lbls = {
-        S0: 'Walk-In 32g (No Scheme / No Booking)',
-        S1: 'S1 · Booked 32g Only (No Resale)',
-        S2: `S2 · ₹7.5L Tier (${s.totalW.toFixed(2)}g) & Sell ${s.wEx.toFixed(2)}g`,
-        S3: `S3 · Max ${state.W_MAX}g & Sell ${s.wEx.toFixed(2)}g`
+      const names = {
+        S0: 'Walk-in 32g without booking scheme',
+        S1: 'S1: Booked 32g only (no resale)',
+        S2: `S2: ₹7.5L tier (${s.totalW.toFixed(2)}g), sell ${s.wEx.toFixed(2)}g`,
+        S3: `S3: Max booking (${state.W_MAX}g), sell ${s.wEx.toFixed(2)}g`
       };
-      document.getElementById('inspSubtitle').textContent = lbls[s.id];
-      document.getElementById('inspBuyTitle').textContent = s.isWalkIn ? 'Step 1 · Walk-In Counter (No Scheme)' : 'Step 1 · At Showroom (Using Booking)';
+      document.getElementById('inspHeading').textContent = names[s.id];
+      document.getElementById('inspBuyTitle').textContent = s.isWalkIn ? 'Step 1: Walk-in purchase' : 'Step 1: Showroom purchase';
       document.getElementById('inspBuyWt').textContent = `${s.totalW.toFixed(2)}g`;
-      document.getElementById('inspResaleRate').textContent = `Resale @ ₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
-
-      const mcLbl = (s.mcNonRing * 100).toFixed((s.mcNonRing * 100) % 1 === 0 ? 0 : 1);
-      const mkRow = (name, it) => `<tr><td style="font-family:var(--font-sans);">${name}</td><td class="num">${fmtINR(it.gold)}</td><td class="num">${fmtINR(it.mc)}</td><td class="num">${fmtINR(it.gst)}</td><td class="num fw-700">${fmtINR(it.total)}</td></tr>`;
-      let rows = mkRow(`24g Chain (${mcLbl}%)`, s.chain) + mkRow(`8g Ring (18%)`, s.ring);
-      if (s.wEx > 0.001) rows += mkRow(`Extra ${s.wEx.toFixed(2)}g (${mcLbl}%)`, s.extra);
-      document.getElementById('inspBuyRows').innerHTML = rows;
+      document.getElementById('inspResaleRate').textContent = `Resale ₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
+      document.getElementById('inspBuyRows').innerHTML = renderReceiptRows(s);
 
       const lockAmt = Math.max(0, state.ADVANCE - 0.10 * s.goldVal);
       document.getElementById('inspSettlement').innerHTML = s.isWalkIn ? `
-        <div class="kv fw-700"><span>Total Walk-In Bill</span><span class="mono">${fmtINR(s.bill)}</span></div>
-        <div class="kv"><span>Max Cash / Bank Transfer</span><span class="mono">${fmtINR(s.cash)} + ${fmtINR(s.bank)}</span></div>
+        <div class="kv kv-total"><span>Total walk-in bill</span><span class="mono">${fmtINR(s.bill)}</span></div>
+        <div class="kv"><span>Cash at counter (₹1.90L cap)</span><span class="mono">${fmtINR(s.cash)}</span></div>
+        <div class="kv"><span>Bank transfer (RTGS / IMPS)</span><span class="mono">${fmtINR(s.bank)}</span></div>
       ` : `
-        <div class="kv fw-700"><span>Gross Showroom Bill (Gold: ${fmtINR(s.goldVal)})</span><span class="mono">${fmtINR(s.bill)}</span></div>
-        <div class="kv"><span>Less: Advance Paid</span><span class="mono">−${fmtINR(state.ADVANCE)}</span></div>
-        <div class="kv fw-700"><span>Balance Due at Counter</span><span class="mono">${fmtINR(s.bal)}</span></div>
-        <div class="kv"><span>Max Cash (₹1.90L) / Bank Transfer</span><span class="mono">${fmtINR(s.cash)} + ${fmtINR(s.bank)}</span></div>
-        ${lockAmt > 500 ? `<div class="warn-box">⚠ Confirm Clause 2: if advance is applied 10% pro-rata, ${fmtINR(lockAmt)} could remain carried forward.</div>` : ''}
+        <div class="kv fw-600"><span>Gross bill (Gold ${fmtINR(s.goldVal)})</span><span class="mono">${fmtINR(s.bill)}</span></div>
+        <div class="kv"><span>Less advance paid</span><span class="mono">-${fmtINR(state.ADVANCE)}</span></div>
+        <div class="kv kv-total"><span>Balance due at counter</span><span class="mono">${fmtINR(s.bal)}</span></div>
+        <div class="kv"><span>Cash at counter (₹1.90L cap)</span><span class="mono">${fmtINR(s.cash)}</span></div>
+        <div class="kv"><span>Bank transfer (RTGS / IMPS)</span><span class="mono">${fmtINR(s.bank)}</span></div>
+        ${lockAmt > 500 ? `<div class="note-inline">Confirm Clause 2 before billing: if advance applies 10% pro-rata instead of closing in full, ${fmtINR(lockAmt)} could remain carried forward.</div>` : ''}
       `;
 
-      let rList = '';
+      let rRows = '';
       if (s.isWalkIn) {
-        rList = `<div class="c-muted" style="font-size:12.5px;">Unbooked reference bill at full ${fmtINR(state.R1)}/g with ${state.mcStd}% MC on chain and 18% MC on ring.</div>`;
+        rRows = `<div class="c-muted">Reference cost at full ${fmtINR(state.R1)}/g with ${state.mcStd}% MC on the 24g chain and 18% MC on the 8g ring.</div>`;
       } else {
-        const rateSave = data.S0.bill - data.S1.bill;
-        rList += `<div class="kv"><span>1. Booking Rate-Lock Saving (32g)</span><span class="mono fw-700 ${rateSave > 0 ? 'c-green' : 'c-muted'}">${fmtINR(rateSave, true)}</span></div>`;
+        const lockSave = data.S0.bill - data.S1.bill;
+        rRows += `<div class="kv"><span>1. Booking rate-lock saving (32g)</span><span class="mono fw-600 ${lockSave > 0 ? 'c-pos' : 'c-muted'}">${fmtINR(lockSave, true)}</span></div>`;
         if (s.id !== 'S1') {
-          rList += `<div class="kv"><span>2. ₹7.5L MC Discount (24g Chain)</span><span class="mono fw-700 c-green">+${fmtINR(data.S1.chain.total - s.chain.total)}</span></div>`;
+          rRows += `<div class="kv"><span>2. ₹7.5L MC discount on 24g chain</span><span class="mono fw-600 c-pos">+${fmtINR(data.S1.chain.total - s.chain.total)}</span></div>`;
         }
         if (s.wEx > 0.001) {
-          rList += `<div class="kv"><span>3. Sell Extra ${s.wEx.toFixed(2)}g → ${fmtINR(s.extraResale)} (P/L)</span><span class="mono fw-700 ${s.flipPL >= 0 ? 'c-green' : 'c-amber'}">${fmtINR(s.flipPL, true)}</span></div>`;
+          rRows += `<div class="kv"><span>3. Sell extra ${s.wEx.toFixed(2)}g (${fmtINR(s.extraResale)}) P/L</span><span class="mono fw-600 ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(s.flipPL, true)}</span></div>`;
         }
       }
       if (data.effectiveOld === 'sell') {
         const sw = data.oldProc - s.chain.total;
-        rList += `
-          <div class="kv" style="padding-top:6px;border-top:1px solid var(--border);margin-top:4px;"><span>Sell Old 24g Chain</span><span class="mono fw-700">+${fmtINR(data.oldProc)}</span></div>
-          <div class="kv"><span>vs Paid Last Year (${fmtINR(data.oldC.totalPaid)})</span><span class="mono fw-700 ${data.oldHistPL >= 0 ? 'c-green' : 'c-red'}">${fmtINR(data.oldHistPL, true)}</span></div>
-          <div class="kv"><span>Swap P/L vs New 24g</span><span class="mono fw-700 ${sw >= 0 ? 'c-green' : 'c-red'}">${fmtINR(sw, true)}</span></div>
-        `;
+        rRows += `
+          <div class="kv" style="padding-top:6px;border-top:1px solid var(--border);"><span>Sell old 24g chain</span><span class="mono fw-600">+${fmtINR(data.oldProc)}</span></div>
+          <div class="kv"><span>vs Paid last year (${fmtINR(data.oldC.totalPaid)})</span><span class="mono fw-600 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>
+          <div class="kv"><span>Swap P/L vs new 24g</span><span class="mono fw-600 ${sw >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(sw, true)}</span></div>`;
       }
-      document.getElementById('inspResaleList').innerHTML = rList;
+      document.getElementById('inspResaleRows').innerHTML = rRows;
 
       const totSold = s.wEx + (data.effectiveOld === 'sell' ? W_CHAIN : 0);
       const totRec = s.extraResale + data.oldProc;
       document.getElementById('inspOutcome').innerHTML = `
-        <div class="kv"><span>Total Sold (${totSold.toFixed(1)}g) → Recovered</span><span class="mono fw-700">${fmtINR(totRec)}</span></div>
-        <div class="kv"><span>Retained Gold After Wedding</span><span>${data.effectiveOld === 'sell' ? '32g (New 24g + 8g)' : '56g (Old 24g + New 32g)'}</span></div>
-        <div class="kv fw-800" style="font-size:14px;padding-top:4px;">
-          <span>${s.net < 0 ? 'Final NET CASH PROFIT' : 'Final Net Cost'}</span>
-          <span class="mono ${s.net < 0 ? 'c-green' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span>
-        </div>
-        <div class="kv fw-700">
-          <span>Total Saved vs Walk-In</span>
-          <span class="mono ${s.saveWalkIn > 0 ? 'c-green' : (s.saveWalkIn < 0 ? 'c-red' : 'c-muted')}">${s.isWalkIn ? 'Reference (₹0)' : fmtINR(s.saveWalkIn, true)}</span>
-        </div>
-      `;
+        <div class="kv"><span>Total sold (${totSold.toFixed(1)}g) recovered</span><span class="mono fw-600">${fmtINR(totRec)}</span></div>
+        <div class="kv"><span>Gold retained after wedding</span><span>${data.effectiveOld === 'sell' ? '32g (New 24g + 8g)' : '56g (Old 24g + New 32g)'}</span></div>
+        <div class="kv kv-total"><span>${s.net < 0 ? 'Final net cash profit' : 'Final net cost'}</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
+        <div class="kv fw-600"><span>Saved vs walk-in (${fmtINR(data.S0.net)})</span><span class="mono ${s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted')}">${s.isWalkIn ? 'Reference (₹0)' : fmtINR(s.saveWalkIn, true)}</span></div>`;
     }
 
     function buildMathSheetHTML(r, d, stratKey) {
       const id = stratKey === 'BEST' ? d.best : stratKey;
       const s = d[id];
       const mcPct = (s.mcNonRing * 100).toFixed((s.mcNonRing * 100) % 1 === 0 ? 0 : 1);
-      const names = { S0: 'Walk-In 32g (No Scheme)', S1: 'S1 · Booked 32g', S2: `S2 · ₹7.5L (${s.totalW.toFixed(2)}g)`, S3: `S3 · Max ${state.W_MAX}g` };
-      const mkR = (l, it) => `<tr><td style="font-family:var(--font-sans);">${l}</td><td class="num">${fmtINR(it.gold)}</td><td class="num">${fmtINR(it.mc)}</td><td class="num">${fmtINR(it.gst)}</td><td class="num fw-700">${fmtINR(it.total)}</td></tr>`;
-      let rows = mkR(`24g Chain (${mcPct}%)`, s.chain) + mkR(`8g Ring (18%)`, s.ring);
-      if (s.wEx > 0.001) rows += mkR(`Extra ${s.wEx.toFixed(2)}g (${mcPct}%)`, s.extra);
-
+      const names = { S0: 'Walk-in 32g (No scheme)', S1: 'S1: Booked 32g', S2: `S2: ₹7.5L (${s.totalW.toFixed(2)}g)`, S3: `S3: Max ${state.W_MAX}g` };
       return `
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-            <strong style="font-size:13px;">${names[id]} @ <span class="mono">₹${r.toLocaleString('en-IN')}/g</span></strong>
-            <span class="mc-tag mono">${s.isWalkIn ? `Full R1 · ${mcPct}%` : `${mcPct}% MC · ${state.cut}% Cut`}</span>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
+            <strong style="font-size:13.5px;">${names[id]} @ <span class="mono">₹${r.toLocaleString('en-IN')}/g</span></strong>
+            <span class="tag tag-info mono">${s.isWalkIn ? `Full R1 · ${mcPct}% MC` : `${mcPct}% MC · ${state.cut}% cut`}</span>
           </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Item (916)</th><th class="num">Gold</th><th class="num">MC</th><th class="num">GST</th><th class="num">Total</th></tr></thead>
-              <tbody class="mono">${rows}</tbody>
-            </table>
-          </div>
+          <div>${renderReceiptRows(s)}</div>
           <div class="kv-list">
-            <div class="kv fw-700"><span>Total Showroom Bill (${s.totalW.toFixed(2)}g)</span><span class="mono">${fmtINR(s.bill)}</span></div>
-            ${!s.isWalkIn ? `<div class="kv"><span>After ${fmtL(state.ADVANCE)} Adv → Cash / Bank</span><span class="mono">${fmtL(s.cash)} + ${fmtL(s.bank)}</span></div>` : ''}
+            <div class="kv fw-600"><span>Total bill (${s.totalW.toFixed(2)}g)</span><span class="mono">${fmtINR(s.bill)}</span></div>
+            ${!s.isWalkIn ? `<div class="kv"><span>After ${fmtL(state.ADVANCE)} adv (Cash + Bank)</span><span class="mono">${fmtL(s.cash)} + ${fmtL(s.bank)}</span></div>` : ''}
             ${s.wEx > 0.001 ? `
-              <div class="kv"><span>− Sell Extra ${s.wEx.toFixed(2)}g @ ₹${d.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g</span><span class="mono">−${fmtINR(s.extraResale)}</span></div>
-              <div class="kv"><span>↳ Extra Flip P/L</span><span class="mono fw-700 ${s.flipPL >= 0 ? 'c-green' : 'c-amber'}">${fmtINR(s.flipPL, true)}</span></div>
-            ` : ''}
+              <div class="kv"><span>Sell extra ${s.wEx.toFixed(2)}g @ ₹${d.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g</span><span class="mono">-${fmtINR(s.extraResale)}</span></div>
+              <div class="kv"><span>Extra resale P/L</span><span class="mono fw-600 ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(s.flipPL, true)}</span></div>` : ''}
             ${d.effectiveOld === 'sell' ? `
-              <div class="kv"><span>− Sell Old 24g Chain</span><span class="mono">−${fmtINR(d.oldProc)}</span></div>
-              <div class="kv"><span>↳ Old 24g vs Paid (${fmtL(d.oldC.totalPaid)})</span><span class="mono ${d.oldHistPL >= 0 ? 'c-green' : 'c-red'}">${fmtINR(d.oldHistPL, true)}</span></div>
-            ` : ''}
-            <div class="kv fw-800" style="font-size:14px;padding-top:6px;border-top:1px solid var(--border);margin-top:2px;">
-              <span>${s.net < 0 ? '= Final NET PROFIT' : '= Final Net Cost (32g)'}</span>
-              <span class="mono ${s.net < 0 ? 'c-green' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span>
+              <div class="kv"><span>Sell old 24g chain</span><span class="mono">-${fmtINR(d.oldProc)}</span></div>
+              <div class="kv"><span>Old 24g vs paid (${fmtL(d.oldC.totalPaid)})</span><span class="mono ${d.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(d.oldHistPL, true)}</span></div>` : ''}
+            <div class="kv kv-total">
+              <span>${s.net < 0 ? 'Final net cash profit' : 'Final net cost (32g)'}</span>
+              <span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span>
             </div>
             ${!s.isWalkIn ? `
-              <div class="kv fw-700"><span>Saved vs Walk-In (${fmtINR(d.S0.net)})</span><span class="mono ${s.saveWalkIn >= 0 ? 'c-green' : 'c-red'}">${fmtINR(s.saveWalkIn, true)}</span></div>
-              ${id !== 'S1' ? `<div class="kv"><span>Extra vs S1 32g (${fmtINR(d.S1.net)})</span><span class="mono ${s.overS1 >= 0 ? 'c-green' : 'c-red'}">${fmtINR(s.overS1, true)}</span></div>` : ''}
-            ` : ''}
+              <div class="kv fw-600"><span>Saved vs walk-in (${fmtINR(d.S0.net)})</span><span class="mono ${s.saveWalkIn >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(s.saveWalkIn, true)}</span></div>
+              ${id !== 'S1' ? `<div class="kv"><span>Extra vs S1 booked 32g (${fmtINR(d.S1.net)})</span><span class="mono ${s.overS1 >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(s.overS1, true)}</span></div>` : ''}` : ''}
           </div>
-        </div>
-      `;
+        </div>`;
     }
 
-    function renderChartAndTable(th) {
+    function renderRates(th) {
       const svg = document.getElementById('chartSvg');
-      const W = 760, H = 250, pL = 64, pR = 18, pT = 18, pB = 28;
+      const W = 760, H = 260, pL = 56, pR = 28, pT = 22, pB = 32;
       const plotW = W - pL - pR, plotH = H - pT - pB;
       const rMin = 10000, rMax = 16500;
       const pts1 = [], pts2 = [], pts3 = [];
@@ -1701,9 +1890,7 @@
 
       for (let r = rMin; r <= rMax; r += 100) {
         const d = computeAll(r, 'keep');
-        pts1.push([r, d.S1.saveWalkIn]);
-        pts2.push([r, d.S2.saveWalkIn]);
-        pts3.push([r, d.S3.saveWalkIn]);
+        pts1.push([r, d.S1.saveWalkIn]); pts2.push([r, d.S2.saveWalkIn]); pts3.push([r, d.S3.saveWalkIn]);
         yMin = Math.min(yMin, d.S1.saveWalkIn, d.S2.saveWalkIn, d.S3.saveWalkIn);
         yMax = Math.max(yMax, d.S1.saveWalkIn, d.S2.saveWalkIn, d.S3.saveWalkIn);
       }
@@ -1719,47 +1906,44 @@
       const xT = th.rTier ? Math.max(pL, Math.min(W - pR, xOf(th.rTier))) : W - pR;
       const xF = Math.max(pL, Math.min(W - pR, xOf(th.rFlip)));
 
-      let h = '';
-      h += `<rect x="${xT}" y="${pT}" width="${Math.max(0, xF - xT)}" height="${plotH}" fill="var(--blue)" opacity="0.08"/>`;
-      h += `<rect x="${xF}" y="${pT}" width="${Math.max(0, (W - pR) - xF)}" height="${plotH}" fill="var(--green)" opacity="0.09"/>`;
+      let h = `<rect x="${xT}" y="${pT}" width="${Math.max(0, xF - xT)}" height="${plotH}" fill="var(--info)" opacity="0.07"/>` +
+              `<rect x="${xF}" y="${pT}" width="${Math.max(0, (W - pR) - xF)}" height="${plotH}" fill="var(--accent)" opacity="0.08"/>`;
 
       const step = (yMax - yMin) > 380000 ? 100000 : 50000;
       for (let y = Math.ceil(yMin / step) * step; y <= yMax; y += step) {
-        const py = yOf(y);
-        const z = y === 0;
-        h += `<line x1="${pL}" y1="${py}" x2="${W - pR}" y2="${py}" stroke="var(--border-strong)" stroke-width="${z ? 1.4 : 0.7}" ${z ? '' : 'stroke-dasharray="3 3"'} opacity="${z ? 1 : 0.6}"/>`;
-        const lbl = z ? '₹0 (Walk)' : (y > 0 ? `+${Math.round(y / 1000)}k` : `−${Math.round(Math.abs(y) / 1000)}k`);
-        h += `<text x="${pL - 7}" y="${py + 4}" text-anchor="end" font-size="11" fill="${z ? 'var(--text)' : 'var(--text-muted)'}" font-family="monospace">${lbl}</text>`;
+        const py = yOf(y), z = y === 0;
+        h += `<line x1="${pL}" y1="${py}" x2="${W - pR}" y2="${py}" stroke="var(--border-strong)" stroke-width="${z ? 1.4 : 0.7}" ${z ? '' : 'stroke-dasharray="3 3"'}/>`;
+        h += `<text x="${pL - 8}" y="${py + 4}" text-anchor="end" font-size="13" fill="${z ? 'var(--text)' : 'var(--text-muted)'}" font-weight="${z ? '700' : '400'}" font-family="monospace">${z ? '₹0' : (y > 0 ? `+${Math.round(y / 1000)}k` : `-${Math.round(Math.abs(y) / 1000)}k`)}</text>`;
       }
 
       [10000, state.R0, 13000, 14000, 15000, 16500].forEach(r => {
         const px = xOf(r);
         h += `<line x1="${px}" y1="${pT + plotH}" x2="${px}" y2="${pT + plotH + 5}" stroke="var(--border-strong)"/>`;
-        h += `<text x="${px}" y="${H - 7}" text-anchor="middle" font-size="11" fill="${r === state.R0 ? 'var(--text)' : 'var(--text-muted)'}" font-weight="${r === state.R0 ? '700' : '400'}" font-family="monospace">₹${r.toLocaleString('en-IN')}</text>`;
+        const lbl = r === state.R0 ? `₹${r.toLocaleString('en-IN')}` : `₹${(r / 1000).toFixed(r % 1000 === 0 ? 0 : 1)}k`;
+        h += `<text x="${px}" y="${H - 7}" text-anchor="middle" font-size="13" fill="${r === state.R0 ? 'var(--text)' : 'var(--text-muted)'}" font-weight="${r === state.R0 ? '700' : '400'}" font-family="monospace">${lbl}</text>`;
       });
 
       if (th.rTier && th.rTier >= rMin && th.rTier <= rMax) {
-        h += `<line x1="${xT}" y1="${pT}" x2="${xT}" y2="${pT + plotH}" stroke="var(--blue)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
-        h += `<text x="${xT + 4}" y="${pT + 14}" font-size="11" fill="var(--blue)" font-family="monospace">₹7.5L: ₹${Math.round(th.rTier)}</text>`;
+        const tight = (xF - xT) < 120;
+        h += `<line x1="${xT}" y1="${pT}" x2="${xT}" y2="${pT + plotH}" stroke="var(--info)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+        h += `<text x="${tight ? xT - 6 : xT + 6}" y="${pT + 15}" text-anchor="${tight ? 'end' : 'start'}" font-size="12.5" font-weight="600" fill="var(--info)" font-family="monospace">₹7.5L: ₹${Math.round(th.rTier)}</text>`;
       }
       if (th.rFlip >= rMin && th.rFlip <= rMax) {
-        h += `<line x1="${xF}" y1="${pT}" x2="${xF}" y2="${pT + plotH}" stroke="var(--green)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
-        h += `<text x="${xF + 4}" y="${pT + 28}" font-size="11" fill="var(--green)" font-family="monospace">Max: ₹${Math.round(th.rFlip)}</text>`;
+        h += `<line x1="${xF}" y1="${pT}" x2="${xF}" y2="${pT + plotH}" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+        h += `<text x="${xF + 6}" y="${pT + 31}" font-size="12.5" font-weight="600" fill="var(--accent)" font-family="monospace">Max: ₹${Math.round(th.rFlip)}</text>`;
       }
 
-      h += `<path d="${pathOf(pts1)}" fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="5 3"/>`;
-      h += `<path d="${pathOf(pts2)}" fill="none" stroke="var(--blue)" stroke-width="2.4"/>`;
-      h += `<path d="${pathOf(pts3)}" fill="none" stroke="var(--green)" stroke-width="2.6"/>`;
-
-      h += `<line x1="${xC}" y1="${pT}" x2="${xC}" y2="${pT + plotH}" stroke="var(--text)" stroke-width="1.3" opacity="0.55"/>`;
-      h += `<circle cx="${xC}" cy="${yOf(cur.S1.saveWalkIn)}" r="4.5" fill="var(--amber)" stroke="var(--surface)" stroke-width="1.5"/>`;
-      h += `<circle cx="${xC}" cy="${yOf(cur.S2.saveWalkIn)}" r="5" fill="var(--blue)" stroke="var(--surface)" stroke-width="1.6"/>`;
-      h += `<circle cx="${xC}" cy="${yOf(cur.S3.saveWalkIn)}" r="5.5" fill="var(--green)" stroke="var(--surface)" stroke-width="1.8"/>`;
+      h += `<path d="${pathOf(pts1)}" fill="none" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 3"/>`;
+      h += `<path d="${pathOf(pts2)}" fill="none" stroke="var(--info)" stroke-width="2.4"/>`;
+      h += `<path d="${pathOf(pts3)}" fill="none" stroke="var(--accent)" stroke-width="2.6"/>`;
+      h += `<line x1="${xC}" y1="${pT}" x2="${xC}" y2="${pT + plotH}" stroke="var(--text)" stroke-width="1.2" opacity="0.5"/>`;
+      h += `<circle cx="${xC}" cy="${yOf(cur.S1.saveWalkIn)}" r="4.5" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>`;
+      h += `<circle cx="${xC}" cy="${yOf(cur.S2.saveWalkIn)}" r="5" fill="var(--info)" stroke="var(--surface)" stroke-width="1.6"/>`;
+      h += `<circle cx="${xC}" cy="${yOf(cur.S3.saveWalkIn)}" r="5.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.8"/>`;
 
       svg.innerHTML = h;
       svg.dataset.meta = JSON.stringify({ W, pL, pR, rMin, rMax });
 
-      // Table
       const base = [10500, 11000, state.R0, 12000, 12400, 13000, 13715, 14500, 15000, 16000];
       if (th.rTier && th.rTier > 10500 && th.rTier < 16000) base.push(Math.round(th.rTier));
       if (th.rFlip > 10500 && th.rFlip < 16000) base.push(Math.round(th.rFlip));
@@ -1767,24 +1951,57 @@
       const rates = Array.from(new Set(base)).sort((a, b) => a - b);
 
       matrixCache.clear();
-      document.getElementById('matrixBody').innerHTML = rates.map(r => {
+      const desktopRows = [];
+      const mobileRows = [];
+
+      rates.forEach(r => {
         const d = computeAll(r);
         matrixCache.set(r, d);
         const curRow = Math.abs(r - state.R1) < 15;
-        const winCls = d.best === 'S1' ? 'c-amber' : (d.best === 'S2' ? 'c-blue' : 'c-green');
+        const winCls = d.best === 'S1' ? 'c-warn' : (d.best === 'S2' ? 'c-info' : 'c-pos');
+        const winTag = d.best === 'S1' ? 'tag-warn' : (d.best === 'S2' ? 'tag-info' : 'tag-pos');
         const winTxt = (d.best === 'S1' ? 'S1 · 32g' : (d.best === 'S2' ? 'S2 · ₹7.5L' : 'S3 · 102g')) + (d.recOldSell ? ' + Old' : '');
-        const mkSub = (v) => `<div style="font-size:10.5px;" class="${v > 0 ? 'c-green' : (v < 0 ? 'c-red' : 'c-muted')}">${fmtINR(v, true)}</div>`;
-        return `
-          <tr class="click-row ${curRow ? 'is-cur' : ''}" data-r="${r}">
-            <td data-s="BEST">₹${r.toLocaleString('en-IN')}</td>
-            <td data-s="S0" class="num c-muted">${fmtINR(d.S0.net)}</td>
-            <td data-s="S1" class="num">${fmtINR(d.S1.net)}${mkSub(d.S1.saveWalkIn)}</td>
-            <td data-s="S2" class="num">${fmtINR(d.S2.net)}${mkSub(d.S2.saveWalkIn)}</td>
-            <td data-s="S3" class="num">${fmtINR(d.S3.net)}${mkSub(d.S3.saveWalkIn)}</td>
-            <td data-s="BEST" class="${winCls} fw-700" style="font-family:var(--font-sans);">${winTxt}</td>
-          </tr>
-        `;
-      }).join('');
+        const subLine = (v) => `<div style="font-size:11px;" class="${v > 0 ? 'c-pos' : (v < 0 ? 'c-neg' : 'c-muted')}">${fmtINR(v, true)}</div>`;
+
+        desktopRows.push(`
+          <tr class="${curRow ? 'is-cur' : ''}" data-r="${r}">
+            <td><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="BEST">₹${r.toLocaleString('en-IN')}</button></td>
+            <td class="num c-muted"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S0">${fmtINR(d.S0.net)}</button></td>
+            <td class="num"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S1">${fmtINR(d.S1.net)}${subLine(d.S1.saveWalkIn)}</button></td>
+            <td class="num"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S2">${fmtINR(d.S2.net)}${subLine(d.S2.saveWalkIn)}</button></td>
+            <td class="num"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S3">${fmtINR(d.S3.net)}${subLine(d.S3.saveWalkIn)}</button></td>
+            <td style="font-family:var(--font-sans);"><button type="button" class="tbl-cell-btn ${winCls} fw-600" data-mr="${r}" data-ms="BEST">${winTxt}</button></td>
+          </tr>`);
+
+        const mBtn = (id, lbl, obj) => {
+          const svCls = obj.saveWalkIn > 0 ? 'c-pos' : (obj.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
+          return `
+            <button type="button" class="mrate-btn ${d.best === id ? 'is-win' : ''}" data-mr="${r}" data-ms="${id}">
+              <span class="mrate-btn-k">${lbl}</span>
+              <span class="mrate-btn-v mono">${fmtL(obj.net)}</span>
+              <span class="mrate-btn-s mono ${svCls}">${fmtINR(obj.saveWalkIn, true)}</span>
+            </button>`;
+        };
+
+        mobileRows.push(`
+          <div class="mrate-row ${curRow ? 'is-cur' : ''}">
+            <div class="mrate-head">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <strong class="mono" style="font-size:14px;">₹${r.toLocaleString('en-IN')}</strong>
+                <span class="tag ${winTag}" style="height:20px;font-size:10px;">${winTxt}</span>
+              </div>
+              <button type="button" class="btn-ghost" style="height:28px;padding:0 8px;font-size:11px;" data-mr="${r}" data-ms="S0">Walk ${fmtL(d.S0.net)}</button>
+            </div>
+            <div class="mrate-btns">
+              ${mBtn('S1', 'S1 · 32g', d.S1)}
+              ${mBtn('S2', 'S2 · ₹7.5L', d.S2)}
+              ${mBtn('S3', 'S3 · 102g', d.S3)}
+            </div>
+          </div>`);
+      });
+
+      document.getElementById('matrixBody').innerHTML = desktopRows.join('');
+      document.getElementById('matrixMobile').innerHTML = mobileRows.join('');
     }
 
     function renderPiecesAndOld(data, th) {
@@ -1824,71 +2041,62 @@
       const walkInC = itemCost(wC, state.R1, state.mcStd / 100, 0, false).total + itemCost(wR, state.R1, MC_RING, 0, false).total - data.oldProc;
       const saveW = walkInC - net;
 
-      document.getElementById('piecesStatus').innerHTML = `
-        <span class="badge ${hits75 ? 'badge-green' : 'badge-amber'}">${hits75 ? `✓ ₹7.5L Met (${state.mcDisc}% MC)` : `Need +${shortG.toFixed(2)}g (${state.mcStd}% MC)`}</span>
-        <span class="badge ${inCap ? 'badge-blue' : 'badge-red'}">${inCap ? `${wTot.toFixed(2)}g / ${state.W_MAX}g` : `+${(wTot - state.W_MAX).toFixed(2)}g over cap`}</span>
-      `;
+      document.getElementById('piecesTags').innerHTML = `
+        <span class="tag ${hits75 ? 'tag-pos' : 'tag-warn'}">${hits75 ? `₹7.5L met (${state.mcDisc}% MC)` : `Need +${shortG.toFixed(2)}g`}</span>
+        <span class="tag ${inCap ? 'tag-info' : 'tag-neg'} mono">${wTot.toFixed(2)}g / ${state.W_MAX}g</span>`;
 
-      document.getElementById('piecesOutput').innerHTML = `
-        <div class="kpi"><div class="kpi-lbl">Bill (${wTot.toFixed(2)}g)</div><div class="kpi-val mono">${fmtINR(bill)}</div><div class="mono c-muted" style="font-size:11px;">${fmtL(cash)} Cash · ${fmtL(bank)} Bank</div></div>
-        <div class="kpi"><div class="kpi-lbl">Sell Extra ${wE.toFixed(2)}g</div><div class="kpi-val mono">${fmtINR(exRes)}</div><div class="mono ${flipPL >= 0 ? 'c-green' : 'c-amber'}" style="font-size:11px;">Flip: ${fmtINR(flipPL, true)}</div></div>
-        <div class="kpi"><div class="kpi-lbl">Net (${(wC + wR).toFixed(1)}g Kept)</div><div class="kpi-val mono ${net < 0 ? 'c-green' : ''}">${net < 0 ? '+' + fmtINR(-net) : fmtINR(net)}</div><div class="mono c-muted" style="font-size:11px;">Walk-In: ${fmtINR(walkInC)}</div></div>
-        <div class="kpi"><div class="kpi-lbl">Saved vs Walk-In</div><div class="kpi-val mono ${saveW >= 0 ? 'c-green' : 'c-red'}">${fmtINR(saveW, true)}</div><div class="mono c-muted" style="font-size:11px;">${hits75 ? `${state.mcDisc}% MC active` : `${state.mcStd}% Std MC`}</div></div>
-      `;
+      document.getElementById('piecesLedger').innerHTML = `
+        <div class="ledger-cell">
+          <span class="figure-lbl">Showroom bill (${wTot.toFixed(2)}g)</span>
+          <span class="figure-val mono">${fmtINR(bill)}</span>
+          <span class="mono c-muted" style="font-size:11px;"><span class="nowrap">Cash ${fmtL(cash)}</span> · <span class="nowrap">Bank ${fmtL(bank)}</span></span>
+        </div>
+        <div class="ledger-cell">
+          <span class="figure-lbl">Resell extra ${wE.toFixed(2)}g</span>
+          <span class="figure-val mono">${fmtINR(exRes)}</span>
+          <span class="mono ${flipPL >= 0 ? 'c-pos' : 'c-warn'}" style="font-size:11px;">Flip P/L: ${fmtINR(flipPL, true)}</span>
+        </div>
+        <div class="ledger-cell">
+          <span class="figure-lbl">Net (${(wC + wR).toFixed(1)}g kept)</span>
+          <span class="figure-val mono ${net < 0 ? 'c-pos' : ''}">${net < 0 ? '+' + fmtINR(-net) : fmtINR(net)}</span>
+          <span class="mono c-muted" style="font-size:11px;">Walk-in: ${fmtINR(walkInC)}</span>
+        </div>
+        <div class="ledger-cell">
+          <span class="figure-lbl">Saved vs walk-in</span>
+          <span class="figure-val mono ${saveW >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(saveW, true)}</span>
+          <span class="mono c-muted" style="font-size:11px;">${hits75 ? `${state.mcDisc}% MC active` : `${state.mcStd}% standard MC`}</span>
+        </div>`;
 
-      // Old 24g chain cards
+      // Old 24g chain breakeven ledger
       const plStd = data.oldSale - data.S1.chain.total;
       const plDisc = data.oldSale - data.S3.chain.total;
       const net4c = data.S3.bill - (state.W_MAX - W_RING) * data.resaleRate;
 
-      document.getElementById('oldSubLine').textContent =
-        `Paid last year: ${fmtINR(data.oldC.gold)} gold + ${state.oldMc}% MC (${fmtINR(data.oldC.mc)}) + 3% GST (${fmtINR(data.oldC.gst)}) = ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g)`;
-      document.getElementById('oldSaleBadge').textContent = `Sale Today: ${fmtINR(data.oldSale)}`;
-
-      document.getElementById('oldCardsGrid').innerHTML = `
-        <div class="kpi">
-          <div class="kpi-lbl">1. vs Last Year's Bill</div>
-          <div class="kpi-val mono ${data.oldHistPL >= 0 ? 'c-green' : 'c-red'}">${fmtINR(data.oldHistPL, true)}</div>
-          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">BE: ${fmtINR(th.rOldHistBE)}/g</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-lbl">2. Swap @ ${state.mcStd}% MC</div>
-          <div class="kpi-val mono ${plStd >= 0 ? 'c-green' : 'c-red'}">${fmtINR(plStd, true)}</div>
-          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">BE: ${fmtINR(th.rFlipStd)}/g</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-lbl">3. Swap @ ${state.mcDisc}% MC</div>
-          <div class="kpi-val mono ${plDisc >= 0 ? 'c-green' : 'c-red'}">${fmtINR(plDisc, true)}</div>
-          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">BE: ${fmtINR(th.rFlip)} · Both MC: ${fmtINR(th.rDoubleDisc)}</div>
-        </div>
-        <div class="kpi">
-          <div class="kpi-lbl">4. Max 94.4g Combo</div>
-          <div class="kpi-val mono ${net4c <= 0 ? 'c-green' : ''}">${net4c <= 0 ? '+' + fmtINR(-net4c) : fmtINR(net4c)}</div>
-          <div class="mono c-muted" style="font-size:11px;margin-top:3px;">Free 1 Chain+Ring: ${fmtINR(th.rFreeRing)}/g</div>
-        </div>
-      `;
+      document.getElementById('oldChainSub').textContent = `Paid last year: ${fmtINR(data.oldC.gold)} gold + ${state.oldMc}% MC (${fmtINR(data.oldC.mc)}) + 3% GST (${fmtINR(data.oldC.gst)}) = ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g)`;
+      document.getElementById('oldSalePill').textContent = `Sale today ${fmtINR(data.oldSale)}`;
+      document.getElementById('oldLedger').innerHTML = `
+        <div class="kv"><span>1. Recover last year's full bill (BE ${fmtINR(th.rOldHistBE)}/g)</span><span class="mono fw-700 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>
+        <div class="kv"><span>2. Swap at ${state.mcStd}% MC (BE ${fmtINR(th.rFlipStd)}/g)</span><span class="mono fw-700 ${plStd >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plStd, true)}</span></div>
+        <div class="kv"><span>3. Swap at ${state.mcDisc}% MC (BE ${fmtINR(th.rFlip)}/g · Both MCs ${fmtINR(th.rDoubleDisc)}/g)</span><span class="mono fw-700 ${plDisc >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plDisc, true)}</span></div>
+        <div class="kv"><span>4. Max 94.4g combo (Free 1 chain + ring at ${fmtINR(th.rFreeRing)}/g)</span><span class="mono fw-700 ${net4c <= 0 ? 'c-pos' : ''}">${net4c <= 0 ? '+' + fmtINR(-net4c) + ' profit' : fmtINR(net4c) + ' cost'}</span></div>`;
     }
 
     function renderChecklist(data, th) {
       const win = data[data.best];
       const items = [
-        { id: 'c1', txt: `Confirm morning 916 board rate (now ${fmtINR(state.R1)}/g → best: <strong>${data.best === 'S1' ? 'Buy 32g' : (data.best === 'S2' ? `Hit ₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX}g`)}</strong>, saving <strong>${fmtINR(win.saveWalkIn, true)}</strong> vs walk-in).` },
-        { id: 'c2', txt: `Call 2–3 separate local jewelers before billing to confirm exact 916 HUID buyback cut (set to <strong>${state.cut}% = ${fmtINR(data.resaleRate)}/g</strong>).` },
-        { id: 'c3', txt: `Confirm Clause 2 with the showroom: full <strong>${fmtINR(state.ADVANCE)}</strong> advance adjusts on partial buy, ₹7.5L basis (gold value vs bill), and whether the 8g ring counts.` },
-        { id: 'c4', txt: `Keep bank transfer ready 2 days early: <strong>${data.best}</strong> needs <strong>${fmtINR(win.cash)}</strong> cash (max ₹1.90L) + <strong>${fmtINR(win.bank)}</strong> via NEFT/RTGS/UPI/Card.` },
-        { id: 'c5', txt: `Existing 24g chain decision: <strong>${data.recOldSell ? 'SELL & SWAP' : 'KEEP UNTOUCHED'}</strong> (full ${fmtINR(data.oldC.totalPaid)} all-in breakeven starts at <strong>${fmtINR(th.rOldSellRec)}/g</strong>).` },
-        { id: 'c6', txt: `Buy <strong>plain, zero-stone, zero-enamel 916</strong> pieces for any extra resale gold and carry the original HUID invoice to the separate buyer.` }
+        { id: 'c1', txt: `Check morning 916 board rate (now ${fmtINR(state.R1)}/g: optimal move is <strong class="nowrap">${data.best === 'S1' ? 'Buy 32g' : (data.best === 'S2' ? `Hit ₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX}g`)}</strong>, saving <strong class="nowrap">${fmtINR(win.saveWalkIn, true)}</strong> vs walk-in).` },
+        { id: 'c2', txt: `Call 2-3 separate local jewellers before billing to confirm exact 916 HUID buyback cut (currently <strong>${state.cut}% = ${fmtINR(data.resaleRate)}/g</strong>).` },
+        { id: 'c3', txt: `Confirm Clause 2 at the counter: full <strong>${fmtINR(state.ADVANCE)}</strong> advance closes cleanly on partial redemption, ₹7.5L basis, and whether the 8g ring counts.` },
+        { id: 'c4', txt: `Prepare bank funds 2 days early: <strong>${data.best}</strong> needs <strong>${fmtINR(win.cash)}</strong> cash (max ₹1.90L) plus <strong>${fmtINR(win.bank)}</strong> via NEFT, RTGS, UPI, or card.` },
+        { id: 'c5', txt: `Existing 24g chain decision: <strong>${data.recOldSell ? 'Sell & swap' : 'Keep untouched'}</strong> (full ${fmtINR(data.oldC.totalPaid)} all-in breakeven starts at <strong>${fmtINR(th.rOldSellRec)}/g</strong>).` },
+        { id: 'c6', txt: `Select <strong>plain, stone-free, enamel-free 916</strong> pieces for any resale weight and keep the HUID tax invoice for the separate buyer.` }
       ];
 
-      document.getElementById('checklistWrap').innerHTML = items.map(it => {
-        const done = !!state.checks[it.id];
-        return `
-          <label class="check-item ${done ? 'done' : ''}">
-            <input type="checkbox" data-chk="${it.id}" ${done ? 'checked' : ''} />
-            <span>${it.txt}</span>
-          </label>
-        `;
-      }).join('');
+      document.getElementById('checkList').innerHTML = items.map(it => `
+        <label class="check-row-item ${state.checks[it.id] ? 'done' : ''}">
+          <input type="checkbox" data-chk="${it.id}" ${state.checks[it.id] ? 'checked' : ''} />
+          <span>${it.txt}</span>
+        </label>`).join('');
 
       document.querySelectorAll('[data-chk]').forEach(el => {
         el.addEventListener('change', () => {
@@ -1900,13 +2108,11 @@
 
       const l1 = Math.max(0, state.ADVANCE - 0.10 * data.S1.goldVal);
       const l2 = Math.max(0, state.ADVANCE - 0.10 * data.S2.goldVal);
-      document.getElementById('prorataSummary').innerHTML = `
-        <div>• S1 (32g): 10% pro-rata = ${fmtINR(0.10 * data.S1.goldVal)} → <strong>${fmtINR(l1)}</strong> potentially carried forward</div>
-        <div>• S2 (${data.S2.totalW.toFixed(1)}g): 10% pro-rata = ${fmtINR(0.10 * data.S2.goldVal)} → <strong>${fmtINR(l2)}</strong> potentially carried forward</div>
-        <div>• S3 (${state.W_MAX}g): <strong>₹0 locked</strong> (100% redeemed)</div>
-      `;
-      document.getElementById('clause1Note').textContent =
-        `Even with gold capped at ${fmtINR(state.R0)}/g, MC% multiplies purchase-day rate (${fmtINR(state.R1)}/g). Thresholds at ${state.mcDisc}% MC & ${state.cut}% cut: S1 < ${th.rTier ? fmtINR(th.rTier) : '—'} · S2 ${th.rTier ? fmtINR(th.rTier) : '—'}–${fmtINR(th.rFlip - 1)} · S3 ${fmtINR(th.rFlip)}+ · Sell Old 24g ${fmtINR(th.rOldSellRec)}+.`;
+      document.getElementById('prorataLines').innerHTML = `
+        <div>S1 (32g): 10% pro-rata ${fmtINR(0.10 * data.S1.goldVal)} (${fmtINR(l1)} potentially locked)</div>
+        <div>S2 (${data.S2.totalW.toFixed(1)}g): 10% pro-rata ${fmtINR(0.10 * data.S2.goldVal)} (${fmtINR(l2)} potentially locked)</div>
+        <div>S3 (${state.W_MAX}g): ₹0 locked (100% redeemed)</div>`;
+      document.getElementById('clause1Text').textContent = `Gold base stays capped at ${fmtINR(state.R0)}/g, while making charge % multiplies purchase-day rate (${fmtINR(state.R1)}/g). Active cutoffs at ${state.mcDisc}% MC and ${state.cut}% cut: S1 below ${th.rTier ? fmtINR(th.rTier) : 'N/A'}, S2 ${th.rTier ? fmtINR(th.rTier) : 'N/A'}-${fmtINR(th.rFlip - 1)}, S3 ${fmtINR(th.rFlip)}+, Old 24g sell ${fmtINR(th.rOldSellRec)}+.`;
     }
 
     function update() {
@@ -1915,93 +2121,61 @@
       if (!state.pinnedInspect) state.inspect = data.best;
       syncControls();
       renderVerdict(data, th);
-      renderCardsAndInspector(data);
-      renderChartAndTable(th);
+      renderCompareAndReceipt(data);
+      renderRates(th);
       renderPiecesAndOld(data, th);
       renderChecklist(data, th);
       saveState();
     }
 
-    // Event Wiring
+    // Event bindings
     document.getElementById('themeBtn').addEventListener('click', () => {
-      const cur = document.documentElement.getAttribute('data-theme');
-      state.theme = cur === 'dark' ? 'light' : 'dark';
+      state.theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       applyTheme();
       saveState();
     });
 
-    document.getElementById('toggleDrawerBtn').addEventListener('click', (e) => {
-      const d = document.getElementById('setupDrawer');
-      const open = d.classList.toggle('hidden');
-      e.currentTarget.classList.toggle('active', !open);
-      e.currentTarget.setAttribute('aria-expanded', String(!open));
+    document.getElementById('setupBtn').addEventListener('click', (e) => {
+      const hidden = document.getElementById('setupDrawer').classList.toggle('hidden');
+      e.currentTarget.setAttribute('aria-expanded', String(!hidden));
     });
 
-    document.getElementById('stepDown').addEventListener('click', () => {
-      state.R1 = Math.max(8000, state.R1 - 50);
-      state.pinnedInspect = false;
-      update();
-    });
-    document.getElementById('stepUp').addEventListener('click', () => {
-      state.R1 = Math.min(25000, state.R1 + 50);
-      state.pinnedInspect = false;
-      update();
-    });
-    document.getElementById('rateSlider').addEventListener('input', (e) => {
-      state.R1 = Number(e.target.value);
-      state.pinnedInspect = false;
-      update();
-    });
+    document.getElementById('stepDown').addEventListener('click', () => { state.R1 = Math.max(8000, state.R1 - 50); state.pinnedInspect = false; update(); });
+    document.getElementById('stepUp').addEventListener('click', () => { state.R1 = Math.min(25000, state.R1 + 50); state.pinnedInspect = false; update(); });
+    document.getElementById('rateSlider').addEventListener('input', (e) => { state.R1 = Number(e.target.value); state.pinnedInspect = false; update(); });
     document.getElementById('rateInput').addEventListener('input', (e) => {
       const v = Number(e.target.value);
-      if (v >= 5000 && v <= 30000) {
-        state.R1 = v;
-        state.pinnedInspect = false;
-        update();
-      }
+      if (v >= 5000 && v <= 30000) { state.R1 = v; state.pinnedInspect = false; update(); }
     });
 
-    document.querySelectorAll('.chip[data-preset]').forEach(c => {
-      c.addEventListener('click', () => {
-        state.R1 = Number(c.dataset.preset);
-        state.pinnedInspect = false;
-        update();
-      });
-    });
+    document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.addEventListener('click', () => {
+      state.R1 = Number(b.dataset.preset); state.pinnedInspect = false; update();
+    }));
 
-    document.querySelectorAll('.seg-btn[data-group]').forEach(b => {
-      b.addEventListener('click', () => {
-        const g = b.dataset.group;
-        const v = b.dataset.val;
-        state[g] = (g === 'mcDisc' || g === 'cut') ? Number(v) : v;
-        state.pinnedInspect = false;
-        update();
-      });
-    });
+    document.querySelectorAll('.seg-opt[data-group]').forEach(b => b.addEventListener('click', () => {
+      const g = b.dataset.group, v = b.dataset.val;
+      state[g] = (g === 'mcDisc' || g === 'cut') ? Number(v) : v;
+      state.pinnedInspect = false;
+      update();
+    }));
 
-    document.querySelectorAll('[data-tab]').forEach(b => {
-      b.addEventListener('click', () => {
-        state.tab = b.dataset.tab;
-        hideHoverTip();
-        syncControls();
-        saveState();
-      });
-    });
+    document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
+      state.tab = b.dataset.tab;
+      hideHover();
+      syncControls();
+      saveState();
+    }));
 
-    document.querySelectorAll('[data-inspect]').forEach(b => {
-      b.addEventListener('click', () => {
-        state.inspect = b.dataset.inspect;
-        state.pinnedInspect = true;
-        update();
-      });
-    });
+    document.querySelectorAll('[data-inspect]').forEach(b => b.addEventListener('click', () => {
+      state.inspect = b.dataset.inspect;
+      state.pinnedInspect = true;
+      update();
+    }));
 
-    const bindNum = (id, key, min, max) => {
-      document.getElementById(id).addEventListener('input', (e) => {
-        const v = Number(e.target.value);
-        if (!Number.isNaN(v) && v >= min && v <= max) { state[key] = v; update(); }
-      });
-    };
+    const bindNum = (id, key, min, max) => document.getElementById(id).addEventListener('input', (e) => {
+      const v = Number(e.target.value);
+      if (!Number.isNaN(v) && v >= min && v <= max) { state[key] = v; update(); }
+    });
     bindNum('inpR0', 'R0', 4000, 30000);
     bindNum('inpWMax', 'W_MAX', 32, 500);
     bindNum('inpAdv', 'ADVANCE', 0, 5000000);
@@ -2011,11 +2185,7 @@
     bindNum('inpOldGold', 'oldGold', 0, 5000000);
     bindNum('inpOldMc', 'oldMc', 0, 30);
 
-    document.getElementById('chkRingCounts').addEventListener('change', (e) => {
-      state.ringCounts = e.target.checked;
-      update();
-    });
-
+    document.getElementById('chkRingCounts').addEventListener('change', (e) => { state.ringCounts = e.target.checked; update(); });
     [['pwChain', 'c'], ['pwRing', 'r'], ['pwEx1', 'e1'], ['pwEx2', 'e2'], ['pwEx3', 'e3']].forEach(([id, k]) => {
       document.getElementById(id).addEventListener('input', (e) => {
         const v = Number(e.target.value);
@@ -2024,18 +2194,15 @@
     });
 
     document.getElementById('resetBtn').addEventListener('click', () => {
-      const keepTheme = state.theme;
+      const t = state.theme;
       state = structuredClone(DEFAULT_STATE);
-      state.theme = keepTheme;
+      state.theme = t;
       update();
     });
 
-    document.getElementById('clearChecksBtn').addEventListener('click', () => {
-      state.checks = {};
-      update();
-    });
+    document.getElementById('clearChecksBtn').addEventListener('click', () => { state.checks = {}; update(); });
 
-    // Chart tap/click scrub
+    // Chart tap/scrub
     document.getElementById('chartSvg').addEventListener('pointerdown', (e) => {
       const svg = e.currentTarget;
       const meta = JSON.parse(svg.dataset.meta || '{}');
@@ -2048,62 +2215,68 @@
       update();
     });
 
-    // Matrix hover (desktop) + tap modal (mobile & desktop)
-    const tipEl = document.getElementById('hoverTip');
-    function hideHoverTip() { activeHoverKey = ''; tipEl.classList.add('hidden'); }
+    // Modal & Desktop Hover Popover
+    const popEl = document.getElementById('hoverPopover');
+    function hideHover() { activeHoverKey = ''; popEl.classList.add('hidden'); }
 
-    const matrixEl = document.getElementById('matrixBody');
-    matrixEl.addEventListener('mousemove', (e) => {
-      if (window.matchMedia('(hover: none)').matches) return;
-      const td = e.target.closest('td[data-s]');
-      const tr = e.target.closest('tr[data-r]');
-      if (!td || !tr) { hideHoverTip(); return; }
-      const r = Number(tr.dataset.r);
-      const sKey = td.dataset.s;
-      const key = `${r}:${sKey}`;
-      if (key !== activeHoverKey) {
-        const d = matrixCache.get(r);
-        if (!d) return;
-        tipEl.innerHTML = buildMathSheetHTML(r, d, sKey);
-        tipEl.classList.remove('hidden');
-        activeHoverKey = key;
-      }
-      const pad = 14, rect = tipEl.getBoundingClientRect();
-      let left = e.clientX + pad, top = e.clientY + pad;
-      if (left + rect.width + 10 > window.innerWidth) left = Math.max(10, e.clientX - rect.width - pad);
-      if (top + rect.height + 10 > window.innerHeight) top = Math.max(10, e.clientY - rect.height - pad);
-      tipEl.style.left = left + 'px';
-      tipEl.style.top = top + 'px';
-    });
-    matrixEl.addEventListener('mouseleave', hideHoverTip);
-    window.addEventListener('scroll', hideHoverTip, true);
-
-    matrixEl.addEventListener('click', (e) => {
-      const td = e.target.closest('td[data-s]');
-      const tr = e.target.closest('tr[data-r]');
-      if (!td || !tr) return;
-      hideHoverTip();
-      const r = Number(tr.dataset.r);
+    function openMathModal(r, sKey) {
       const d = matrixCache.get(r);
       if (!d) return;
       modalRate = r;
-      document.getElementById('modalTitle').textContent = `Exact Math @ ₹${r.toLocaleString('en-IN')}/g`;
-      document.getElementById('modalBody').innerHTML = buildMathSheetHTML(r, d, td.dataset.s);
+      document.getElementById('modalTitle').textContent = `Exact math at ₹${r.toLocaleString('en-IN')}/g`;
+      document.getElementById('modalBody').innerHTML = buildMathSheetHTML(r, d, sKey);
       document.getElementById('mathModal').classList.remove('hidden');
+      document.getElementById('appMain').setAttribute('aria-hidden', 'true');
+      document.getElementById('modalCloseBtn').focus();
+    }
+
+    function closeMathModal() {
+      document.getElementById('mathModal').classList.add('hidden');
+      document.getElementById('appMain').removeAttribute('aria-hidden');
+    }
+
+    const matrixBodyEl = document.getElementById('matrixBody');
+    matrixBodyEl.addEventListener('mousemove', (e) => {
+      if (window.matchMedia('(hover: none)').matches) return;
+      const btn = e.target.closest('[data-mr][data-ms]');
+      if (!btn) { hideHover(); return; }
+      const r = Number(btn.dataset.mr), sKey = btn.dataset.ms, key = `${r}:${sKey}`;
+      if (key !== activeHoverKey) {
+        const d = matrixCache.get(r);
+        if (!d) return;
+        popEl.innerHTML = buildMathSheetHTML(r, d, sKey);
+        popEl.classList.remove('hidden');
+        activeHoverKey = key;
+      }
+      const pad = 14, rect = popEl.getBoundingClientRect();
+      let left = e.clientX + pad, top = e.clientY + pad;
+      if (left + rect.width + 12 > window.innerWidth) left = Math.max(12, e.clientX - rect.width - pad);
+      if (top + rect.height + 12 > window.innerHeight) top = Math.max(12, e.clientY - rect.height - pad);
+      popEl.style.left = left + 'px';
+      popEl.style.top = top + 'px';
+    });
+    matrixBodyEl.addEventListener('mouseleave', hideHover);
+    window.addEventListener('scroll', hideHover, true);
+
+    matrixBodyEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-mr][data-ms]');
+      if (!btn) return;
+      hideHover();
+      openMathModal(Number(btn.dataset.mr), btn.dataset.ms);
     });
 
-    const closeModal = () => document.getElementById('mathModal').classList.add('hidden');
-    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-    document.getElementById('mathModal').addEventListener('click', (e) => {
-      if (e.target.id === 'mathModal') closeModal();
+    document.getElementById('matrixMobile').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-mr][data-ms]');
+      if (!btn) return;
+      openMathModal(Number(btn.dataset.mr), btn.dataset.ms);
     });
-    document.getElementById('modalApplyRateBtn').addEventListener('click', () => {
-      if (modalRate) {
-        state.R1 = modalRate;
-        state.pinnedInspect = false;
-        update();
-      }
-      closeModal();
+
+    document.getElementById('modalCloseBtn').addEventListener('click', closeMathModal);
+    document.getElementById('mathModal').addEventListener('click', (e) => { if (e.target.id === 'mathModal') closeMathModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !document.getElementById('mathModal').classList.contains('hidden')) closeMathModal(); });
+    document.getElementById('modalApplyBtn').addEventListener('click', () => {
+      if (modalRate) { state.R1 = modalRate; state.pinnedInspect = false; update(); }
+      closeMathModal();
     });
 
     applyTheme();
