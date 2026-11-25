@@ -16,7 +16,6 @@
   <title>916 Gold Booking Ledger</title>
   <style>
     :root {
-      /* 60-30-10 Monochrome + Deep Forest Emerald Accent (Light Mode) */
       --bg: #F8F8F7;
       --surface: #FFFFFF;
       --surface-elevated: #F2F3F2;
@@ -31,7 +30,6 @@
       --accent-soft: #EAF4EF;
       --accent-fg: #FFFFFF;
 
-      /* Desaturated Editorial Spot Pastels */
       --pos: #116A4C;
       --pos-bg: #EAF4EF;
       --warn: #8A5A0A;
@@ -44,86 +42,100 @@
       --radius: 8px;
       --radius-sm: 6px;
       --ease: cubic-bezier(0.32, 0.72, 0, 1);
-      --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      color-scheme: light;
     }
 
     [data-theme="dark"] {
-      /* Elevation-Lightening Depth Model (Level 0 -> Level 1 -> Level 2) */
       --bg: #0A0B0D;
       --surface: #131519;
       --surface-elevated: #1C2026;
       --border: rgba(255, 255, 255, 0.09);
       --border-strong: rgba(255, 255, 255, 0.18);
       --text: #F2F4F7;
-      --text-secondary: #B4BCC6;
-      --text-muted: #838C98;
+      --text-secondary: #A6B0BD;
+      --text-muted: #788392;
 
       --accent: #2BB686;
-      --accent-hover: #36C795;
+      --accent-hover: #38C796;
       --accent-soft: rgba(43, 182, 134, 0.14);
-      --accent-fg: #071A13;
+      --accent-fg: #071912;
 
-      --pos: #2BB686;
-      --pos-bg: rgba(43, 182, 134, 0.14);
-      --warn: #D9A243;
-      --warn-bg: rgba(217, 162, 67, 0.15);
-      --neg: #E06C6C;
-      --neg-bg: rgba(224, 108, 108, 0.15);
-      --info: #62A8DC;
-      --info-bg: rgba(98, 168, 220, 0.15);
+      --pos: #38C796;
+      --pos-bg: rgba(56, 199, 150, 0.14);
+      --warn: #E5A93B;
+      --warn-bg: rgba(229, 169, 59, 0.14);
+      --neg: #E86A6A;
+      --neg-bg: rgba(232, 106, 106, 0.14);
+      --info: #5AA9E6;
+      --info-bg: rgba(90, 169, 230, 0.14);
+      color-scheme: dark;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { -webkit-tap-highlight-color: transparent; overflow-x: clip; }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      overflow-x: clip;
+    }
+
     body {
       margin: 0;
-      min-height: 100dvh;
       font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.45;
       background: var(--bg);
       color: var(--text);
-      font-size: 14px;
-      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: calc(74px + env(safe-area-inset-bottom));
       overflow-x: clip;
-      padding-bottom: calc(72px + env(safe-area-inset-bottom));
     }
 
-    .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-    .nowrap { white-space: nowrap; }
-    .hidden { display: none !important; }
+    button, input, select { font-family: inherit; }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type="number"] { -moz-appearance: textfield; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
     .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
+    .hidden { display: none !important; }
+    .nowrap { white-space: nowrap; }
 
-    /* 5-State Control Foundation */
-    button, input { font-family: inherit; }
-    button:focus-visible, input:focus-visible, summary:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
-    }
-    button:disabled, input:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-
-    /* Sticky Header (56px, 8pt grid) */
+    /* Top Header (52px) */
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 30;
-      height: 56px;
+      z-index: 40;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
+      padding-top: env(safe-area-inset-top);
     }
     .topbar-inner {
-      width: 100%;
-      max-width: 960px;
+      max-width: 1180px;
       margin: 0 auto;
+      height: 52px;
+      padding: 0 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -136,8 +148,8 @@
       min-width: 0;
     }
     .brand-mark {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: var(--radius-sm);
       background: var(--accent);
       color: var(--accent-fg);
@@ -160,16 +172,11 @@
       display: none;
       font-size: 12px;
       color: var(--text-muted);
+      margin-left: 8px;
     }
-    @media (min-width: 640px) {
-      .brand-meta { display: inline; margin-left: 8px; }
-    }
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
+    @media (min-width: 960px) { .brand-meta { display: inline; } }
+
+    .top-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
     .btn-ghost {
       height: 36px;
       padding: 0 12px;
@@ -184,7 +191,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
+      transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.12s var(--ease);
     }
     .btn-ghost:hover { background: var(--surface-elevated); border-color: var(--border-strong); }
     .btn-ghost:active { transform: scale(0.98); }
@@ -195,31 +202,255 @@
     }
     .btn-icon { width: 36px; padding: 0; }
 
-    /* Shell */
-    .app-shell {
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    /* Band 1: Rate Control & Quick Counter Inputs (Flat Editorial Surface) */
-    .control-band {
+    /* Mobile Sticky Slim Rate Strip (Visible ONLY on Tabs 2-5 on mobile) */
+    .slim-wrap {
+      position: sticky;
+      top: calc(52px + env(safe-area-inset-top));
+      z-index: 35;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 16px;
     }
-    @media (min-width: 768px) {
-      .app-shell { padding: 24px 24px 32px; display: flex; flex-direction: column; gap: 24px; }
-      .control-band { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
-    }
-
-    .rate-top-row {
+    .slim-bar {
+      height: 48px;
+      padding: 0 12px;
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 8px;
     }
+    .slim-stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+    .mini-step {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-elevated);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: background-color 0.15s var(--ease), transform 0.1s var(--ease);
+    }
+    .mini-step:active { transform: scale(0.95); }
+    .slim-rate-box {
+      height: 34px;
+      padding: 0 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .slim-rate-box:focus-within { border-color: var(--accent); }
+    .slim-rate-box input {
+      width: 66px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      padding: 0;
+    }
+    .slim-rate-box input:focus-visible { outline: none; }
+    .slim-terms-btn {
+      height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-elevated);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease);
+    }
+    .slim-terms-btn[aria-expanded="true"] {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .slim-drawer {
+      padding: 12px 16px 14px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .slim-verdict-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    /* Collapsible Advanced Setup Panel (Global under topbar) */
+    .setup-sheet {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-strong);
+    }
+    .setup-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+    @media (min-width: 760px) {
+      .setup-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding: 20px 24px; }
+    }
+    .setup-group { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .setup-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .input-2col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .field label { font-size: 11.5px; font-weight: 500; color: var(--text-secondary); }
+    .field input {
+      width: 100%;
+      height: 38px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: border-color 0.18s var(--ease);
+    }
+    .field input:focus { border-color: var(--accent); outline: none; }
+    .check-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .check-line input { width: 17px; height: 17px; accent-color: var(--accent); flex-shrink: 0; }
+
+    /* App Layout Shell: Single-Screen Tabs on Mobile, Sticky Left Rail + Workspace on Desktop */
+    .workspace {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .rail-pane { min-width: 0; }
+    .detail-col { min-width: 0; display: flex; flex-direction: column; }
+
+    @media (min-width: 960px) {
+      body { padding-bottom: 32px; }
+      .slim-wrap, .mobile-nav, .mobile-only { display: none !important; }
+      .workspace {
+        padding: 20px 24px 32px;
+        display: grid;
+        grid-template-columns: 388px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+      }
+      .rail-pane {
+        display: block !important;
+        position: sticky;
+        top: 72px;
+      }
+      .desktop-nav { display: flex !important; }
+    }
+
+    /* Desktop Underline Navigation */
+    .desktop-nav {
+      display: none;
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+    .dnav-btn {
+      height: 42px;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 2px;
+      cursor: pointer;
+      transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
+    }
+    .dnav-btn:hover { color: var(--text); }
+    .dnav-btn.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+
+    /* Mobile Fixed 5-Tab Bottom Navigation */
+    .mobile-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 2px;
+    }
+    .mnav-btn {
+      height: 52px;
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      padding: 0;
+      font-size: 10.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.15s var(--ease), background-color 0.15s var(--ease), transform 0.1s var(--ease);
+    }
+    .mnav-btn:active { transform: scale(0.95); }
+    .mnav-btn svg { width: 19px; height: 19px; stroke-width: 1.8; }
+    .mnav-btn.active { color: var(--accent); background: var(--accent-soft); }
+
+    /* Shared UI Primitives */
+    .view-anim {
+      animation: paneIn 0.16s var(--ease);
+    }
+    @keyframes paneIn {
+      from { opacity: 0.4; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .eyebrow {
       font-size: 11px;
       font-weight: 600;
@@ -228,38 +459,106 @@
       color: var(--text-muted);
       margin: 0;
     }
-    .delta-text {
-      font-size: 12px;
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: var(--radius-sm);
+      font-size: 10.5px;
       font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .tag-pos  { background: var(--pos-bg);  color: var(--pos); }
+    .tag-warn { background: var(--warn-bg); color: var(--warn); }
+    .tag-neg  { background: var(--neg-bg);  color: var(--neg); }
+    .tag-info { background: var(--info-bg); color: var(--info); }
+
+    .seg-group {
+      display: flex;
+      width: 100%;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .seg-opt {
+      flex: 1;
+      height: 34px;
+      border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 0 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+    }
+    .seg-opt:last-child { border-right: 0; }
+    .seg-opt:hover { background: var(--surface-elevated); color: var(--text); }
+    .seg-opt[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--accent-fg);
+    }
+    .seg-compact .seg-opt { height: 28px; font-size: 11.5px; padding: 0 8px; }
+
+    /* TAB 1: DECIDE (Compact Controls + Scannable Verdict) */
+    .decide-stack {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+    }
+    @media (min-width: 960px) {
+      .decide-stack {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
     }
 
+    .control-section {
+      padding: 12px 16px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .rate-top-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
     .rate-input-row {
       display: grid;
-      grid-template-columns: 48px minmax(0, 1fr) 48px;
+      grid-template-columns: 44px minmax(0, 1fr) 44px;
       gap: 8px;
       align-items: center;
-      margin-bottom: 8px;
     }
     .step-btn {
-      height: 48px;
-      width: 48px;
+      height: 44px;
+      width: 44px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       background: var(--surface-elevated);
       color: var(--text);
       font-family: var(--font-mono);
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       display: grid;
       place-items: center;
-      transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
+      transition: background-color 0.15s var(--ease), transform 0.1s var(--ease);
     }
-    .step-btn:hover { border-color: var(--border-strong); background: var(--bg); }
-    .step-btn:active { transform: scale(0.98); }
+    .step-btn:hover { background: var(--bg); border-color: var(--border-strong); }
+    .step-btn:active { transform: scale(0.96); }
 
     .rate-field {
-      height: 48px;
+      height: 44px;
       border-radius: var(--radius);
       border: 1px solid var(--border-strong);
       background: var(--bg);
@@ -267,32 +566,27 @@
       align-items: center;
       justify-content: center;
       gap: 4px;
-      padding: 0 12px;
-      transition: border-color 0.2s var(--ease);
+      padding: 0 10px;
     }
     .rate-field:focus-within { border-color: var(--accent); }
-    .rate-prefix, .rate-suffix {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
+    .rate-prefix, .rate-suffix { font-size: 13px; color: var(--text-muted); font-weight: 500; }
     .rate-field input {
-      width: 112px;
+      width: 104px;
       border: 0;
       background: transparent;
       color: var(--text);
       font-family: var(--font-mono);
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.02em;
       text-align: center;
       padding: 0;
     }
-    .rate-field input:focus-visible { box-shadow: none; }
+    .rate-field input:focus-visible { outline: none; }
 
     input[type="range"] {
       width: 100%;
-      height: 32px;
+      height: 24px;
       margin: 0;
       accent-color: var(--accent);
       cursor: pointer;
@@ -300,218 +594,103 @@
     .slider-scale {
       display: flex;
       justify-content: space-between;
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
-      margin-top: -4px;
-      margin-bottom: 12px;
+      margin-top: -6px;
     }
 
     .preset-strip {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
-      padding: 2px 0;
       scrollbar-width: none;
     }
     .preset-strip::-webkit-scrollbar { display: none; }
     .preset-btn {
       flex-shrink: 0;
-      height: 32px;
-      padding: 0 12px;
+      height: 28px;
+      padding: 0 10px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      background: var(--bg);
+      background: var(--surface);
       color: var(--text-secondary);
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--ease);
-    }
-    .preset-btn:hover { border-color: var(--border-strong); color: var(--text); }
-    .preset-btn:active { transform: scale(0.98); }
-    .preset-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--accent-fg);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
       font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
     }
+    .preset-btn:hover { background: var(--surface-elevated); color: var(--text); }
+    .preset-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
 
-    /* Two Essential Counter Parameters */
-    .counter-params {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-    }
-    @media (min-width: 640px) {
-      .counter-params { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 20px; }
-    }
+    .param-row { display: flex; flex-direction: column; gap: 5px; }
     .param-head {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-    .param-head span:first-child { color: var(--text-secondary); font-weight: 500; }
-
-    .seg-group {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .seg-opt {
-      height: 36px;
-      border: 0;
-      border-right: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 12.5px;
-      font-weight: 500;
-      cursor: pointer;
-      padding: 0 6px;
-      white-space: nowrap;
-      transition: background-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.12s var(--ease);
-    }
-    .seg-opt:last-child { border-right: 0; }
-    .seg-opt:hover { background: var(--surface-elevated); color: var(--text); }
-    .seg-opt:active { transform: scale(0.98); }
-    .seg-opt.active {
-      background: var(--accent);
-      color: var(--accent-fg);
-      font-weight: 600;
-    }
-
-    /* Collapsible Setup Drawer */
-    .setup-drawer {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
-    }
-    @media (min-width: 680px) {
-      .setup-drawer { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
-    }
-    .setup-group { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-    .setup-title { font-size: 13px; font-weight: 600; margin: 0; color: var(--text); }
-    .input-2col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-    .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-    .field label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-    .field input[type="number"] {
-      height: 40px;
-      width: 100%;
-      padding: 0 12px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 600;
-      transition: border-color 0.2s var(--ease);
-    }
-    .field input[type="number"]:hover { border-color: var(--border-strong); }
-    .field input[type="number"]:focus { border-color: var(--accent); }
-    .check-line {
-      display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 8px;
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 500;
       color: var(--text-secondary);
-      cursor: pointer;
-    }
-    .check-line input { width: 16px; height: 16px; accent-color: var(--accent); flex-shrink: 0; }
-
-    /* Band 2: Editorial Verdict Strip (Single Dominant Metric + Flat Ledger Rows, Zero Nested Boxes) */
-    .verdict-band {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    @media (min-width: 768px) {
-      .verdict-band { border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
     }
 
-    .verdict-header {
+    /* Verdict Section (Pure Scannable Signal) */
+    .verdict-section {
+      padding: 14px 16px 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-    @media (min-width: 640px) {
-      .verdict-header {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 24px;
-      }
+    .verdict-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
-    .verdict-copy { min-width: 0; }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      height: 24px;
-      padding: 0 8px;
-      border-radius: var(--radius-sm);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-    .tag-pos  { background: var(--pos-bg);  color: var(--pos); }
-    .tag-warn { background: var(--warn-bg); color: var(--warn); }
-    .tag-neg  { background: var(--neg-bg);  color: var(--neg); }
-    .tag-info { background: var(--info-bg); color: var(--info); }
-
     .verdict-h1 {
-      margin: 8px 0 4px;
+      margin: 6px 0 0;
       font-size: 20px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.25;
-      color: var(--text);
+      line-height: 1.2;
     }
-    @media (min-width: 640px) { .verdict-h1 { font-size: 22px; } }
-    .verdict-desc {
-      margin: 0;
-      font-size: 13px;
-      color: var(--text-secondary);
-      max-width: 62ch;
+    .verdict-stat {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .stat-hero {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+    .stat-caption {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
     }
 
-    .verdict-primary-stat {
+    .chip-strip {
       display: flex;
-      flex-direction: row;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 6px;
     }
-    @media (min-width: 640px) {
-      .verdict-primary-stat {
-        flex-direction: column;
-        align-items: flex-end;
-        padding-top: 0;
-        border-top: 0;
-        flex-shrink: 0;
-      }
+    .stat-chip {
+      height: 24px;
+      padding: 0 8px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-elevated);
+      color: var(--text-secondary);
+      font-size: 11.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
     }
-    .stat-caption { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-    .stat-hero { font-size: 24px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; }
 
-    /* Two-column flat figure bar (Replaces cluttered 3-equal-card grid) */
     .figure-bar {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -519,54 +698,76 @@
       border-bottom: 1px solid var(--border);
     }
     .figure-cell {
-      padding: 12px 0;
+      padding: 10px 0;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
       min-width: 0;
       overflow: hidden;
     }
     .figure-cell:first-child { padding-right: 12px; border-right: 1px solid var(--border); }
     .figure-cell:last-child { padding-left: 12px; }
-    .figure-lbl { font-size: 12px; color: var(--text-muted); }
+    .figure-lbl { font-size: 11.5px; color: var(--text-muted); }
     .figure-val { font-size: clamp(15px, 4.2vw, 17px); font-weight: 700; white-space: nowrap; }
-    .figure-sub { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .figure-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Existing 24g Chain Inline Ledger Row */
-    .old-row {
+    /* Compact Old 24g Row */
+    .old-block { display: flex; flex-direction: column; gap: 8px; }
+    .old-head {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .old-row-top {
-      display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 6px 12px;
+      gap: 8px;
     }
-    .old-nums {
+    .old-metrics {
       display: flex;
       flex-wrap: wrap;
       gap: 4px 12px;
       font-size: 12px;
       color: var(--text-secondary);
     }
-    .old-note { margin: 0; font-size: 12.5px; color: var(--text-secondary); }
+    .old-why {
+      border-top: 0;
+    }
+    .old-why summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .old-why summary::after { content: "+"; font-family: var(--font-mono); }
+    .old-why[open] summary::after { content: "-"; }
+    .old-why summary::-webkit-details-marker { display: none; }
+    .old-why p {
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
 
-    /* Minimal Regime Scale Bar */
-    .regime-block { display: flex; flex-direction: column; gap: 6px; padding-top: 12px; border-top: 1px solid var(--border); }
+    /* Compact Regime Scale */
+    .regime-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
     .regime-labels {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      gap: 4px 12px;
-      font-size: 11.5px;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 11px;
       color: var(--text-muted);
     }
     .regime-track {
       position: relative;
-      height: 10px;
+      height: 8px;
       border-radius: 4px;
       overflow: hidden;
       background: var(--surface-elevated);
@@ -584,184 +785,126 @@
       pointer-events: none;
     }
 
-    /* Desktop Underline Navigation */
-    .desktop-nav {
-      display: none;
-      border-bottom: 1px solid var(--border);
-      gap: 24px;
-    }
-    @media (min-width: 768px) {
-      body { padding-bottom: 32px; }
-      .desktop-nav { display: flex; }
-      .mobile-nav { display: none !important; }
-    }
-    .dnav-btn {
-      height: 44px;
-      border: 0;
-      border-bottom: 2px solid transparent;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 0 2px;
-      cursor: pointer;
-      transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
-    }
-    .dnav-btn:hover { color: var(--text); }
-    .dnav-btn.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
-
-    /* Mobile Fixed Bottom Nav (Thumb-first, 64px height) */
-    .mobile-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 40;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 4px;
-    }
-    .mnav-btn {
-      height: 52px;
-      border: 0;
+    .cta-row {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
       border-radius: var(--radius-sm);
-      background: transparent;
-      color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      font-size: 11px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-elevated);
+      color: var(--text);
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      transition: color 0.15s var(--ease), background-color 0.15s var(--ease), transform 0.12s var(--ease);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease);
     }
-    .mnav-btn:active { transform: scale(0.96); }
-    .mnav-btn svg { width: 20px; height: 20px; stroke-width: 1.75; }
-    .mnav-btn.active { color: var(--accent); background: var(--accent-soft); }
+    .cta-row:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* View Panes */
+    /* Detail View Panes (Tabs 2-5) */
     .view-pane {
-      padding: 16px;
+      padding: 12px 16px 20px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 14px;
       min-width: 0;
     }
-    @media (min-width: 768px) {
-      .view-pane { padding: 0; gap: 24px; }
+    @media (min-width: 960px) {
+      .view-pane { padding: 0; gap: 18px; }
     }
 
     .panel {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
       min-width: 0;
     }
-    @media (min-width: 768px) { .panel { padding: 20px 24px; } }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
     .panel-h2 {
       margin: 0;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 600;
       letter-spacing: -0.01em;
     }
-    .panel-sub {
-      margin: 2px 0 0;
-      font-size: 12.5px;
-      color: var(--text-muted);
-    }
 
-    /* Tab 1: Flat Selectable Strategy Ledger Rows */
-    .strat-list {
-      display: flex;
-      flex-direction: column;
+    /* TAB 2: 2x2 Compact Strategy Selector Grid + Counter Receipt */
+    .strat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    @media (min-width: 960px) {
+      .strat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    .strat-card {
+      text-align: left;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--surface);
-      overflow: hidden;
-    }
-    @media (min-width: 820px) {
-      .strat-list {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-    .strat-row {
-      width: 100%;
-      text-align: left;
-      border: 0;
-      border-bottom: 1px solid var(--border);
-      border-left: 3px solid transparent;
-      background: var(--surface);
       color: var(--text);
-      padding: 14px 16px;
+      padding: 10px 12px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.12s var(--ease);
+      gap: 4px;
+      min-width: 0;
+      transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease), transform 0.1s var(--ease);
     }
-    .strat-row:last-child { border-bottom: 0; }
-    @media (min-width: 820px) {
-      .strat-row:nth-child(odd) { border-right: 1px solid var(--border); }
-      .strat-row:nth-last-child(-n+2) { border-bottom: 0; }
-    }
-    .strat-row:hover { background: var(--surface-elevated); }
-    .strat-row:active { transform: scale(0.995); }
-    .strat-row.is-selected {
-      border-left-color: var(--accent);
+    .strat-card:hover { border-color: var(--border-strong); background: var(--surface-elevated); }
+    .strat-card:active { transform: scale(0.98); }
+    .strat-card.is-selected {
+      border-color: var(--accent);
       background: var(--accent-soft);
+      box-shadow: inset 0 0 0 1px var(--accent);
     }
-    .strat-top {
+    .sc-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
-      gap: 12px;
-    }
-    .strat-name { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .strat-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .strat-price { text-align: right; flex-shrink: 0; }
-    .strat-net { font-size: 16px; font-weight: 700; white-space: nowrap; }
-    .strat-save { font-size: 12px; font-weight: 600; white-space: nowrap; }
-    .strat-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px 16px;
+      gap: 4px;
       font-size: 12px;
-      color: var(--text-secondary);
+      font-weight: 600;
     }
+    .sc-net { font-size: 15.5px; font-weight: 700; white-space: nowrap; }
+    .sc-save { font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+    .sc-meta { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Receipt Breakdown (Zero Horizontal Scroll at 360px!) */
+    /* Receipt Breakdown */
     .split-2 {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
-      gap: 20px;
+      gap: 18px;
     }
-    @media (min-width: 760px) {
-      .split-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+    @media (min-width: 700px) {
+      .split-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
     }
-    .col-block { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .col-block { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
     .col-head {
       margin: 0;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       gap: 8px;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
     }
     .rcpt-row {
-      padding: 8px 0;
+      padding: 7px 0;
       border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
@@ -772,171 +915,174 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 12px;
+      gap: 10px;
       font-size: 13px;
     }
     .rcpt-detail {
       display: flex;
       flex-wrap: wrap;
       gap: 2px 10px;
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-muted);
     }
     .kv-list { display: flex; flex-direction: column; gap: 6px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 12.5px; }
-    .kv { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; min-width: 0; }
+    .kv { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-width: 0; }
     .kv span:first-child { color: var(--text-secondary); min-width: 0; }
     .kv span:last-child { white-space: nowrap; flex-shrink: 0; }
     .kv-total { font-size: 14px; font-weight: 700; padding-top: 6px; border-top: 1px solid var(--border); color: var(--text); }
     .kv-total span:first-child { color: var(--text); }
 
     .note-inline {
-      padding: 10px 12px;
+      padding: 8px 10px;
       border-radius: var(--radius-sm);
       background: var(--warn-bg);
       color: var(--warn);
-      font-size: 12px;
-      line-height: 1.45;
+      font-size: 11.5px;
+      line-height: 1.4;
     }
 
-    /* Tab 2: Chart + Responsive Mobile Ledger / Desktop Table */
-    .chart-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
-    .legend-swatch { width: 12px; height: 2.5px; display: inline-block; }
+    /* TAB 3: Chart & Rates */
+    .chart-legend { display: flex; gap: 12px; font-size: 11.5px; color: var(--text-secondary); }
+    .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+    .legend-swatch { width: 10px; height: 2px; border-radius: 1px; }
 
-    .rates-desktop { display: none; overflow-x: auto; }
     .rates-mobile { display: flex; flex-direction: column; }
-    @media (min-width: 680px) {
-      .rates-desktop { display: block; }
+    .rates-desktop { display: none; }
+    @media (min-width: 720px) {
       .rates-mobile { display: none; }
+      .rates-desktop { display: block; overflow-x: auto; }
     }
 
     .mrate-row {
-      padding: 12px 0;
+      padding: 10px 0;
       border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
-    .mrate-row:first-child { padding-top: 4px; }
-    .mrate-row:last-child { border-bottom: 0; padding-bottom: 0; }
-    .mrate-row.is-cur {
-      background: var(--accent-soft);
+    .mrate-row:last-child { border-bottom: 0; }
+    .mrate-row.is-current {
       margin: 0 -16px;
-      padding: 12px 16px;
+      padding: 10px 16px;
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
     }
-    .mrate-head {
+    .mrate-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
     }
-    .mrate-btns {
+    .mrate-price { font-size: 14px; font-weight: 700; }
+    .mrate-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 5px;
     }
-    .mrate-btn {
+    .mrate-cell {
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       background: var(--bg);
       color: var(--text);
-      padding: 8px 6px;
+      padding: 5px 4px;
       text-align: center;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      transition: border-color 0.15s var(--ease), transform 0.12s var(--ease);
+      gap: 1px;
+      min-width: 0;
     }
-    .mrate-btn:hover { border-color: var(--border-strong); }
-    .mrate-btn:active { transform: scale(0.98); }
-    .mrate-btn.is-win { border-color: var(--accent); background: var(--surface); }
-    .mrate-btn-k { font-size: 10.5px; color: var(--text-muted); font-weight: 500; }
-    .mrate-btn-v { font-size: 12.5px; font-weight: 700; }
-    .mrate-btn-s { font-size: 11px; font-weight: 600; }
+    .mrate-cell:hover { border-color: var(--border-strong); }
+    .mrate-cell.is-win { border-color: var(--accent); background: var(--surface); }
+    .mrate-k { font-size: 10px; font-weight: 600; color: var(--text-muted); }
+    .mrate-v { font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .mrate-d { font-size: 10px; font-weight: 600; white-space: nowrap; }
 
-    table.desktop-tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-    table.desktop-tbl th {
+    table.desktop-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .desktop-tbl th {
       text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
       color: var(--text-muted);
-      font-weight: 500;
-      padding: 8px;
+      padding: 8px 8px;
+      border-bottom: 1px solid var(--border-strong);
+      white-space: nowrap;
+    }
+    .desktop-tbl th.num, .desktop-tbl td.num { text-align: right; }
+    .desktop-tbl td {
+      padding: 8px 8px;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
-    table.desktop-tbl td {
-      padding: 10px 8px;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
-    }
-    table.desktop-tbl .num { text-align: right; }
-    table.desktop-tbl tr.is-cur { background: var(--accent-soft); }
-    table.desktop-tbl tbody tr:hover { background: var(--surface-elevated); }
-    .tbl-cell-btn {
+    .desktop-tbl tr.is-current td { background: var(--accent-soft); }
+    .desktop-tbl tbody tr:hover td { background: var(--surface-elevated); }
+    .tbl-btn {
       border: 0;
       background: transparent;
       color: inherit;
       font: inherit;
-      padding: 0;
+      padding: 2px 4px;
+      border-radius: 4px;
       cursor: pointer;
-      text-align: inherit;
-      width: 100%;
+      text-align: right;
     }
-    .tbl-cell-btn:hover { text-decoration: underline; text-decoration-style: dotted; }
+    .tbl-btn:hover { background: var(--border); }
 
-    /* Tab 3: Pieces + Old 24g Ledger */
+    /* TAB 4: Pieces & Old 24g */
     .pieces-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 8px;
     }
-    @media (min-width: 680px) {
-      .pieces-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-    }
+    @media (min-width: 680px) { .pieces-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+
     .ledger-2x2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       border-top: 1px solid var(--border);
-      margin-top: 4px;
     }
     .ledger-cell {
-      padding: 12px 8px 12px 0;
+      padding: 10px 0;
       border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
       min-width: 0;
+      overflow: hidden;
     }
-    .ledger-cell:nth-child(even) { padding: 12px 0 12px 12px; border-left: 1px solid var(--border); }
+    .ledger-cell:nth-child(odd) { padding-right: 12px; border-right: 1px solid var(--border); }
+    .ledger-cell:nth-child(even) { padding-left: 12px; }
     .ledger-cell:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 2px; }
 
-    /* Tab 4: Minimalist Checklist & Editorial Accordions */
+    /* TAB 5: Checklist & Accordions */
     .check-list { display: flex; flex-direction: column; }
-    .check-row-item {
+    .check-row {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      padding: 12px 0;
+      padding: 10px 0;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
-      font-size: 13px;
-      line-height: 1.5;
     }
-    .check-row-item:last-child { border-bottom: 0; }
-    .check-row-item input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
-    .check-row-item.done span { text-decoration: line-through; color: var(--text-muted); }
+    .check-row:last-child { border-bottom: 0; }
+    .check-row input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+    .check-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .check-title { font-size: 13.5px; font-weight: 600; color: var(--text); }
+    .check-meta { font-size: 12px; color: var(--text-secondary); }
+    .check-row.is-done .check-title { text-decoration: line-through; color: var(--text-muted); }
+    .check-row.is-done .check-meta { color: var(--text-muted); }
 
     details.editorial-acc {
       border-bottom: 1px solid var(--border);
-      padding: 12px 0;
+      padding: 10px 0;
     }
-    details.editorial-acc:last-child { border-bottom: 0; padding-bottom: 0; }
+    details.editorial-acc:last-child { border-bottom: 0; }
     details.editorial-acc summary {
       list-style: none;
       cursor: pointer;
@@ -944,7 +1090,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text);
     }
@@ -952,20 +1098,19 @@
     details.editorial-acc summary::after {
       content: "+";
       font-family: var(--font-mono);
-      font-size: 16px;
-      font-weight: 500;
+      font-size: 15px;
       color: var(--text-muted);
       flex-shrink: 0;
     }
     details.editorial-acc[open] summary::after { content: "-"; }
     .acc-body {
-      padding-top: 8px;
-      font-size: 13px;
+      padding-top: 6px;
+      font-size: 12.5px;
       color: var(--text-secondary);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
-    /* Bottom Sheet Modal (Level 2 Elevation) */
+    /* Bottom Sheet Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -978,7 +1123,7 @@
     @media (min-width: 640px) { .modal-backdrop { align-items: center; padding: 16px; } }
     .modal-sheet {
       width: 100%;
-      max-width: 480px;
+      max-width: 460px;
       max-height: 85dvh;
       overflow-y: auto;
       background: var(--surface);
@@ -987,7 +1132,7 @@
       padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
     [data-theme="dark"] .modal-sheet {
       background: var(--surface-elevated);
@@ -996,16 +1141,16 @@
     @media (min-width: 640px) { .modal-sheet { border-radius: var(--radius); padding: 20px; } }
     .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .btn-primary {
-      height: 44px;
+      height: 42px;
       width: 100%;
       border: 0;
       border-radius: var(--radius-sm);
       background: var(--accent);
       color: var(--accent-fg);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s var(--ease), transform 0.15s var(--ease);
+      transition: background-color 0.18s var(--ease), transform 0.12s var(--ease);
     }
     .btn-primary:hover { background: var(--accent-hover); }
     .btn-primary:active { transform: scale(0.98); }
@@ -1015,7 +1160,7 @@
       position: fixed;
       z-index: 55;
       pointer-events: none;
-      width: 380px;
+      width: 360px;
       max-width: calc(100vw - 24px);
       background: var(--surface);
       border: 1px solid var(--border-strong);
@@ -1047,645 +1192,726 @@
     <div class="topbar-inner">
       <div class="brand">
         <span class="brand-mark" aria-hidden="true">916</span>
-        <div style="min-width:0;">
-          <span class="brand-title">916 Gold Ledger</span>
-          <span id="headerMeta" class="brand-meta mono"></span>
-        </div>
+        <span class="brand-title">916 Gold Ledger</span>
+        <span id="headerMeta" class="brand-meta mono"></span>
       </div>
       <div class="top-actions">
-        <button id="setupBtn" data-agent="setup-toggle" class="btn-ghost" type="button" aria-expanded="false" aria-controls="setupDrawer">Setup</button>
-        <button id="themeBtn" data-agent="theme-toggle" class="btn-ghost btn-icon" type="button" aria-label="Switch color theme">
-          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <button id="setupBtn" data-agent="setup-toggle" class="btn-ghost" type="button" aria-expanded="false" aria-controls="setupSheet">Setup</button>
+        <button id="themeBtn" data-agent="theme-toggle" class="btn-ghost btn-icon" type="button" aria-label="Switch theme">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
       </div>
     </div>
   </header>
 
-  <main id="appMain" class="app-shell">
-
-    <!-- Band 1: Board Rate & Counter Negotiations -->
-    <section class="control-band" aria-labelledby="rateHeading">
-      <div class="rate-top-row">
-        <p id="rateHeading" class="eyebrow">Today's 916 board rate</p>
-        <span id="deltaReadout" class="delta-text mono"></span>
-      </div>
-
-      <div class="rate-input-row">
-        <button id="stepDown" data-agent="rate-step-down" class="step-btn" type="button" aria-label="Decrease rate by 50 rupees">-50</button>
-        <div class="rate-field">
-          <span class="rate-prefix" aria-hidden="true">₹</span>
-          <label for="rateInput" class="sr-only">Purchase day 916 gold rate per gram in rupees</label>
-          <input id="rateInput" data-agent="rate-input" type="number" inputmode="numeric" autocomplete="off" min="8000" max="25000" step="5" value="13715" />
-          <span class="rate-suffix" aria-hidden="true">/g</span>
+  <!-- Global Collapsible Setup Sheet -->
+  <section id="setupSheet" class="setup-sheet hidden" aria-label="Booking setup">
+    <div class="setup-inner">
+      <div class="setup-group">
+        <h2 class="setup-title">Booking terms</h2>
+        <div class="input-2col">
+          <div class="field"><label for="inpR0">Booked rate (₹/g)</label><input id="inpR0" type="number" autocomplete="off" step="5" value="11715" /></div>
+          <div class="field"><label for="inpWMax">Max weight (g)</label><input id="inpWMax" type="number" autocomplete="off" step="0.001" value="102.433" /></div>
+          <div class="field"><label for="inpAdv">Advance paid (₹)</label><input id="inpAdv" type="number" autocomplete="off" step="1000" value="120000" /></div>
+          <div class="field"><label for="inpMcStd">Standard MC (%)</label><input id="inpMcStd" type="number" autocomplete="off" step="0.5" value="11" /></div>
+          <div class="field"><label for="inpMcDisc">Custom ₹7.5L MC (%)</label><input id="inpMcDisc" type="number" autocomplete="off" step="0.1" value="3" /></div>
+          <div class="field"><label for="inpCut">Custom shop cut (%)</label><input id="inpCut" type="number" autocomplete="off" step="0.25" value="2" /></div>
         </div>
-        <button id="stepUp" data-agent="rate-step-up" class="step-btn" type="button" aria-label="Increase rate by 50 rupees">+50</button>
-      </div>
-
-      <label for="rateSlider" class="sr-only">Adjust 916 gold rate</label>
-      <input id="rateSlider" data-agent="rate-slider" type="range" min="9500" max="17000" step="5" value="13715" />
-      <div class="slider-scale mono">
-        <span>₹9,500</span>
-        <span id="bookedScaleLbl">₹11,715 booked</span>
-        <span>₹17,000</span>
-      </div>
-
-      <div class="preset-strip" role="group" aria-label="Quick rate presets">
-        <button class="preset-btn" data-preset="11000" type="button">₹11,000 Drop</button>
-        <button class="preset-btn" data-preset="11715" type="button">₹11,715 Flat</button>
-        <button class="preset-btn" data-preset="12400" type="button">₹12,400 Tier</button>
-        <button class="preset-btn" data-preset="13000" type="button">₹13,000</button>
-        <button class="preset-btn" data-preset="13715" type="button">₹13,715 (+2k)</button>
-        <button class="preset-btn" data-preset="14500" type="button">₹14,500</button>
-        <button class="preset-btn" data-preset="15000" type="button">₹15,000 Boom</button>
-      </div>
-
-      <div class="counter-params">
-        <div>
-          <div class="param-head">
-            <span>Making charge at ₹7.5L+</span>
-            <span id="billedGoldLbl" class="mono c-muted"></span>
-          </div>
-          <div class="seg-group" role="group" aria-label="Discounted making charge">
-            <button class="seg-opt" data-group="mcDisc" data-val="3" type="button">3%</button>
-            <button class="seg-opt" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
-            <button class="seg-opt" data-group="mcDisc" data-val="4" type="button">4%</button>
+        <div class="param-row">
+          <span class="setup-title">₹7.5L threshold basis</span>
+          <div class="seg-group" role="group" aria-label="Threshold basis">
+            <button class="seg-opt" data-group="basis" data-val="gold" type="button">Gold value</button>
+            <button class="seg-opt" data-group="basis" data-val="bill" type="button">Total bill</button>
           </div>
         </div>
-
-        <div>
-          <div class="param-head">
-            <span>Separate-shop 916 buyback cut</span>
-            <span id="buybackRateLbl" class="mono fw-600"></span>
-          </div>
-          <div class="seg-group" role="group" aria-label="Separate shop resale deduction">
-            <button class="seg-opt" data-group="cut" data-val="0" type="button">0%</button>
-            <button class="seg-opt" data-group="cut" data-val="1" type="button">1%</button>
-            <button class="seg-opt" data-group="cut" data-val="2" type="button">2%</button>
-            <button class="seg-opt" data-group="cut" data-val="3" type="button">3%</button>
-            <button class="seg-opt" data-group="cut" data-val="4" type="button">4%</button>
-          </div>
-        </div>
+        <label class="check-line" for="chkRingCounts">
+          <input id="chkRingCounts" type="checkbox" checked />
+          <span>8g ring (18% MC) counts toward ₹7.5L</span>
+        </label>
       </div>
 
-      <!-- Collapsible Advanced Setup -->
-      <div id="setupDrawer" class="setup-drawer hidden">
-        <div class="setup-group">
-          <h2 class="setup-title">Booking &amp; scheme terms</h2>
-          <div class="input-2col">
-            <div class="field"><label for="inpR0">Booked rate (₹/g)</label><input id="inpR0" type="number" autocomplete="off" step="5" value="11715" /></div>
-            <div class="field"><label for="inpWMax">Max weight (g)</label><input id="inpWMax" type="number" autocomplete="off" step="0.001" value="102.433" /></div>
-            <div class="field"><label for="inpAdv">Advance paid (₹)</label><input id="inpAdv" type="number" autocomplete="off" step="1000" value="120000" /></div>
-            <div class="field"><label for="inpMcStd">Standard MC (%)</label><input id="inpMcStd" type="number" autocomplete="off" step="0.5" value="11" /></div>
-            <div class="field"><label for="inpMcDisc">Custom ₹7.5L MC (%)</label><input id="inpMcDisc" type="number" autocomplete="off" step="0.1" value="3" /></div>
-            <div class="field"><label for="inpCut">Custom shop cut (%)</label><input id="inpCut" type="number" autocomplete="off" step="0.25" value="2" /></div>
+      <div class="setup-group">
+        <h2 class="setup-title">Existing 24g chain</h2>
+        <div class="seg-group" role="group" aria-label="Existing 24g strategy">
+          <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto</button>
+          <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
+          <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell &amp; swap</button>
+        </div>
+        <div class="input-2col">
+          <div class="field"><label for="inpOldGold">Old gold value (₹)</label><input id="inpOldGold" type="number" autocomplete="off" step="1000" value="275000" /></div>
+          <div class="field"><label for="inpOldMc">Old MC paid (%)</label><input id="inpOldMc" type="number" autocomplete="off" step="0.5" value="11" /></div>
+        </div>
+        <div id="setupOldInfo" class="mono c-muted" style="font-size:11.5px;"></div>
+        <div style="margin-top:auto;display:flex;justify-content:flex-end;gap:8px;">
+          <button id="resetBtn" class="btn-ghost" type="button">Reset defaults</button>
+          <button id="closeSetupBtn" class="btn-ghost" type="button">Done</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Sticky Slim Rate Bar (Shown ONLY on Tabs 2-5 so every tab starts immediately at top) -->
+  <div id="slimWrap" class="slim-wrap hidden">
+    <div class="slim-bar">
+      <div class="slim-stepper">
+        <button id="slimDown" data-agent="slim-rate-down" class="mini-step" type="button" aria-label="Decrease rate by 50">-50</button>
+        <div class="slim-rate-box">
+          <span class="c-muted" style="font-size:12px;" aria-hidden="true">₹</span>
+          <label for="slimRateInput" class="sr-only">916 gold rate</label>
+          <input id="slimRateInput" data-agent="slim-rate-input" type="number" inputmode="numeric" autocomplete="off" min="8000" max="25000" step="5" value="13715" />
+        </div>
+        <button id="slimUp" data-agent="slim-rate-up" class="mini-step" type="button" aria-label="Increase rate by 50">+50</button>
+      </div>
+      <button id="slimTermsBtn" data-agent="slim-terms-toggle" class="slim-terms-btn mono" type="button" aria-expanded="false" aria-controls="slimDrawer">
+        <span id="slimTermsLbl">3% · 2%</span>
+        <span aria-hidden="true">▾</span>
+      </button>
+    </div>
+
+    <div id="slimDrawer" class="slim-drawer hidden">
+      <div class="slim-verdict-line">
+        <span id="slimBestTxt" class="fw-600"></span>
+        <span id="slimSaveTxt" class="mono fw-700 c-pos"></span>
+      </div>
+      <div class="param-row">
+        <div class="param-head"><span>₹7.5L MC</span><span id="slimBilledLbl" class="mono c-muted"></span></div>
+        <div class="seg-group" role="group" aria-label="Discounted MC quick">
+          <button class="seg-opt" data-group="mcDisc" data-val="3" type="button">3%</button>
+          <button class="seg-opt" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
+          <button class="seg-opt" data-group="mcDisc" data-val="4" type="button">4%</button>
+        </div>
+      </div>
+      <div class="param-row">
+        <div class="param-head"><span>Shop cut</span><span id="slimBuybackLbl" class="mono fw-600"></span></div>
+        <div class="seg-group" role="group" aria-label="Shop cut quick">
+          <button class="seg-opt" data-group="cut" data-val="0" type="button">0%</button>
+          <button class="seg-opt" data-group="cut" data-val="1" type="button">1%</button>
+          <button class="seg-opt" data-group="cut" data-val="2" type="button">2%</button>
+          <button class="seg-opt" data-group="cut" data-val="3" type="button">3%</button>
+          <button class="seg-opt" data-group="cut" data-val="4" type="button">4%</button>
+        </div>
+      </div>
+      <div class="param-row">
+        <div class="param-head"><span>Old 24g chain</span><span id="slimOldLbl" class="mono c-muted"></span></div>
+        <div class="seg-group" role="group" aria-label="Old 24g quick">
+          <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto</button>
+          <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
+          <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="appMain" class="workspace">
+
+    <!-- TAB 1 ON MOBILE / STICKY LEFT RAIL ON DESKTOP: DECIDE -->
+    <section id="view-decide" class="rail-pane view-anim" aria-label="Gold rate and decision">
+      <div class="decide-stack">
+        <div class="control-section">
+          <div class="rate-top-row">
+            <p class="eyebrow">916 board rate</p>
+            <span id="deltaReadout" class="mono fw-600" style="font-size:12px;"></span>
           </div>
-          <div>
-            <div class="param-head"><span>₹7.5L threshold basis</span></div>
-            <div class="seg-group" role="group" aria-label="Threshold basis">
-              <button class="seg-opt" data-group="basis" data-val="gold" type="button">Gold value only</button>
-              <button class="seg-opt" data-group="basis" data-val="bill" type="button">Total bill</button>
+
+          <div class="rate-input-row">
+            <button id="stepDown" data-agent="rate-step-down" class="step-btn" type="button" aria-label="Decrease rate by 50">-50</button>
+            <div class="rate-field">
+              <span class="rate-prefix" aria-hidden="true">₹</span>
+              <label for="rateInput" class="sr-only">Today's 916 gold rate per gram</label>
+              <input id="rateInput" data-agent="rate-input" type="number" inputmode="numeric" autocomplete="off" min="8000" max="25000" step="5" value="13715" />
+              <span class="rate-suffix" aria-hidden="true">/g</span>
+            </div>
+            <button id="stepUp" data-agent="rate-step-up" class="step-btn" type="button" aria-label="Increase rate by 50">+50</button>
+          </div>
+
+          <label for="rateSlider" class="sr-only">Adjust 916 gold rate</label>
+          <input id="rateSlider" data-agent="rate-slider" type="range" min="9500" max="17000" step="5" value="13715" />
+          <div class="slider-scale mono">
+            <span>₹9.5k</span>
+            <span id="bookedScaleLbl">₹11,715 booked</span>
+            <span>₹17k</span>
+          </div>
+
+          <div class="preset-strip" role="group" aria-label="Quick rates">
+            <button class="preset-btn" data-preset="11000" type="button">₹11k</button>
+            <button class="preset-btn" data-preset="11715" type="button">₹11,715</button>
+            <button class="preset-btn" data-preset="12400" type="button">₹12.4k</button>
+            <button class="preset-btn" data-preset="13000" type="button">₹13k</button>
+            <button class="preset-btn" data-preset="13715" type="button">₹13.7k</button>
+            <button class="preset-btn" data-preset="14500" type="button">₹14.5k</button>
+            <button class="preset-btn" data-preset="15000" type="button">₹15k</button>
+          </div>
+
+          <div class="param-row">
+            <div class="param-head">
+              <span>₹7.5L making charge</span>
+              <span id="billedGoldLbl" class="mono c-muted"></span>
+            </div>
+            <div class="seg-group" role="group" aria-label="Discounted making charge">
+              <button class="seg-opt" data-group="mcDisc" data-val="3" type="button">3%</button>
+              <button class="seg-opt" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
+              <button class="seg-opt" data-group="mcDisc" data-val="4" type="button">4%</button>
             </div>
           </div>
-          <label class="check-line" for="chkRingCounts">
-            <input id="chkRingCounts" type="checkbox" checked />
-            <span>8g ring (18% MC) counts toward ₹7.5L total</span>
-          </label>
+
+          <div class="param-row">
+            <div class="param-head">
+              <span>Separate-shop cut</span>
+              <span id="buybackRateLbl" class="mono fw-600"></span>
+            </div>
+            <div class="seg-group" role="group" aria-label="Separate shop cut">
+              <button class="seg-opt" data-group="cut" data-val="0" type="button">0%</button>
+              <button class="seg-opt" data-group="cut" data-val="1" type="button">1%</button>
+              <button class="seg-opt" data-group="cut" data-val="2" type="button">2%</button>
+              <button class="seg-opt" data-group="cut" data-val="3" type="button">3%</button>
+              <button class="seg-opt" data-group="cut" data-val="4" type="button">4%</button>
+            </div>
+          </div>
         </div>
 
-        <div class="setup-group">
-          <h2 class="setup-title">Existing 24g 916 chain</h2>
-          <div class="seg-group" role="group" aria-label="Existing 24g chain strategy">
-            <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto (best)</button>
-            <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
-            <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell &amp; swap</button>
+        <div class="verdict-section">
+          <div class="verdict-top">
+            <div style="min-width:0;">
+              <span id="verdictTag" class="tag tag-pos"></span>
+              <h1 id="verdictTitle" class="verdict-h1"></h1>
+            </div>
+            <div class="verdict-stat">
+              <span id="heroSaved" class="stat-hero mono c-pos"></span>
+              <span class="stat-caption">vs walk-in</span>
+            </div>
           </div>
-          <div class="input-2col">
-            <div class="field"><label for="inpOldGold">Old gold value (₹)</label><input id="inpOldGold" type="number" autocomplete="off" step="1000" value="275000" /></div>
-            <div class="field"><label for="inpOldMc">Old MC paid (%)</label><input id="inpOldMc" type="number" autocomplete="off" step="0.5" value="11" /></div>
+
+          <div id="verdictChips" class="chip-strip mono"></div>
+
+          <div class="figure-bar">
+            <div class="figure-cell">
+              <span id="figNetLbl" class="figure-lbl">Net cost</span>
+              <span id="figNetVal" class="figure-val mono"></span>
+              <span id="figNetSub" class="figure-sub mono"></span>
+            </div>
+            <div class="figure-cell">
+              <span class="figure-lbl">Bank transfer</span>
+              <span id="figBankVal" class="figure-val mono"></span>
+              <span id="figBankSub" class="figure-sub mono"></span>
+            </div>
           </div>
-          <div id="setupOldInfo" class="mono c-muted" style="font-size:12px;"></div>
-          <div style="margin-top:auto;display:flex;justify-content:flex-end;">
-            <button id="resetBtn" class="btn-ghost" type="button">Reset defaults</button>
+
+          <div class="old-block">
+            <div class="old-head">
+              <span id="oldTag" class="tag"></span>
+              <div class="seg-group seg-compact" style="width:auto;" role="group" aria-label="Old 24g chain mode">
+                <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto</button>
+                <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
+                <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell</button>
+              </div>
+            </div>
+            <div id="oldNums" class="old-metrics mono"></div>
+            <details class="old-why">
+              <summary>Details</summary>
+              <p id="oldNote"></p>
+            </details>
+          </div>
+
+          <div class="regime-block">
+            <div class="regime-labels">
+              <span>Zones</span>
+              <span id="regimeSummary" class="mono"></span>
+            </div>
+            <div id="regimeTrack" class="regime-track" aria-hidden="true"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Band 2: Primary Verdict Ledger -->
-    <section class="verdict-band" aria-labelledby="verdictTitle">
-      <div class="verdict-header">
-        <div class="verdict-copy">
-          <span id="verdictTag" class="tag tag-pos"></span>
-          <h1 id="verdictTitle" class="verdict-h1"></h1>
-          <p id="verdictDesc" class="verdict-desc"></p>
-        </div>
-        <div class="verdict-primary-stat">
-          <span class="stat-caption">Saved vs walk-in (no scheme)</span>
-          <span id="heroSaved" class="stat-hero mono c-pos"></span>
-        </div>
-      </div>
+    <!-- RIGHT WORKSPACE ON DESKTOP / FULL-SCREEN TABS 2-5 ON MOBILE -->
+    <div class="detail-col">
+      <nav class="desktop-nav" role="tablist" aria-label="Detail views">
+        <button class="dnav-btn" data-tab="bills" data-agent="dtab-bills" role="tab" type="button">Bills &amp; Receipt</button>
+        <button class="dnav-btn" data-tab="rates" data-agent="dtab-rates" role="tab" type="button">Chart &amp; Rates</button>
+        <button class="dnav-btn" data-tab="pieces" data-agent="dtab-pieces" role="tab" type="button">Pieces &amp; Old 24g</button>
+        <button class="dnav-btn" data-tab="check" data-agent="dtab-check" role="tab" type="button">Checklist</button>
+      </nav>
 
-      <div class="figure-bar">
-        <div class="figure-cell">
-          <span id="figNetLbl" class="figure-lbl">Net cost (32g kept)</span>
-          <span id="figNetVal" class="figure-val mono"></span>
-          <span id="figNetSub" class="figure-sub mono"></span>
-        </div>
-        <div class="figure-cell">
-          <span class="figure-lbl">Bank transfer needed</span>
-          <span id="figBankVal" class="figure-val mono"></span>
-          <span id="figBankSub" class="figure-sub mono"></span>
-        </div>
-      </div>
+      <!-- TAB 2: BILLS & COUNTER RECEIPT -->
+      <section id="view-bills" class="view-pane view-anim hidden" aria-label="Bills and receipt">
+        <div id="stratGrid" class="strat-grid" role="group" aria-label="Strategies"></div>
 
-      <div class="old-row">
-        <div class="old-row-top">
-          <span id="oldTag" class="tag"></span>
-          <div id="oldNums" class="old-nums mono"></div>
-        </div>
-        <p id="oldNote" class="old-note"></p>
-      </div>
-
-      <div class="regime-block">
-        <div class="regime-labels">
-          <span>Decision zones</span>
-          <span id="regimeSummary" class="mono"></span>
-        </div>
-        <div id="regimeTrack" class="regime-track" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <!-- Desktop Tabs -->
-    <nav class="desktop-nav" role="tablist" aria-label="Planner sections">
-      <button class="dnav-btn" data-tab="compare" data-agent="tab-compare" role="tab" type="button">Compare &amp; Receipt</button>
-      <button class="dnav-btn" data-tab="rates" data-agent="tab-rates" role="tab" type="button">Chart &amp; Rates</button>
-      <button class="dnav-btn" data-tab="pieces" data-agent="tab-pieces" role="tab" type="button">Showroom Pieces</button>
-      <button class="dnav-btn" data-tab="check" data-agent="tab-check" role="tab" type="button">Counter Checklist</button>
-    </nav>
-
-    <!-- TAB 1: COMPARE & COUNTER RECEIPT -->
-    <section id="view-compare" class="view-pane" aria-label="Scenario comparison">
-      <div id="stratList" class="strat-list" role="group" aria-label="Purchase strategies"></div>
-
-      <div class="panel">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
-          <div>
-            <h2 class="panel-h2">Counter receipt breakdown</h2>
-            <p id="inspHeading" class="panel-sub"></p>
-          </div>
-          <div class="seg-group" style="width:auto;" role="group" aria-label="Inspect strategy bill">
-            <button class="seg-opt" style="padding:0 12px;" data-inspect="S0" type="button">Walk-in</button>
-            <button class="seg-opt" style="padding:0 12px;" data-inspect="S1" type="button">S1</button>
-            <button class="seg-opt" style="padding:0 12px;" data-inspect="S2" type="button">S2</button>
-            <button class="seg-opt" style="padding:0 12px;" data-inspect="S3" type="button">S3</button>
-          </div>
-        </div>
-
-        <div class="split-2">
-          <div class="col-block">
-            <h3 class="col-head"><span id="inspBuyTitle">Step 1: Showroom purchase</span><span id="inspBuyWt" class="mono c-muted"></span></h3>
-            <div id="inspBuyRows"></div>
-            <div id="inspSettlement" class="kv-list"></div>
+        <div class="panel">
+          <div class="panel-head">
+            <h2 id="inspHeading" class="panel-h2">Counter receipt</h2>
+            <span id="inspBuyWt" class="tag tag-info mono"></span>
           </div>
 
-          <div class="col-block" style="justify-content:space-between;">
+          <div class="split-2">
             <div class="col-block">
-              <h3 class="col-head"><span>Step 2: Resale &amp; savings</span><span id="inspResaleRate" class="mono c-muted"></span></h3>
-              <div id="inspResaleRows" class="kv-list" style="border-top:0;padding-top:0;"></div>
+              <h3 class="col-head"><span id="inspBuyTitle">Showroom bill</span><span id="inspRateTag" class="mono"></span></h3>
+              <div id="inspBuyRows"></div>
+              <div id="inspSettlement" class="kv-list"></div>
             </div>
-            <div id="inspOutcome" class="kv-list"></div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- TAB 2: CHART & RATES -->
-    <section id="view-rates" class="view-pane hidden" aria-label="Rate curves and table">
-      <div class="panel">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px;">
-          <div>
-            <h2 class="panel-h2">Savings vs walk-in (no scheme)</h2>
-            <p class="panel-sub">Tap anywhere on the chart to test that 916 rate.</p>
-          </div>
-          <div class="chart-legend">
-            <span class="legend-item"><i class="legend-swatch" style="background:var(--warn);"></i>S1 (32g)</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:var(--info);"></i>S2 (₹7.5L)</span>
-            <span class="legend-item"><i class="legend-swatch" style="background:var(--accent);"></i>S3 (102g)</span>
-          </div>
-        </div>
-        <svg id="chartSvg" viewBox="0 0 760 260" style="width:100%;height:auto;display:block;cursor:crosshair;touch-action:none;" role="img" aria-label="Savings curve across 916 gold rates"></svg>
-      </div>
-
-      <div class="panel">
-        <div>
-          <h2 class="panel-h2">Rate reference ledger</h2>
-          <p class="panel-sub">Tap any strategy for exact rupee math. Hover on desktop.</p>
-        </div>
-        <div id="matrixMobile" class="rates-mobile"></div>
-        <div class="rates-desktop">
-          <table class="desktop-tbl">
-            <thead>
-              <tr>
-                <th>916 Rate</th>
-                <th class="num">Walk-in</th>
-                <th class="num">S1 (32g)</th>
-                <th class="num">S2 (₹7.5L)</th>
-                <th class="num">S3 (102g)</th>
-                <th>Best action</th>
-              </tr>
-            </thead>
-            <tbody id="matrixBody" class="mono"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 3: SHOWROOM PIECES & EXISTING 24g CHAIN -->
-    <section id="view-pieces" class="view-pane hidden" aria-label="Showroom piece weight calculator">
-      <div class="panel">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px;">
-          <div>
-            <h2 class="panel-h2">Showroom exact-weight check</h2>
-            <p class="panel-sub">Enter actual tag weights of pieces at the counter to verify the ₹7.5L discount and booking cap.</p>
-          </div>
-          <div id="piecesTags" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-        </div>
-
-        <div class="pieces-grid">
-          <div class="field"><label for="pwChain">Keep chain (g)</label><input id="pwChain" type="number" autocomplete="off" step="0.01" min="0" value="24.00" /></div>
-          <div class="field"><label for="pwRing">Keep ring (g, 18%)</label><input id="pwRing" type="number" autocomplete="off" step="0.01" min="0" value="8.00" /></div>
-          <div class="field"><label for="pwEx1">Resell piece 1 (g)</label><input id="pwEx1" type="number" autocomplete="off" step="0.01" min="0" value="20.00" /></div>
-          <div class="field"><label for="pwEx2">Resell piece 2 (g)</label><input id="pwEx2" type="number" autocomplete="off" step="0.01" min="0" value="13.00" /></div>
-          <div class="field"><label for="pwEx3">Resell piece 3 (g)</label><input id="pwEx3" type="number" autocomplete="off" step="0.01" min="0" value="0.00" /></div>
-        </div>
-
-        <div id="piecesLedger" class="ledger-2x2"></div>
-      </div>
-
-      <div class="panel">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;">
-          <div>
-            <h2 class="panel-h2">Existing 24g chain breakevens</h2>
-            <p id="oldChainSub" class="panel-sub"></p>
-          </div>
-          <span id="oldSalePill" class="tag tag-info mono"></span>
-        </div>
-        <div id="oldLedger" class="kv-list" style="border-top:0;padding-top:0;"></div>
-      </div>
-    </section>
-
-    <!-- TAB 4: COUNTER CHECKLIST & T&C ACCORDIONS -->
-    <section id="view-check" class="view-pane hidden" aria-label="Purchase day checklist">
-      <div class="panel">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-          <h2 class="panel-h2">Purchase-day checklist</h2>
-          <button id="clearChecksBtn" class="btn-ghost" style="height:32px;font-size:12px;" type="button">Reset ticks</button>
-        </div>
-        <div id="checkList" class="check-list"></div>
-      </div>
-
-      <div class="panel">
-        <h2 class="panel-h2">Booking terms &amp; guardrails</h2>
-        <div>
-          <details class="editorial-acc" open>
-            <summary>Partial redemption advance lock-in (Clauses 2 &amp; 4)</summary>
-            <div class="acc-body">
-              <p style="margin:0 0 8px;">Advances are non-refundable in cash, and unclosed balances auto-convert on Day 356 into a gold coin with 15% making charge. Confirm whether the full advance adjusts on a partial bill:</p>
-              <div id="prorataLines" class="mono" style="font-size:12px;display:flex;flex-direction:column;gap:4px;"></div>
+            <div class="col-block" style="justify-content:space-between;">
+              <div class="col-block">
+                <h3 class="col-head"><span>Resale &amp; savings</span><span id="inspResaleRate" class="mono"></span></h3>
+                <div id="inspResaleRows" class="kv-list" style="border-top:0;padding-top:0;"></div>
+              </div>
+              <div id="inspOutcome" class="kv-list"></div>
             </div>
-          </details>
-          <details class="editorial-acc">
-            <summary>Making charge uses purchase-day rate (Clause 1)</summary>
-            <div id="clause1Text" class="acc-body"></div>
-          </details>
-          <details class="editorial-acc">
-            <summary>No gold coins or special-priced items (Clause 3)</summary>
-            <div class="acc-body">Pick plain, stone-free, enamel-free 916 chains or bangles for extra resale weight so you receive the discounted MC at billing and full weight valuation at the separate buyer.</div>
-          </details>
-          <details class="editorial-acc">
-            <summary>₹1.90L cash limit, bank transfers &amp; tax note</summary>
-            <div class="acc-body">Max cash accepted at the showroom is ₹1,90,000; the balance must go via NEFT, RTGS, UPI, or card. Verify daily transfer limits 2 days ahead. Organized buyers also pay above ₹10,000 by bank transfer, so keep short-term capital gains tax rules in mind on realized profit.</div>
-          </details>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
+      <!-- TAB 3: CHART & RATES -->
+      <section id="view-rates" class="view-pane view-anim hidden" aria-label="Chart and rates">
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-h2">Savings vs walk-in</h2>
+            <div class="chart-legend">
+              <span class="legend-item"><i class="legend-swatch" style="background:var(--warn);"></i>S1</span>
+              <span class="legend-item"><i class="legend-swatch" style="background:var(--info);"></i>S2</span>
+              <span class="legend-item"><i class="legend-swatch" style="background:var(--accent);"></i>S3</span>
+            </div>
+          </div>
+          <svg id="chartSvg" viewBox="0 0 760 250" style="width:100%;height:auto;display:block;cursor:crosshair;touch-action:none;" role="img" aria-label="Savings curve across 916 gold rates"></svg>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-h2">Rate table</h2>
+            <span class="c-muted" style="font-size:11.5px;">Tap cell for math</span>
+          </div>
+          <div id="matrixMobile" class="rates-mobile"></div>
+          <div class="rates-desktop">
+            <table class="desktop-tbl">
+              <thead>
+                <tr>
+                  <th>Rate</th>
+                  <th class="num">Walk-in</th>
+                  <th class="num">S1 (32g)</th>
+                  <th class="num">S2 (₹7.5L)</th>
+                  <th class="num">S3 (102g)</th>
+                  <th>Best</th>
+                </tr>
+              </thead>
+              <tbody id="matrixBody" class="mono"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: PIECES & OLD 24G -->
+      <section id="view-pieces" class="view-pane view-anim hidden" aria-label="Showroom pieces">
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-h2">Showroom tag weights</h2>
+            <div id="piecesTags" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+          </div>
+
+          <div class="pieces-grid">
+            <div class="field"><label for="pwChain">Chain (g)</label><input id="pwChain" type="number" step="0.01" value="24" /></div>
+            <div class="field"><label for="pwRing">Ring 18% (g)</label><input id="pwRing" type="number" step="0.01" value="8" /></div>
+            <div class="field"><label for="pwEx1">Extra 1 (g)</label><input id="pwEx1" type="number" step="0.01" value="20" /></div>
+            <div class="field"><label for="pwEx2">Extra 2 (g)</label><input id="pwEx2" type="number" step="0.01" value="13" /></div>
+            <div class="field"><label for="pwEx3">Extra 3 (g)</label><input id="pwEx3" type="number" step="0.01" value="0" /></div>
+          </div>
+
+          <div id="piecesLedger" class="ledger-2x2"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-h2">Existing 24g chain</h2>
+            <span id="oldSalePill" class="tag tag-info mono"></span>
+          </div>
+          <div id="oldChainSub" class="mono c-muted" style="font-size:11.5px;"></div>
+          <div id="oldLedger" class="kv-list" style="border-top:0;padding-top:0;"></div>
+        </div>
+      </section>
+
+      <!-- TAB 5: CHECKLIST & RULES -->
+      <section id="view-check" class="view-pane view-anim hidden" aria-label="Counter checklist">
+        <div class="panel">
+          <div class="panel-head">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <h2 class="panel-h2">Counter checklist</h2>
+              <span id="checkProgress" class="tag tag-info mono"></span>
+            </div>
+            <button id="clearChecksBtn" class="btn-ghost" style="height:30px;font-size:12px;" type="button">Reset</button>
+          </div>
+          <div id="checklistBox" class="check-list"></div>
+        </div>
+
+        <div class="panel">
+          <h2 class="panel-h2">Booking rules</h2>
+          <div>
+            <details class="editorial-acc">
+              <summary>MC billed on purchase-day rate (Clause 1)</summary>
+              <div class="acc-body">Gold base uses min(booked, today), while making charge % always applies to today's board rate. GST (3%) applies on Gold + MC.</div>
+            </details>
+            <details class="editorial-acc">
+              <summary>Partial advance &amp; no-refund clause (Clauses 2 &amp; 4)</summary>
+              <div class="acc-body">Unused advance carries forward without cash refund. Unclosed balance after 356 days auto-books a gold coin at 15% VA. Confirm full advance closure before billing.</div>
+            </details>
+            <details class="editorial-acc">
+              <summary>No coins &amp; ₹1.90L cash limit (Clause 3)</summary>
+              <div class="acc-body">Redeem against plain 916 HUID jewellery only (no coins or special-price items). Cash is capped at ₹1.90L; pay balance via RTGS/IMPS/UPI.</div>
+            </details>
+            <details class="editorial-acc">
+              <summary>Resale &amp; tax note</summary>
+              <div class="acc-body">Short-term gains on gold sold within 24 months are taxed at slab rate. Keep showroom GST invoices and HUID slips together.</div>
+            </details>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <!-- Mobile Bottom Nav -->
-  <nav class="mobile-nav" aria-label="Primary navigation">
-    <button class="mnav-btn" data-tab="compare" data-agent="mob-tab-compare" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      <span>Compare</span>
+  <!-- Mobile 5-Tab Bottom Bar -->
+  <nav class="mobile-nav" role="tablist" aria-label="Sections">
+    <button class="mnav-btn" data-tab="decide" data-agent="mtab-decide" role="tab" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span>Decide</span>
     </button>
-    <button class="mnav-btn" data-tab="rates" data-agent="mob-tab-rates" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+    <button class="mnav-btn" data-tab="bills" data-agent="mtab-bills" role="tab" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/></svg>
+      <span>Bills</span>
+    </button>
+    <button class="mnav-btn" data-tab="rates" data-agent="mtab-rates" role="tab" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></svg>
       <span>Rates</span>
     </button>
-    <button class="mnav-btn" data-tab="pieces" data-agent="mob-tab-pieces" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <button class="mnav-btn" data-tab="pieces" data-agent="mtab-pieces" role="tab" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <span>Pieces</span>
     </button>
-    <button class="mnav-btn" data-tab="check" data-agent="mob-tab-check" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+    <button class="mnav-btn" data-tab="check" data-agent="mtab-check" role="tab" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       <span>Check</span>
     </button>
   </nav>
 
-  <!-- Bottom Sheet / Modal for Exact Math -->
+  <!-- Bottom Sheet Modal (Tap Math) -->
   <div id="mathModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-sheet">
       <div class="modal-head">
-        <h2 id="modalTitle" class="panel-h2">Exact breakdown</h2>
-        <button id="modalCloseBtn" data-agent="modal-close" class="btn-ghost btn-icon" type="button" aria-label="Close breakdown">×</button>
+        <strong id="modalTitle" style="font-size:15px;">Exact math</strong>
+        <button id="modalCloseBtn" class="btn-ghost" style="height:32px;padding:0 10px;font-size:12px;" type="button">Close</button>
       </div>
       <div id="modalBody"></div>
-      <button id="modalApplyBtn" data-agent="modal-apply-rate" class="btn-primary" type="button">Use this 916 rate</button>
+      <button id="modalApplyBtn" class="btn-primary" type="button">Set this rate</button>
     </div>
   </div>
 
   <!-- Desktop Hover Popover -->
-  <div id="hoverPopover" class="hover-popover hidden" aria-hidden="true"></div>
+  <div id="hoverPopover" class="hover-popover hidden" role="tooltip"></div>
 
   <script>
-    const STORAGE_KEY = 'gold916_ledger_v2';
+    const GST = 0.03;
     const W_CHAIN = 24;
     const W_RING = 8;
-    const W_KEEP = 32;
     const MC_RING = 0.18;
-    const GST = 0.03;
-    const THRESH = 750000;
     const MAX_CASH = 190000;
+    const THRESH_75 = 750000;
+    const STORE_KEY = 'gold916_ledger_v3';
 
     const DEFAULT_STATE = {
       R0: 11715,
       W_MAX: 102.433,
       ADVANCE: 120000,
       R1: 13715,
-      mcDisc: 3.0,
-      mcStd: 11.0,
-      cut: 2.0,
+      mcStd: 11,
+      mcDisc: 3,
+      cut: 2,
       basis: 'gold',
       ringCounts: true,
       old: 'auto',
       oldGold: 275000,
-      oldMc: 11.0,
-      tab: 'compare',
+      oldMc: 11,
+      tab: 'decide',
+      desktopTab: 'bills',
       inspect: 'S3',
       pinnedInspect: false,
       pieces: { c: 24, r: 8, e1: 20, e2: 13, e3: 0 },
       checks: {},
-      theme: null
+      theme: 'light'
     };
-
-    let state = loadState();
-    let matrixCache = new Map();
-    let activeHoverKey = '';
-    let modalRate = null;
 
     function loadState() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw = localStorage.getItem(STORE_KEY);
         if (!raw) return structuredClone(DEFAULT_STATE);
         const p = JSON.parse(raw);
-        return {
-          ...structuredClone(DEFAULT_STATE),
-          ...p,
-          pieces: { ...DEFAULT_STATE.pieces, ...(p.pieces || {}) },
-          checks: { ...(p.checks || {}) }
-        };
+        const s = { ...structuredClone(DEFAULT_STATE), ...p, pieces: { ...DEFAULT_STATE.pieces, ...(p.pieces || {}) }, checks: { ...(p.checks || {}) } };
+        if (!['decide', 'bills', 'rates', 'pieces', 'check'].includes(s.tab)) s.tab = 'decide';
+        if (!['bills', 'rates', 'pieces', 'check'].includes(s.desktopTab)) s.desktopTab = 'bills';
+        return s;
       } catch {
         return structuredClone(DEFAULT_STATE);
       }
     }
 
+    let state = loadState();
+    let matrixCache = new Map();
+    let modalRate = null;
+    let activeHoverKey = '';
+    let lastMobile = window.innerWidth < 960;
+
     function saveState() {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {}
     }
 
-    function applyTheme() {
-      let t = state.theme;
-      if (!t) {
-        const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        t = sysDark ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-theme', t);
-      const icon = document.getElementById('themeIcon');
-      icon.innerHTML = t === 'dark'
-        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'
-        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-    }
-
-    const fmtINR = (n, showSign = false) => {
-      const a = Math.round(Math.abs(n));
-      const p = (n < 0 && a > 0) ? '-' : (showSign && n > 0 && a > 0 ? '+' : '');
-      return p + '₹' + a.toLocaleString('en-IN');
+    const fmtINR = (n, signed = false) => {
+      const r = Math.round(n);
+      const abs = Math.abs(r).toLocaleString('en-IN');
+      if (signed) return (r > 0 ? '+₹' : r < 0 ? '-₹' : '₹') + abs;
+      return (r < 0 ? '-₹' : '₹') + abs;
     };
-
-    const fmtL = (n) => {
-      const a = Math.abs(n);
-      const p = (n < 0 && a >= 1) ? '-' : '';
-      if (a >= 100000) return p + '₹' + (a / 100000).toFixed(2) + 'L';
-      if (a >= 1000) return p + '₹' + (a / 1000).toFixed(1) + 'k';
-      return p + '₹' + Math.round(a);
+    const fmtK = (n, signed = false) => {
+      const abs = Math.abs(n);
+      const s = abs >= 100000 ? `₹${(abs / 100000).toFixed(2)}L` : (abs >= 1000 ? `₹${(abs / 1000).toFixed(1)}k` : `₹${Math.round(abs)}`);
+      if (signed) return (n > 0 ? '+' : n < 0 ? '-' : '') + s;
+      return (n < 0 ? '-' : '') + s;
     };
+    const fmtL = (n) => `₹${(n / 100000).toFixed(2)}L`;
 
     function getOldCost() {
-      const gold = Math.max(0, state.oldGold);
+      const gold = state.oldGold;
       const mc = gold * (state.oldMc / 100);
       const gst = (gold + mc) * GST;
-      return { gold, mc, gst, totalPaid: gold + mc + gst, friction: mc + gst };
+      return { gold, mc, gst, friction: mc + gst, totalPaid: gold + mc + gst };
     }
 
-    function itemCost(weight, R1, mcFrac, lockedWeight = weight, useBooking = true) {
-      const wLock = useBooking ? Math.min(weight, Math.max(0, lockedWeight)) : 0;
-      const wEx = Math.max(0, weight - wLock);
-      const Reff = Math.min(state.R0, R1);
-      const gold = wLock * Reff + wEx * R1;
-      const mc = weight * R1 * mcFrac;
+    function itemCost(w, r1, mcDec, wAvail, isBooked) {
+      const wB = isBooked ? Math.min(w, wAvail) : 0;
+      const wO = Math.max(0, w - wB);
+      const effB = Math.min(state.R0, r1);
+      const gold = wB * effB + wO * r1;
+      const mc = w * r1 * mcDec;
       const gst = (gold + mc) * GST;
-      return { weight, gold, mc, gst, total: gold + mc + gst };
+      return { w, gold, mc, gst, total: gold + mc + gst };
     }
 
-    function unitCost(R1, mcFrac) {
-      return (Math.min(state.R0, R1) + mcFrac * R1) * (1 + GST);
-    }
-
-    function getW75(R1) {
-      const Reff = Math.min(state.R0, R1);
-      const uDisc = unitCost(R1, state.mcDisc / 100);
-      const uRing = unitCost(R1, MC_RING);
-      let w;
+    function weightFor75(r1, mcDisc) {
+      const eff = Math.min(state.R0, r1);
+      const base = W_CHAIN + W_RING;
+      let wEx = 0;
       if (state.basis === 'gold') {
-        w = state.ringCounts ? (THRESH / Reff) : (W_RING + THRESH / Reff);
+        const wNeed = THRESH_75 / eff;
+        wEx = state.ringCounts ? Math.max(0, wNeed - base) : Math.max(0, wNeed - W_CHAIN);
       } else {
-        const rBill = W_RING * uRing;
-        w = state.ringCounts ? (W_RING + Math.max(0, THRESH - rBill) / uDisc) : (W_RING + THRESH / uDisc);
+        const uC = (eff + mcDisc * r1) * (1 + GST);
+        const uR = (eff + MC_RING * r1) * (1 + GST);
+        const kept = W_CHAIN * uC + (state.ringCounts ? W_RING * uR : 0);
+        wEx = Math.max(0, (THRESH_75 - kept) / uC);
       }
-      return Math.max(W_KEEP, Math.min(state.W_MAX, w));
+      return Math.min(wEx, Math.max(0, state.W_MAX - base));
     }
 
-    function computeAll(R1, oldSetting = state.old) {
-      const mcDisc = state.mcDisc / 100;
-      const mcStd = state.mcStd / 100;
-      const cut = state.cut / 100;
-      const resaleRate = R1 * (1 - cut);
+    function evalAt(r1) {
+      const mcS = state.mcStd / 100;
+      const mcD = state.mcDisc / 100;
+      const d = state.cut / 100;
+      const resaleRate = r1 * (1 - d);
       const oldC = getOldCost();
       const oldSale = W_CHAIN * resaleRate;
 
-      const makeWalkIn = (oldProc) => {
-        const chain = itemCost(W_CHAIN, R1, mcStd, 0, false);
-        const ring = itemCost(W_RING, R1, MC_RING, 0, false);
-        const extra = itemCost(0, R1, mcStd, 0, false);
-        const bill = chain.total + ring.total;
-        const goldVal = chain.gold + ring.gold;
-        const bal = bill;
-        const cash = Math.min(MAX_CASH, bal);
-        const bank = Math.max(0, bal - MAX_CASH);
-        return { id: 'S0', totalW: W_KEEP, wEx: 0, mcNonRing: mcStd, chain, ring, extra, bill, goldVal, bal, cash, bank, extraResale: 0, flipPL: 0, net: bill - oldProc, isWalkIn: true };
-      };
-
-      const makeBooked = (id, totalW, mcNonRing, oldProc) => {
-        const wEx = Math.max(0, totalW - W_KEEP);
-        const chain = itemCost(W_CHAIN, R1, mcNonRing, W_CHAIN, true);
-        const ring = itemCost(W_RING, R1, MC_RING, W_RING, true);
-        const extra = itemCost(wEx, R1, mcNonRing, wEx, true);
-        const bill = chain.total + ring.total + extra.total;
+      const build = (id, wEx, mcNR, isWalkIn) => {
+        const chain = itemCost(W_CHAIN, r1, mcNR, state.W_MAX, !isWalkIn);
+        const ring = itemCost(W_RING, r1, MC_RING, Math.max(0, state.W_MAX - W_CHAIN), !isWalkIn);
+        const extra = itemCost(wEx, r1, mcNR, Math.max(0, state.W_MAX - W_CHAIN - W_RING), !isWalkIn);
+        const totalW = W_CHAIN + W_RING + wEx;
         const goldVal = chain.gold + ring.gold + extra.gold;
-        const bal = Math.max(0, bill - state.ADVANCE);
+        const bill = chain.total + ring.total + extra.total;
+        const advUsed = isWalkIn ? 0 : state.ADVANCE;
+        const bal = Math.max(0, bill - advUsed);
         const cash = Math.min(MAX_CASH, bal);
         const bank = Math.max(0, bal - MAX_CASH);
         const extraResale = wEx * resaleRate;
         const flipPL = extraResale - extra.total;
-        return { id, totalW, wEx, mcNonRing, chain, ring, extra, bill, goldVal, bal, cash, bank, extraResale, flipPL, net: bill - extraResale - oldProc, isWalkIn: false };
+        return { id, isWalkIn, totalW, wEx, mcNonRing: mcNR, chain, ring, extra, goldVal, bill, advUsed, bal, cash, bank, extraResale, flipPL, netBeforeOld: bill - extraResale };
       };
 
-      const w75 = getW75(R1);
-      const p1 = makeBooked('S1', W_KEEP, mcStd, 0);
-      const p2 = makeBooked('S2', w75, mcDisc, 0);
-      const p3 = makeBooked('S3', state.W_MAX, mcDisc, 0);
+      const S0 = build('S0', 0, mcS, true);
+      const S1 = build('S1', 0, mcS, false);
+      const S2 = build('S2', weightFor75(r1, mcD), mcD, false);
+      const S3 = build('S3', Math.max(0, state.W_MAX - W_CHAIN - W_RING), mcD, false);
 
       let best = 'S1';
-      let minNet = p1.net;
-      if (p2.net < minNet - 0.5) { best = 'S2'; minNet = p2.net; }
-      if (p3.net < minNet - 0.5) { best = 'S3'; minNet = p3.net; }
+      if (S2.netBeforeOld < S1.netBeforeOld - 1) best = 'S2';
+      if (S3.netBeforeOld < Math.min(S1.netBeforeOld, S2.netBeforeOld) - 1) best = 'S3';
 
-      const bestChainCost = best === 'S1' ? p1.chain.total : (best === 'S2' ? p2.chain.total : p3.chain.total);
+      const winChainCost = ({ S1, S2, S3 })[best].chain.total;
       const oldHistPL = oldSale - oldC.totalPaid;
-      const oldSwapPL = oldSale - bestChainCost;
-      const recOldSell = (oldHistPL >= -0.5) && (oldSwapPL >= -0.5);
-      const effectiveOld = oldSetting === 'auto' ? (recOldSell ? 'sell' : 'keep') : oldSetting;
+      const oldSwapPL = oldSale - winChainCost;
+      const recOldSell = oldHistPL >= 0 && oldSwapPL >= 0;
+      const effectiveOld = state.old === 'auto' ? (recOldSell ? 'sell' : 'keep') : state.old;
       const oldProc = effectiveOld === 'sell' ? oldSale : 0;
 
-      const S0 = makeWalkIn(oldProc);
-      const S1 = makeBooked('S1', W_KEEP, mcStd, oldProc);
-      const S2 = makeBooked('S2', w75, mcDisc, oldProc);
-      const S3 = makeBooked('S3', state.W_MAX, mcDisc, oldProc);
+      [S0, S1, S2, S3].forEach(s => { s.net = s.netBeforeOld - oldProc; });
+      [S0, S1, S2, S3].forEach(s => {
+        s.saveWalkIn = S0.net - s.net;
+        s.overS1 = S1.net - s.net;
+      });
 
-      S0.saveWalkIn = 0; S0.overS1 = S1.net - S0.net;
-      S1.saveWalkIn = S0.net - S1.net; S1.overS1 = 0;
-      S2.saveWalkIn = S0.net - S2.net; S2.overS1 = S1.net - S2.net;
-      S3.saveWalkIn = S0.net - S3.net; S3.overS1 = S1.net - S3.net;
-
-      return { S0, S1, S2, S3, best, resaleRate, oldSale, oldProc, oldHistPL, oldSwapPL, recOldSell, effectiveOld, oldC };
+      return { r1, resaleRate, oldC, oldSale, oldHistPL, oldSwapPL, recOldSell, effectiveOld, oldProc, S0, S1, S2, S3, best };
     }
 
-    function getThresholds() {
-      const mcDisc = state.mcDisc / 100;
-      const mcStd = state.mcStd / 100;
-      const cut = state.cut / 100;
+    function calcThresholds() {
+      const mcD = state.mcDisc / 100;
+      const mcS = state.mcStd / 100;
+      const d = state.cut / 100;
       const oldC = getOldCost();
-      const dDisc = (1 - cut) - mcDisc * (1 + GST);
-      const dStd = (1 - cut) - mcStd * (1 + GST);
-      const rFlip = dDisc > 0 ? (state.R0 * (1 + GST)) / dDisc : Infinity;
-      const rFlipStd = dStd > 0 ? (state.R0 * (1 + GST)) / dStd : Infinity;
+      const denomD = (1 - d) - (1 + GST) * mcD;
+      const denomS = (1 - d) - (1 + GST) * mcS;
+      const rFlip = denomD > 0 ? Math.ceil((state.R0 * (1 + GST)) / denomD) : 99999;
+      const rFlipStd = denomS > 0 ? Math.ceil((state.R0 * (1 + GST)) / denomS) : 99999;
+      const rOldHistBE = (1 - d) > 0 ? Math.ceil(oldC.totalPaid / (W_CHAIN * (1 - d))) : 99999;
+      const rOldSellRec = Math.max(rOldHistBE, rFlip);
+      const rDoubleDisc = denomD > 0 ? Math.ceil((state.R0 * (1 + GST) + oldC.friction / W_CHAIN) / denomD) : 99999;
 
       let rTier = null;
-      for (let r = Math.max(7000, Math.round(state.R0 * 0.75)); r <= state.R0 * 1.9; r += 2) {
-        if (computeAll(r, 'keep').S2.overS1 >= 0) { rTier = r; break; }
+      for (let r = 9500; r <= 20000; r += 2) {
+        const e = evalAt(r);
+        if (e.S2.netBeforeOld < e.S1.netBeforeOld) { rTier = r; break; }
+      }
+      const denomFree = (state.W_MAX - W_RING) * (1 - d) - (state.W_MAX - W_RING) * mcD * (1 + GST) - W_RING * MC_RING * (1 + GST);
+      const rFreeRing = denomFree > 0 ? Math.ceil((state.W_MAX * state.R0 * (1 + GST)) / denomFree) : 99999;
+      return { rTier, rFlip, rFlipStd, rOldHistBE, rOldSellRec, rDoubleDisc, rFreeRing };
+    }
+
+    function isDesktop() { return window.innerWidth >= 960; }
+
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', state.theme);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', state.theme === 'dark' ? '#131519' : '#116a4c');
+      document.getElementById('themeIcon').innerHTML = state.theme === 'dark'
+        ? '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
+        : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    }
+
+    function syncViews() {
+      const desktop = isDesktop();
+      const activeDetail = desktop ? state.desktopTab : state.tab;
+
+      document.getElementById('view-decide').classList.toggle('hidden', !desktop && state.tab !== 'decide');
+      ['bills', 'rates', 'pieces', 'check'].forEach(t => {
+        document.getElementById('view-' + t).classList.toggle('hidden', activeDetail !== t);
+      });
+
+      // Mobile slim rate bar ONLY when on Tabs 2-5 on mobile
+      const showSlim = !desktop && state.tab !== 'decide';
+      document.getElementById('slimWrap').classList.toggle('hidden', !showSlim);
+      if (!showSlim) {
+        document.getElementById('slimDrawer').classList.add('hidden');
+        document.getElementById('slimTermsBtn').setAttribute('aria-expanded', 'false');
       }
 
-      const rOldHistBE = oldC.totalPaid / (W_CHAIN * (1 - cut));
-      const rOldSellRec = Math.max(rOldHistBE, rFlip);
-      const rDoubleDisc = dDisc > 0 ? (state.R0 * (1 + GST) + oldC.friction / W_CHAIN) / dDisc : Infinity;
-      const rDoubleStd = dStd > 0 ? (state.R0 * (1 + GST) + oldC.friction / W_CHAIN) / dStd : Infinity;
-      const lhsFree = (state.W_MAX - W_RING) * (1 - cut) - ((state.W_MAX - W_RING) * mcDisc + W_RING * MC_RING) * (1 + GST);
-      const rFreeRing = lhsFree > 0 ? (state.W_MAX * state.R0 * (1 + GST)) / lhsFree : Infinity;
-
-      return { rTier, rFlip, rFlipStd, rOldHistBE, rOldSellRec, rDoubleDisc, rDoubleStd, rFreeRing };
-    }
-
-    function syncControls() {
-      document.getElementById('headerMeta').textContent = `Booked ₹${state.R0.toLocaleString('en-IN')}/g · Max ${state.W_MAX}g · Adv ${fmtL(state.ADVANCE)}`;
-      document.getElementById('bookedScaleLbl').textContent = `₹${state.R0.toLocaleString('en-IN')} booked`;
-      document.getElementById('rateInput').value = state.R1;
-      document.getElementById('rateSlider').value = Math.max(9500, Math.min(17000, state.R1));
-      document.getElementById('inpR0').value = state.R0;
-      document.getElementById('inpWMax').value = state.W_MAX;
-      document.getElementById('inpAdv').value = state.ADVANCE;
-      document.getElementById('inpMcStd').value = state.mcStd;
-      document.getElementById('inpMcDisc').value = state.mcDisc;
-      document.getElementById('inpCut').value = state.cut;
-      document.getElementById('inpOldGold').value = state.oldGold;
-      document.getElementById('inpOldMc').value = state.oldMc;
-      document.getElementById('chkRingCounts').checked = state.ringCounts;
-
-      document.getElementById('pwChain').value = state.pieces.c;
-      document.getElementById('pwRing').value = state.pieces.r;
-      document.getElementById('pwEx1').value = state.pieces.e1;
-      document.getElementById('pwEx2').value = state.pieces.e2;
-      document.getElementById('pwEx3').value = state.pieces.e3;
-
-      document.querySelectorAll('.seg-opt[data-group]').forEach(b => b.classList.toggle('active', String(state[b.dataset.group]) === b.dataset.val));
-      document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.classList.toggle('active', Number(b.dataset.preset) === state.R1));
-      document.querySelectorAll('[data-tab]').forEach(b => {
-        const active = b.dataset.tab === state.tab;
-        b.classList.toggle('active', active);
-        if (b.getAttribute('role') === 'tab') b.setAttribute('aria-selected', String(active));
+      document.querySelectorAll('.mnav-btn').forEach(b => {
+        const on = b.dataset.tab === state.tab;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on);
       });
-      document.querySelectorAll('.view-pane').forEach(p => p.classList.toggle('hidden', p.id !== 'view-' + state.tab));
-      document.querySelectorAll('[data-inspect]').forEach(b => b.classList.toggle('active', b.dataset.inspect === state.inspect));
+      document.querySelectorAll('.dnav-btn').forEach(b => {
+        const on = b.dataset.tab === state.desktopTab;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on);
+      });
     }
 
-    function renderVerdict(data, th) {
-      const delta = state.R1 - state.R0;
+    function switchTab(t) {
+      if (isDesktop()) {
+        if (t !== 'decide') state.desktopTab = t;
+      } else {
+        state.tab = t;
+        if (t !== 'decide') state.desktopTab = t;
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      syncViews();
+      saveState();
+    }
+
+    function syncControls(data) {
+      document.getElementById('headerMeta').textContent = `Booked ₹${state.R0.toLocaleString('en-IN')}/g · Max ${state.W_MAX}g`;
+      document.getElementById('bookedScaleLbl').textContent = `₹${state.R0.toLocaleString('en-IN')} booked`;
+      if (document.activeElement !== document.getElementById('rateInput')) document.getElementById('rateInput').value = state.R1;
+      if (document.activeElement !== document.getElementById('slimRateInput')) document.getElementById('slimRateInput').value = state.R1;
+      document.getElementById('rateSlider').value = Math.max(9500, Math.min(17000, state.R1));
+
+      const diff = state.R1 - state.R0;
+      const pct = ((diff / state.R0) * 100).toFixed(1);
       const dEl = document.getElementById('deltaReadout');
-      dEl.textContent = `${fmtINR(delta, true)} (${delta >= 0 ? '+' : ''}${((delta / state.R0) * 100).toFixed(1)}%)`;
-      dEl.className = 'delta-text mono ' + (delta > 0 ? 'c-pos' : (delta < 0 ? 'c-warn' : 'c-muted'));
+      dEl.textContent = `${diff >= 0 ? '+' : ''}${fmtINR(diff)} (${diff >= 0 ? '+' : ''}${pct}%)`;
+      dEl.className = 'mono fw-600 ' + (diff > 0 ? 'c-pos' : (diff < 0 ? 'c-warn' : 'c-muted'));
 
-      document.getElementById('billedGoldLbl').textContent = `Gold @ ₹${Math.min(state.R0, state.R1).toLocaleString('en-IN')}/g`;
-      document.getElementById('buybackRateLbl').textContent = `₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
-      document.getElementById('setupOldInfo').textContent = `Paid last year: ${fmtINR(data.oldC.totalPaid)} (Gold ${fmtINR(data.oldC.gold)} + MC ${fmtINR(data.oldC.mc)} + GST ${fmtINR(data.oldC.gst)})`;
+      const effGold = Math.min(state.R0, state.R1);
+      const billedTxt = state.R1 > state.R0 ? `Locked ₹${effGold.toLocaleString('en-IN')}` : `Market ₹${effGold.toLocaleString('en-IN')}`;
+      const buyTxt = `₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
 
+      document.getElementById('billedGoldLbl').textContent = billedTxt;
+      document.getElementById('buybackRateLbl').textContent = buyTxt;
+      document.getElementById('slimBilledLbl').textContent = billedTxt;
+      document.getElementById('slimBuybackLbl').textContent = buyTxt;
+      document.getElementById('slimTermsLbl').textContent = `${state.mcDisc}% · ${state.cut}%`;
+      document.getElementById('slimOldLbl').textContent = data.effectiveOld === 'sell' ? 'Selling 24g' : 'Keeping 24g';
+
+      const win = data[data.best];
+      const bestShort = data.best === 'S1' ? 'Best: S1 (32g)' : (data.best === 'S2' ? `Best: S2 (${data.S2.totalW.toFixed(0)}g)` : 'Best: S3 (102g)');
+      document.getElementById('slimBestTxt').textContent = bestShort;
+      document.getElementById('slimSaveTxt').textContent = fmtINR(win.saveWalkIn, true);
+
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.toggle('active', Number(b.dataset.preset) === state.R1));
+      document.querySelectorAll('.seg-opt[data-group]').forEach(b => {
+        const g = b.dataset.group;
+        const v = b.dataset.val;
+        const on = (g === 'mcDisc' && Number(v) === state.mcDisc) ||
+                   (g === 'cut' && Number(v) === state.cut) ||
+                   (g === 'basis' && v === state.basis) ||
+                   (g === 'old' && v === state.old);
+        b.setAttribute('aria-pressed', on);
+      });
+
+      const setVal = (id, v) => { const el = document.getElementById(id); if (document.activeElement !== el) el.value = v; };
+      setVal('inpR0', state.R0);
+      setVal('inpWMax', state.W_MAX);
+      setVal('inpAdv', state.ADVANCE);
+      setVal('inpMcStd', state.mcStd);
+      setVal('inpMcDisc', state.mcDisc);
+      setVal('inpCut', state.cut);
+      setVal('inpOldGold', state.oldGold);
+      setVal('inpOldMc', state.oldMc);
+      document.getElementById('chkRingCounts').checked = state.ringCounts;
+      document.getElementById('setupOldInfo').textContent = `Paid all-in: ${fmtINR(data.oldC.totalPaid)} (MC+GST ${fmtINR(data.oldC.friction)})`;
+    }
+
+    function renderDecide(data, th) {
       const tag = document.getElementById('verdictTag');
       const title = document.getElementById('verdictTitle');
-      const desc = document.getElementById('verdictDesc');
+      const chips = document.getElementById('verdictChips');
       const win = data[data.best];
+      const lockSave = data.S0.bill - data.S1.bill;
+      const mcSave = data.S1.chain.total - win.chain.total;
 
       if (data.best === 'S1') {
         tag.className = 'tag tag-warn';
-        tag.textContent = 'Regime 1 · Buy 32g only';
-        title.textContent = 'Buy only your 24g chain and 8g ring.';
-        desc.textContent = state.R1 <= state.R0
-          ? `Lower market rate applies (${fmtINR(data.S1.bill)}). Buying extra gold to resell loses ${fmtINR(-data.S2.overS1)}.`
-          : `Rate lock saves ${fmtINR(data.S1.saveWalkIn)} vs walk-in. Extra ₹7.5L resale still loses ${fmtINR(-data.S2.overS1)} compared to S1.`;
+        tag.textContent = 'Regime 1 · 32g only';
+        title.textContent = 'Buy 32g only';
+        chips.innerHTML = `<span class="stat-chip">Rate lock ${fmtK(lockSave, true)}</span><span class="stat-chip">Sell 0g</span>`;
       } else if (data.best === 'S2') {
         tag.className = 'tag tag-info';
         tag.textContent = 'Regime 2 · ₹7.5L tier';
-        title.textContent = `Buy ${data.S2.totalW.toFixed(1)}g (${state.mcDisc}% MC) and sell ${data.S2.wEx.toFixed(1)}g extra.`;
-        desc.textContent = `Unlocks ${state.mcDisc}% MC on your kept 24g chain (${fmtINR(data.S2.overS1, true)} over S1). Stop before ${state.W_MAX}g; full booking only beats S2 above ${fmtINR(th.rFlip)}/g.`;
+        title.textContent = `Buy ${data.S2.totalW.toFixed(1)}g, sell ${data.S2.wEx.toFixed(1)}g`;
+        chips.innerHTML = `<span class="stat-chip">Lock ${fmtK(lockSave, true)}</span><span class="stat-chip">MC ${fmtK(mcSave, true)}</span><span class="stat-chip">Flip ${fmtK(win.flipPL, true)}</span>`;
       } else {
         tag.className = 'tag tag-pos';
-        tag.textContent = 'Regime 3 · Max booking';
-        title.textContent = `Max out ${state.W_MAX}g (${state.mcDisc}% MC) and sell ${data.S3.wEx.toFixed(1)}g extra.`;
-        desc.textContent = `Every extra gram nets resale profit (${fmtINR(data.S3.flipPL, true)} on ${data.S3.wEx.toFixed(1)}g) plus ${fmtINR(data.S1.chain.total - data.S3.chain.total)} MC saved on your 24g chain.`;
+        tag.textContent = 'Regime 3 · Max 102.4g';
+        title.textContent = `Max ${state.W_MAX}g, sell ${data.S3.wEx.toFixed(1)}g`;
+        chips.innerHTML = `<span class="stat-chip">Lock ${fmtK(lockSave, true)}</span><span class="stat-chip">MC ${fmtK(mcSave, true)}</span><span class="stat-chip c-pos">Flip ${fmtK(win.flipPL, true)}</span>`;
       }
 
       const hSaved = document.getElementById('heroSaved');
       hSaved.textContent = fmtINR(win.saveWalkIn, true);
       hSaved.className = 'stat-hero mono ' + (win.saveWalkIn > 0 ? 'c-pos' : 'c-muted');
 
-      document.getElementById('figNetLbl').textContent = data.effectiveOld === 'sell' ? 'Net outlay (old 24g sold)' : 'Net cost (32g kept)';
+      document.getElementById('figNetLbl').textContent = data.effectiveOld === 'sell' ? 'Net outlay (old sold)' : 'Net cost (32g)';
       const fNet = document.getElementById('figNetVal');
       fNet.textContent = win.net < 0 ? '+' + fmtINR(-win.net) : fmtINR(win.net);
       fNet.className = 'figure-val mono ' + (win.net < 0 ? 'c-pos' : '');
@@ -1693,48 +1919,41 @@
       document.getElementById('figBankVal').textContent = fmtL(win.bank);
       document.getElementById('figBankSub').textContent = `+ ${fmtL(win.cash)} cash`;
 
-      // Old 24g chain recommendation
+      // Compact Old 24g Row
       const oTag = document.getElementById('oldTag');
       const oNums = document.getElementById('oldNums');
       const oNote = document.getElementById('oldNote');
-      oNums.innerHTML = `<span class="nowrap">Sale ${fmtINR(data.oldSale)}</span><span class="nowrap">vs Paid: ${fmtINR(data.oldHistPL, true)}</span><span class="nowrap">Swap: ${fmtINR(data.oldSwapPL, true)}</span>`;
+      oNums.innerHTML = `<span class="nowrap">Sale ${fmtL(data.oldSale)}</span><span class="nowrap ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">Paid ${fmtK(data.oldHistPL, true)}</span><span class="nowrap ${data.oldSwapPL >= 0 ? 'c-pos' : 'c-neg'}">Swap ${fmtK(data.oldSwapPL, true)}</span>`;
 
       if (data.oldSwapPL < 0 && data.oldHistPL < 0) {
         oTag.className = 'tag tag-neg';
-        oTag.textContent = 'Old 24g · Keep untouched';
-        oNote.textContent = `Do not sell: resale is ${fmtINR(-data.oldHistPL)} below your ${fmtINR(data.oldC.totalPaid)} bill from last year and loses ${fmtINR(-data.oldSwapPL)} on replacement. Wait for ${fmtINR(th.rOldSellRec)}+/g.` + (state.old === 'sell' ? ' Forced Sell is currently enabled in Setup.' : '');
+        oTag.textContent = 'Old 24g · Keep';
+        oNote.textContent = `Resale (${fmtINR(data.oldSale)}) is below your ${fmtINR(data.oldC.totalPaid)} paid bill and loses ${fmtINR(-data.oldSwapPL)} vs replacement. Breakeven at ${fmtINR(th.rOldSellRec)}/g.`;
       } else if (data.oldSwapPL >= 0 && data.oldHistPL < 0) {
         oTag.className = 'tag tag-warn';
-        oTag.textContent = 'Old 24g · Keep (below paid)';
-        oNote.textContent = `Swap is cash-positive (${fmtINR(data.oldSwapPL, true)}), but resale is still ${fmtINR(-data.oldHistPL)} below your ${fmtINR(data.oldC.totalPaid)} bill. Full breakeven starts at ${fmtINR(th.rOldHistBE)}/g.`;
+        oTag.textContent = 'Old 24g · Keep';
+        oNote.textContent = `Swap is positive (${fmtINR(data.oldSwapPL, true)}), but resale is still ${fmtINR(-data.oldHistPL)} below last year's ${fmtINR(data.oldC.totalPaid)} bill (breakeven ${fmtINR(th.rOldHistBE)}/g).`;
       } else if (data.oldHistPL >= 0 && data.oldSwapPL < 0) {
         oTag.className = 'tag tag-warn';
-        oTag.textContent = 'Old 24g · Keep (high MC)';
-        oNote.textContent = `Resale beats last year's bill (${fmtINR(data.oldHistPL, true)}), but replacing at ${state.mcStd}% MC loses ${fmtINR(-data.oldSwapPL)}. Cross ₹7.5L or wait for ${fmtINR(th.rFlipStd)}+/g.`;
-      } else if (state.R1 >= th.rDoubleDisc) {
-        oTag.className = 'tag tag-pos';
-        oTag.textContent = 'Old 24g · Strong sell & swap';
-        oNote.textContent = `Recovers both last year's ${fmtINR(data.oldC.friction)} MC+GST and the new chain's MC+GST (${fmtINR(data.oldSwapPL, true)} swap profit, ${fmtINR(data.oldHistPL, true)} over last year's bill).`;
+        oTag.textContent = 'Old 24g · Keep';
+        oNote.textContent = `Beats last year's bill, but replacing at ${state.mcStd}% MC loses ${fmtINR(-data.oldSwapPL)}. Wait for ${fmtINR(th.rFlipStd)}/g or ₹7.5L tier.`;
       } else {
         oTag.className = 'tag tag-pos';
-        oTag.textContent = 'Old 24g · Sell & swap';
-        oNote.textContent = `If keeping 1 chain and 1 ring after the wedding: recovers your full ${fmtINR(data.oldC.totalPaid)} bill (${fmtINR(data.oldHistPL, true)}), adds ${fmtINR(data.oldSwapPL, true)} swap cash, and frees ${fmtL(data.oldSale)} upfront.`;
+        oTag.textContent = state.R1 >= th.rDoubleDisc ? 'Old 24g · Strong sell' : 'Old 24g · Sell & swap';
+        oNote.textContent = `Recovers your full ${fmtINR(data.oldC.totalPaid)} bill (${fmtINR(data.oldHistPL, true)}) and adds ${fmtINR(data.oldSwapPL, true)} swap profit while freeing ${fmtL(data.oldSale)} upfront.`;
       }
 
-      // Minimal 10px regime track
       const minR = 10000, maxR = 16500;
       const pct = (r) => Math.max(0, Math.min(100, ((r - minR) / (maxR - minR)) * 100));
       const pT = th.rTier ? pct(th.rTier) : 100;
       const pF = pct(th.rFlip);
       const pC = pct(state.R1);
-
-      document.getElementById('regimeSummary').textContent = `₹7.5L: ${th.rTier ? fmtINR(th.rTier) : 'N/A'} · Max: ${fmtINR(th.rFlip)} · Old 24g: ${fmtINR(th.rOldSellRec)}`;
+      document.getElementById('regimeSummary').textContent = `₹7.5L ${th.rTier ? fmtINR(th.rTier) : '-'} · Max ${fmtINR(th.rFlip)} · Old ${fmtINR(th.rOldSellRec)}`;
       document.getElementById('regimeTrack').innerHTML = `
         <div class="regime-seg" style="width:${pT}%;background:var(--warn-bg);border-right:1px solid var(--warn);"></div>
         <div class="regime-seg" style="width:${Math.max(0, pF - pT)}%;background:var(--info-bg);border-right:1px solid var(--accent);"></div>
         <div class="regime-seg" style="width:${Math.max(0, 100 - pF)}%;background:var(--pos-bg);"></div>
-        <div class="regime-marker" style="left:${pC}%;"></div>
-      `;
+        <div class="regime-marker" style="left:${pC}%;"></div>`;
     }
 
     function renderReceiptRows(s) {
@@ -1749,36 +1968,28 @@
       return html;
     }
 
-    function renderCompareAndReceipt(data) {
+    function renderBills(data) {
       const specs = [
-        { s: data.S0, name: 'Walk-in 32g (Baseline)', sub: `No booking, full ${fmtINR(state.R1)}/g, ${state.mcStd}% MC` },
-        { s: data.S1, name: 'S1 · Booked 32g', sub: `Rate lock, ${state.mcStd}% MC, sell 0g` },
-        { s: data.S2, name: `S2 · ₹7.5L (${data.S2.totalW.toFixed(1)}g)`, sub: `${state.mcDisc}% MC, sell ${data.S2.wEx.toFixed(1)}g extra` },
-        { s: data.S3, name: `S3 · Max ${state.W_MAX}g`, sub: `${state.mcDisc}% MC, sell ${data.S3.wEx.toFixed(1)}g extra` }
+        { s: data.S0, name: 'Walk-in', wt: '32g' },
+        { s: data.S1, name: 'S1 · 32g', wt: `${state.mcStd}% MC` },
+        { s: data.S2, name: 'S2 · ₹7.5L', wt: `${data.S2.totalW.toFixed(1)}g` },
+        { s: data.S3, name: 'S3 · Max', wt: `${state.W_MAX}g` }
       ];
 
-      document.getElementById('stratList').innerHTML = specs.map(({ s, name, sub }) => {
+      document.getElementById('stratGrid').innerHTML = specs.map(({ s, name, wt }) => {
         const isBest = s.id === data.best;
         const isSel = s.id === state.inspect;
-        const netTxt = s.net < 0 ? '+' + fmtINR(-s.net) + ' profit' : fmtINR(s.net);
+        const netTxt = s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net);
         const saveCls = s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
         return `
-          <button type="button" class="strat-row ${isSel ? 'is-selected' : ''}" data-agent="strat-${s.id}" data-pick="${s.id}">
-            <div class="strat-top">
-              <div>
-                <div class="strat-name">${name}${isBest ? '<span class="tag tag-pos" style="height:20px;font-size:10px;">Best</span>' : ''}</div>
-                <div class="strat-sub">${sub}</div>
-              </div>
-              <div class="strat-price">
-                <div class="strat-net mono ${s.net < 0 ? 'c-pos' : ''}">${netTxt}</div>
-                <div class="strat-save mono ${saveCls}">${s.isWalkIn ? 'Reference' : fmtINR(s.saveWalkIn, true)}</div>
-              </div>
+          <button type="button" class="strat-card ${isSel ? 'is-selected' : ''}" data-agent="strat-${s.id}" data-pick="${s.id}">
+            <div class="sc-top">
+              <span>${name}</span>
+              ${isBest ? '<span class="tag tag-pos" style="height:18px;padding:0 5px;font-size:9.5px;">Best</span>' : `<span class="mono c-muted" style="font-size:10.5px;">${wt}</span>`}
             </div>
-            <div class="strat-meta mono">
-              <span class="nowrap">Bill ${fmtINR(s.bill)}</span>
-              <span class="nowrap">Bank ${fmtL(s.bank)}</span>
-              ${s.wEx > 0.001 ? `<span class="nowrap ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">Flip ${fmtINR(s.flipPL, true)}</span>` : ''}
-            </div>
+            <div class="sc-net mono ${s.net < 0 ? 'c-pos' : ''}">${netTxt}</div>
+            <div class="sc-save mono ${saveCls}">${s.isWalkIn ? 'Baseline' : fmtINR(s.saveWalkIn, true)}</div>
+            <div class="sc-meta mono">Bank ${fmtL(s.bank)}</div>
           </button>`;
       }).join('');
 
@@ -1791,242 +2002,216 @@
       });
 
       const s = data[state.inspect];
-      const names = {
-        S0: 'Walk-in 32g without booking scheme',
-        S1: 'S1: Booked 32g only (no resale)',
-        S2: `S2: ₹7.5L tier (${s.totalW.toFixed(2)}g), sell ${s.wEx.toFixed(2)}g`,
-        S3: `S3: Max booking (${state.W_MAX}g), sell ${s.wEx.toFixed(2)}g`
+      const headings = {
+        S0: 'Walk-in 32g receipt',
+        S1: 'S1 · Booked 32g receipt',
+        S2: `S2 · ₹7.5L receipt (sell ${s.wEx.toFixed(1)}g)`,
+        S3: `S3 · Max ${state.W_MAX}g receipt`
       };
-      document.getElementById('inspHeading').textContent = names[s.id];
-      document.getElementById('inspBuyTitle').textContent = s.isWalkIn ? 'Step 1: Walk-in purchase' : 'Step 1: Showroom purchase';
+      document.getElementById('inspHeading').textContent = headings[s.id];
       document.getElementById('inspBuyWt').textContent = `${s.totalW.toFixed(2)}g`;
+      document.getElementById('inspBuyTitle').textContent = s.isWalkIn ? 'Walk-in bill' : 'Showroom bill';
+      document.getElementById('inspRateTag').textContent = s.isWalkIn ? `₹${state.R1.toLocaleString('en-IN')}/g` : `Locked ₹${Math.min(state.R0, state.R1).toLocaleString('en-IN')}/g`;
       document.getElementById('inspResaleRate').textContent = `Resale ₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
       document.getElementById('inspBuyRows').innerHTML = renderReceiptRows(s);
 
       const lockAmt = Math.max(0, state.ADVANCE - 0.10 * s.goldVal);
       document.getElementById('inspSettlement').innerHTML = s.isWalkIn ? `
-        <div class="kv kv-total"><span>Total walk-in bill</span><span class="mono">${fmtINR(s.bill)}</span></div>
-        <div class="kv"><span>Cash at counter (₹1.90L cap)</span><span class="mono">${fmtINR(s.cash)}</span></div>
-        <div class="kv"><span>Bank transfer (RTGS / IMPS)</span><span class="mono">${fmtINR(s.bank)}</span></div>
+        <div class="kv kv-total"><span>Total bill</span><span class="mono">${fmtINR(s.bill)}</span></div>
+        <div class="kv"><span>Cash (max ₹1.90L)</span><span class="mono">${fmtINR(s.cash)}</span></div>
+        <div class="kv"><span>Bank transfer</span><span class="mono">${fmtINR(s.bank)}</span></div>
       ` : `
-        <div class="kv fw-600"><span>Gross bill (Gold ${fmtINR(s.goldVal)})</span><span class="mono">${fmtINR(s.bill)}</span></div>
-        <div class="kv"><span>Less advance paid</span><span class="mono">-${fmtINR(state.ADVANCE)}</span></div>
-        <div class="kv kv-total"><span>Balance due at counter</span><span class="mono">${fmtINR(s.bal)}</span></div>
-        <div class="kv"><span>Cash at counter (₹1.90L cap)</span><span class="mono">${fmtINR(s.cash)}</span></div>
-        <div class="kv"><span>Bank transfer (RTGS / IMPS)</span><span class="mono">${fmtINR(s.bank)}</span></div>
-        ${lockAmt > 500 ? `<div class="note-inline">Confirm Clause 2 before billing: if advance applies 10% pro-rata instead of closing in full, ${fmtINR(lockAmt)} could remain carried forward.</div>` : ''}
+        <div class="kv fw-600"><span>Gross bill</span><span class="mono">${fmtINR(s.bill)}</span></div>
+        <div class="kv"><span>Advance paid</span><span class="mono">-${fmtINR(state.ADVANCE)}</span></div>
+        <div class="kv kv-total"><span>Balance due</span><span class="mono">${fmtINR(s.bal)}</span></div>
+        <div class="kv"><span>Cash (max ₹1.90L)</span><span class="mono">${fmtINR(s.cash)}</span></div>
+        <div class="kv"><span>Bank transfer</span><span class="mono">${fmtINR(s.bank)}</span></div>
+        ${lockAmt > 500 ? `<div class="note-inline">Clause 2: verify full advance closes (${fmtINR(lockAmt)} risk if pro-rata).</div>` : ''}
       `;
 
       let rRows = '';
       if (s.isWalkIn) {
-        rRows = `<div class="c-muted">Reference cost at full ${fmtINR(state.R1)}/g with ${state.mcStd}% MC on the 24g chain and 18% MC on the 8g ring.</div>`;
+        rRows = `<div class="kv"><span>No booking scheme</span><span class="mono c-muted">₹0 saved</span></div>`;
       } else {
         const lockSave = data.S0.bill - data.S1.bill;
-        rRows += `<div class="kv"><span>1. Booking rate-lock saving (32g)</span><span class="mono fw-600 ${lockSave > 0 ? 'c-pos' : 'c-muted'}">${fmtINR(lockSave, true)}</span></div>`;
+        rRows += `<div class="kv"><span>Rate lock (32g)</span><span class="mono fw-600 ${lockSave > 0 ? 'c-pos' : 'c-muted'}">${fmtINR(lockSave, true)}</span></div>`;
         if (s.id !== 'S1') {
-          rRows += `<div class="kv"><span>2. ₹7.5L MC discount on 24g chain</span><span class="mono fw-600 c-pos">+${fmtINR(data.S1.chain.total - s.chain.total)}</span></div>`;
+          rRows += `<div class="kv"><span>₹7.5L MC saved (24g)</span><span class="mono fw-600 c-pos">+${fmtINR(data.S1.chain.total - s.chain.total)}</span></div>`;
         }
         if (s.wEx > 0.001) {
-          rRows += `<div class="kv"><span>3. Sell extra ${s.wEx.toFixed(2)}g (${fmtINR(s.extraResale)}) P/L</span><span class="mono fw-600 ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(s.flipPL, true)}</span></div>`;
+          rRows += `<div class="kv"><span>Sell ${s.wEx.toFixed(1)}g P/L</span><span class="mono fw-600 ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(s.flipPL, true)}</span></div>`;
         }
       }
       if (data.effectiveOld === 'sell') {
-        const sw = data.oldProc - s.chain.total;
         rRows += `
-          <div class="kv" style="padding-top:6px;border-top:1px solid var(--border);"><span>Sell old 24g chain</span><span class="mono fw-600">+${fmtINR(data.oldProc)}</span></div>
-          <div class="kv"><span>vs Paid last year (${fmtINR(data.oldC.totalPaid)})</span><span class="mono fw-600 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>
-          <div class="kv"><span>Swap P/L vs new 24g</span><span class="mono fw-600 ${sw >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(sw, true)}</span></div>`;
+          <div class="kv" style="padding-top:6px;border-top:1px solid var(--border);"><span>Old 24g sale</span><span class="mono fw-600">+${fmtINR(data.oldProc)}</span></div>
+          <div class="kv"><span>vs Paid (${fmtL(data.oldC.totalPaid)})</span><span class="mono fw-600 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>`;
       }
       document.getElementById('inspResaleRows').innerHTML = rRows;
 
       const totSold = s.wEx + (data.effectiveOld === 'sell' ? W_CHAIN : 0);
       const totRec = s.extraResale + data.oldProc;
       document.getElementById('inspOutcome').innerHTML = `
-        <div class="kv"><span>Total sold (${totSold.toFixed(1)}g) recovered</span><span class="mono fw-600">${fmtINR(totRec)}</span></div>
-        <div class="kv"><span>Gold retained after wedding</span><span>${data.effectiveOld === 'sell' ? '32g (New 24g + 8g)' : '56g (Old 24g + New 32g)'}</span></div>
-        <div class="kv kv-total"><span>${s.net < 0 ? 'Final net cash profit' : 'Final net cost'}</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
-        <div class="kv fw-600"><span>Saved vs walk-in (${fmtINR(data.S0.net)})</span><span class="mono ${s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted')}">${s.isWalkIn ? 'Reference (₹0)' : fmtINR(s.saveWalkIn, true)}</span></div>`;
+        <div class="kv"><span>Resale cash (${totSold.toFixed(1)}g)</span><span class="mono fw-600">${fmtINR(totRec)}</span></div>
+        <div class="kv"><span>Gold kept</span><span>${data.effectiveOld === 'sell' ? '32g' : '56g (with old 24g)'}</span></div>
+        <div class="kv kv-total"><span>${s.net < 0 ? 'Net cash profit' : 'Final net cost'}</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
+        <div class="kv fw-600"><span>Saved vs walk-in</span><span class="mono ${s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted')}">${s.isWalkIn ? 'Reference' : fmtINR(s.saveWalkIn, true)}</span></div>`;
     }
 
     function buildMathSheetHTML(r, d, stratKey) {
       const id = stratKey === 'BEST' ? d.best : stratKey;
       const s = d[id];
-      const mcPct = (s.mcNonRing * 100).toFixed((s.mcNonRing * 100) % 1 === 0 ? 0 : 1);
-      const names = { S0: 'Walk-in 32g (No scheme)', S1: 'S1: Booked 32g', S2: `S2: ₹7.5L (${s.totalW.toFixed(2)}g)`, S3: `S3: Max ${state.W_MAX}g` };
+      const names = { S0: 'Walk-in 32g', S1: 'S1 · Booked 32g', S2: `S2 · ₹7.5L (${s.totalW.toFixed(1)}g)`, S3: `S3 · Max ${state.W_MAX}g` };
       return `
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px;">
-            <strong style="font-size:13.5px;">${names[id]} @ <span class="mono">₹${r.toLocaleString('en-IN')}/g</span></strong>
-            <span class="tag tag-info mono">${s.isWalkIn ? `Full R1 · ${mcPct}% MC` : `${mcPct}% MC · ${state.cut}% cut`}</span>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <strong style="font-size:13.5px;">${names[id]}</strong>
+            <span class="tag ${s.saveWalkIn > 0 ? 'tag-pos' : 'tag-info'} mono">${s.isWalkIn ? 'Baseline' : fmtINR(s.saveWalkIn, true)}</span>
           </div>
           <div>${renderReceiptRows(s)}</div>
           <div class="kv-list">
-            <div class="kv fw-600"><span>Total bill (${s.totalW.toFixed(2)}g)</span><span class="mono">${fmtINR(s.bill)}</span></div>
-            ${!s.isWalkIn ? `<div class="kv"><span>After ${fmtL(state.ADVANCE)} adv (Cash + Bank)</span><span class="mono">${fmtL(s.cash)} + ${fmtL(s.bank)}</span></div>` : ''}
-            ${s.wEx > 0.001 ? `
-              <div class="kv"><span>Sell extra ${s.wEx.toFixed(2)}g @ ₹${d.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g</span><span class="mono">-${fmtINR(s.extraResale)}</span></div>
-              <div class="kv"><span>Extra resale P/L</span><span class="mono fw-600 ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(s.flipPL, true)}</span></div>` : ''}
-            ${d.effectiveOld === 'sell' ? `
-              <div class="kv"><span>Sell old 24g chain</span><span class="mono">-${fmtINR(d.oldProc)}</span></div>
-              <div class="kv"><span>Old 24g vs paid (${fmtL(d.oldC.totalPaid)})</span><span class="mono ${d.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(d.oldHistPL, true)}</span></div>` : ''}
-            <div class="kv kv-total">
-              <span>${s.net < 0 ? 'Final net cash profit' : 'Final net cost (32g)'}</span>
-              <span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span>
-            </div>
-            ${!s.isWalkIn ? `
-              <div class="kv fw-600"><span>Saved vs walk-in (${fmtINR(d.S0.net)})</span><span class="mono ${s.saveWalkIn >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(s.saveWalkIn, true)}</span></div>
-              ${id !== 'S1' ? `<div class="kv"><span>Extra vs S1 booked 32g (${fmtINR(d.S1.net)})</span><span class="mono ${s.overS1 >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(s.overS1, true)}</span></div>` : ''}` : ''}
+            <div class="kv"><span>Gross bill</span><span class="mono fw-600">${fmtINR(s.bill)}</span></div>
+            ${s.wEx > 0.001 ? `<div class="kv"><span>Sell ${s.wEx.toFixed(1)}g @ ₹${d.resaleRate.toFixed(0)}/g</span><span class="mono fw-600 c-pos">-${fmtINR(s.extraResale)}</span></div>` : ''}
+            ${d.effectiveOld === 'sell' ? `<div class="kv"><span>Sell old 24g</span><span class="mono fw-600 c-pos">-${fmtINR(d.oldProc)}</span></div>` : ''}
+            <div class="kv kv-total"><span>Final net</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
+            <div class="kv"><span>Cash + Bank</span><span class="mono">${fmtL(s.cash)} + ${fmtL(s.bank)}</span></div>
           </div>
         </div>`;
     }
 
-    function renderRates(th) {
+    function renderRatesAndChart(data, th) {
       const svg = document.getElementById('chartSvg');
-      const W = 760, H = 260, pL = 56, pR = 28, pT = 22, pB = 32;
-      const plotW = W - pL - pR, plotH = H - pT - pB;
+      const W = 760, H = 250, pL = 58, pR = 24, pT = 24, pB = 30;
       const rMin = 10000, rMax = 16500;
-      const pts1 = [], pts2 = [], pts3 = [];
-      let yMin = -50000, yMax = 300000;
-
+      const pts = [];
+      let yMin = 0, yMax = 50000;
       for (let r = rMin; r <= rMax; r += 100) {
-        const d = computeAll(r, 'keep');
-        pts1.push([r, d.S1.saveWalkIn]); pts2.push([r, d.S2.saveWalkIn]); pts3.push([r, d.S3.saveWalkIn]);
-        yMin = Math.min(yMin, d.S1.saveWalkIn, d.S2.saveWalkIn, d.S3.saveWalkIn);
-        yMax = Math.max(yMax, d.S1.saveWalkIn, d.S2.saveWalkIn, d.S3.saveWalkIn);
+        const e = evalAt(r);
+        pts.push({ r, s1: e.S1.saveWalkIn, s2: e.S2.saveWalkIn, s3: e.S3.saveWalkIn });
+        yMin = Math.min(yMin, e.S1.saveWalkIn, e.S2.saveWalkIn, e.S3.saveWalkIn);
+        yMax = Math.max(yMax, e.S1.saveWalkIn, e.S2.saveWalkIn, e.S3.saveWalkIn);
       }
       yMin = Math.floor(yMin / 50000) * 50000;
-      yMax = Math.ceil(yMax / 50000) * 50000;
+      yMax = Math.ceil((yMax + 25000) / 50000) * 50000;
 
-      const xOf = (r) => pL + ((r - rMin) / (rMax - rMin)) * plotW;
-      const yOf = (y) => pT + (1 - (y - yMin) / (yMax - yMin)) * plotH;
-      const pathOf = (pts) => pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${xOf(p[0]).toFixed(1)},${yOf(p[1]).toFixed(1)}`).join(' ');
+      const xOf = (r) => pL + ((r - rMin) / (rMax - rMin)) * (W - pL - pR);
+      const yOf = (y) => pT + (1 - (y - yMin) / (yMax - yMin)) * (H - pT - pB);
+      const pathOf = (k) => pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${xOf(p.r).toFixed(1)},${yOf(p[k]).toFixed(1)}`).join(' ');
 
-      const cur = computeAll(state.R1, 'keep');
-      const xC = xOf(Math.max(rMin, Math.min(rMax, state.R1)));
-      const xT = th.rTier ? Math.max(pL, Math.min(W - pR, xOf(th.rTier))) : W - pR;
-      const xF = Math.max(pL, Math.min(W - pR, xOf(th.rFlip)));
-
-      let h = `<rect x="${xT}" y="${pT}" width="${Math.max(0, xF - xT)}" height="${plotH}" fill="var(--info)" opacity="0.07"/>` +
-              `<rect x="${xF}" y="${pT}" width="${Math.max(0, (W - pR) - xF)}" height="${plotH}" fill="var(--accent)" opacity="0.08"/>`;
-
-      const step = (yMax - yMin) > 380000 ? 100000 : 50000;
-      for (let y = Math.ceil(yMin / step) * step; y <= yMax; y += step) {
-        const py = yOf(y), z = y === 0;
-        h += `<line x1="${pL}" y1="${py}" x2="${W - pR}" y2="${py}" stroke="var(--border-strong)" stroke-width="${z ? 1.4 : 0.7}" ${z ? '' : 'stroke-dasharray="3 3"'}/>`;
-        h += `<text x="${pL - 8}" y="${py + 4}" text-anchor="end" font-size="13" fill="${z ? 'var(--text)' : 'var(--text-muted)'}" font-weight="${z ? '700' : '400'}" font-family="monospace">${z ? '₹0' : (y > 0 ? `+${Math.round(y / 1000)}k` : `-${Math.round(Math.abs(y) / 1000)}k`)}</text>`;
+      let grid = '';
+      const stepY = (yMax - yMin) <= 250000 ? 50000 : 100000;
+      for (let y = yMin; y <= yMax; y += stepY) {
+        const py = yOf(y);
+        const isZero = y === 0;
+        grid += `<line x1="${pL}" y1="${py}" x2="${W - pR}" y2="${py}" stroke="currentColor" stroke-opacity="${isZero ? '0.28' : '0.09'}" stroke-dasharray="${isZero ? '' : '3 3'}"/>`;
+        grid += `<text x="${pL - 8}" y="${py + 4}" text-anchor="end" fill="currentColor" fill-opacity="0.58" font-size="11" font-family="JetBrains Mono,monospace">${y === 0 ? '₹0' : (y > 0 ? '+' : '-') + '₹' + Math.round(Math.abs(y) / 1000) + 'k'}</text>`;
+      }
+      for (let r = 10000; r <= 16500; r += 1000) {
+        const px = xOf(r);
+        grid += `<text x="${px}" y="${H - 8}" text-anchor="middle" fill="currentColor" fill-opacity="0.58" font-size="11" font-family="JetBrains Mono,monospace">₹${(r / 1000).toFixed(r % 1000 === 0 ? 0 : 1)}k</text>`;
       }
 
-      [10000, state.R0, 13000, 14000, 15000, 16500].forEach(r => {
-        const px = xOf(r);
-        h += `<line x1="${px}" y1="${pT + plotH}" x2="${px}" y2="${pT + plotH + 5}" stroke="var(--border-strong)"/>`;
-        const lbl = r === state.R0 ? `₹${r.toLocaleString('en-IN')}` : `₹${(r / 1000).toFixed(r % 1000 === 0 ? 0 : 1)}k`;
-        h += `<text x="${px}" y="${H - 7}" text-anchor="middle" font-size="13" fill="${r === state.R0 ? 'var(--text)' : 'var(--text-muted)'}" font-weight="${r === state.R0 ? '700' : '400'}" font-family="monospace">${lbl}</text>`;
-      });
-
+      let marks = '';
       if (th.rTier && th.rTier >= rMin && th.rTier <= rMax) {
-        const tight = (xF - xT) < 120;
-        h += `<line x1="${xT}" y1="${pT}" x2="${xT}" y2="${pT + plotH}" stroke="var(--info)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
-        h += `<text x="${tight ? xT - 6 : xT + 6}" y="${pT + 15}" text-anchor="${tight ? 'end' : 'start'}" font-size="12.5" font-weight="600" fill="var(--info)" font-family="monospace">₹7.5L: ₹${Math.round(th.rTier)}</text>`;
+        const x = xOf(th.rTier);
+        marks += `<line x1="${x}" y1="${pT}" x2="${x}" y2="${H - pB}" stroke="var(--info)" stroke-opacity="0.65" stroke-dasharray="4 3"/>`;
+        marks += `<text x="${x + 4}" y="${pT + 12}" fill="var(--info)" font-size="10.5" font-weight="600" font-family="JetBrains Mono,monospace">₹7.5L ${th.rTier}</text>`;
       }
       if (th.rFlip >= rMin && th.rFlip <= rMax) {
-        h += `<line x1="${xF}" y1="${pT}" x2="${xF}" y2="${pT + plotH}" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="4 3"/>`;
-        h += `<text x="${xF + 6}" y="${pT + 31}" font-size="12.5" font-weight="600" fill="var(--accent)" font-family="monospace">Max: ₹${Math.round(th.rFlip)}</text>`;
+        const x = xOf(th.rFlip);
+        marks += `<line x1="${x}" y1="${pT}" x2="${x}" y2="${H - pB}" stroke="var(--accent)" stroke-opacity="0.65" stroke-dasharray="4 3"/>`;
+        marks += `<text x="${x + 4}" y="${pT + 26}" fill="var(--accent)" font-size="10.5" font-weight="600" font-family="JetBrains Mono,monospace">Max ${th.rFlip}</text>`;
       }
 
-      h += `<path d="${pathOf(pts1)}" fill="none" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 3"/>`;
-      h += `<path d="${pathOf(pts2)}" fill="none" stroke="var(--info)" stroke-width="2.4"/>`;
-      h += `<path d="${pathOf(pts3)}" fill="none" stroke="var(--accent)" stroke-width="2.6"/>`;
-      h += `<line x1="${xC}" y1="${pT}" x2="${xC}" y2="${pT + plotH}" stroke="var(--text)" stroke-width="1.2" opacity="0.5"/>`;
-      h += `<circle cx="${xC}" cy="${yOf(cur.S1.saveWalkIn)}" r="4.5" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>`;
-      h += `<circle cx="${xC}" cy="${yOf(cur.S2.saveWalkIn)}" r="5" fill="var(--info)" stroke="var(--surface)" stroke-width="1.6"/>`;
-      h += `<circle cx="${xC}" cy="${yOf(cur.S3.saveWalkIn)}" r="5.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.8"/>`;
+      const cx = xOf(Math.max(rMin, Math.min(rMax, state.R1)));
+      const cy = yOf(data[data.best].saveWalkIn);
 
-      svg.innerHTML = h;
+      svg.innerHTML = `
+        ${grid}
+        ${marks}
+        <path d="${pathOf('s1')}" fill="none" stroke="var(--warn)" stroke-width="2"/>
+        <path d="${pathOf('s2')}" fill="none" stroke="var(--info)" stroke-width="2.2"/>
+        <path d="${pathOf('s3')}" fill="none" stroke="var(--accent)" stroke-width="2.6"/>
+        <line x1="${cx}" y1="${pT}" x2="${cx}" y2="${H - pB}" stroke="var(--text)" stroke-opacity="0.4" stroke-width="1.2"/>
+        <circle cx="${cx}" cy="${cy}" r="5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>
+        <text x="${Math.min(W - 95, Math.max(pL + 6, cx + 8))}" y="${Math.max(pT + 12, cy - 8)}" fill="var(--text)" font-size="11" font-weight="700" font-family="JetBrains Mono,monospace">${fmtINR(data[data.best].saveWalkIn, true)}</text>`;
       svg.dataset.meta = JSON.stringify({ W, pL, pR, rMin, rMax });
 
-      const base = [10500, 11000, state.R0, 12000, 12400, 13000, 13715, 14500, 15000, 16000];
-      if (th.rTier && th.rTier > 10500 && th.rTier < 16000) base.push(Math.round(th.rTier));
-      if (th.rFlip > 10500 && th.rFlip < 16000) base.push(Math.round(th.rFlip));
-      if (th.rOldSellRec > 10500 && th.rOldSellRec < 16000) base.push(Math.round(th.rOldSellRec));
-      const rates = Array.from(new Set(base)).sort((a, b) => a - b);
+      const rates = [10500, 11000, state.R0, 12000, 12400, 12750, 13000, 13400, 13715, 14000, 14500, 15000, 16000];
+      if (!rates.includes(state.R1)) rates.push(state.R1);
+      rates.sort((a, b) => a - b);
 
-      matrixCache.clear();
-      const desktopRows = [];
-      const mobileRows = [];
+      matrixCache = new Map();
+      let mobileHtml = '';
+      let desktopHtml = '';
 
       rates.forEach(r => {
-        const d = computeAll(r);
+        const d = evalAt(r);
         matrixCache.set(r, d);
-        const curRow = Math.abs(r - state.R1) < 15;
-        const winCls = d.best === 'S1' ? 'c-warn' : (d.best === 'S2' ? 'c-info' : 'c-pos');
-        const winTag = d.best === 'S1' ? 'tag-warn' : (d.best === 'S2' ? 'tag-info' : 'tag-pos');
-        const winTxt = (d.best === 'S1' ? 'S1 · 32g' : (d.best === 'S2' ? 'S2 · ₹7.5L' : 'S3 · 102g')) + (d.recOldSell ? ' + Old' : '');
-        const subLine = (v) => `<div style="font-size:11px;" class="${v > 0 ? 'c-pos' : (v < 0 ? 'c-neg' : 'c-muted')}">${fmtINR(v, true)}</div>`;
+        const cur = r === state.R1;
+        const winLabel = d.best === 'S1' ? 'S1' : (d.best === 'S2' ? 'S2' : 'S3');
+        const oldPill = d.recOldSell ? ' + Old' : '';
+        const bCls = d.best === 'S3' ? 'tag-pos' : (d.best === 'S2' ? 'tag-info' : 'tag-warn');
 
-        desktopRows.push(`
-          <tr class="${curRow ? 'is-cur' : ''}" data-r="${r}">
-            <td><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="BEST">₹${r.toLocaleString('en-IN')}</button></td>
-            <td class="num c-muted"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S0">${fmtINR(d.S0.net)}</button></td>
-            <td class="num"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S1">${fmtINR(d.S1.net)}${subLine(d.S1.saveWalkIn)}</button></td>
-            <td class="num"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S2">${fmtINR(d.S2.net)}${subLine(d.S2.saveWalkIn)}</button></td>
-            <td class="num"><button type="button" class="tbl-cell-btn" data-mr="${r}" data-ms="S3">${fmtINR(d.S3.net)}${subLine(d.S3.saveWalkIn)}</button></td>
-            <td style="font-family:var(--font-sans);"><button type="button" class="tbl-cell-btn ${winCls} fw-600" data-mr="${r}" data-ms="BEST">${winTxt}</button></td>
-          </tr>`);
-
-        const mBtn = (id, lbl, obj) => {
-          const svCls = obj.saveWalkIn > 0 ? 'c-pos' : (obj.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
+        const mkCell = (k, lbl, s) => {
+          const isW = s.id === d.best;
+          const dc = s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
           return `
-            <button type="button" class="mrate-btn ${d.best === id ? 'is-win' : ''}" data-mr="${r}" data-ms="${id}">
-              <span class="mrate-btn-k">${lbl}</span>
-              <span class="mrate-btn-v mono">${fmtL(obj.net)}</span>
-              <span class="mrate-btn-s mono ${svCls}">${fmtINR(obj.saveWalkIn, true)}</span>
+            <button type="button" class="mrate-cell ${isW ? 'is-win' : ''}" data-mr="${r}" data-ms="${k}">
+              <span class="mrate-k">${lbl}</span>
+              <span class="mrate-v mono">${s.net < 0 ? '+' + fmtK(-s.net) : fmtK(s.net)}</span>
+              <span class="mrate-d mono ${dc}">${s.isWalkIn ? 'Base' : fmtK(s.saveWalkIn, true)}</span>
             </button>`;
         };
 
-        mobileRows.push(`
-          <div class="mrate-row ${curRow ? 'is-cur' : ''}">
-            <div class="mrate-head">
-              <div style="display:flex;align-items:center;gap:8px;">
-                <strong class="mono" style="font-size:14px;">₹${r.toLocaleString('en-IN')}</strong>
-                <span class="tag ${winTag}" style="height:20px;font-size:10px;">${winTxt}</span>
-              </div>
-              <button type="button" class="btn-ghost" style="height:28px;padding:0 8px;font-size:11px;" data-mr="${r}" data-ms="S0">Walk ${fmtL(d.S0.net)}</button>
+        mobileHtml += `
+          <div class="mrate-row ${cur ? 'is-current' : ''}">
+            <div class="mrate-top">
+              <span class="mrate-price mono">₹${r.toLocaleString('en-IN')}${cur ? ' *' : ''}</span>
+              <span class="tag ${bCls}">${winLabel}${oldPill}</span>
             </div>
-            <div class="mrate-btns">
-              ${mBtn('S1', 'S1 · 32g', d.S1)}
-              ${mBtn('S2', 'S2 · ₹7.5L', d.S2)}
-              ${mBtn('S3', 'S3 · 102g', d.S3)}
+            <div class="mrate-grid">
+              ${mkCell('S0', 'Walk', d.S0)}
+              ${mkCell('S1', 'S1', d.S1)}
+              ${mkCell('S2', 'S2', d.S2)}
+              ${mkCell('S3', 'S3', d.S3)}
             </div>
-          </div>`);
+          </div>`;
+
+        const tblCell = (k, s) => {
+          const dc = s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
+          return `<td class="num"><button type="button" class="tbl-btn" data-mr="${r}" data-ms="${k}"><div>${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</div><div class="${dc}" style="font-size:10.5px;">${s.isWalkIn ? 'Base' : fmtINR(s.saveWalkIn, true)}</div></button></td>`;
+        };
+
+        desktopHtml += `
+          <tr class="${cur ? 'is-current' : ''}">
+            <td class="fw-700">₹${r.toLocaleString('en-IN')}</td>
+            ${tblCell('S0', d.S0)}
+            ${tblCell('S1', d.S1)}
+            ${tblCell('S2', d.S2)}
+            ${tblCell('S3', d.S3)}
+            <td><button type="button" class="tbl-btn" data-mr="${r}" data-ms="BEST"><span class="tag ${bCls}">${winLabel}${oldPill}</span></button></td>
+          </tr>`;
       });
 
-      document.getElementById('matrixBody').innerHTML = desktopRows.join('');
-      document.getElementById('matrixMobile').innerHTML = mobileRows.join('');
+      document.getElementById('matrixMobile').innerHTML = mobileHtml;
+      document.getElementById('matrixBody').innerHTML = desktopHtml;
     }
 
-    function renderPiecesAndOld(data, th) {
-      const { c: wC, r: wR, e1, e2, e3 } = state.pieces;
-      const wE = Math.max(0, e1) + Math.max(0, e2) + Math.max(0, e3);
+    function renderPieces(data, th) {
+      const wC = state.pieces.c, wR = state.pieces.r, wE = state.pieces.e1 + state.pieces.e2 + state.pieces.e3;
       const wTot = wC + wR + wE;
-      const Reff = Math.min(state.R0, state.R1);
+      const eff = Math.min(state.R0, state.R1);
+      const mcD = state.mcDisc / 100;
 
-      let qualVal;
-      if (state.basis === 'gold') {
-        const wLNR = Math.min(wC + wE, Math.max(0, state.W_MAX - wR));
-        const gNR = wLNR * Reff + Math.max(0, (wC + wE) - wLNR) * state.R1;
-        const gR = Math.min(wR, state.W_MAX) * Reff + Math.max(0, wR - state.W_MAX) * state.R1;
-        qualVal = state.ringCounts ? (gNR + gR) : gNR;
-      } else {
-        const cT = itemCost(wC + wE, state.R1, state.mcDisc / 100, Math.max(0, state.W_MAX - wR), true);
-        const rT = itemCost(wR, state.R1, MC_RING, Math.min(wR, state.W_MAX), true);
-        qualVal = state.ringCounts ? (cT.total + rT.total) : cT.total;
-      }
-
-      const hits75 = qualVal >= THRESH - 1;
+      let qual = 0;
+      if (state.basis === 'gold') qual = (wC + wE + (state.ringCounts ? wR : 0)) * eff;
+      else qual = itemCost(wC + wE, state.R1, mcD, state.W_MAX, true).total + (state.ringCounts ? itemCost(wR, state.R1, MC_RING, Math.max(0, state.W_MAX - wC - wE), true).total : 0);
+      const hits75 = qual >= THRESH_75 - 1;
       const inCap = wTot <= state.W_MAX + 0.001;
-      const mcUse = hits75 ? state.mcDisc / 100 : state.mcStd / 100;
-      const shortG = Math.max(0, THRESH - qualVal) / (state.basis === 'gold' ? Reff : unitCost(state.R1, state.mcDisc / 100));
+      const shortG = hits75 ? 0 : Math.max(0, (THRESH_75 - qual) / (state.basis === 'gold' ? eff : (eff + mcD * state.R1) * (1 + GST)));
 
+      const mcUse = hits75 ? mcD : state.mcStd / 100;
       let rem = state.W_MAX;
       const ci = itemCost(wC, state.R1, mcUse, rem, true); rem = Math.max(0, rem - wC);
       const ri = itemCost(wR, state.R1, MC_RING, rem, true); rem = Math.max(0, rem - wR);
@@ -2042,141 +2227,160 @@
       const saveW = walkInC - net;
 
       document.getElementById('piecesTags').innerHTML = `
-        <span class="tag ${hits75 ? 'tag-pos' : 'tag-warn'}">${hits75 ? `₹7.5L met (${state.mcDisc}% MC)` : `Need +${shortG.toFixed(2)}g`}</span>
-        <span class="tag ${inCap ? 'tag-info' : 'tag-neg'} mono">${wTot.toFixed(2)}g / ${state.W_MAX}g</span>`;
+        <span class="tag ${hits75 ? 'tag-pos' : 'tag-warn'}">${hits75 ? `₹7.5L met` : `+${shortG.toFixed(1)}g needed`}</span>
+        <span class="tag ${inCap ? 'tag-info' : 'tag-neg'} mono">${wTot.toFixed(1)}g / ${state.W_MAX}g</span>`;
 
       document.getElementById('piecesLedger').innerHTML = `
         <div class="ledger-cell">
-          <span class="figure-lbl">Showroom bill (${wTot.toFixed(2)}g)</span>
+          <span class="figure-lbl">Bill (${wTot.toFixed(1)}g)</span>
           <span class="figure-val mono">${fmtINR(bill)}</span>
-          <span class="mono c-muted" style="font-size:11px;"><span class="nowrap">Cash ${fmtL(cash)}</span> · <span class="nowrap">Bank ${fmtL(bank)}</span></span>
+          <span class="figure-sub mono">Bank ${fmtL(bank)} + ${fmtL(cash)}</span>
         </div>
         <div class="ledger-cell">
-          <span class="figure-lbl">Resell extra ${wE.toFixed(2)}g</span>
+          <span class="figure-lbl">Resell (${wE.toFixed(1)}g)</span>
           <span class="figure-val mono">${fmtINR(exRes)}</span>
-          <span class="mono ${flipPL >= 0 ? 'c-pos' : 'c-warn'}" style="font-size:11px;">Flip P/L: ${fmtINR(flipPL, true)}</span>
+          <span class="figure-sub mono ${flipPL >= 0 ? 'c-pos' : 'c-warn'}">Flip ${fmtINR(flipPL, true)}</span>
         </div>
         <div class="ledger-cell">
-          <span class="figure-lbl">Net (${(wC + wR).toFixed(1)}g kept)</span>
+          <span class="figure-lbl">Net (${(wC + wR).toFixed(0)}g kept)</span>
           <span class="figure-val mono ${net < 0 ? 'c-pos' : ''}">${net < 0 ? '+' + fmtINR(-net) : fmtINR(net)}</span>
-          <span class="mono c-muted" style="font-size:11px;">Walk-in: ${fmtINR(walkInC)}</span>
+          <span class="figure-sub mono">Walk-in ${fmtL(walkInC)}</span>
         </div>
         <div class="ledger-cell">
           <span class="figure-lbl">Saved vs walk-in</span>
           <span class="figure-val mono ${saveW >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(saveW, true)}</span>
-          <span class="mono c-muted" style="font-size:11px;">${hits75 ? `${state.mcDisc}% MC active` : `${state.mcStd}% standard MC`}</span>
+          <span class="figure-sub mono">${hits75 ? `${state.mcDisc}% MC` : `${state.mcStd}% MC`}</span>
         </div>`;
 
-      // Old 24g chain breakeven ledger
       const plStd = data.oldSale - data.S1.chain.total;
       const plDisc = data.oldSale - data.S3.chain.total;
       const net4c = data.S3.bill - (state.W_MAX - W_RING) * data.resaleRate;
 
-      document.getElementById('oldChainSub').textContent = `Paid last year: ${fmtINR(data.oldC.gold)} gold + ${state.oldMc}% MC (${fmtINR(data.oldC.mc)}) + 3% GST (${fmtINR(data.oldC.gst)}) = ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g)`;
-      document.getElementById('oldSalePill').textContent = `Sale today ${fmtINR(data.oldSale)}`;
+      document.getElementById('oldChainSub').textContent = `Paid ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g all-in)`;
+      document.getElementById('oldSalePill').textContent = `Sale ${fmtINR(data.oldSale)}`;
       document.getElementById('oldLedger').innerHTML = `
-        <div class="kv"><span>1. Recover last year's full bill (BE ${fmtINR(th.rOldHistBE)}/g)</span><span class="mono fw-700 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>
-        <div class="kv"><span>2. Swap at ${state.mcStd}% MC (BE ${fmtINR(th.rFlipStd)}/g)</span><span class="mono fw-700 ${plStd >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plStd, true)}</span></div>
-        <div class="kv"><span>3. Swap at ${state.mcDisc}% MC (BE ${fmtINR(th.rFlip)}/g · Both MCs ${fmtINR(th.rDoubleDisc)}/g)</span><span class="mono fw-700 ${plDisc >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plDisc, true)}</span></div>
-        <div class="kv"><span>4. Max 94.4g combo (Free 1 chain + ring at ${fmtINR(th.rFreeRing)}/g)</span><span class="mono fw-700 ${net4c <= 0 ? 'c-pos' : ''}">${net4c <= 0 ? '+' + fmtINR(-net4c) + ' profit' : fmtINR(net4c) + ' cost'}</span></div>`;
+        <div class="kv"><span>Recover paid bill (BE ${fmtINR(th.rOldHistBE)}/g)</span><span class="mono fw-700 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>
+        <div class="kv"><span>Swap @ ${state.mcStd}% MC (BE ${fmtINR(th.rFlipStd)}/g)</span><span class="mono fw-700 ${plStd >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plStd, true)}</span></div>
+        <div class="kv"><span>Swap @ ${state.mcDisc}% MC (BE ${fmtINR(th.rFlip)}/g)</span><span class="mono fw-700 ${plDisc >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plDisc, true)}</span></div>
+        <div class="kv"><span>Max 94.4g combo (Free @ ${fmtINR(th.rFreeRing)}/g)</span><span class="mono fw-700 ${net4c <= 0 ? 'c-pos' : ''}">${net4c <= 0 ? '+' + fmtINR(-net4c) : fmtINR(net4c)}</span></div>`;
     }
 
-    function renderChecklist(data, th) {
+    function renderChecklist(data) {
       const win = data[data.best];
+      const bestTxt = data.best === 'S1' ? 'Buy 32g' : (data.best === 'S2' ? `₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX}g`);
       const items = [
-        { id: 'c1', txt: `Check morning 916 board rate (now ${fmtINR(state.R1)}/g: optimal move is <strong class="nowrap">${data.best === 'S1' ? 'Buy 32g' : (data.best === 'S2' ? `Hit ₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX}g`)}</strong>, saving <strong class="nowrap">${fmtINR(win.saveWalkIn, true)}</strong> vs walk-in).` },
-        { id: 'c2', txt: `Call 2-3 separate local jewellers before billing to confirm exact 916 HUID buyback cut (currently <strong>${state.cut}% = ${fmtINR(data.resaleRate)}/g</strong>).` },
-        { id: 'c3', txt: `Confirm Clause 2 at the counter: full <strong>${fmtINR(state.ADVANCE)}</strong> advance closes cleanly on partial redemption, ₹7.5L basis, and whether the 8g ring counts.` },
-        { id: 'c4', txt: `Prepare bank funds 2 days early: <strong>${data.best}</strong> needs <strong>${fmtINR(win.cash)}</strong> cash (max ₹1.90L) plus <strong>${fmtINR(win.bank)}</strong> via NEFT, RTGS, UPI, or card.` },
-        { id: 'c5', txt: `Existing 24g chain decision: <strong>${data.recOldSell ? 'Sell & swap' : 'Keep untouched'}</strong> (full ${fmtINR(data.oldC.totalPaid)} all-in breakeven starts at <strong>${fmtINR(th.rOldSellRec)}/g</strong>).` },
-        { id: 'c6', txt: `Select <strong>plain, stone-free, enamel-free 916</strong> pieces for any resale weight and keep the HUID tax invoice for the separate buyer.` }
+        { id: 'c1', t: 'Check morning 916 rate', m: `₹${state.R1.toLocaleString('en-IN')}/g -&gt; ${bestTxt} <span class="nowrap">(${fmtINR(win.saveWalkIn, true)})</span>` },
+        { id: 'c2', t: 'Confirm separate-shop cut', m: `Target ${state.cut}% = <span class="nowrap">${fmtINR(data.resaleRate)}/g</span>` },
+        { id: 'c3', t: 'Verify Clause 2 & ₹7.5L rule', m: `Full ${fmtL(state.ADVANCE)} closure · 8g ring included` },
+        { id: 'c4', t: 'Ready bank transfer funds', m: `<span class="nowrap">Cash ${fmtL(win.cash)}</span> + <span class="nowrap">Bank ${fmtL(win.bank)}</span>` },
+        { id: 'c5', t: 'Plain 916 HUID pieces only', m: 'No gold coins, stones, or special-price items' },
+        { id: 'c6', t: 'Old 24g chain decision', m: data.recOldSell ? `Sell &amp; swap <span class="nowrap">(${fmtINR(data.oldHistPL, true)} vs paid)</span>` : `Keep untouched <span class="nowrap">(${fmtINR(data.oldHistPL, true)} vs paid)</span>` }
       ];
 
-      document.getElementById('checkList').innerHTML = items.map(it => `
-        <label class="check-row-item ${state.checks[it.id] ? 'done' : ''}">
+      const done = items.filter(i => state.checks[i.id]).length;
+      document.getElementById('checkProgress').textContent = `${done}/${items.length}`;
+
+      document.getElementById('checklistBox').innerHTML = items.map(it => `
+        <label class="check-row ${state.checks[it.id] ? 'is-done' : ''}">
           <input type="checkbox" data-chk="${it.id}" ${state.checks[it.id] ? 'checked' : ''} />
-          <span>${it.txt}</span>
+          <span class="check-copy">
+            <span class="check-title">${it.t}</span>
+            <span class="check-meta mono">${it.m}</span>
+          </span>
         </label>`).join('');
 
       document.querySelectorAll('[data-chk]').forEach(el => {
         el.addEventListener('change', () => {
           state.checks[el.dataset.chk] = el.checked;
           saveState();
-          renderChecklist(data, th);
+          renderChecklist(evalAt(state.R1));
         });
       });
-
-      const l1 = Math.max(0, state.ADVANCE - 0.10 * data.S1.goldVal);
-      const l2 = Math.max(0, state.ADVANCE - 0.10 * data.S2.goldVal);
-      document.getElementById('prorataLines').innerHTML = `
-        <div>S1 (32g): 10% pro-rata ${fmtINR(0.10 * data.S1.goldVal)} (${fmtINR(l1)} potentially locked)</div>
-        <div>S2 (${data.S2.totalW.toFixed(1)}g): 10% pro-rata ${fmtINR(0.10 * data.S2.goldVal)} (${fmtINR(l2)} potentially locked)</div>
-        <div>S3 (${state.W_MAX}g): ₹0 locked (100% redeemed)</div>`;
-      document.getElementById('clause1Text').textContent = `Gold base stays capped at ${fmtINR(state.R0)}/g, while making charge % multiplies purchase-day rate (${fmtINR(state.R1)}/g). Active cutoffs at ${state.mcDisc}% MC and ${state.cut}% cut: S1 below ${th.rTier ? fmtINR(th.rTier) : 'N/A'}, S2 ${th.rTier ? fmtINR(th.rTier) : 'N/A'}-${fmtINR(th.rFlip - 1)}, S3 ${fmtINR(th.rFlip)}+, Old 24g sell ${fmtINR(th.rOldSellRec)}+.`;
     }
 
     function update() {
-      const data = computeAll(state.R1);
-      const th = getThresholds();
+      const data = evalAt(state.R1);
+      const th = calcThresholds();
       if (!state.pinnedInspect) state.inspect = data.best;
-      syncControls();
-      renderVerdict(data, th);
-      renderCompareAndReceipt(data);
-      renderRates(th);
-      renderPiecesAndOld(data, th);
-      renderChecklist(data, th);
+      syncControls(data);
+      renderDecide(data, th);
+      renderBills(data);
+      renderRatesAndChart(data, th);
+      renderPieces(data, th);
+      renderChecklist(data);
+      syncViews();
       saveState();
     }
 
-    // Event bindings
+    // Event Wiring
     document.getElementById('themeBtn').addEventListener('click', () => {
-      state.theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
       applyTheme();
       saveState();
     });
 
-    document.getElementById('setupBtn').addEventListener('click', (e) => {
-      const hidden = document.getElementById('setupDrawer').classList.toggle('hidden');
-      e.currentTarget.setAttribute('aria-expanded', String(!hidden));
+    const toggleSetup = (forceClose = false) => {
+      const sheet = document.getElementById('setupSheet');
+      const btn = document.getElementById('setupBtn');
+      const open = forceClose ? false : sheet.classList.contains('hidden');
+      sheet.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', open);
+    };
+    document.getElementById('setupBtn').addEventListener('click', () => toggleSetup(false));
+    document.getElementById('closeSetupBtn').addEventListener('click', () => toggleSetup(true));
+
+    document.getElementById('slimTermsBtn').addEventListener('click', (e) => {
+      const dr = document.getElementById('slimDrawer');
+      const open = dr.classList.contains('hidden');
+      dr.classList.toggle('hidden', !open);
+      e.currentTarget.setAttribute('aria-expanded', open);
     });
 
-    document.getElementById('stepDown').addEventListener('click', () => { state.R1 = Math.max(8000, state.R1 - 50); state.pinnedInspect = false; update(); });
-    document.getElementById('stepUp').addEventListener('click', () => { state.R1 = Math.min(25000, state.R1 + 50); state.pinnedInspect = false; update(); });
-    document.getElementById('rateSlider').addEventListener('input', (e) => { state.R1 = Number(e.target.value); state.pinnedInspect = false; update(); });
-    document.getElementById('rateInput').addEventListener('input', (e) => {
-      const v = Number(e.target.value);
-      if (v >= 5000 && v <= 30000) { state.R1 = v; state.pinnedInspect = false; update(); }
+    document.querySelectorAll('.mnav-btn, .dnav-btn').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+
+    window.addEventListener('resize', () => {
+      const mob = window.innerWidth < 960;
+      if (mob !== lastMobile) { lastMobile = mob; syncViews(); }
     });
 
-    document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.addEventListener('click', () => {
-      state.R1 = Number(b.dataset.preset); state.pinnedInspect = false; update();
-    }));
+    const setRate = (v) => {
+      const n = Number(v);
+      if (!Number.isNaN(n) && n >= 8000 && n <= 25000) {
+        state.R1 = Math.round(n);
+        state.pinnedInspect = false;
+        update();
+      }
+    };
 
-    document.querySelectorAll('.seg-opt[data-group]').forEach(b => b.addEventListener('click', () => {
-      const g = b.dataset.group, v = b.dataset.val;
-      state[g] = (g === 'mcDisc' || g === 'cut') ? Number(v) : v;
-      state.pinnedInspect = false;
-      update();
-    }));
+    document.getElementById('rateInput').addEventListener('input', (e) => setRate(e.target.value));
+    document.getElementById('slimRateInput').addEventListener('input', (e) => setRate(e.target.value));
+    document.getElementById('rateSlider').addEventListener('input', (e) => setRate(e.target.value));
+    document.getElementById('stepDown').addEventListener('click', () => setRate(Math.max(8000, state.R1 - 50)));
+    document.getElementById('stepUp').addEventListener('click', () => setRate(Math.min(25000, state.R1 + 50)));
+    document.getElementById('slimDown').addEventListener('click', () => setRate(Math.max(8000, state.R1 - 50)));
+    document.getElementById('slimUp').addEventListener('click', () => setRate(Math.min(25000, state.R1 + 50)));
 
-    document.querySelectorAll('[data-tab]').forEach(b => b.addEventListener('click', () => {
-      state.tab = b.dataset.tab;
-      hideHover();
-      syncControls();
-      saveState();
-    }));
+    document.querySelectorAll('.preset-btn').forEach(b => b.addEventListener('click', () => setRate(b.dataset.preset)));
 
-    document.querySelectorAll('[data-inspect]').forEach(b => b.addEventListener('click', () => {
-      state.inspect = b.dataset.inspect;
-      state.pinnedInspect = true;
-      update();
-    }));
-
-    const bindNum = (id, key, min, max) => document.getElementById(id).addEventListener('input', (e) => {
-      const v = Number(e.target.value);
-      if (!Number.isNaN(v) && v >= min && v <= max) { state[key] = v; update(); }
+    document.querySelectorAll('.seg-opt[data-group]').forEach(b => {
+      b.addEventListener('click', () => {
+        const g = b.dataset.group, v = b.dataset.val;
+        if (g === 'mcDisc') state.mcDisc = Number(v);
+        if (g === 'cut') state.cut = Number(v);
+        if (g === 'basis') state.basis = v;
+        if (g === 'old') state.old = v;
+        state.pinnedInspect = false;
+        update();
+      });
     });
-    bindNum('inpR0', 'R0', 4000, 30000);
+
+    const bindNum = (id, key, min, max) => {
+      document.getElementById(id).addEventListener('input', (e) => {
+        const v = Number(e.target.value);
+        if (!Number.isNaN(v) && v >= min && v <= max) { state[key] = v; state.pinnedInspect = false; update(); }
+      });
+    };
+    bindNum('inpR0', 'R0', 5000, 30000);
     bindNum('inpWMax', 'W_MAX', 32, 500);
     bindNum('inpAdv', 'ADVANCE', 0, 5000000);
     bindNum('inpMcStd', 'mcStd', 0, 30);
@@ -2202,7 +2406,7 @@
 
     document.getElementById('clearChecksBtn').addEventListener('click', () => { state.checks = {}; update(); });
 
-    // Chart tap/scrub
+    // Chart tap
     document.getElementById('chartSvg').addEventListener('pointerdown', (e) => {
       const svg = e.currentTarget;
       const meta = JSON.parse(svg.dataset.meta || '{}');
@@ -2210,9 +2414,7 @@
       const rect = svg.getBoundingClientRect();
       const x = (e.clientX - rect.left) * (meta.W / rect.width);
       const frac = Math.max(0, Math.min(1, (x - meta.pL) / (meta.W - meta.pL - meta.pR)));
-      state.R1 = Math.round((meta.rMin + frac * (meta.rMax - meta.rMin)) / 25) * 25;
-      state.pinnedInspect = false;
-      update();
+      setRate(Math.round((meta.rMin + frac * (meta.rMax - meta.rMin)) / 25) * 25);
     });
 
     // Modal & Desktop Hover Popover
@@ -2223,7 +2425,7 @@
       const d = matrixCache.get(r);
       if (!d) return;
       modalRate = r;
-      document.getElementById('modalTitle').textContent = `Exact math at ₹${r.toLocaleString('en-IN')}/g`;
+      document.getElementById('modalTitle').textContent = `Math @ ₹${r.toLocaleString('en-IN')}/g`;
       document.getElementById('modalBody').innerHTML = buildMathSheetHTML(r, d, sKey);
       document.getElementById('mathModal').classList.remove('hidden');
       document.getElementById('appMain').setAttribute('aria-hidden', 'true');
@@ -2275,7 +2477,7 @@
     document.getElementById('mathModal').addEventListener('click', (e) => { if (e.target.id === 'mathModal') closeMathModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !document.getElementById('mathModal').classList.contains('hidden')) closeMathModal(); });
     document.getElementById('modalApplyBtn').addEventListener('click', () => {
-      if (modalRate) { state.R1 = modalRate; state.pinnedInspect = false; update(); }
+      if (modalRate) setRate(modalRate);
       closeMathModal();
     });
 
