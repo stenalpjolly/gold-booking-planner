@@ -1196,14 +1196,31 @@
     .tray-cost { text-align: right; min-width: 84px; }
     .tray-cost-main { font-size: 13px; font-weight: 600; white-space: nowrap; }
     .tray-cost-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; font-family: var(--font-sans); }
+    .tray-split {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 12px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+    .tray-totals {
+      margin-top: 6px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12.5px;
+    }
 
     @media (min-width: 720px) {
       .tray-item {
         display: grid;
         grid-template-columns: minmax(90px, 1.35fr) minmax(80px, 98px) minmax(88px, 108px) 60px minmax(90px, 104px) 34px;
-        gap: 8px;
+        gap: 6px 8px;
         align-items: center;
-        padding: 7px 0;
+        padding: 8px 0;
       }
       .tray-top, .tray-nums { display: contents; }
       .tray-name  { grid-column: 1; grid-row: 1; height: 34px; }
@@ -1212,6 +1229,7 @@
       .intent-btn { grid-column: 4; grid-row: 1; height: 34px; min-width: 0; padding: 0 8px; }
       .tray-cost  { grid-column: 5; grid-row: 1; min-width: 0; }
       .del-btn    { grid-column: 6; grid-row: 1; width: 34px; height: 34px; }
+      .tray-split { grid-column: 1 / -1; grid-row: 2; padding-left: 1px; }
     }
 
     details.panel-acc {
@@ -1956,6 +1974,7 @@
           </div>
 
           <div id="trayList" class="tray-list"></div>
+          <div id="trayTotals" class="tray-totals"></div>
         </div>
 
         <details id="shopOptDetails" class="panel-acc">
@@ -2947,7 +2966,7 @@
       const order = [...items.filter(it => it.intent === 'keep'), ...items.filter(it => it.intent === 'sell')];
       let remBook = state.W_MAX;
       const costsById = new Map();
-      let rawBill = 0, bookedGoldVal = 0, sellCost = 0, walkInKeptBill = 0;
+      let rawBill = 0, totalGold = 0, totalMc = 0, totalGst = 0, bookedGoldVal = 0, sellCost = 0, walkInKeptBill = 0;
 
       order.forEach(it => {
         const autoPct = hits75 ? state.mcDisc : state.mcStd;
@@ -2959,6 +2978,9 @@
         const resale = it.intent === 'sell' ? it.w * data.resaleRate : 0;
 
         rawBill += c.total;
+        totalGold += c.gold;
+        totalMc += c.mc;
+        totalGst += c.gst;
         bookedGoldVal += wBooked * eff;
         if (it.intent === 'sell') {
           sellCost += c.total;
@@ -2991,7 +3013,7 @@
 
       return {
         items, costsById, totalW, keepW, sellW, hits75, shortG, excessQualG,
-        rawBill, extraDisc, bill, advApplied, payNow, cash, bank, budget,
+        rawBill, totalGold, totalMc, totalGst, extraDisc, bill, advApplied, payNow, cash, bank, budget,
         sellResale, sellCost, resaleGain, net, walkInNet, saveW,
         remCap, overCap, onePctMcVal, uBookedDisc, uBookedStd, marginPerGDisc, clause2Risk
       };
@@ -3275,15 +3297,18 @@
       saveEl.textContent = fmtINR(ev.saveW, true);
       saveEl.className = 'shop-save-val mono ' + (ev.saveW >= 0 ? 'c-pos' : 'c-neg');
 
-      // Quiet Hairline Meta Row
+      // Quiet Hairline Meta Row (with immediate Gold, Making, and GST summary)
       const netStr = ev.net < 0 ? `Net profit +${fmtINR(-ev.net)}` : `Net ${fmtINR(ev.net)}`;
       const discStr = ev.extraDisc > 0 ? ` · Discount -${fmtK(ev.extraDisc)}` : '';
       const gap = win.saveWalkIn - ev.saveW;
       const gapNote = !sug && ev.keepW > 0.1 && Math.abs(gap) > 500
         ? (gap > 0 ? ` · <span class="c-muted">${fmtINR(gap)} below uncapped optimal</span>` : ` · <span class="c-pos">${fmtINR(-gap)} above optimal</span>`)
         : '';
+      const splitLine = ev.totalW > 0.01
+        ? `<div style="flex-basis:100%;display:flex;flex-wrap:wrap;gap:4px 10px;color:var(--text-muted);font-size:11.5px;"><span class="nowrap">Gold <span class="mono">${fmtINR(ev.totalGold)}</span></span><span>·</span><span class="nowrap">Making <span class="mono">${fmtINR(ev.totalMc)}</span></span><span>·</span><span class="nowrap">GST <span class="mono">${fmtINR(ev.totalGst)}</span></span></div>`
+        : '';
       document.getElementById('shopMetaRow').innerHTML =
-        `<span class="nowrap">Bank ${fmtL(ev.bank)} + Cash ${fmtL(ev.cash)}</span><span>·</span><span class="nowrap">Gross ${fmtL(ev.bill)}${discStr}</span><span>·</span><span class="nowrap">${netStr}</span>${gapNote}`;
+        `<span class="nowrap">Bank ${fmtL(ev.bank)} + Cash ${fmtL(ev.cash)}</span><span>·</span><span class="nowrap">Gross ${fmtL(ev.bill)}${discStr}</span><span>·</span><span class="nowrap">${netStr}</span>${gapNote}${splitLine}`;
 
       // Collapsible 1-line Negotiation & Advance Notes (Clean Hairline Rows, ZERO Pills!)
       const notesAcc = document.getElementById('shopNotesAcc');
@@ -3351,6 +3376,7 @@
               </div>
               <div class="tray-cost" data-row-cost="${it.id}"></div>
             </div>
+            <div class="tray-split" data-row-split="${it.id}"></div>
           </div>`).join('') : `<div class="c-muted" style="font-size:12.5px;padding:10px 0;">Tap + Keep, + Sell, or a preset above.</div>`;
 
         listEl.querySelectorAll('input[data-field]').forEach(inp => {
@@ -3383,16 +3409,43 @@
         });
       }
 
-      // In-place per-row live costs & dynamic Auto MC placeholders
+      // In-place per-row live costs, per-item Gold/Making/GST split-up & dynamic Auto MC placeholders
       state.shop.items.forEach(it => {
         const c = ev.costsById.get(it.id);
         const costEl = listEl.querySelector(`[data-row-cost="${it.id}"]`);
         if (costEl && c) {
           costEl.innerHTML = `<div class="tray-cost-main mono">${fmtINR(c.total)}</div><div class="tray-cost-sub">${c.overCapG > 0.05 ? 'Over limit' : `${c.effMcPct}% making`}</div>`;
         }
+        const splitEl = listEl.querySelector(`[data-row-split="${it.id}"]`);
+        if (splitEl && c) {
+          const wNum = Number(it.w) || 0;
+          splitEl.innerHTML = wNum > 0
+            ? `<span class="nowrap">Gold <span class="mono">${fmtINR(c.gold)}</span></span><span class="nowrap">Making <span class="mono">${fmtINR(c.mc)}</span></span><span class="nowrap">GST <span class="mono">${fmtINR(c.gst)}</span></span>${c.overCapG > 0.05 ? `<span class="nowrap c-warn">${c.overCapG.toFixed(2)}g unbooked</span>` : ''}`
+            : `<span>Enter weight for item split-up</span>`;
+        }
         const mcInp = listEl.querySelector(`input[data-field="mc"][data-id="${it.id}"]`);
         if (mcInp) mcInp.placeholder = `Auto ${autoMc}`;
       });
+
+      // Tray Bill Split-Up Totals Footer
+      const totalsEl = document.getElementById('trayTotals');
+      if (ev.totalW < 0.01) {
+        totalsEl.classList.add('hidden');
+        totalsEl.innerHTML = '';
+      } else {
+        totalsEl.classList.remove('hidden');
+        totalsEl.innerHTML = `
+          <div class="kv"><span>Gold value (<span class="mono">${ev.totalW.toFixed(2)}g</span>)</span><span class="mono">${fmtINR(ev.totalGold)}</span></div>
+          <div class="kv"><span>Total making charge</span><span class="mono">${fmtINR(ev.totalMc)}</span></div>
+          <div class="kv"><span>Total GST (<span class="mono">3%</span>)</span><span class="mono">${fmtINR(ev.totalGst)}</span></div>
+          ${ev.extraDisc > 0 ? `<div class="kv"><span>Counter discount</span><span class="mono c-pos">-${fmtINR(ev.extraDisc)}</span></div>` : ''}
+          <div class="kv fw-600" style="padding-top:6px;border-top:1px solid var(--border);"><span>Gross bill</span><span class="mono">${fmtINR(ev.bill)}</span></div>
+          <div class="kv"><span>Advance paid</span><span class="mono">-${fmtINR(ev.advApplied)}</span></div>
+          <div class="kv kv-total"><span>Pay now at counter</span><span class="mono">${fmtINR(ev.payNow)}</span></div>
+          ${ev.sellW > 0.01 ? `<div class="kv"><span>Resale recovery (<span class="mono">${ev.sellW.toFixed(2)}g</span>)</span><span class="mono c-pos">-${fmtINR(ev.sellResale)}</span></div>` : ''}
+          ${data.oldProc > 0 ? `<div class="kv"><span>Old 24g chain sale</span><span class="mono c-pos">-${fmtINR(data.oldProc)}</span></div>` : ''}
+          <div class="kv fw-600"><span>${ev.net < 0 ? 'Net cash profit' : 'Final net outlay'}</span><span class="mono ${ev.net < 0 ? 'c-pos' : ''}">${ev.net < 0 ? '+' + fmtINR(-ev.net) : fmtINR(ev.net)}</span></div>`;
+      }
 
       const bInp = document.getElementById('inpShopBudget');
       const dInp = document.getElementById('inpShopDisc');
