@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Mobile-first 916 (22K) gold advance booking decision ledger. Compare walk-in cost, bulk making charge unlock, max booking resale, and existing gold swap breakevens." />
+  <meta name="description" content="916 (22K) gold advance booking decision ledger. Compare walk-in cost, bulk making charge unlock, max booking resale, live counter tray, and existing gold swap breakevens." />
   <meta name="theme-color" content="#116a4c" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -20,26 +20,26 @@
       --surface: #FFFFFF;
       --surface-elevated: #F2F3F2;
       --border: rgba(17, 19, 21, 0.09);
-      --border-strong: rgba(17, 19, 21, 0.18);
+      --border-strong: rgba(17, 19, 21, 0.17);
       --text: #111315;
       --text-secondary: #4B525A;
-      --text-muted: #5A626C;
+      --text-muted: #5F6873;
 
       --accent: #116A4C;
       --accent-hover: #0D563D;
-      --accent-soft: #EAF4EF;
+      --accent-soft: #ECF5F0;
       --accent-fg: #FFFFFF;
 
       --pos: #116A4C;
-      --pos-bg: #EAF4EF;
+      --pos-bg: #ECF5F0;
       --warn: #8A5A0A;
-      --warn-bg: #FBF3E1;
+      --warn-bg: #FBF4E4;
       --neg: #A33333;
       --neg-bg: #FCEEEE;
       --info: #1E5D8C;
-      --info-bg: #E9F3FA;
+      --info-bg: #EBF4FA;
 
-      --radius: 8px;
+      --radius: 10px;
       --radius-sm: 6px;
       --ease: cubic-bezier(0.32, 0.72, 0, 1);
       --font-sans: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -51,25 +51,25 @@
       --bg: #0A0B0D;
       --surface: #131519;
       --surface-elevated: #1C2026;
-      --border: rgba(255, 255, 255, 0.09);
-      --border-strong: rgba(255, 255, 255, 0.18);
+      --border: rgba(255, 255, 255, 0.085);
+      --border-strong: rgba(255, 255, 255, 0.17);
       --text: #F2F4F7;
       --text-secondary: #A6B0BD;
       --text-muted: #8E99A8;
 
       --accent: #2BB686;
       --accent-hover: #38C796;
-      --accent-soft: rgba(43, 182, 134, 0.14);
+      --accent-soft: rgba(43, 182, 134, 0.12);
       --accent-fg: #071912;
 
       --pos: #38C796;
-      --pos-bg: rgba(56, 199, 150, 0.14);
+      --pos-bg: rgba(56, 199, 150, 0.12);
       --warn: #E5A93B;
-      --warn-bg: rgba(229, 169, 59, 0.14);
+      --warn-bg: rgba(229, 169, 59, 0.12);
       --neg: #E86A6A;
-      --neg-bg: rgba(232, 106, 106, 0.14);
+      --neg-bg: rgba(232, 106, 106, 0.13);
       --info: #5AA9E6;
-      --info-bg: rgba(90, 169, 230, 0.14);
+      --info-bg: rgba(90, 169, 230, 0.12);
       color-scheme: dark;
     }
 
@@ -83,17 +83,18 @@
     body {
       margin: 0;
       font-family: var(--font-sans);
+      font-variant-numeric: tabular-nums;
       font-size: 14px;
       line-height: 1.45;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      padding-bottom: calc(66px + env(safe-area-inset-bottom));
+      padding-bottom: calc(64px + env(safe-area-inset-bottom));
       overflow-x: clip;
     }
 
-    button, input, select { font-family: inherit; }
+    button, input, select { font-family: inherit; font-variant-numeric: inherit; }
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     input[type="number"] { -moz-appearance: textfield; }
@@ -103,6 +104,7 @@
       outline-offset: 2px;
     }
 
+    /* Reserved strictly for standalone figures, numeric inputs, and right-aligned numeric columns */
     .mono {
       font-family: var(--font-mono);
       font-variant-numeric: tabular-nums;
@@ -122,7 +124,17 @@
     .hidden { display: none !important; }
     .nowrap { white-space: nowrap; }
 
-    /* Top Header (54px mobile, 52px desktop) */
+    .c-pos   { color: var(--pos); }
+    .c-warn  { color: var(--warn); }
+    .c-neg   { color: var(--neg); }
+    .c-info  { color: var(--info); }
+    .c-muted { color: var(--text-muted); }
+    .c-sec   { color: var(--text-secondary); }
+    .fw-500  { font-weight: 500; }
+    .fw-600  { font-weight: 600; }
+    .fw-700  { font-weight: 700; }
+
+    /* Top Header (50px mobile, 52px desktop) */
     .topbar {
       position: sticky;
       top: 0;
@@ -134,7 +146,7 @@
     .topbar-inner {
       max-width: 1180px;
       margin: 0 auto;
-      height: 54px;
+      height: 50px;
       padding: 0 16px;
       display: flex;
       align-items: center;
@@ -146,46 +158,32 @@
     }
     .brand {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      align-items: baseline;
+      gap: 12px;
       min-width: 0;
     }
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-      border-radius: var(--radius-sm);
-      background: var(--accent);
-      color: var(--accent-fg);
-      display: grid;
-      place-items: center;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
     .brand-title {
-      font-size: 15px;
+      font-size: 15.5px;
       font-weight: 600;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.02em;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      color: var(--text);
     }
     .brand-meta {
       display: none;
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text-muted);
-      margin-left: 8px;
+      white-space: nowrap;
     }
     @media (min-width: 960px) { .brand-meta { display: inline; } }
 
-    .top-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .top-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .btn-ghost {
-      height: 40px;
+      height: 38px;
       padding: 0 12px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      background: var(--surface);
+      background: transparent;
       color: var(--text);
       font-size: 13px;
       font-weight: 500;
@@ -194,26 +192,45 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.12s var(--ease);
+      transition: background-color 0.16s var(--ease), border-color 0.16s var(--ease), color 0.16s var(--ease);
     }
     .btn-ghost:hover { background: var(--surface-elevated); border-color: var(--border-strong); }
     .btn-ghost:active { transform: scale(0.98); }
     .btn-ghost[aria-expanded="true"] {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--surface-elevated);
+      border-color: var(--border-strong);
+      color: var(--text);
     }
-    .btn-icon { width: 40px; padding: 0; }
-    .btn-sm { height: 38px; padding: 0 11px; font-size: 12.5px; }
+    .btn-icon { width: 38px; padding: 0; border-color: transparent; }
+    .btn-icon:hover { border-color: var(--border); }
+    .btn-text {
+      height: 38px;
+      padding: 0 8px;
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+    }
+    .btn-text:hover { background: var(--surface-elevated); color: var(--text); }
+    .btn-text-strong { color: var(--text); font-weight: 600; }
     @media (min-width: 960px) {
-      .btn-ghost { height: 36px; }
-      .btn-icon { width: 36px; }
-      .btn-sm { height: 34px; padding: 0 10px; font-size: 12px; }
+      .btn-ghost { height: 34px; }
+      .btn-icon { width: 34px; }
+      .btn-text { height: 32px; }
     }
 
-    .btn-done-primary {
+    .btn-primary-inline {
       height: 40px;
-      min-width: 96px;
+      min-width: 92px;
       padding: 0 18px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--accent);
@@ -225,14 +242,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.18s var(--ease), transform 0.12s var(--ease);
+      transition: background-color 0.16s var(--ease), transform 0.1s var(--ease);
     }
-    .btn-done-primary:hover { background: var(--accent-hover); }
-    .btn-done-primary:active { transform: scale(0.98); }
+    .btn-primary-inline:hover { background: var(--accent-hover); }
+    .btn-primary-inline:active { transform: scale(0.98); }
 
     .btn-reset-muted {
       height: 40px;
-      padding: 0 8px 0 0;
+      padding: 0 6px 0 0;
       border-radius: var(--radius-sm);
       border: 0;
       background: transparent;
@@ -243,7 +260,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease);
+      transition: background-color 0.16s var(--ease), color 0.16s var(--ease), padding 0.16s var(--ease);
     }
     .btn-reset-muted:hover { padding: 0 10px; background: var(--neg-bg); color: var(--neg); }
     .btn-reset-muted.is-armed {
@@ -254,59 +271,58 @@
       font-weight: 600;
     }
 
-    /* Mobile Sticky Slim Rate Strip (Visible ONLY on Tabs 2-5 on mobile) */
+    /* Mobile Quiet 44px Slim Utility Strip (Tabs 2-5 on mobile only) */
     .slim-wrap {
       position: sticky;
-      top: calc(54px + env(safe-area-inset-top));
+      top: calc(50px + env(safe-area-inset-top));
       z-index: 35;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
     }
     .slim-bar {
-      height: 52px;
-      padding: 0 12px;
+      height: 44px;
+      padding: 0 12px 0 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
+      gap: 8px;
     }
     .slim-stepper {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 0;
       min-width: 0;
     }
-    .mini-step {
-      width: 40px;
+    .slim-step {
+      min-width: 38px;
       height: 40px;
+      padding: 0 6px;
+      border: 0;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--surface-elevated);
-      color: var(--text);
-      font-family: var(--font-mono);
+      background: transparent;
+      color: var(--text-muted);
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      display: grid;
-      place-items: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
-      transition: background-color 0.15s var(--ease), transform 0.1s var(--ease);
+      transition: background-color 0.14s var(--ease), color 0.14s var(--ease);
     }
-    .mini-step:active { transform: scale(0.95); }
+    .slim-step:hover, .slim-step:active { background: var(--surface-elevated); color: var(--text); }
     .slim-rate-box {
       height: 40px;
-      padding: 0 6px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-strong);
-      background: var(--bg);
+      padding: 0 4px;
       display: flex;
       align-items: center;
       gap: 2px;
       cursor: text;
+      border-radius: var(--radius-sm);
     }
-    .slim-rate-box:focus-within { border-color: var(--accent); }
+    .slim-rate-box:focus-within { background: var(--surface-elevated); }
     .slim-rate-box input {
-      width: 58px;
+      width: 54px;
       height: 100%;
       border: 0;
       background: transparent;
@@ -320,26 +336,24 @@
     .slim-rate-box input:focus-visible { outline: none; }
     .slim-terms-btn {
       height: 40px;
-      padding: 0 8px;
+      padding: 0 6px;
+      border: 0;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--surface-elevated);
-      color: var(--text);
-      font-size: 11.5px;
-      font-weight: 600;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 500;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
       white-space: nowrap;
       flex-shrink: 0;
-      transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease);
+      transition: background-color 0.14s var(--ease), color 0.14s var(--ease);
     }
-    .slim-terms-btn[aria-expanded="true"] {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .slim-terms-btn:hover { background: var(--surface-elevated); color: var(--text); }
+    .slim-terms-btn[aria-expanded="true"] { color: var(--accent); font-weight: 600; }
+
     .slim-drawer {
       padding: 12px 16px 14px;
       border-top: 1px solid var(--border);
@@ -347,30 +361,28 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 10px 24px rgba(17, 19, 21, 0.10);
+      box-shadow: 0 10px 24px rgba(17, 19, 21, 0.08);
     }
-    [data-theme="dark"] .slim-drawer {
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.48);
-    }
+    [data-theme="dark"] .slim-drawer { box-shadow: 0 12px 28px rgba(0, 0, 0, 0.48); }
     .slim-verdict-line {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
       gap: 8px;
-      font-size: 12px;
+      font-size: 12.5px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
     }
 
-    /* Collapsible Advanced Setup Panel (Global under topbar) */
+    /* Collapsible Global Setup Sheet */
     .setup-sheet {
       position: relative;
       z-index: 38;
       background: var(--surface);
       border-bottom: 1px solid var(--border-strong);
-      box-shadow: 0 10px 28px rgba(17, 19, 21, 0.10);
+      box-shadow: 0 10px 28px rgba(17, 19, 21, 0.09);
     }
-    [data-theme="dark"] .setup-sheet {
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.50);
-    }
+    [data-theme="dark"] .setup-sheet { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.50); }
     .setup-inner {
       max-width: 1180px;
       margin: 0 auto;
@@ -380,9 +392,22 @@
       gap: 16px;
     }
     @media (min-width: 760px) {
-      .setup-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding: 20px 24px; }
+      .setup-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 28px;
+        padding: 20px 24px 18px;
+      }
     }
     .setup-group { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+    .setup-footer {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
     .setup-title {
       font-size: 11px;
       font-weight: 600;
@@ -394,10 +419,10 @@
     .input-2col {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      gap: 10px;
     }
     .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-    .field label { font-size: 11.5px; font-weight: 500; color: var(--text-secondary); }
+    .field label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
     .field input {
       width: 100%;
       height: 40px;
@@ -409,22 +434,65 @@
       font-family: var(--font-mono);
       font-size: 13.5px;
       font-weight: 600;
-      transition: border-color 0.18s var(--ease);
+      transition: border-color 0.16s var(--ease);
     }
-    @media (min-width: 960px) { .field input { height: 38px; } }
+    @media (min-width: 960px) { .field input { height: 36px; } }
     .field input:focus { border-color: var(--accent); outline: none; }
     .check-line {
       display: flex;
       align-items: center;
       gap: 10px;
-      min-height: 40px;
+      min-height: 38px;
       font-size: 12.5px;
       color: var(--text-secondary);
       cursor: pointer;
     }
-    .check-line input { width: 18px; height: 18px; accent-color: var(--accent); flex-shrink: 0; }
+    .check-line input { width: 17px; height: 17px; accent-color: var(--accent); flex-shrink: 0; }
 
-    /* App Layout Shell: Single-Screen Tabs on Mobile, Sticky Left Rail + Workspace on Desktop */
+    /* Calm Neutral Apple/Linear Segmented Switches */
+    .seg-group {
+      display: flex;
+      width: 100%;
+      padding: 3px;
+      gap: 2px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--surface-elevated);
+    }
+    .seg-opt {
+      flex: 1;
+      height: 38px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 0 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s var(--ease), color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+    }
+    .seg-opt:hover { color: var(--text); }
+    .seg-opt[aria-pressed="true"] {
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(17, 19, 21, 0.08), 0 0 0 1px rgba(17, 19, 21, 0.05);
+    }
+    [data-theme="dark"] .seg-opt[aria-pressed="true"] {
+      background: #262B35;
+      color: #F2F4F7;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    .seg-compact { width: auto; flex-shrink: 0; }
+    .seg-compact .seg-opt { height: 38px; min-width: 50px; padding: 0 10px; font-size: 12px; }
+    @media (min-width: 960px) {
+      .seg-opt { height: 32px; font-size: 12px; }
+      .seg-compact .seg-opt { height: 30px; min-width: 46px; padding: 0 9px; font-size: 11.5px; }
+    }
+
+    /* App Layout Shell */
     .workspace {
       width: 100%;
       max-width: 1180px;
@@ -433,14 +501,21 @@
     .rail-pane { min-width: 0; }
     .detail-col { min-width: 0; display: flex; flex-direction: column; }
 
+    .desktop-only { display: none; }
+    .mobile-only { display: block; }
+    @media (max-width: 959px) {
+      .desktop-only { display: none !important; }
+    }
+
     @media (min-width: 960px) {
-      body { padding-bottom: 32px; }
+      body { padding-bottom: 36px; }
       .slim-wrap, .mobile-nav, .mobile-only { display: none !important; }
+      .desktop-only { display: block; }
       .workspace {
-        padding: 20px 24px 32px;
+        padding: 20px 24px 36px;
         display: grid;
-        grid-template-columns: 388px minmax(0, 1fr);
-        gap: 24px;
+        grid-template-columns: 348px minmax(0, 1fr);
+        gap: 28px;
         align-items: start;
       }
       .rail-pane {
@@ -459,10 +534,10 @@
       display: none;
       border-bottom: 1px solid var(--border);
       gap: 24px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .dnav-btn {
-      height: 42px;
+      height: 40px;
       border: 0;
       border-bottom: 2px solid transparent;
       background: transparent;
@@ -471,7 +546,7 @@
       font-weight: 500;
       padding: 0 2px;
       cursor: pointer;
-      transition: color 0.18s var(--ease), border-color 0.18s var(--ease);
+      transition: color 0.16s var(--ease), border-color 0.16s var(--ease);
     }
     .dnav-btn:hover { color: var(--text); }
     .dnav-btn.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
@@ -485,13 +560,13 @@
       z-index: 40;
       background: var(--surface);
       border-top: 1px solid var(--border);
-      padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+      padding: 4px 6px calc(5px + env(safe-area-inset-bottom));
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 2px;
     }
     .mnav-btn {
-      height: 52px;
+      height: 50px;
       border: 0;
       border-radius: var(--radius-sm);
       background: transparent;
@@ -503,20 +578,16 @@
       gap: 3px;
       padding: 0;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 500;
       cursor: pointer;
-      transition: color 0.15s var(--ease), background-color 0.15s var(--ease), transform 0.1s var(--ease);
+      transition: color 0.14s var(--ease);
     }
-    .mnav-btn:active { transform: scale(0.95); }
-    .mnav-btn svg { width: 20px; height: 20px; stroke-width: 1.8; }
-    .mnav-btn.active { color: var(--accent); background: var(--accent-soft); }
+    .mnav-btn svg { width: 20px; height: 20px; stroke-width: 1.75; }
+    .mnav-btn.active { color: var(--accent); font-weight: 600; }
 
-    /* Shared UI Primitives */
-    .view-anim {
-      animation: paneIn 0.16s var(--ease);
-    }
+    .view-anim { animation: paneIn 0.15s var(--ease); }
     @keyframes paneIn {
-      from { opacity: 0.4; transform: translateY(4px); }
+      from { opacity: 0.5; transform: translateY(3px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -528,62 +599,13 @@
       color: var(--text-muted);
       margin: 0;
     }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      height: 24px;
-      padding: 0 8px;
-      border-radius: var(--radius-sm);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .tag-pos  { background: var(--pos-bg);  color: var(--pos); }
-    .tag-warn { background: var(--warn-bg); color: var(--warn); }
-    .tag-neg  { background: var(--neg-bg);  color: var(--neg); }
-    .tag-info { background: var(--info-bg); color: var(--info); }
 
-    .seg-group {
-      display: flex;
-      width: 100%;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .seg-opt {
-      flex: 1;
-      height: 40px;
-      border: 0;
-      border-right: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 12.5px;
-      font-weight: 600;
-      padding: 0 4px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
-    }
-    .seg-opt:last-child { border-right: 0; }
-    .seg-opt:hover { background: var(--surface-elevated); color: var(--text); }
-    .seg-opt[aria-pressed="true"] {
-      background: var(--accent);
-      color: var(--accent-fg);
-    }
-    .seg-compact .seg-opt { height: 36px; min-width: 48px; font-size: 12px; padding: 0 8px; }
-    @media (min-width: 960px) {
-      .seg-opt { height: 36px; }
-      .seg-compact .seg-opt { height: 32px; min-width: 44px; font-size: 11.5px; }
-    }
-
-    /* TAB 1: DECIDE (Compact Controls + Scannable Verdict) */
+    /* TAB 1 (Mobile Decide) & Sticky Desktop Parameters + Benchmark Rail */
     .decide-stack {
       display: flex;
       flex-direction: column;
       background: var(--surface);
+      border-bottom: 1px solid var(--border);
     }
     @media (min-width: 960px) {
       .decide-stack {
@@ -594,14 +616,14 @@
     }
 
     .control-section {
-      padding: 9px 16px 10px;
+      padding: 12px 16px 14px;
       border-bottom: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 10px;
     }
     @media (min-width: 960px) {
-      .control-section { padding: 9px 14px 10px; gap: 6px; }
+      .control-section { padding: 14px 16px; gap: 11px; }
     }
     .rate-top-row {
       display: flex;
@@ -609,68 +631,64 @@
       justify-content: space-between;
       gap: 8px;
     }
-    .rate-input-row {
+
+    /* Single Cohesive Rate Bar (no 3 outer boxes) */
+    .rate-bar {
+      height: 48px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
       display: grid;
-      grid-template-columns: 44px minmax(0, 1fr) 44px;
-      gap: 8px;
+      grid-template-columns: 48px minmax(0, 1fr) 48px;
       align-items: center;
+      overflow: hidden;
+      transition: border-color 0.16s var(--ease);
     }
-    .step-btn {
-      height: 44px;
-      width: 44px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--surface-elevated);
-      color: var(--text);
-      font-family: var(--font-mono);
+    @media (min-width: 960px) {
+      .rate-bar { height: 44px; grid-template-columns: 44px minmax(0, 1fr) 44px; }
+    }
+    .rate-bar:focus-within { border-color: var(--accent); background: var(--surface); }
+    .rate-nudge {
+      height: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--text-muted);
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       display: grid;
       place-items: center;
-      transition: background-color 0.15s var(--ease), transform 0.1s var(--ease);
+      transition: background-color 0.14s var(--ease), color 0.14s var(--ease);
     }
-    .step-btn:hover { background: var(--bg); border-color: var(--border-strong); }
-    .step-btn:active { transform: scale(0.96); }
-
-    .rate-field {
-      height: 44px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-strong);
-      background: var(--bg);
+    .rate-nudge:hover, .rate-nudge:active { background: var(--surface-elevated); color: var(--text); }
+    .rate-center {
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      padding: 0 10px;
+      gap: 3px;
       cursor: text;
     }
-    @media (min-width: 960px) {
-      .rate-input-row { grid-template-columns: 40px minmax(0, 1fr) 40px; }
-      .step-btn { height: 40px; width: 40px; }
-      .rate-field { height: 40px; }
-    }
-    .rate-field:focus-within { border-color: var(--accent); }
     .rate-prefix, .rate-suffix { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-    .rate-field input {
-      width: 104px;
+    .rate-center input {
+      width: 96px;
       height: 100%;
       border: 0;
       background: transparent;
       color: var(--text);
       font-family: var(--font-mono);
-      font-size: 21px;
+      font-size: 22px;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
       text-align: center;
       padding: 0;
     }
-    .rate-field input:focus-visible { outline: none; }
+    .rate-center input:focus-visible { outline: none; }
 
-    .slider-wrap { display: flex; flex-direction: column; }
+    .slider-wrap { display: flex; flex-direction: column; margin-top: -4px; }
     input[type="range"] {
       width: 100%;
-      height: 36px;
+      height: 38px;
       margin: 0;
       -webkit-appearance: none;
       appearance: none;
@@ -678,75 +696,65 @@
       cursor: pointer;
     }
     input[type="range"]::-webkit-slider-runnable-track {
-      height: 4px;
+      height: 3px;
       border-radius: 2px;
       background: var(--border-strong);
     }
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--text);
       border: 2px solid var(--surface);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
-      margin-top: -9px;
+      margin-top: -8.5px;
     }
     input[type="range"]::-moz-range-track {
-      height: 4px;
+      height: 3px;
       border-radius: 2px;
       background: var(--border-strong);
     }
     input[type="range"]::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--text);
       border: 2px solid var(--surface);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
     }
-    @media (min-width: 960px) {
-      input[type="range"] { height: 28px; }
-    }
+    @media (min-width: 960px) { input[type="range"] { height: 32px; } }
     .slider-scale {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 11px;
       color: var(--text-muted);
-      margin-top: -6px;
+      margin-top: -7px;
     }
-
-    .preset-strip {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 6px;
-      overflow: visible;
-    }
-    .preset-btn {
-      width: 100%;
-      height: 38px;
-      padding: 0 4px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--surface);
+    .scale-reset-btn {
+      border: 0;
+      background: transparent;
       color: var(--text-secondary);
-      font-family: var(--font-mono);
-      font-size: 11.5px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 500;
+      min-height: 38px;
+      padding: 0 8px;
+      margin: -10px 0;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-color: var(--border-strong);
+      text-underline-offset: 2px;
+      border-radius: 4px;
     }
     @media (min-width: 960px) {
-      .preset-btn { height: 34px; }
+      .scale-reset-btn { min-height: 28px; margin: -5px 0; }
     }
-    .preset-btn:hover { background: var(--surface-elevated); color: var(--text); }
-    .preset-btn.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+    .scale-reset-btn:hover { color: var(--text); text-decoration-color: var(--text); }
 
-    .param-row { display: flex; flex-direction: column; gap: 4px; }
+    .param-row { display: flex; flex-direction: column; gap: 5px; }
     .param-head {
       display: flex;
       justify-content: space-between;
@@ -757,41 +765,62 @@
       color: var(--text-secondary);
     }
 
-    /* Verdict Section (Pure Scannable Signal) */
-    .verdict-section {
-      padding: 9px 16px 10px;
+    /* Desktop Quiet Reference Benchmark (Zero competition with Right Workspace) */
+    .bench-section {
+      padding: 14px 16px;
+      background: var(--bg);
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
     }
-    @media (min-width: 960px) {
-      .verdict-section { padding: 10px 14px 11px; gap: 7px; }
-      .verdict-section .figure-cell { padding: 6px 0; }
-      .verdict-section .old-block { gap: 4px; }
-      .verdict-section .old-why summary { min-height: 30px; padding: 3px 0; }
-      .verdict-section .regime-block { padding-top: 6px; gap: 4px; }
+    .bench-plan {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .bench-line {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .bench-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Mobile Editorial Verdict Section */
+    .verdict-section {
+      padding: 14px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
     .verdict-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 8px;
+      gap: 12px;
+    }
+    .verdict-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0;
     }
     .verdict-h1 {
-      margin: 4px 0 0;
-      font-size: clamp(16.5px, 4.5vw, 20px);
+      margin: 3px 0 0;
+      font-size: clamp(18px, 5vw, 21px);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.2;
-      white-space: nowrap;
     }
-    .verdict-stat {
-      text-align: right;
-      flex-shrink: 0;
-    }
+    .verdict-stat { text-align: right; flex-shrink: 0; }
     .stat-hero {
       display: block;
-      font-size: clamp(19px, 5.2vw, 22px);
+      font-size: clamp(20px, 5.5vw, 23px);
       font-weight: 700;
       letter-spacing: -0.025em;
       line-height: 1.1;
@@ -803,24 +832,18 @@
       margin-top: 2px;
     }
 
-    .chip-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+    /* 3-Column Typographic Breakdown Strip (Zero Pills!) */
+    .breakdown-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      gap: 8px;
     }
-    .stat-chip {
-      height: 26px;
-      padding: 0 8px;
-      border-radius: var(--radius-sm);
-      background: var(--surface-elevated);
-      color: var(--text);
-      font-size: 11.5px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
+    .breakdown-strip.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bd-cell { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .bd-lbl { font-size: 11.5px; color: var(--text-muted); }
+    .bd-val { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
 
     .figure-bar {
       display: grid;
@@ -829,140 +852,91 @@
       border-bottom: 1px solid var(--border);
     }
     .figure-cell {
-      padding: 8px 0;
+      padding: 10px 0;
       display: flex;
       flex-direction: column;
       gap: 1px;
       min-width: 0;
       overflow: hidden;
     }
-    .figure-cell:first-child { padding-right: 10px; border-right: 1px solid var(--border); }
-    .figure-cell:last-child { padding-left: 10px; }
+    .figure-cell:first-child { padding-right: 12px; border-right: 1px solid var(--border); }
+    .figure-cell:last-child { padding-left: 12px; }
     .figure-lbl { font-size: 11.5px; color: var(--text-muted); }
-    .figure-val { font-size: clamp(15px, 4.2vw, 17px); font-weight: 700; white-space: nowrap; }
-    .figure-sub { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .figure-val { font-size: clamp(16px, 4.4vw, 18px); font-weight: 700; white-space: nowrap; }
+    .figure-sub { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Compact Old 24g Row */
     .old-block { display: flex; flex-direction: column; gap: 6px; }
     .old-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 10px;
     }
-    .old-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px 10px;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    .old-why {
+    .old-title-wrap { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .old-label { font-size: 12.5px; font-weight: 600; color: var(--text); }
+    .old-status { font-size: 12px; font-weight: 600; }
+    .old-summary-line { font-size: 12.5px; color: var(--text-secondary); line-height: 1.4; }
+
+    /* Shared Hairline Collapsible Disclosure */
+    .inline-acc {
       border-top: 1px solid var(--border);
-      margin-top: 2px;
+      margin-top: 4px;
     }
-    .old-why summary {
+    .inline-acc summary {
       list-style: none;
       cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 12.5px;
+      font-weight: 500;
       color: var(--text-secondary);
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      min-height: 36px;
+      min-height: 38px;
       padding: 6px 0;
       gap: 8px;
     }
-    .old-why summary:hover { color: var(--text); }
-    .old-why summary::-webkit-details-marker { display: none; }
-    .old-why .acc-sign { font-family: var(--font-mono); font-size: 15px; color: var(--text-muted); }
-    .old-why[open] .acc-sign::before { content: "-"; }
-    .old-why:not([open]) .acc-sign::before { content: "+"; }
-    .old-details-body {
-      padding: 6px 0 4px;
+    .inline-acc summary:hover { color: var(--text); }
+    .inline-acc summary::-webkit-details-marker { display: none; }
+    .acc-sign { font-family: var(--font-mono); font-size: 15px; color: var(--text-muted); line-height: 1; }
+    details[open] > summary .acc-sign::before { content: "-"; }
+    details:not([open]) > summary .acc-sign::before { content: "+"; }
+    .inline-acc-body {
+      padding: 4px 0 6px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       font-size: 12px;
     }
 
-    /* Compact Regime Scale */
-    .regime-block {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
-    }
-    .regime-labels {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-    .regime-track {
-      position: relative;
-      height: 8px;
-      border-radius: 4px;
-      overflow: hidden;
-      background: var(--surface-elevated);
-      display: flex;
-    }
-    .regime-seg { height: 100%; }
-    .regime-marker {
-      position: absolute;
-      top: -2px;
-      bottom: -2px;
-      width: 3px;
-      background: var(--text);
-      border-radius: 2px;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-
-    .cta-row {
-      width: 100%;
-      height: 40px;
-      padding: 0 12px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-strong);
-      background: var(--surface-elevated);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease);
-    }
-    .cta-row:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* Detail View Panes (Tabs 2-5) */
+    /* Open Mobile Surfaces vs Flat Desktop Cards */
     .view-pane {
-      padding: 12px 16px 20px;
+      padding: 0 0 24px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 8px;
       min-width: 0;
     }
-    @media (min-width: 960px) {
-      .view-pane { padding: 0; gap: 18px; }
-    }
-
     .panel {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
       min-width: 0;
+    }
+    .panel:first-child { border-top: 0; }
+
+    @media (min-width: 960px) {
+      .view-pane { padding: 0; gap: 18px; }
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+      }
+      .panel:first-child { border-top: 1px solid var(--border); }
     }
     .panel-head {
       display: flex;
@@ -978,61 +952,372 @@
       letter-spacing: -0.01em;
     }
 
-    /* TAB 2: 2x2 Compact Strategy Selector Grid + Counter Receipt */
+    /* TAB 2: LIVE SHOP (Task-First Counter Worksheet, Zero Pills) */
+    .shop-hero-panel {
+      padding: 11px 16px 4px;
+      gap: 0;
+    }
+    @media (min-width: 960px) {
+      .shop-hero-panel { padding: 16px 20px 10px; }
+    }
+    .shop-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+    .shop-hero-row {
+      margin-top: 5px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .shop-pay-wrap, .shop-save-wrap { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .shop-save-wrap { text-align: right; flex-shrink: 0; }
+    .shop-pay-lbl { font-size: 11.5px; color: var(--text-muted); }
+    .shop-pay-val {
+      font-size: clamp(24px, 6.8vw, 28px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--text);
+    }
+    .shop-save-val {
+      font-size: clamp(16.5px, 4.6vw, 18.5px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .shop-meta-row {
+      margin-top: 7px;
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.35;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px 5px;
+    }
+    @media (min-width: 960px) { .shop-meta-row { font-size: 12px; gap: 2px 6px; } }
+    .shop-notes-acc { margin-top: 2px; }
+    .shop-notes-acc summary { min-height: 38px; padding: 5px 0; font-size: 12px; color: var(--text-muted); }
+
+    /* Single Inline Suggestion Strip (Hidden when optimal) */
+    .suggestion-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      border-left: 2px solid var(--accent);
+      padding: 8px 16px 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-width: 0;
+    }
+    .suggestion-strip.tone-warn { border-left-color: var(--warn); }
+    .suggestion-strip.tone-neg  { border-left-color: var(--neg); }
+    .suggestion-strip.tone-info { border-left-color: var(--info); }
+    @media (min-width: 960px) {
+      .suggestion-strip {
+        border: 1px solid var(--border);
+        border-left: 2px solid var(--accent);
+        border-radius: var(--radius);
+        padding: 11px 16px 11px 14px;
+      }
+    }
+    .sug-copy { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+    .sug-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .sug-sub { font-size: 12px; color: var(--text-secondary); line-height: 1.35; }
+    .btn-sug {
+      height: 38px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface-elevated);
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
+    }
+    .btn-sug:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+    .btn-sug.tone-neg:hover { border-color: var(--neg); color: var(--neg); background: var(--neg-bg); }
+    .btn-sug.tone-warn:hover { border-color: var(--warn); color: var(--warn); background: var(--warn-bg); }
+    @media (min-width: 960px) { .btn-sug { height: 34px; } }
+
+    /* Jewellery Tray Open Hairline List */
+    .tray-panel { padding-top: 10px; gap: 6px; }
+    @media (min-width: 960px) { .tray-panel { padding-top: 16px; gap: 10px; } }
+    .tray-head-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .tray-head-actions { display: flex; align-items: center; gap: 4px; }
+    .preset-inline-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: -2px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+    .preset-link {
+      height: 38px;
+      padding: 0 6px;
+      margin: -4px 0;
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.14s var(--ease), background-color 0.14s var(--ease);
+    }
+    .preset-link:hover { color: var(--text); background: var(--surface-elevated); }
+    .preset-link.active { color: var(--accent); font-weight: 600; }
+    @media (min-width: 960px) { .preset-link { height: 30px; margin: 0; } }
+
+    .tray-list { display: flex; flex-direction: column; }
+    .tray-item {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+    .tray-item:last-child { border-bottom: 0; padding-bottom: 2px; }
+    .tray-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto 38px;
+      gap: 6px;
+      align-items: center;
+    }
+    .tray-name {
+      height: 38px;
+      padding: 0 6px;
+      margin-left: -6px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text);
+      font-size: 13.5px;
+      font-weight: 500;
+      min-width: 0;
+      width: calc(100% + 6px);
+      transition: background-color 0.14s var(--ease), border-color 0.14s var(--ease);
+    }
+    .tray-name:hover { background: var(--surface-elevated); }
+    .tray-name:focus { background: var(--surface); border-color: var(--border-strong); outline: none; }
+
+    .intent-btn {
+      height: 38px;
+      min-width: 56px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 0;
+      background: var(--surface-elevated);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.14s var(--ease), color 0.14s var(--ease);
+    }
+    .intent-btn.keep { color: var(--pos); }
+    .intent-btn.sell { color: var(--info); }
+    .intent-btn:hover { filter: brightness(0.96); }
+    [data-theme="dark"] .intent-btn:hover { filter: brightness(1.12); }
+
+    .del-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      border: 0;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background-color 0.14s var(--ease), color 0.14s var(--ease);
+    }
+    .del-btn:hover, .del-btn:active { background: var(--neg-bg); color: var(--neg); }
+
+    .tray-nums {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .num-pill {
+      height: 38px;
+      padding: 0 9px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: var(--surface-elevated);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+      cursor: text;
+      transition: background-color 0.14s var(--ease), border-color 0.14s var(--ease);
+    }
+    .num-pill:focus-within { background: var(--surface); border-color: var(--accent); }
+    .num-pill input {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 0;
+    }
+    .num-pill input:focus-visible { outline: none; }
+    .num-pill input::placeholder { color: var(--text-muted); font-family: var(--font-sans); font-weight: 500; font-size: 11.5px; }
+    .num-unit { font-size: 11.5px; color: var(--text-muted); flex-shrink: 0; }
+    .tray-cost { text-align: right; min-width: 84px; }
+    .tray-cost-main { font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .tray-cost-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; font-family: var(--font-sans); }
+
+    @media (min-width: 720px) {
+      .tray-item {
+        display: grid;
+        grid-template-columns: minmax(90px, 1.35fr) minmax(80px, 98px) minmax(88px, 108px) 60px minmax(90px, 104px) 34px;
+        gap: 8px;
+        align-items: center;
+        padding: 7px 0;
+      }
+      .tray-top, .tray-nums { display: contents; }
+      .tray-name  { grid-column: 1; grid-row: 1; height: 34px; }
+      .num-w      { grid-column: 2; grid-row: 1; height: 34px; }
+      .num-mc     { grid-column: 3; grid-row: 1; height: 34px; }
+      .intent-btn { grid-column: 4; grid-row: 1; height: 34px; min-width: 0; padding: 0 8px; }
+      .tray-cost  { grid-column: 5; grid-row: 1; min-width: 0; }
+      .del-btn    { grid-column: 6; grid-row: 1; width: 34px; height: 34px; }
+    }
+
+    details.panel-acc {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      overflow: hidden;
+    }
+    @media (min-width: 960px) {
+      details.panel-acc {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+    }
+    details.panel-acc summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 16px;
+      min-height: 44px;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: background-color 0.14s var(--ease);
+    }
+    @media (min-width: 960px) { details.panel-acc summary { padding: 12px 20px; } }
+    details.panel-acc summary:hover { background: var(--surface-elevated); }
+    details.panel-acc summary::-webkit-details-marker { display: none; }
+    .acc-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .panel-acc-body {
+      padding: 12px 16px 16px;
+      border-top: 1px solid var(--border);
+    }
+    @media (min-width: 960px) { .panel-acc-body { padding: 14px 20px 18px; } }
+
+    /* TAB 3: BILLS & COUNTER RECEIPT */
+    .strat-grid-wrap { padding: 10px 16px 2px; }
+    @media (min-width: 960px) { .strat-grid-wrap { padding: 0; } }
     .strat-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
     }
-    @media (min-width: 960px) {
-      .strat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    }
+    @media (min-width: 960px) { .strat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; } }
     .strat-card {
+      position: relative;
+      overflow: hidden;
       text-align: left;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: var(--radius-sm);
       background: var(--surface);
       color: var(--text);
-      padding: 10px 12px;
+      padding: 9px 10px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
       min-width: 0;
-      transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease), transform 0.1s var(--ease);
+      transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
     }
+    @media (min-width: 960px) { .strat-card { padding: 10px 12px; } }
     .strat-card:hover { border-color: var(--border-strong); background: var(--surface-elevated); }
-    .strat-card:active { transform: scale(0.98); }
+    .strat-card.is-best::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
     .strat-card.is-selected {
+      border-color: var(--border-strong);
+      background: var(--surface-elevated);
+      box-shadow: inset 0 0 0 1px var(--border-strong);
+    }
+    .strat-card.is-selected.is-best {
       border-color: var(--accent);
-      background: var(--accent-soft);
-      box-shadow: inset 0 0 0 1px var(--accent);
+      box-shadow: inset 0 0 0 0.5px var(--accent);
     }
     .sc-top {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
       gap: 4px;
       font-size: 12px;
       font-weight: 600;
     }
-    .sc-net { font-size: 15.5px; font-weight: 700; white-space: nowrap; }
+    .sc-mc { font-size: 11px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
+    .sc-net { font-size: 15.5px; font-weight: 700; white-space: nowrap; margin-top: 2px; }
     .sc-save { font-size: 11.5px; font-weight: 600; white-space: nowrap; }
     .sc-meta { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Receipt Breakdown */
     .split-2 {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
       gap: 18px;
     }
-    @media (min-width: 700px) {
-      .split-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-    }
-    .col-block { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    @media (min-width: 700px) { .split-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; } }
+    .col-block { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
     .col-head {
       margin: 0;
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
@@ -1061,39 +1346,63 @@
       display: flex;
       flex-wrap: wrap;
       gap: 2px 10px;
-      font-size: 11px;
+      font-size: 11.5px;
       color: var(--text-muted);
     }
     .kv-list { display: flex; flex-direction: column; gap: 6px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 12.5px; }
     .kv { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-width: 0; }
-    .kv span:first-child { color: var(--text-secondary); min-width: 0; }
-    .kv span:last-child { white-space: nowrap; flex-shrink: 0; }
+    .kv > span:first-child { color: var(--text-secondary); min-width: 0; }
+    .kv > span:last-child { white-space: nowrap; flex-shrink: 0; }
     .kv-subhead {
       padding-top: 8px;
       margin-top: 2px;
       border-top: 1px solid var(--border);
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--text-muted);
     }
-    .kv-total { font-size: 14px; font-weight: 700; padding-top: 6px; border-top: 1px solid var(--border); color: var(--text); }
-    .kv-total span:first-child { color: var(--text); }
-
+    .kv-total { font-size: 14px; font-weight: 700; padding-top: 8px; border-top: 1px solid var(--border); color: var(--text); }
+    .kv-total > span:first-child { color: var(--text); }
     .note-inline {
       padding: 8px 10px;
-      border-radius: var(--radius-sm);
+      border-left: 2px solid var(--warn);
       background: var(--warn-bg);
       color: var(--warn);
-      font-size: 11.5px;
+      font-size: 12px;
       line-height: 1.4;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     }
 
-    /* TAB 3: Chart & Rates */
-    .chart-legend { display: flex; gap: 10px; font-size: 11.5px; color: var(--text-secondary); flex-wrap: wrap; }
+    /* TAB 4: CHART & RATES */
+    .chart-head-wrap {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .chart-title-group { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .chart-live-readout { font-size: 12.5px; color: var(--text-secondary); }
+    .chart-legend { display: flex; gap: 12px; font-size: 11.5px; color: var(--text-secondary); flex-wrap: wrap; }
     .legend-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
     .legend-swatch { width: 10px; height: 2.5px; border-radius: 1px; }
+
+    /* Non-Blocking Docked Equation Bar (Desktop Rates) */
+    .eq-bar {
+      display: none;
+      min-height: 40px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      font-size: 12.5px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text-secondary);
+    }
 
     .rates-mobile { display: flex; flex-direction: column; }
     .rates-desktop { display: none; }
@@ -1102,55 +1411,58 @@
     @media (min-width: 720px) {
       .rates-mobile { display: none; }
       .rates-desktop { display: block; overflow-x: auto; }
+      .eq-bar { display: flex; }
       .rates-hint-desktop { display: inline; }
       .rates-hint-mobile { display: none; }
     }
 
-    .mrate-row {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-    .mrate-row:last-child { border-bottom: 0; }
-    .mrate-row.is-current {
-      margin: 0 -16px;
-      padding: 10px 16px;
-      background: var(--accent-soft);
-      border-left: 3px solid var(--accent);
-    }
-    .mrate-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .mrate-price { font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
-    .mrate-grid {
+    /* Calm 4-Column Mobile Editorial Hairline Ledger (Zero Boxes, Zero Pills) */
+    .ml-head {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 5px;
+      grid-template-columns: 74px minmax(0, 1fr) 74px 76px;
+      gap: 6px;
+      padding: 0 0 7px;
+      border-bottom: 1px solid var(--border-strong);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
-    .mrate-cell {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--bg);
+    .ml-head span:nth-child(3), .ml-head span:nth-child(4) { text-align: right; }
+    .ml-row {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
       color: var(--text);
-      padding: 7px 3px;
-      text-align: center;
+      padding: 10px 0;
+      min-height: 48px;
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 74px 76px;
+      gap: 6px;
+      align-items: center;
+      text-align: left;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
+      transition: background-color 0.14s var(--ease);
     }
-    .mrate-cell:hover { border-color: var(--border-strong); }
-    .mrate-cell.is-win { border-color: var(--accent); background: var(--surface); }
-    .mrate-k { font-size: 11px; font-weight: 600; color: var(--text-muted); }
-    .mrate-v { font-size: 12px; font-weight: 700; white-space: nowrap; }
-    .mrate-d { font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .ml-row:last-child { border-bottom: 0; }
+    .ml-row:active { background: var(--surface-elevated); }
+    .ml-row.is-current {
+      margin: 0 -16px;
+      width: calc(100% + 32px);
+      padding: 10px 16px 10px 14px;
+      background: var(--accent-soft);
+      border-left: 2px solid var(--accent);
+    }
+    .ml-rate { font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .ml-row.is-current .ml-rate { font-weight: 700; color: var(--accent); }
+    .ml-plan { display: flex; flex-direction: column; min-width: 0; }
+    .ml-plan-main { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ml-plan-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+    .ml-num { text-align: right; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
 
+    /* Desktop Rate Table */
     table.desktop-tbl {
       width: 100%;
       border-collapse: collapse;
@@ -1169,268 +1481,48 @@
     }
     .desktop-tbl th.num, .desktop-tbl td.num { text-align: right; }
     .desktop-tbl td {
-      padding: 8px 8px;
+      padding: 6px 8px;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
     .desktop-tbl tr.is-current td { background: var(--accent-soft); }
+    .desktop-tbl tr.is-current td:first-child { box-shadow: inset 2px 0 0 var(--accent); color: var(--accent); }
     .desktop-tbl tbody tr:hover td { background: var(--surface-elevated); }
     .tbl-btn {
       border: 0;
       background: transparent;
       color: inherit;
       font: inherit;
-      padding: 3px 5px;
+      padding: 4px 6px;
       border-radius: 4px;
       cursor: pointer;
       text-align: right;
+      display: inline-block;
+      transition: background-color 0.12s var(--ease);
+    }
+    .tbl-btn.left {
+      text-align: left;
+      font-family: var(--font-sans);
+      min-height: 32px;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .tbl-btn:hover { background: var(--border); }
 
-    /* TAB 2: Live Shop Counter Assistant */
-    .ledger-2x2 {
+    /* TAB 5: CHECKLIST & RULES (Balanced 2-Column Desktop Split) */
+    .check-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-top: 1px solid var(--border);
-    }
-    .ledger-cell {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      min-width: 0;
-      overflow: hidden;
-    }
-    .ledger-cell:nth-child(odd) { padding-right: 8px; border-right: 1px solid var(--border); }
-    .ledger-cell:nth-child(even) { padding-left: 8px; }
-    .ledger-cell:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 2px; }
-
-    .move-list { display: flex; flex-direction: column; }
-    .move-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      min-width: 0;
-    }
-    .move-row:last-child { border-bottom: 0; padding-bottom: 0; }
-    .move-row:first-child { padding-top: 2px; }
-    .move-left { display: flex; align-items: flex-start; gap: 8px; min-width: 0; flex: 1; }
-    .move-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      margin-top: 6px;
-      flex-shrink: 0;
-    }
-    .move-dot.pos  { background: var(--pos); }
-    .move-dot.warn { background: var(--warn); }
-    .move-dot.neg  { background: var(--neg); }
-    .move-dot.info { background: var(--info); }
-    .move-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .move-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
-    .move-sub { font-size: 11px; color: var(--text-muted); line-height: 1.35; }
-    .move-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 5px;
-      flex-shrink: 0;
-    }
-    .move-val { font-size: 12.5px; font-weight: 700; white-space: nowrap; }
-    .btn-act {
-      height: 40px;
-      padding: 0 14px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--accent);
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background-color 0.15s var(--ease), color 0.15s var(--ease), transform 0.1s var(--ease);
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
     }
     @media (min-width: 960px) {
-      .btn-act { height: 36px; padding: 0 12px; }
-    }
-    .btn-act:hover { background: var(--accent); color: var(--accent-fg); }
-    .btn-act:active { transform: scale(0.96); }
-    .btn-act.warn { border-color: var(--warn); background: var(--warn-bg); color: var(--warn); }
-    .btn-act.warn:hover { background: var(--warn); color: #FFFFFF; }
-    .btn-act.neg  { border-color: var(--neg); background: var(--neg-bg); color: var(--neg); }
-    .btn-act.neg:hover  { background: var(--neg); color: #FFFFFF; }
-
-    .tray-presets {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 6px;
-      overflow: visible;
-    }
-    .tray-presets .preset-btn { font-family: var(--font-sans); font-size: 11.5px; }
-    .budget-presets {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 6px;
-      overflow: visible;
-    }
-
-    .tray-list { display: flex; flex-direction: column; }
-    .tray-item {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-width: 0;
-    }
-    .tray-item:last-child { border-bottom: 0; padding-bottom: 0; }
-    .tray-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto 40px;
-      gap: 8px;
-      align-items: center;
-    }
-    .tray-name {
-      height: 40px;
-      padding: 0 10px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 500;
-      min-width: 0;
-      width: 100%;
-    }
-    .tray-name:focus { border-color: var(--accent); outline: none; }
-    .intent-btn {
-      height: 40px;
-      padding: 0 12px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease), transform 0.1s var(--ease);
-    }
-    .intent-btn:active { transform: scale(0.96); }
-    .intent-btn.keep { background: var(--pos-bg); border-color: var(--pos); color: var(--pos); }
-    .intent-btn.sell { background: var(--info-bg); border-color: var(--info); color: var(--info); }
-    .del-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
-    }
-    .del-btn:hover, .del-btn:active { background: var(--neg-bg); border-color: var(--neg); color: var(--neg); }
-
-    .tray-nums {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
-      gap: 8px;
-      align-items: center;
-    }
-    .num-pill {
-      height: 40px;
-      padding: 0 9px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-strong);
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      min-width: 0;
-      cursor: text;
-    }
-    .num-pill:focus-within { border-color: var(--accent); }
-    .num-pill input {
-      width: 100%;
-      height: 100%;
-      min-width: 0;
-      border: 0;
-      background: transparent;
-      color: var(--text);
-      font-family: var(--font-mono);
-      font-size: 13.5px;
-      font-weight: 600;
-      padding: 0;
-    }
-    .num-pill input:focus-visible { outline: none; }
-    .num-pill input::placeholder { color: var(--text-muted); font-weight: 500; font-size: 11.5px; }
-    .num-unit { font-size: 11.5px; color: var(--text-muted); flex-shrink: 0; }
-    .tray-cost {
-      text-align: right;
-      min-width: 82px;
-    }
-    .tray-cost-main { font-size: 13px; font-weight: 700; white-space: nowrap; }
-    .tray-cost-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
-
-    @media (min-width: 720px) {
-      .tray-item {
-        display: grid;
-        grid-template-columns: minmax(90px, 1.35fr) minmax(76px, 98px) minmax(88px, 110px) 62px minmax(88px, 102px) 36px;
-        gap: 8px;
-        align-items: center;
-        padding: 8px 0;
+      .check-grid {
+        grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+        gap: 20px;
+        align-items: start;
       }
-      .tray-top, .tray-nums { display: contents; }
-      .tray-name  { grid-column: 1; grid-row: 1; height: 36px; }
-      .num-w      { grid-column: 2; grid-row: 1; height: 36px; }
-      .num-mc     { grid-column: 3; grid-row: 1; height: 36px; }
-      .intent-btn { grid-column: 4; grid-row: 1; height: 36px; padding: 0 8px; }
-      .tray-cost  { grid-column: 5; grid-row: 1; min-width: 0; }
-      .del-btn    { grid-column: 6; grid-row: 1; width: 36px; height: 36px; }
     }
-
-    details.panel-acc {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0;
-      overflow: hidden;
-    }
-    details.panel-acc summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 12px 16px;
-      min-height: 46px;
-      font-size: 13.5px;
-      font-weight: 600;
-      transition: background-color 0.15s var(--ease);
-    }
-    details.panel-acc summary:hover { background: var(--surface-elevated); }
-    details.panel-acc summary::-webkit-details-marker { display: none; }
-    .acc-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .acc-sign { font-family: var(--font-mono); font-size: 15px; color: var(--text-muted); }
-    details.panel-acc[open] .acc-sign::before { content: "-"; }
-    details.panel-acc:not([open]) .acc-sign::before { content: "+"; }
-    .panel-acc-body {
-      padding: 12px 16px 14px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    /* TAB 5: Checklist & Accordions */
     .check-list { display: flex; flex-direction: column; }
     .check-row {
       display: flex;
@@ -1442,17 +1534,14 @@
       cursor: pointer;
     }
     .check-row:last-child { border-bottom: 0; }
-    .check-row input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+    .check-row input { width: 17px; height: 17px; margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
     .check-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
     .check-title { font-size: 13.5px; font-weight: 600; color: var(--text); }
-    .check-meta { font-size: 12px; color: var(--text-secondary); }
+    .check-meta { font-size: 12.5px; color: var(--text-secondary); line-height: 1.4; }
     .check-row.is-done .check-title { text-decoration: line-through; color: var(--text-muted); }
     .check-row.is-done .check-meta { color: var(--text-muted); }
 
-    details.editorial-acc {
-      border-bottom: 1px solid var(--border);
-      padding: 0;
-    }
+    details.editorial-acc { border-bottom: 1px solid var(--border); padding: 0; }
     details.editorial-acc:last-child { border-bottom: 0; }
     details.editorial-acc summary {
       list-style: none;
@@ -1483,7 +1572,7 @@
       line-height: 1.5;
     }
 
-    /* Bottom Sheet Modal */
+    /* Bottom Sheet Modal (Rate Breakdown + All 4 Plans) */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1496,12 +1585,12 @@
     @media (min-width: 640px) { .modal-backdrop { align-items: center; padding: 16px; } }
     .modal-sheet {
       width: 100%;
-      max-width: 460px;
-      max-height: 85dvh;
+      max-width: 480px;
+      max-height: 86dvh;
       overflow-y: auto;
       background: var(--surface);
       border: 1px solid var(--border-strong);
-      border-radius: 12px 12px 0 0;
+      border-radius: 14px 14px 0 0;
       padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
@@ -1513,6 +1602,32 @@
     }
     @media (min-width: 640px) { .modal-sheet { border-radius: var(--radius); padding: 20px; } }
     .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .modal-plans {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-plan-row {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      padding: 8px 6px;
+      min-height: 40px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 10px;
+      align-items: center;
+      text-align: left;
+      cursor: pointer;
+      font-size: 12.5px;
+    }
+    .modal-plan-row:last-child { border-bottom: 0; }
+    .modal-plan-row.is-active { background: var(--surface-elevated); font-weight: 600; }
+    [data-theme="dark"] .modal-plan-row.is-active { background: rgba(255, 255, 255, 0.06); }
+
     .btn-primary {
       height: 42px;
       width: 100%;
@@ -1523,37 +1638,10 @@
       font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.18s var(--ease), transform 0.12s var(--ease);
+      transition: background-color 0.16s var(--ease), transform 0.1s var(--ease);
     }
     .btn-primary:hover { background: var(--accent-hover); }
     .btn-primary:active { transform: scale(0.98); }
-
-    /* Desktop Hover Popover */
-    .hover-popover {
-      position: fixed;
-      z-index: 55;
-      pointer-events: none;
-      width: 360px;
-      max-width: calc(100vw - 24px);
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius);
-      padding: 14px;
-      font-size: 12px;
-      box-shadow: 0 12px 32px rgba(17, 19, 21, 0.14), 0 2px 6px rgba(17, 19, 21, 0.08);
-    }
-    [data-theme="dark"] .hover-popover {
-      background: var(--surface-elevated);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    }
-
-    .c-pos   { color: var(--pos); }
-    .c-warn  { color: var(--warn); }
-    .c-neg   { color: var(--neg); }
-    .c-info  { color: var(--info); }
-    .c-muted { color: var(--text-muted); }
-    .fw-600  { font-weight: 600; }
-    .fw-700  { font-weight: 700; }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
@@ -1565,9 +1653,8 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true">916</span>
         <span class="brand-title">916 Gold Ledger</span>
-        <span id="headerMeta" class="brand-meta mono"></span>
+        <span id="headerMeta" class="brand-meta"></span>
       </div>
       <div class="top-actions">
         <button id="setupBtn" data-agent="setup-toggle" class="btn-ghost" type="button" aria-expanded="false" aria-controls="setupSheet">Setup</button>
@@ -1585,14 +1672,14 @@
         <h2 class="setup-title">Booking terms</h2>
         <div class="input-2col">
           <div class="field"><label for="inpR0">Booked rate (₹/g)</label><input id="inpR0" type="number" autocomplete="off" step="5" value="11715" /></div>
-          <div class="field"><label for="inpWMax">Max weight (g)</label><input id="inpWMax" type="number" autocomplete="off" step="0.001" value="102.433" /></div>
+          <div class="field"><label for="inpWMax">Weight limit (g)</label><input id="inpWMax" type="number" autocomplete="off" step="0.001" value="102.433" /></div>
           <div class="field"><label for="inpAdv">Advance paid (₹)</label><input id="inpAdv" type="number" autocomplete="off" step="1000" value="120000" /></div>
-          <div class="field"><label for="inpMcStd">Standard MC (%)</label><input id="inpMcStd" type="number" autocomplete="off" step="0.5" value="11" /></div>
-          <div class="field"><label for="inpMcDisc">Custom ₹7.5L MC (%)</label><input id="inpMcDisc" type="number" autocomplete="off" step="0.1" value="3" /></div>
-          <div class="field"><label for="inpCut">Custom shop cut (%)</label><input id="inpCut" type="number" autocomplete="off" step="0.25" value="2" /></div>
+          <div class="field"><label for="inpMcStd">Standard making (%)</label><input id="inpMcStd" type="number" autocomplete="off" step="0.5" value="11" /></div>
+          <div class="field"><label for="inpMcDisc">Bulk making override (%)</label><input id="inpMcDisc" type="number" autocomplete="off" step="0.1" value="3" /></div>
+          <div class="field"><label for="inpCut">Exact resale cut override (%)</label><input id="inpCut" type="number" autocomplete="off" step="0.25" value="2" /></div>
         </div>
         <div class="param-row">
-          <span class="setup-title">₹7.5L threshold basis</span>
+          <span class="setup-title">₹7.5L tier basis</span>
           <div class="seg-group" role="group" aria-label="Threshold basis">
             <button class="seg-opt" data-group="basis" data-val="gold" type="button">Gold value</button>
             <button class="seg-opt" data-group="basis" data-val="bill" type="button">Total bill</button>
@@ -1600,7 +1687,7 @@
         </div>
         <label class="check-line" for="chkRingCounts">
           <input id="chkRingCounts" type="checkbox" checked />
-          <span>8g ring (18% MC) counts toward ₹7.5L</span>
+          <span>8g ring (18% making) counts toward ₹7.5L</span>
         </label>
       </div>
 
@@ -1608,31 +1695,33 @@
         <h2 class="setup-title">Existing 24g chain cost</h2>
         <div class="input-2col">
           <div class="field"><label for="inpOldGold">Old gold value (₹)</label><input id="inpOldGold" type="number" autocomplete="off" step="1000" value="275000" /></div>
-          <div class="field"><label for="inpOldMc">Old MC paid (%)</label><input id="inpOldMc" type="number" autocomplete="off" step="0.5" value="11" /></div>
+          <div class="field"><label for="inpOldMc">Old making paid (%)</label><input id="inpOldMc" type="number" autocomplete="off" step="0.5" value="11" /></div>
         </div>
-        <div id="setupOldInfo" class="mono c-muted" style="font-size:12px;"></div>
-        <div style="margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:center;gap:12px;">
-          <button id="resetBtn" class="btn-reset-muted" type="button">Reset defaults</button>
-          <button id="closeSetupBtn" class="btn-done-primary" type="button">Done</button>
-        </div>
+        <div id="setupOldInfo" class="c-muted" style="font-size:12.5px;"></div>
+      </div>
+
+      <div class="setup-footer">
+        <button id="resetBtn" class="btn-reset-muted" type="button">Reset defaults</button>
+        <button id="closeSetupBtn" class="btn-primary-inline" type="button">Done</button>
       </div>
     </div>
   </section>
 
-  <!-- Mobile Sticky Slim Rate Bar (Shown ONLY on Tabs 2-5 so every tab starts immediately at top) -->
+  <!-- Quiet 44px Mobile Utility Strip (Visible ONLY on Tabs 2-5 on mobile) -->
   <div id="slimWrap" class="slim-wrap hidden">
     <div class="slim-bar">
       <div class="slim-stepper">
-        <button id="slimDown" data-agent="slim-rate-down" class="mini-step" type="button" aria-label="Decrease rate by 50">-50</button>
+        <button id="slimDown" data-agent="slim-rate-down" class="slim-step" type="button" aria-label="Decrease rate by 50">-50</button>
         <div class="slim-rate-box">
           <span class="c-muted" style="font-size:12px;" aria-hidden="true">₹</span>
           <label for="slimRateInput" class="sr-only">916 gold rate</label>
           <input id="slimRateInput" data-agent="slim-rate-input" type="number" inputmode="numeric" autocomplete="off" min="8000" max="25000" step="5" value="13715" />
+          <span class="c-muted" style="font-size:11.5px;" aria-hidden="true">/g</span>
         </div>
-        <button id="slimUp" data-agent="slim-rate-up" class="mini-step" type="button" aria-label="Increase rate by 50">+50</button>
+        <button id="slimUp" data-agent="slim-rate-up" class="slim-step" type="button" aria-label="Increase rate by 50">+50</button>
       </div>
-      <button id="slimTermsBtn" data-agent="slim-terms-toggle" class="slim-terms-btn mono" type="button" aria-expanded="false" aria-controls="slimDrawer">
-        <span id="slimTermsLbl">MC 3% · Cut 2%</span>
+      <button id="slimTermsBtn" data-agent="slim-terms-toggle" class="slim-terms-btn" type="button" aria-expanded="false" aria-controls="slimDrawer">
+        <span id="slimTermsLbl">3% making · 2% cut</span>
         <span aria-hidden="true">▾</span>
       </button>
     </div>
@@ -1643,8 +1732,8 @@
         <span id="slimSaveTxt" class="mono fw-700 c-pos"></span>
       </div>
       <div class="param-row">
-        <div class="param-head"><span>₹7.5L MC</span><span id="slimBilledLbl" class="mono c-muted"></span></div>
-        <div class="seg-group" role="group" aria-label="Discounted MC quick">
+        <div class="param-head"><span>Making charge (₹7.5L tier)</span><span id="slimBilledLbl" class="mono c-muted"></span></div>
+        <div class="seg-group" role="group" aria-label="Bulk making charge quick">
           <button class="seg-opt" data-group="mcDisc" data-val="3" type="button">3%</button>
           <button class="seg-opt" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
           <button class="seg-opt" data-group="mcDisc" data-val="4" type="button">4%</button>
@@ -1661,7 +1750,7 @@
         </div>
       </div>
       <div class="param-row">
-        <div class="param-head"><span>Old 24g chain</span><span id="slimOldLbl" class="mono c-muted"></span></div>
+        <div class="param-head"><span>Old 24g chain</span><span id="slimOldLbl" class="c-muted"></span></div>
         <div class="seg-group" role="group" aria-label="Old 24g quick">
           <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto</button>
           <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
@@ -1673,50 +1762,42 @@
 
   <main id="appMain" class="workspace">
 
-    <!-- TAB 1 ON MOBILE / STICKY LEFT RAIL ON DESKTOP: DECIDE -->
+    <!-- MOBILE TAB 1 (DECIDE) / DESKTOP LEFT PARAMETERS & BENCHMARK RAIL -->
     <section id="view-decide" class="rail-pane view-anim" aria-label="Gold rate and decision">
       <div class="decide-stack">
         <div class="control-section">
           <div class="rate-top-row">
-            <p class="eyebrow">916 board rate</p>
-            <span id="deltaReadout" class="mono fw-600" style="font-size:12px;"></span>
+            <p class="eyebrow">Today's 916 rate</p>
+            <span id="deltaReadout" class="fw-600" style="font-size:12px;"></span>
           </div>
 
-          <div class="rate-input-row">
-            <button id="stepDown" data-agent="rate-step-down" class="step-btn" type="button" aria-label="Decrease rate by 50">-50</button>
-            <div class="rate-field">
+          <div class="rate-bar">
+            <button id="stepDown" data-agent="rate-step-down" class="rate-nudge" type="button" aria-label="Decrease rate by 50">-50</button>
+            <div class="rate-center">
               <span class="rate-prefix" aria-hidden="true">₹</span>
               <label for="rateInput" class="sr-only">Today's 916 gold rate per gram</label>
               <input id="rateInput" data-agent="rate-input" type="number" inputmode="numeric" autocomplete="off" min="8000" max="25000" step="5" value="13715" />
               <span class="rate-suffix" aria-hidden="true">/g</span>
             </div>
-            <button id="stepUp" data-agent="rate-step-up" class="step-btn" type="button" aria-label="Increase rate by 50">+50</button>
+            <button id="stepUp" data-agent="rate-step-up" class="rate-nudge" type="button" aria-label="Increase rate by 50">+50</button>
           </div>
 
           <div class="slider-wrap">
             <label for="rateSlider" class="sr-only">Adjust 916 gold rate</label>
             <input id="rateSlider" data-agent="rate-slider" type="range" min="9500" max="17000" step="5" value="13715" />
-            <div class="slider-scale mono">
+            <div class="slider-scale">
               <span>₹9.5k</span>
-              <span id="bookedScaleLbl">₹11,715 booked</span>
+              <button id="bookedScaleBtn" class="scale-reset-btn" type="button">Booked ₹11,715</button>
               <span>₹17k</span>
             </div>
           </div>
 
-          <div class="preset-strip" role="group" aria-label="Quick rates">
-            <button id="presetBookedBtn" class="preset-btn" data-preset="11715" type="button">₹11.7k</button>
-            <button class="preset-btn" data-preset="12400" type="button">₹12.4k</button>
-            <button class="preset-btn" data-preset="13000" type="button">₹13k</button>
-            <button class="preset-btn" data-preset="13715" type="button">₹13.7k</button>
-            <button class="preset-btn" data-preset="15000" type="button">₹15k</button>
-          </div>
-
           <div class="param-row">
             <div class="param-head">
-              <span>₹7.5L MC</span>
+              <span>Making charge (₹7.5L tier)</span>
               <span id="billedGoldLbl" class="mono c-muted"></span>
             </div>
-            <div class="seg-group" role="group" aria-label="Discounted making charge">
+            <div class="seg-group" role="group" aria-label="Bulk making charge">
               <button class="seg-opt" data-group="mcDisc" data-val="3" type="button">3%</button>
               <button class="seg-opt" data-group="mcDisc" data-val="3.5" type="button">3.5%</button>
               <button class="seg-opt" data-group="mcDisc" data-val="4" type="button">4%</button>
@@ -1736,25 +1817,54 @@
               <button class="seg-opt" data-group="cut" data-val="4" type="button">4%</button>
             </div>
           </div>
+
+          <!-- Desktop-only Old 24g Parameter Control -->
+          <div class="param-row desktop-only">
+            <div class="param-head">
+              <span>Old 24g chain</span>
+              <span id="desktopOldStatus" class="fw-600"></span>
+            </div>
+            <div class="seg-group" role="group" aria-label="Old 24g chain mode">
+              <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto</button>
+              <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
+              <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell</button>
+            </div>
+          </div>
         </div>
 
-        <div class="verdict-section">
+        <!-- DESKTOP: Quiet Scoped Optimal Reference Benchmark -->
+        <div class="bench-section desktop-only">
+          <p id="benchEyebrow" class="eyebrow"></p>
+          <div id="benchPlan" class="bench-plan"></div>
+          <div id="benchLine" class="bench-line"></div>
+          <div id="benchOldSub" class="bench-sub"></div>
+          <details class="inline-acc">
+            <summary>
+              <span>Breakevens &amp; thresholds</span>
+              <span class="acc-sign" aria-hidden="true"></span>
+            </summary>
+            <div id="desktopThresholdsBody" class="inline-acc-body"></div>
+          </details>
+        </div>
+
+        <!-- MOBILE: Full Editorial Hero Verdict -->
+        <div class="verdict-section mobile-only">
           <div class="verdict-top">
             <div style="min-width:0;">
-              <span id="verdictTag" class="tag tag-pos"></span>
+              <p id="verdictEyebrow" class="verdict-eyebrow"></p>
               <h1 id="verdictTitle" class="verdict-h1"></h1>
             </div>
             <div class="verdict-stat">
               <span id="heroSaved" class="stat-hero mono c-pos"></span>
-              <span class="stat-caption">vs walk-in</span>
+              <span class="stat-caption">saved vs walk-in</span>
             </div>
           </div>
 
-          <div id="verdictChips" class="chip-strip mono"></div>
+          <div id="verdictBreakdown" class="breakdown-strip"></div>
 
           <div class="figure-bar">
             <div class="figure-cell">
-              <span id="figNetLbl" class="figure-lbl">Net cost (32g)</span>
+              <span id="figNetLbl" class="figure-lbl">Net outlay (32g)</span>
               <span id="figNetVal" class="figure-val mono"></span>
               <span id="figNetSub" class="figure-sub"></span>
             </div>
@@ -1767,29 +1877,24 @@
 
           <div class="old-block">
             <div class="old-head">
-              <span id="oldTag" class="tag"></span>
-              <div class="seg-group seg-compact" style="width:auto;" role="group" aria-label="Old 24g chain mode">
+              <div class="old-title-wrap">
+                <span class="old-label">Old 24g chain</span>
+                <span id="oldStatusTxt" class="old-status"></span>
+              </div>
+              <div class="seg-group seg-compact" role="group" aria-label="Old 24g chain mode mobile">
                 <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto</button>
                 <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
                 <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell</button>
               </div>
             </div>
-            <div id="oldNums" class="old-metrics mono"></div>
-            <details class="old-why">
+            <div id="oldSummaryLine" class="old-summary-line"></div>
+            <details class="inline-acc">
               <summary>
-                <span>Breakevens &amp; details</span>
+                <span>Breakevens &amp; thresholds</span>
                 <span class="acc-sign" aria-hidden="true"></span>
               </summary>
-              <div id="oldDetailsBody" class="old-details-body"></div>
+              <div id="mobileThresholdsBody" class="inline-acc-body"></div>
             </details>
-          </div>
-
-          <div class="regime-block">
-            <div class="regime-labels">
-              <span>Zones</span>
-              <span id="regimeSummary" class="mono"></span>
-            </div>
-            <div id="regimeTrack" class="regime-track" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -1804,39 +1909,50 @@
         <button class="dnav-btn" data-tab="check" data-agent="dtab-check" role="tab" type="button">Checklist</button>
       </nav>
 
-      <!-- TAB 2: LIVE SHOP COUNTER ASSISTANT -->
+      <!-- TAB 2: LIVE SHOP COUNTER WORKSHEET -->
       <section id="view-shop" class="view-pane view-anim hidden" aria-label="Live shop counter assistant">
-        <div class="panel">
-          <div class="panel-head">
-            <div id="shopStatusTags" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
-            <span id="shopBudgetTag" class="tag hidden mono"></span>
+        <div class="panel shop-hero-panel">
+          <div id="shopEyebrow" class="shop-eyebrow"></div>
+          <div class="shop-hero-row">
+            <div class="shop-pay-wrap">
+              <span class="shop-pay-lbl">Pay now at counter</span>
+              <span id="shopPayVal" class="shop-pay-val mono"></span>
+            </div>
+            <div class="shop-save-wrap">
+              <span id="shopSaveLbl" class="shop-pay-lbl">Saved vs walk-in</span>
+              <span id="shopSaveVal" class="shop-save-val mono"></span>
+            </div>
           </div>
-          <div id="shopLedger" class="ledger-2x2"></div>
-          <div id="shopChips" class="chip-strip mono"></div>
+          <div id="shopMetaRow" class="shop-meta-row"></div>
+          <details id="shopNotesAcc" class="inline-acc shop-notes-acc">
+            <summary>
+              <span>Negotiation &amp; advance notes</span>
+              <span class="acc-sign" aria-hidden="true"></span>
+            </summary>
+            <div id="shopNotesBody" class="inline-acc-body"></div>
+          </details>
         </div>
 
-        <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-h2">Smart moves</h2>
-            <span id="shopMovesBadge" class="tag tag-pos mono"></span>
-          </div>
-          <div id="shopMoves" class="move-list"></div>
-        </div>
+        <!-- Single Inline Suggestion Strip (Hidden when optimal) -->
+        <div id="shopSuggestion" class="suggestion-strip hidden"></div>
 
-        <div class="panel">
-          <div class="panel-head">
+        <!-- Jewellery Tray (Immediately Above The Fold) -->
+        <div class="panel tray-panel">
+          <div class="tray-head-row">
             <h2 class="panel-h2">Jewellery tray</h2>
-            <div style="display:flex;gap:6px;">
-              <button id="addKeepBtn" data-agent="shop-add-keep" class="btn-ghost btn-sm" type="button">+ Keep</button>
-              <button id="addSellBtn" data-agent="shop-add-sell" class="btn-ghost btn-sm" type="button">+ Sell</button>
+            <div class="tray-head-actions">
+              <button id="addKeepBtn" data-agent="shop-add-keep" class="btn-text btn-text-strong" type="button">+ Keep</button>
+              <button id="addSellBtn" data-agent="shop-add-sell" class="btn-text btn-text-strong" type="button">+ Sell</button>
             </div>
           </div>
 
-          <div class="tray-presets" role="group" aria-label="Quick tray presets">
-            <button class="preset-btn" data-tray="wedding" type="button">32g Keep</button>
-            <button class="preset-btn" data-tray="tier75" type="button">₹7.5L</button>
-            <button class="preset-btn" data-tray="max" type="button">Max cap</button>
-            <button class="preset-btn" data-tray="single" type="button">1 Item</button>
+          <div class="preset-inline-bar" role="group" aria-label="Tray presets">
+            <span>Presets:</span>
+            <button class="preset-link" data-tray="wedding" type="button">32g Keep</button>
+            <span aria-hidden="true">·</span>
+            <button class="preset-link" data-tray="tier75" type="button">₹7.5L Tier</button>
+            <span aria-hidden="true">·</span>
+            <button class="preset-link" data-tray="max" type="button">Full 102g</button>
           </div>
 
           <div id="trayList" class="tray-list"></div>
@@ -1844,9 +1960,9 @@
 
         <details id="shopOptDetails" class="panel-acc">
           <summary>
-            <span>Budget &amp; counter offers</span>
+            <span>Budget &amp; counter discount</span>
             <span class="acc-right">
-              <span id="shopOptSummary" class="mono c-muted" style="font-size:11.5px;font-weight:500;">Optional</span>
+              <span id="shopOptSummary" class="c-muted" style="font-size:12px;font-weight:500;">Optional</span>
               <span class="acc-sign" aria-hidden="true"></span>
             </span>
           </summary>
@@ -1857,83 +1973,85 @@
                 <input id="inpShopBudget" data-agent="shop-budget" type="number" inputmode="numeric" autocomplete="off" placeholder="Optional" step="10000" />
               </div>
               <div class="field">
-                <label for="inpShopDisc">Extra flat off (₹)</label>
+                <label for="inpShopDisc">Counter discount (₹)</label>
                 <input id="inpShopDisc" data-agent="shop-discount" type="number" inputmode="numeric" autocomplete="off" placeholder="0" step="500" />
               </div>
-            </div>
-            <div class="budget-presets" role="group" aria-label="Quick pay-now budgets">
-              <button class="preset-btn" data-budget="400000" type="button">₹4L</button>
-              <button class="preset-btn" data-budget="600000" type="button">₹6L</button>
-              <button class="preset-btn" data-budget="800000" type="button">₹8L</button>
-              <button class="preset-btn" data-budget="1000000" type="button">₹10L</button>
-              <button class="preset-btn" data-budget="" type="button">Any</button>
             </div>
           </div>
         </details>
       </section>
 
-      <!-- TAB 2: BILLS & COUNTER RECEIPT -->
+      <!-- TAB 3: BILLS & COUNTER RECEIPT -->
       <section id="view-bills" class="view-pane view-anim hidden" aria-label="Bills and receipt">
-        <div id="stratGrid" class="strat-grid" role="group" aria-label="Strategies"></div>
+        <div class="strat-grid-wrap">
+          <div id="stratGrid" class="strat-grid" role="group" aria-label="Purchase plans"></div>
+        </div>
 
         <div class="panel">
           <div class="panel-head">
             <h2 id="inspHeading" class="panel-h2">Counter receipt</h2>
-            <span id="inspBuyWt" class="tag tag-info mono"></span>
+            <span id="inspBuyWt" class="c-muted" style="font-size:12px;font-weight:500;"></span>
           </div>
 
           <div class="split-2">
             <div class="col-block">
-              <h3 class="col-head"><span id="inspBuyTitle">Showroom bill</span><span id="inspRateTag" class="mono"></span></h3>
+              <h3 class="col-head"><span id="inspBuyTitle">Showroom bill</span><span id="inspRateTag"></span></h3>
               <div id="inspBuyRows"></div>
               <div id="inspSettlement" class="kv-list"></div>
             </div>
 
-            <div class="col-block" style="justify-content:space-between;">
-              <div class="col-block">
-                <h3 class="col-head"><span>Resale &amp; savings</span><span id="inspResaleRate" class="mono"></span></h3>
-                <div id="inspResaleRows" class="kv-list" style="border-top:0;padding-top:0;"></div>
-              </div>
+            <div class="col-block">
+              <h3 class="col-head"><span>Resale &amp; savings</span><span id="inspResaleRate"></span></h3>
+              <div id="inspResaleRows" class="kv-list" style="border-top:0;padding-top:0;"></div>
               <div id="inspOutcome" class="kv-list"></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- TAB 3: CHART & RATES -->
+      <!-- TAB 4: CHART & RATES -->
       <section id="view-rates" class="view-pane view-anim hidden" aria-label="Chart and rates">
         <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-h2">Savings vs walk-in</h2>
+          <div class="chart-head-wrap">
+            <div class="chart-title-group">
+              <h2 class="panel-h2">Savings vs walk-in</h2>
+              <span id="chartReadout" class="chart-live-readout"></span>
+            </div>
             <div class="chart-legend">
-              <span class="legend-item"><i class="legend-swatch" style="background:var(--warn);"></i>S1 32g</span>
-              <span class="legend-item"><i class="legend-swatch" style="background:var(--info);"></i>S2 7.5L</span>
-              <span class="legend-item"><i class="legend-swatch" style="background:var(--accent);"></i>S3 Max</span>
+              <span class="legend-item"><i class="legend-swatch" style="background:var(--warn);"></i>Booked 32g</span>
+              <span class="legend-item"><i class="legend-swatch" style="background:var(--info);"></i>₹7.5L Tier</span>
+              <span class="legend-item"><i class="legend-swatch" style="background:var(--accent);"></i>Max 102g</span>
             </div>
           </div>
-          <svg id="chartSvg" viewBox="0 0 680 240" style="width:100%;height:auto;display:block;cursor:crosshair;touch-action:none;" role="img" aria-label="Savings curve across 916 gold rates"></svg>
+          <svg id="chartSvg" viewBox="0 0 680 244" style="width:100%;height:auto;display:block;cursor:crosshair;touch-action:none;" role="img" aria-label="Savings curve across 916 gold rates"></svg>
         </div>
 
         <div class="panel">
           <div class="panel-head">
             <h2 class="panel-h2">Rate table</h2>
-            <span class="c-muted rates-hint-mobile" style="font-size:11.5px;">Tap cell for math</span>
-            <span class="c-muted rates-hint-desktop" style="font-size:11.5px;">Hover for math · Click for full sheet</span>
+            <span class="c-muted rates-hint-mobile" style="font-size:12px;">Tap any rate for breakdown</span>
+            <span class="c-muted rates-hint-desktop" style="font-size:12px;">Hover a figure for equation · Click for receipt</span>
           </div>
+
+          <div id="rateEqBar" class="eq-bar" aria-live="polite">
+            <span>Hover any figure below to inspect exact math · Click to open full receipt</span>
+          </div>
+
           <div id="matrixMobile" class="rates-mobile"></div>
+
           <div class="rates-desktop">
             <table class="desktop-tbl">
               <thead>
                 <tr>
                   <th>Rate</th>
-                  <th class="num">Walk-in</th>
-                  <th class="num">S1 (32g)</th>
-                  <th class="num">S2 (₹7.5L)</th>
-                  <th class="num">S3 (102g)</th>
+                  <th class="num">Walk-in (32g)</th>
+                  <th class="num">Booked 32g</th>
+                  <th class="num">₹7.5L Tier</th>
+                  <th class="num">Max 102g</th>
                   <th>Best</th>
                 </tr>
               </thead>
-              <tbody id="matrixBody" class="mono"></tbody>
+              <tbody id="matrixBody"></tbody>
             </table>
           </div>
         </div>
@@ -1941,36 +2059,38 @@
 
       <!-- TAB 5: CHECKLIST & RULES -->
       <section id="view-check" class="view-pane view-anim hidden" aria-label="Counter checklist">
-        <div class="panel">
-          <div class="panel-head">
-            <div style="display:flex;align-items:center;gap:8px;">
-              <h2 class="panel-h2">Counter checklist</h2>
-              <span id="checkProgress" class="tag tag-info mono"></span>
+        <div class="check-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <div style="display:flex;align-items:baseline;gap:10px;">
+                <h2 class="panel-h2">Counter checklist</h2>
+                <span id="checkProgress" class="c-muted" style="font-size:12px;font-weight:500;"></span>
+              </div>
+              <button id="clearChecksBtn" class="btn-text" type="button">Reset</button>
             </div>
-            <button id="clearChecksBtn" class="btn-ghost btn-sm" type="button">Reset</button>
+            <div id="checklistBox" class="check-list"></div>
           </div>
-          <div id="checklistBox" class="check-list"></div>
-        </div>
 
-        <div class="panel">
-          <h2 class="panel-h2">Booking rules</h2>
-          <div>
-            <details class="editorial-acc">
-              <summary>Making charge uses today's rate (Clause 1)</summary>
-              <div class="acc-body">Gold bills at the lower of booked or today's rate. Making charge always applies to today's rate. GST is 3% on Gold + MC.</div>
-            </details>
-            <details class="editorial-acc">
-              <summary>Partial advance &amp; no-refund clause (Clauses 2 &amp; 4)</summary>
-              <div class="acc-body">Unused advance is non-refundable and rolls forward. Any balance left after 356 days converts to a gold coin at 15% MC. Confirm full advance adjustment before billing.</div>
-            </details>
-            <details class="editorial-acc">
-              <summary>No coins &amp; ₹1.90L cash limit (Clause 3)</summary>
-              <div class="acc-body">Redeem against plain 916 HUID jewellery only (no coins or special-price items). Cash is capped at ₹1.90L; pay balance via RTGS/IMPS/UPI.</div>
-            </details>
-            <details class="editorial-acc">
-              <summary>Resale &amp; tax note</summary>
-              <div class="acc-body">Short-term gains on gold sold within 24 months are taxed at slab rate. Keep showroom GST invoices and HUID slips together.</div>
-            </details>
+          <div class="panel">
+            <h2 class="panel-h2">Booking rules</h2>
+            <div>
+              <details class="editorial-acc">
+                <summary>Making charge uses today's rate</summary>
+                <div class="acc-body">Gold bills at the lower of booked or today's rate. Making charge always applies to today's board rate. GST is 3% on gold plus making charge.</div>
+              </details>
+              <details class="editorial-acc">
+                <summary>Unused advance &amp; 356-day limit</summary>
+                <div class="acc-body">Unused advance is non-refundable and rolls forward. Any balance left after 356 days converts to a gold coin at 15% making charge. Confirm full advance adjustment before billing.</div>
+              </details>
+              <details class="editorial-acc">
+                <summary>Plain jewellery only &amp; ₹1.90L cash cap</summary>
+                <div class="acc-body">Redeem against plain BIS-hallmarked (HUID) 916 jewellery only (no coins, stones, or special-price items). Cash is capped at ₹1.90L; settle balance via RTGS, IMPS, or UPI.</div>
+              </details>
+              <details class="editorial-acc">
+                <summary>Resale &amp; tax note</summary>
+                <div class="acc-body">Short-term gains on gold sold within 24 months are taxed at slab rate. Keep showroom GST invoices and hallmark slips together.</div>
+              </details>
+            </div>
           </div>
         </div>
       </section>
@@ -2001,20 +2121,18 @@
     </button>
   </nav>
 
-  <!-- Bottom Sheet Modal (Tap Math) -->
+  <!-- Bottom Sheet / Modal (All 4 Plans + Receipt Math) -->
   <div id="mathModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-sheet">
       <div class="modal-head">
-        <strong id="modalTitle" style="font-size:15px;">Exact math</strong>
-        <button id="modalCloseBtn" class="btn-ghost btn-sm" type="button">Close</button>
+        <strong id="modalTitle" style="font-size:15px;">Breakdown</strong>
+        <button id="modalCloseBtn" class="btn-text btn-text-strong" type="button">Close</button>
       </div>
+      <div id="modalPlans" class="modal-plans"></div>
       <div id="modalBody"></div>
-      <button id="modalApplyBtn" class="btn-primary" type="button">Set this rate</button>
+      <button id="modalApplyBtn" class="btn-primary" type="button">Use this rate</button>
     </div>
   </div>
-
-  <!-- Desktop Hover Popover -->
-  <div id="hoverPopover" class="hover-popover hidden" role="tooltip"></div>
 
   <script>
     const GST = 0.03;
@@ -2023,13 +2141,12 @@
     const MC_RING = 0.18;
     const MAX_CASH = 190000;
     const THRESH_75 = 750000;
-    const STORE_KEY = 'gold916_ledger_v4';
+    const STORE_KEY = 'gold916_ledger_v5';
 
     const DEFAULT_SHOP_ITEMS = [
       { id: 'i1', name: 'Chain', w: 24, mc: '', intent: 'keep', isRing: false },
       { id: 'i2', name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true },
-      { id: 'i3', name: 'Extra 1', w: 20, mc: '', intent: 'sell', isRing: false },
-      { id: 'i4', name: 'Extra 2', w: 13, mc: '', intent: 'sell', isRing: false }
+      { id: 'i3', name: 'Resale gold', w: 70.433, mc: '', intent: 'sell', isRing: false }
     ];
 
     const DEFAULT_STATE = {
@@ -2086,7 +2203,7 @@
     let state = loadState();
     let matrixCache = new Map();
     let modalRate = null;
-    let activeHoverKey = '';
+    let modalStrat = 'S3';
     let lastMobile = window.innerWidth < 960;
     let lastTraySig = '';
     let nextItemSeq = 20;
@@ -2108,6 +2225,20 @@
       return (n < 0 ? '-' : '') + s;
     };
     const fmtL = (n) => `₹${(n / 100000).toFixed(2)}L`;
+
+    function planShortName(id, d) {
+      if (id === 'S0') return 'Walk-in (32g)';
+      if (id === 'S1') return 'Booked 32g';
+      if (id === 'S2') return '₹7.5L Tier';
+      return `Max ${state.W_MAX.toFixed(0)}g`;
+    }
+
+    function planColorCls(id) {
+      if (id === 'S3') return 'c-pos';
+      if (id === 'S2') return 'c-info';
+      if (id === 'S1') return 'c-warn';
+      return 'c-muted';
+    }
 
     function getOldCost() {
       const gold = state.oldGold;
@@ -2162,8 +2293,8 @@
         const cash = Math.min(MAX_CASH, bal);
         const bank = Math.max(0, bal - MAX_CASH);
         const extraResale = wEx * resaleRate;
-        const flipPL = extraResale - extra.total;
-        return { id, isWalkIn, totalW, wEx, mcNonRing: mcNR, chain, ring, extra, goldVal, bill, advUsed, bal, cash, bank, extraResale, flipPL, netBeforeOld: bill - extraResale };
+        const resaleGain = extraResale - extra.total;
+        return { id, isWalkIn, totalW, wEx, mcNonRing: mcNR, chain, ring, extra, goldVal, bill, advUsed, bal, cash, bank, extraResale, resaleGain, netBeforeOld: bill - extraResale };
       };
 
       const S0 = build('S0', 0, mcS, true);
@@ -2198,10 +2329,10 @@
       const oldC = getOldCost();
       const denomD = (1 - d) - (1 + GST) * mcD;
       const denomS = (1 - d) - (1 + GST) * mcS;
-      const rFlip = denomD > 0 ? Math.ceil((state.R0 * (1 + GST)) / denomD) : 99999;
-      const rFlipStd = denomS > 0 ? Math.ceil((state.R0 * (1 + GST)) / denomS) : 99999;
+      const rMax = denomD > 0 ? Math.ceil((state.R0 * (1 + GST)) / denomD) : 99999;
+      const rMaxStd = denomS > 0 ? Math.ceil((state.R0 * (1 + GST)) / denomS) : 99999;
       const rOldHistBE = (1 - d) > 0 ? Math.ceil(oldC.totalPaid / (W_CHAIN * (1 - d))) : 99999;
-      const rOldSellRec = Math.max(rOldHistBE, rFlip);
+      const rOldSellRec = Math.max(rOldHistBE, rMax);
       const rDoubleDisc = denomD > 0 ? Math.ceil((state.R0 * (1 + GST) + oldC.friction / W_CHAIN) / denomD) : 99999;
 
       let rTier = null;
@@ -2211,7 +2342,7 @@
       }
       const denomFree = (state.W_MAX - W_RING) * (1 - d) - (state.W_MAX - W_RING) * mcD * (1 + GST) - W_RING * MC_RING * (1 + GST);
       const rFreeRing = denomFree > 0 ? Math.ceil((state.W_MAX * state.R0 * (1 + GST)) / denomFree) : 99999;
-      return { rTier, rFlip, rFlipStd, rOldHistBE, rOldSellRec, rDoubleDisc, rFreeRing };
+      return { rTier, rMax, rMaxStd, rOldHistBE, rOldSellRec, rDoubleDisc, rFreeRing };
     }
 
     function isDesktop() { return window.innerWidth >= 960; }
@@ -2233,7 +2364,6 @@
         document.getElementById('view-' + t).classList.toggle('hidden', activeDetail !== t);
       });
 
-      // Mobile slim rate bar ONLY when on Tabs 2-5 on mobile
       const showSlim = !desktop && state.tab !== 'decide';
       document.getElementById('slimWrap').classList.toggle('hidden', !showSlim);
       if (!showSlim) {
@@ -2267,14 +2397,8 @@
     }
 
     function syncControls(data) {
-      document.getElementById('headerMeta').textContent = `Booked ₹${state.R0.toLocaleString('en-IN')}/g · Cap ${state.W_MAX.toFixed(1)}g`;
-      document.getElementById('bookedScaleLbl').textContent = `₹${state.R0.toLocaleString('en-IN')} booked`;
-      const pb = document.getElementById('presetBookedBtn');
-      if (pb) {
-        pb.dataset.preset = String(state.R0);
-        pb.textContent = `₹${(state.R0 / 1000).toFixed(1)}k`;
-        pb.title = `Booked rate ₹${state.R0.toLocaleString('en-IN')}/g`;
-      }
+      document.getElementById('headerMeta').textContent = `${state.W_MAX.toFixed(1)}g limit · ${fmtL(state.ADVANCE)} advance`;
+      document.getElementById('bookedScaleBtn').textContent = `Booked ₹${state.R0.toLocaleString('en-IN')}`;
       if (document.activeElement !== document.getElementById('rateInput')) document.getElementById('rateInput').value = state.R1;
       if (document.activeElement !== document.getElementById('slimRateInput')) document.getElementById('slimRateInput').value = state.R1;
       document.getElementById('rateSlider').value = Math.max(9500, Math.min(17000, state.R1));
@@ -2283,25 +2407,24 @@
       const pct = ((diff / state.R0) * 100).toFixed(1);
       const dEl = document.getElementById('deltaReadout');
       dEl.textContent = `${diff >= 0 ? '+' : ''}${fmtINR(diff)} (${diff >= 0 ? '+' : ''}${pct}%)`;
-      dEl.className = 'mono fw-600 ' + (diff > 0 ? 'c-pos' : (diff < 0 ? 'c-warn' : 'c-muted'));
+      dEl.className = 'fw-600 ' + (diff > 0 ? 'c-pos' : (diff < 0 ? 'c-warn' : 'c-muted'));
 
       const mcPerG = Math.round(state.R1 * state.mcDisc / 100);
-      const mcPerGTxt = `₹${mcPerG.toLocaleString('en-IN')}/g MC`;
+      const mcPerGTxt = `₹${mcPerG.toLocaleString('en-IN')}/g`;
       const buyTxt = `₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
 
       document.getElementById('billedGoldLbl').textContent = mcPerGTxt;
       document.getElementById('buybackRateLbl').textContent = buyTxt;
       document.getElementById('slimBilledLbl').textContent = mcPerGTxt;
       document.getElementById('slimBuybackLbl').textContent = buyTxt;
-      document.getElementById('slimTermsLbl').textContent = `MC ${state.mcDisc}% · Cut ${state.cut}%`;
+      document.getElementById('slimTermsLbl').textContent = `${state.mcDisc}% making · ${state.cut}% cut`;
       document.getElementById('slimOldLbl').textContent = data.effectiveOld === 'sell' ? 'Selling 24g' : 'Keeping 24g';
 
       const win = data[data.best];
-      const bestShort = data.best === 'S1' ? 'Best: S1 (32g)' : (data.best === 'S2' ? `Best: S2 (${data.S2.totalW.toFixed(0)}g)` : `Best: S3 (${state.W_MAX.toFixed(0)}g)`);
+      const bestShort = data.best === 'S1' ? 'Best: Booked 32g' : (data.best === 'S2' ? `Best: ₹7.5L Tier (${data.S2.totalW.toFixed(0)}g)` : `Best: Max ${state.W_MAX.toFixed(0)}g`);
       document.getElementById('slimBestTxt').textContent = bestShort;
       document.getElementById('slimSaveTxt').textContent = fmtINR(win.saveWalkIn, true);
 
-      document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.classList.toggle('active', Number(b.dataset.preset) === state.R1));
       document.querySelectorAll('.seg-opt[data-group]').forEach(b => {
         const g = b.dataset.group;
         const v = b.dataset.val;
@@ -2322,41 +2445,101 @@
       setVal('inpOldGold', state.oldGold);
       setVal('inpOldMc', state.oldMc);
       document.getElementById('chkRingCounts').checked = state.ringCounts;
-      document.getElementById('setupOldInfo').textContent = `Paid all-in: ${fmtINR(data.oldC.totalPaid)} (MC+GST ${fmtINR(data.oldC.friction)})`;
+      document.getElementById('setupOldInfo').textContent = `Paid all-in: ${fmtINR(data.oldC.totalPaid)} (making + GST ${fmtINR(data.oldC.friction)})`;
+    }
+
+    function buildThresholdsHTML(data, th) {
+      const plStd = data.oldSale - data.S1.chain.total;
+      const plDisc = data.oldSale - data.S3.chain.total;
+      const netFreeRing = data.S3.bill - (state.W_MAX - W_RING) * data.resaleRate;
+      return `
+        <div class="kv-list" style="border-top:0;padding-top:0;">
+          <div class="kv"><span>₹7.5L tier beats 32g</span><span>${th.rTier ? `from <span class="mono fw-600">${fmtINR(th.rTier)}/g</span>` : '<span class="c-muted">Not active</span>'}</span></div>
+          <div class="kv"><span>Max ${state.W_MAX.toFixed(0)}g beats ₹7.5L</span><span>from <span class="mono fw-600">${fmtINR(th.rMax)}/g</span></span></div>
+          <div class="kv"><span>Old 24g sell breakeven</span><span class="mono fw-600">${fmtINR(th.rOldSellRec)}/g</span></div>
+        </div>
+        <div class="kv-list">
+          <div class="c-muted" style="font-size:11.5px;">Old 24g paid ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g all-in)</div>
+          <div class="kv"><span>Recover paid bill (breakeven ${fmtINR(th.rOldHistBE)}/g)</span><span class="mono fw-600 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>
+          <div class="kv"><span>Swap at ${state.mcStd}% making (breakeven ${fmtINR(th.rMaxStd)}/g)</span><span class="mono fw-600 ${plStd >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plStd, true)}</span></div>
+          <div class="kv"><span>Swap at ${state.mcDisc}% making (breakeven ${fmtINR(th.rMax)}/g)</span><span class="mono fw-600 ${plDisc >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plDisc, true)}</span></div>
+          <div class="kv"><span>Keep 8g ring only (free at ${fmtINR(th.rFreeRing)}/g)</span><span class="mono fw-600 ${netFreeRing <= 0 ? 'c-pos' : ''}">${netFreeRing <= 0 ? '+' + fmtINR(-netFreeRing) : fmtINR(netFreeRing)}</span></div>
+        </div>`;
     }
 
     function renderDecide(data, th) {
-      const tag = document.getElementById('verdictTag');
-      const title = document.getElementById('verdictTitle');
-      const chips = document.getElementById('verdictChips');
       const win = data[data.best];
       const lockSave = data.S0.bill - data.S1.bill;
       const mcSave = data.S1.chain.total - win.chain.total;
+      const netDisplay = win.net < 0 ? '+' + fmtINR(-win.net) : fmtINR(win.net);
+
+      // Old 24g status (plain colored text, zero pills)
+      let oldStatusText = 'Keep';
+      let oldStatusCls = 'c-warn';
+      if (data.oldSwapPL < 0 && data.oldHistPL < 0) {
+        oldStatusText = 'Keep';
+        oldStatusCls = 'c-neg';
+      } else if (data.recOldSell) {
+        oldStatusText = state.R1 >= th.rDoubleDisc ? 'Strong sell' : 'Sell & swap';
+        oldStatusCls = 'c-pos';
+      }
+
+      // Desktop Quiet Reference Benchmark
+      document.getElementById('desktopOldStatus').textContent = oldStatusText;
+      document.getElementById('desktopOldStatus').className = 'fw-600 ' + oldStatusCls;
+
+      document.getElementById('benchEyebrow').textContent = `Optimal at ₹${state.R1.toLocaleString('en-IN')}/g`;
+      const benchPlanTxt = data.best === 'S1'
+        ? 'Booked 32g only'
+        : (data.best === 'S2'
+          ? `₹7.5L Tier · ${data.S2.totalW.toFixed(1)}g (sell ${data.S2.wEx.toFixed(1)}g)`
+          : `Max ${state.W_MAX.toFixed(1)}g (sell ${data.S3.wEx.toFixed(1)}g)`);
+      document.getElementById('benchPlan').textContent = benchPlanTxt;
+      document.getElementById('benchLine').innerHTML =
+        `Saves <strong class="mono ${win.saveWalkIn > 0 ? 'c-pos' : 'c-muted'}">${fmtINR(win.saveWalkIn, true)}</strong> · Net <span class="mono fw-600">${netDisplay}</span> · Bank <span class="mono fw-600">${fmtL(win.bank)}</span>`;
+      document.getElementById('benchOldSub').innerHTML =
+        `Old 24g: Sale ${fmtL(data.oldSale)} · vs paid <span class="${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtK(data.oldHistPL, true)}</span> · vs new <span class="${data.oldSwapPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtK(data.oldSwapPL, true)}</span>`;
+
+      // Mobile Full Editorial Hero Verdict
+      const eye = document.getElementById('verdictEyebrow');
+      const title = document.getElementById('verdictTitle');
+      const bd = document.getElementById('verdictBreakdown');
 
       if (data.best === 'S1') {
-        tag.className = 'tag tag-warn';
-        tag.textContent = 'Best: S1 · 32g';
+        eye.className = 'verdict-eyebrow c-warn';
+        eye.textContent = 'Recommended · 32g only';
         title.textContent = 'Buy 32g only';
-        chips.innerHTML = `<span class="stat-chip">Rate lock ${fmtK(lockSave, true)}</span><span class="stat-chip">Sell 0g</span>`;
+        bd.className = 'breakdown-strip cols-2';
+        bd.innerHTML = `
+          <div class="bd-cell"><span class="bd-lbl">Rate lock</span><span class="bd-val mono">${fmtK(lockSave, true)}</span></div>
+          <div class="bd-cell"><span class="bd-lbl">Extra resale</span><span class="bd-val c-muted">None</span></div>`;
       } else if (data.best === 'S2') {
-        tag.className = 'tag tag-info';
-        tag.textContent = 'Best: S2 · ₹7.5L';
+        eye.className = 'verdict-eyebrow c-info';
+        eye.textContent = 'Recommended · ₹7.5L tier';
         title.textContent = `Buy ${data.S2.totalW.toFixed(1)}g, sell ${data.S2.wEx.toFixed(1)}g`;
-        chips.innerHTML = `<span class="stat-chip">Lock ${fmtK(lockSave, true)}</span><span class="stat-chip">MC ${fmtK(mcSave, true)}</span><span class="stat-chip">Flip ${fmtK(win.flipPL, true)}</span>`;
+        bd.className = 'breakdown-strip';
+        bd.innerHTML = `
+          <div class="bd-cell"><span class="bd-lbl">Rate lock</span><span class="bd-val mono">${fmtK(lockSave, true)}</span></div>
+          <div class="bd-cell"><span class="bd-lbl">Making saved</span><span class="bd-val mono">${fmtK(mcSave, true)}</span></div>
+          <div class="bd-cell"><span class="bd-lbl">Extra resale</span><span class="bd-val mono ${win.resaleGain >= 0 ? 'c-pos' : 'c-warn'}">${fmtK(win.resaleGain, true)}</span></div>`;
       } else {
-        tag.className = 'tag tag-pos';
-        tag.textContent = 'Best: S3 · Max';
+        eye.className = 'verdict-eyebrow c-pos';
+        eye.textContent = 'Recommended · full limit';
         title.textContent = `Max ${state.W_MAX.toFixed(1)}g, sell ${data.S3.wEx.toFixed(1)}g`;
-        chips.innerHTML = `<span class="stat-chip">Lock ${fmtK(lockSave, true)}</span><span class="stat-chip">MC ${fmtK(mcSave, true)}</span><span class="stat-chip c-pos">Flip ${fmtK(win.flipPL, true)}</span>`;
+        bd.className = 'breakdown-strip';
+        bd.innerHTML = `
+          <div class="bd-cell"><span class="bd-lbl">Rate lock</span><span class="bd-val mono">${fmtK(lockSave, true)}</span></div>
+          <div class="bd-cell"><span class="bd-lbl">Making saved</span><span class="bd-val mono">${fmtK(mcSave, true)}</span></div>
+          <div class="bd-cell"><span class="bd-lbl">Extra resale</span><span class="bd-val mono c-pos">${fmtK(win.resaleGain, true)}</span></div>`;
       }
 
       const hSaved = document.getElementById('heroSaved');
       hSaved.textContent = fmtINR(win.saveWalkIn, true);
       hSaved.className = 'stat-hero mono ' + (win.saveWalkIn > 0 ? 'c-pos' : 'c-muted');
 
-      document.getElementById('figNetLbl').textContent = 'Net cost (32g)';
+      document.getElementById('figNetLbl').textContent = 'Net outlay (32g)';
       const fNet = document.getElementById('figNetVal');
-      fNet.textContent = win.net < 0 ? '+' + fmtINR(-win.net) : fmtINR(win.net);
+      fNet.textContent = netDisplay;
       fNet.className = 'figure-val mono ' + (win.net < 0 ? 'c-pos' : '');
       document.getElementById('figNetSub').textContent = win.net < 0
         ? 'Net cash profit'
@@ -2364,49 +2547,16 @@
       document.getElementById('figBankVal').textContent = fmtL(win.bank);
       document.getElementById('figBankSub').textContent = `+ ${fmtL(win.cash)} cash`;
 
-      // Compact Old 24g Row + Merged Breakevens Drawer
-      const oTag = document.getElementById('oldTag');
-      const oNums = document.getElementById('oldNums');
-      oNums.innerHTML = `<span class="nowrap">Sale ${fmtL(data.oldSale)}</span><span class="nowrap ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">Paid ${fmtK(data.oldHistPL, true)}</span><span class="nowrap ${data.oldSwapPL >= 0 ? 'c-pos' : 'c-neg'}">Swap ${fmtK(data.oldSwapPL, true)}</span>`;
+      const oStat = document.getElementById('oldStatusTxt');
+      oStat.textContent = oldStatusText;
+      oStat.className = 'old-status ' + oldStatusCls;
 
-      if (data.oldSwapPL < 0 && data.oldHistPL < 0) {
-        oTag.className = 'tag tag-neg';
-        oTag.textContent = 'Old 24g · Keep';
-      } else if (data.oldSwapPL >= 0 && data.oldHistPL < 0) {
-        oTag.className = 'tag tag-warn';
-        oTag.textContent = 'Old 24g · Keep';
-      } else if (data.oldHistPL >= 0 && data.oldSwapPL < 0) {
-        oTag.className = 'tag tag-warn';
-        oTag.textContent = 'Old 24g · Keep';
-      } else {
-        oTag.className = 'tag tag-pos';
-        oTag.textContent = state.R1 >= th.rDoubleDisc ? 'Old 24g · Strong sell' : 'Old 24g · Sell & swap';
-      }
+      document.getElementById('oldSummaryLine').innerHTML =
+        `Sale ${fmtL(data.oldSale)} · vs paid <span class="fw-600 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtK(data.oldHistPL, true)}</span> · vs new <span class="fw-600 ${data.oldSwapPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtK(data.oldSwapPL, true)}</span>`;
 
-      const plStd = data.oldSale - data.S1.chain.total;
-      const plDisc = data.oldSale - data.S3.chain.total;
-      const comboW = (state.W_MAX - W_RING).toFixed(1);
-      const net4c = data.S3.bill - (state.W_MAX - W_RING) * data.resaleRate;
-      document.getElementById('oldDetailsBody').innerHTML = `
-        <div class="mono c-muted" style="font-size:11.5px;">Paid ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g all-in)</div>
-        <div class="kv-list" style="border-top:0;padding-top:2px;">
-          <div class="kv"><span>Recover paid bill (BE ${fmtINR(th.rOldHistBE)}/g)</span><span class="mono fw-700 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>
-          <div class="kv"><span>Swap @ ${state.mcStd}% MC (BE ${fmtINR(th.rFlipStd)}/g)</span><span class="mono fw-700 ${plStd >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plStd, true)}</span></div>
-          <div class="kv"><span>Swap @ ${state.mcDisc}% MC (BE ${fmtINR(th.rFlip)}/g)</span><span class="mono fw-700 ${plDisc >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(plDisc, true)}</span></div>
-          <div class="kv"><span>Sell ${comboW}g net (₹0 @ ${fmtINR(th.rFreeRing)}/g)</span><span class="mono fw-700 ${net4c <= 0 ? 'c-pos' : ''}">${net4c <= 0 ? '+' + fmtINR(-net4c) : fmtINR(net4c)}</span></div>
-        </div>`;
-
-      const minR = 10000, maxR = 16500;
-      const pct = (r) => Math.max(0, Math.min(100, ((r - minR) / (maxR - minR)) * 100));
-      const pT = th.rTier ? pct(th.rTier) : 100;
-      const pF = pct(th.rFlip);
-      const pC = pct(state.R1);
-      document.getElementById('regimeSummary').textContent = `7.5L ${th.rTier ? fmtINR(th.rTier) : '-'} · Max ${fmtINR(th.rFlip)} · Old ${fmtINR(th.rOldSellRec)}`;
-      document.getElementById('regimeTrack').innerHTML = `
-        <div class="regime-seg" style="width:${pT}%;background:var(--warn-bg);border-right:1px solid var(--warn);"></div>
-        <div class="regime-seg" style="width:${Math.max(0, pF - pT)}%;background:var(--info-bg);border-right:1px solid var(--accent);"></div>
-        <div class="regime-seg" style="width:${Math.max(0, 100 - pF)}%;background:var(--pos-bg);"></div>
-        <div class="regime-marker" style="left:${pC}%;"></div>`;
+      const thHtml = buildThresholdsHTML(data, th);
+      document.getElementById('desktopThresholdsBody').innerHTML = thHtml;
+      document.getElementById('mobileThresholdsBody').innerHTML = thHtml;
     }
 
     function renderReceiptRows(s) {
@@ -2414,19 +2564,19 @@
       const mk = (name, it) => `
         <div class="rcpt-row">
           <div class="rcpt-main"><span>${name}</span><strong class="mono">${fmtINR(it.total)}</strong></div>
-          <div class="rcpt-detail mono"><span class="nowrap">Gold ${fmtINR(it.gold)}</span><span class="nowrap">MC ${fmtINR(it.mc)}</span><span class="nowrap">GST ${fmtINR(it.gst)}</span></div>
+          <div class="rcpt-detail"><span class="nowrap">Gold ${fmtINR(it.gold)}</span><span class="nowrap">Making ${fmtINR(it.mc)}</span><span class="nowrap">GST ${fmtINR(it.gst)}</span></div>
         </div>`;
-      let html = mk(`24g Chain (${mcLbl}%)`, s.chain) + mk(`8g Ring (18%)`, s.ring);
-      if (s.wEx > 0.001) html += mk(`Extra ${s.wEx.toFixed(2)}g (${mcLbl}%)`, s.extra);
+      let html = mk(`24g Chain (${mcLbl}% making)`, s.chain) + mk(`8g Ring (18% making)`, s.ring);
+      if (s.wEx > 0.001) html += mk(`Extra ${s.wEx.toFixed(2)}g (${mcLbl}% making)`, s.extra);
       return html;
     }
 
     function renderBills(data) {
       const specs = [
-        { s: data.S0, name: 'Walk-in · 32g', mc: `${state.mcStd}% MC` },
-        { s: data.S1, name: 'S1 · 32g', mc: `${state.mcStd}% MC` },
-        { s: data.S2, name: `S2 · ${data.S2.totalW.toFixed(0)}g`, mc: `${state.mcDisc}% MC` },
-        { s: data.S3, name: `S3 · ${state.W_MAX.toFixed(0)}g`, mc: `${state.mcDisc}% MC` }
+        { s: data.S0, name: 'Walk-in · 32g', mc: `${state.mcStd}% making` },
+        { s: data.S1, name: 'Booked · 32g', mc: `${state.mcStd}% making` },
+        { s: data.S2, name: `₹7.5L · ${data.S2.totalW.toFixed(0)}g`, mc: `${state.mcDisc}% making` },
+        { s: data.S3, name: `Max · ${state.W_MAX.toFixed(0)}g`, mc: `${state.mcDisc}% making` }
       ];
 
       document.getElementById('stratGrid').innerHTML = specs.map(({ s, name, mc }) => {
@@ -2435,14 +2585,14 @@
         const netTxt = s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net);
         const saveCls = s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
         return `
-          <button type="button" class="strat-card ${isSel ? 'is-selected' : ''}" data-agent="strat-${s.id}" data-pick="${s.id}">
+          <button type="button" class="strat-card ${isBest ? 'is-best' : ''} ${isSel ? 'is-selected' : ''}" data-agent="strat-${s.id}" data-pick="${s.id}">
             <div class="sc-top">
               <span class="nowrap">${name}</span>
-              ${isBest ? '<span class="tag tag-pos" style="height:20px;padding:0 6px;font-size:11px;">Best</span>' : `<span class="mono c-muted nowrap" style="font-size:11px;">${mc}</span>`}
+              <span class="sc-mc">${mc}</span>
             </div>
             <div class="sc-net mono ${s.net < 0 ? 'c-pos' : ''}">${netTxt}</div>
-            <div class="sc-save mono ${saveCls}">${s.isWalkIn ? 'Baseline' : fmtINR(s.saveWalkIn, true)}</div>
-            <div class="sc-meta mono">Bank ${fmtL(s.bank)}</div>
+            <div class="sc-save ${saveCls}">${s.isWalkIn ? 'Baseline' : `<span class="mono">${fmtINR(s.saveWalkIn, true)}</span>`}${isBest ? '<span style="margin-left:5px;">· Best</span>' : ''}</div>
+            <div class="sc-meta">Bank ${fmtL(s.bank)}</div>
           </button>`;
       }).join('');
 
@@ -2456,16 +2606,18 @@
 
       const s = data[state.inspect];
       const headings = {
-        S0: 'Walk-in 32g receipt',
-        S1: 'S1 · Booked 32g receipt',
-        S2: `S2 · ₹7.5L receipt (sell ${s.wEx.toFixed(1)}g)`,
-        S3: `S3 · Max ${state.W_MAX.toFixed(1)}g receipt`
+        S0: 'Walk-in receipt',
+        S1: 'Booked 32g receipt',
+        S2: `₹7.5L tier receipt (sell ${s.wEx.toFixed(1)}g)`,
+        S3: `Max plan receipt (sell ${s.wEx.toFixed(1)}g)`
       };
       document.getElementById('inspHeading').textContent = headings[s.id];
-      document.getElementById('inspBuyWt').textContent = `${s.totalW.toFixed(2)}g`;
+      document.getElementById('inspBuyWt').innerHTML = `<span class="mono">${s.totalW.toFixed(2)}g</span> total`;
       document.getElementById('inspBuyTitle').textContent = s.isWalkIn ? 'Walk-in bill' : 'Showroom bill';
-      document.getElementById('inspRateTag').textContent = s.isWalkIn ? `₹${state.R1.toLocaleString('en-IN')}/g` : `Locked ₹${Math.min(state.R0, state.R1).toLocaleString('en-IN')}/g`;
-      document.getElementById('inspResaleRate').textContent = `Resale ₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g`;
+      document.getElementById('inspRateTag').innerHTML = s.isWalkIn
+        ? `<span class="mono">₹${state.R1.toLocaleString('en-IN')}/g</span>`
+        : `Locked <span class="mono">₹${Math.min(state.R0, state.R1).toLocaleString('en-IN')}/g</span>`;
+      document.getElementById('inspResaleRate').innerHTML = `Resale <span class="mono">₹${data.resaleRate.toLocaleString('en-IN', { maximumFractionDigits: 1 })}/g</span>`;
       document.getElementById('inspBuyRows').innerHTML = renderReceiptRows(s);
 
       const lockAmt = Math.max(0, state.ADVANCE - 0.10 * s.goldVal);
@@ -2484,79 +2636,121 @@
 
       let rRows = '';
       if (s.isWalkIn) {
-        rRows = `<div class="kv"><span>No booking scheme</span><span class="mono c-muted">₹0 saved</span></div>`;
+        rRows = `<div class="kv"><span>No booking scheme</span><span class="c-muted"><span class="mono">₹0</span> saved</span></div>`;
       } else {
         const lockSave = data.S0.bill - data.S1.bill;
         rRows += `<div class="kv"><span>Rate lock (32g)</span><span class="mono fw-600 ${lockSave > 0 ? 'c-pos' : 'c-muted'}">${fmtINR(lockSave, true)}</span></div>`;
         if (s.id !== 'S1') {
-          rRows += `<div class="kv"><span>₹7.5L MC saved (24g)</span><span class="mono fw-600 c-pos">+${fmtINR(data.S1.chain.total - s.chain.total)}</span></div>`;
+          rRows += `<div class="kv"><span>₹7.5L making saved (24g)</span><span class="mono fw-600 c-pos">+${fmtINR(data.S1.chain.total - s.chain.total)}</span></div>`;
         }
         if (s.wEx > 0.001) {
-          rRows += `<div class="kv"><span>Sell ${s.wEx.toFixed(1)}g P/L</span><span class="mono fw-600 ${s.flipPL >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(s.flipPL, true)}</span></div>`;
+          rRows += `<div class="kv"><span>Extra ${s.wEx.toFixed(1)}g resale gain</span><span class="mono fw-600 ${s.resaleGain >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(s.resaleGain, true)}</span></div>`;
         }
       }
       if (data.effectiveOld === 'sell') {
         rRows += `
           <div class="kv-subhead">Old 24g &amp; cash recovery</div>
           <div class="kv"><span>Old 24g sale</span><span class="mono fw-600">${fmtINR(data.oldProc)}</span></div>
-          <div class="kv"><span>vs Paid (${fmtL(data.oldC.totalPaid)})</span><span class="mono fw-600 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>`;
+          <div class="kv"><span>vs paid bill (${fmtL(data.oldC.totalPaid)})</span><span class="mono fw-600 ${data.oldHistPL >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(data.oldHistPL, true)}</span></div>`;
       }
       document.getElementById('inspResaleRows').innerHTML = rRows;
 
       const totSold = s.wEx + (data.effectiveOld === 'sell' ? W_CHAIN : 0);
       const totRec = s.extraResale + data.oldProc;
       document.getElementById('inspOutcome').innerHTML = `
-        <div class="kv"><span>Resale cash (${totSold.toFixed(1)}g)</span><span class="mono fw-600">${fmtINR(totRec)}</span></div>
+        <div class="kv"><span>Resale proceeds (${totSold.toFixed(1)}g)</span><span class="mono fw-600">${fmtINR(totRec)}</span></div>
         <div class="kv"><span>Gold kept</span><span>${data.effectiveOld === 'sell' ? '32g' : '56g (with old 24g)'}</span></div>
-        <div class="kv kv-total"><span>${s.net < 0 ? 'Net cash profit' : 'Final net cost'}</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
-        <div class="kv fw-600"><span>Saved vs walk-in</span><span class="mono ${s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted')}">${s.isWalkIn ? 'Reference' : fmtINR(s.saveWalkIn, true)}</span></div>`;
+        <div class="kv kv-total"><span>${s.net < 0 ? 'Net cash profit' : 'Final net outlay'}</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
+        <div class="kv fw-600"><span>Saved vs walk-in</span><span class="${s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted')}">${s.isWalkIn ? 'Baseline' : `<span class="mono">${fmtINR(s.saveWalkIn, true)}</span>`}</span></div>`;
     }
 
-    function buildMathSheetHTML(r, d, stratKey, includeRate = false) {
+    function buildEquationBarHTML(r, d, stratKey) {
       const id = stratKey === 'BEST' ? d.best : stratKey;
       const s = d[id];
-      const names = {
-        S0: 'Walk-in 32g',
-        S1: 'S1 · Booked 32g',
-        S2: `S2 · ₹7.5L (${s.totalW.toFixed(1)}g)`,
-        S3: `S3 · Max ${state.W_MAX.toFixed(1)}g`
-      };
+      const name = planShortName(id, d);
+      const parts = [`Bill <strong class="mono">${fmtINR(s.bill)}</strong>`];
+      if (s.wEx > 0.001) parts.push(`- Resale <strong class="mono">${fmtINR(s.extraResale)}</strong>`);
+      if (d.effectiveOld === 'sell') parts.push(`- Old 24g <strong class="mono">${fmtINR(d.oldProc)}</strong>`);
+      const netStr = s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net);
+      const rightStr = s.isWalkIn
+        ? `<span class="c-muted fw-600">Baseline</span>`
+        : `<span class="fw-600 ${s.saveWalkIn > 0 ? 'c-pos' : 'c-neg'}"><span class="mono fw-700">${fmtINR(s.saveWalkIn, true)}</span> saved</span>`;
       return `
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-            <strong style="font-size:13.5px;">${names[id]}${includeRate ? ` @ ₹${r.toLocaleString('en-IN')}/g` : ''}</strong>
-            <span class="tag ${s.saveWalkIn > 0 ? 'tag-pos' : 'tag-info'} mono">${s.isWalkIn ? 'Baseline' : fmtINR(s.saveWalkIn, true)}</span>
+        <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+          <strong style="color:var(--text);">₹${r.toLocaleString('en-IN')}/g · ${name} (${s.totalW.toFixed(1)}g):</strong>
+          ${parts.join(' ')} = Net <strong class="mono" style="color:var(--text);">${netStr}</strong>
+        </span>
+        <span class="nowrap">${rightStr}</span>`;
+    }
+
+    function renderModalContent(r, d, activeKey) {
+      const id = activeKey === 'BEST' ? d.best : activeKey;
+      modalStrat = id;
+      const s = d[id];
+
+      document.getElementById('modalTitle').textContent = `₹${r.toLocaleString('en-IN')}/g breakdown`;
+      document.getElementById('modalApplyBtn').textContent = `Use ₹${r.toLocaleString('en-IN')}/g`;
+
+      const planOrder = ['S0', 'S1', 'S2', 'S3'];
+      document.getElementById('modalPlans').innerHTML = planOrder.map(k => {
+        const p = d[k];
+        const isBest = k === d.best;
+        const isAct = k === id;
+        const netTxt = p.net < 0 ? '+' + fmtINR(-p.net) : fmtINR(p.net);
+        const saveTxt = p.isWalkIn ? 'Baseline' : fmtINR(p.saveWalkIn, true);
+        const saveCls = p.saveWalkIn > 0 ? 'c-pos' : (p.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
+        return `
+          <button type="button" class="modal-plan-row ${isAct ? 'is-active' : ''}" data-modal-plan="${k}">
+            <span>${planShortName(k, d)}${isBest ? ' <span class="c-pos" style="font-size:11.5px;">· Best</span>' : ''}</span>
+            <span class="mono">${netTxt}</span>
+            <span class="${p.isWalkIn ? '' : 'mono '}${saveCls}">${saveTxt}</span>
+          </button>`;
+      }).join('');
+
+      document.querySelectorAll('[data-modal-plan]').forEach(btn => {
+        btn.addEventListener('click', () => renderModalContent(r, d, btn.dataset.modalPlan));
+      });
+
+      document.getElementById('modalBody').innerHTML = `
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;">
+            <span class="fw-600" style="font-size:13px;">${planShortName(id, d)} (${s.totalW.toFixed(1)}g)</span>
+            <span class="fw-600 ${s.saveWalkIn > 0 ? 'c-pos' : 'c-muted'}" style="font-size:12.5px;">${s.isWalkIn ? 'Baseline' : `<span class="mono">${fmtINR(s.saveWalkIn, true)}</span> saved`}</span>
           </div>
           <div>${renderReceiptRows(s)}</div>
           <div class="kv-list">
             <div class="kv"><span>Gross bill</span><span class="mono fw-600">${fmtINR(s.bill)}</span></div>
-            ${s.wEx > 0.001 ? `<div class="kv"><span>Sell ${s.wEx.toFixed(1)}g @ ₹${Math.round(d.resaleRate).toLocaleString('en-IN')}/g</span><span class="mono fw-600 c-pos">-${fmtINR(s.extraResale)}</span></div>` : ''}
-            ${d.effectiveOld === 'sell' ? `<div class="kv"><span>Sell old 24g</span><span class="mono fw-600 c-pos">-${fmtINR(d.oldProc)}</span></div>` : ''}
-            <div class="kv kv-total"><span>Final net</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
+            ${s.wEx > 0.001 ? `<div class="kv"><span>Sell ${s.wEx.toFixed(1)}g at ₹${Math.round(d.resaleRate).toLocaleString('en-IN')}/g</span><span class="mono fw-600 c-pos">-${fmtINR(s.extraResale)}</span></div>` : ''}
+            ${d.effectiveOld === 'sell' ? `<div class="kv"><span>Sell old 24g chain</span><span class="mono fw-600 c-pos">-${fmtINR(d.oldProc)}</span></div>` : ''}
+            <div class="kv kv-total"><span>${s.net < 0 ? 'Net cash profit' : 'Final net outlay'}</span><span class="mono ${s.net < 0 ? 'c-pos' : ''}">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</span></div>
             <div class="kv"><span>Cash + Bank</span><span class="mono">${fmtL(s.cash)} + ${fmtL(s.bank)}</span></div>
           </div>
         </div>`;
     }
 
     function renderRatesAndChart(data, th) {
+      const win = data[data.best];
+      document.getElementById('chartReadout').innerHTML =
+        `At ₹${state.R1.toLocaleString('en-IN')}/g: <strong class="mono ${win.saveWalkIn > 0 ? 'c-pos' : 'c-muted'}">${fmtINR(win.saveWalkIn, true)}</strong> saved`;
+
       const svg = document.getElementById('chartSvg');
       const rawW = svg.getBoundingClientRect().width;
       let boxW = Math.round(rawW);
       if (!boxW || boxW < 100) {
         if (isDesktop()) {
           const col = document.querySelector('.detail-col');
-          const cw = col ? col.getBoundingClientRect().width : (Math.min(1180, window.innerWidth) - 48 - 388 - 24);
-          boxW = Math.max(320, Math.round(cw - 34));
+          const cw = col ? col.getBoundingClientRect().width : (Math.min(1180, window.innerWidth) - 48 - 348 - 28);
+          boxW = Math.max(320, Math.round(cw - 42));
         } else {
-          boxW = Math.max(290, Math.round(window.innerWidth - 66));
+          boxW = Math.max(300, Math.round(window.innerWidth - 32));
         }
       }
       const isNarrow = boxW < 480;
       const W = boxW;
-      const H = isNarrow ? 214 : 244;
+      const H = isNarrow ? 218 : 248;
       const pL = isNarrow ? 50 : 60;
       const pR = isNarrow ? 12 : 22;
-      const pT = 26;
+      const pT = 34;
       const pB = 28;
       svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
@@ -2582,7 +2776,7 @@
       for (let y = yMin; y <= yMax; y += stepY) {
         const py = yOf(y);
         const isZero = y === 0;
-        grid += `<line x1="${pL}" y1="${py.toFixed(1)}" x2="${W - pR}" y2="${py.toFixed(1)}" stroke="currentColor" stroke-opacity="${isZero ? '0.28' : '0.09'}" stroke-dasharray="${isZero ? '' : '3 3'}"/>`;
+        grid += `<line x1="${pL}" y1="${py.toFixed(1)}" x2="${W - pR}" y2="${py.toFixed(1)}" stroke="currentColor" stroke-opacity="${isZero ? '0.26' : '0.08'}" stroke-dasharray="${isZero ? '' : '3 3'}"/>`;
         grid += `<text x="${pL - 6}" y="${(py + 4).toFixed(1)}" text-anchor="end" fill="currentColor" fill-opacity="0.68" font-size="11" font-family="JetBrains Mono,monospace">${y === 0 ? '₹0' : (y > 0 ? '+' : '-') + '₹' + Math.round(Math.abs(y) / 1000) + 'k'}</text>`;
       }
       const xTicks = isNarrow ? [10000, 12000, 14000, 16000] : [10000, 11000, 12000, 13000, 14000, 15000, 16000];
@@ -2591,150 +2785,119 @@
         grid += `<text x="${px.toFixed(1)}" y="${H - 7}" text-anchor="middle" fill="currentColor" fill-opacity="0.68" font-size="11" font-family="JetBrains Mono,monospace">₹${(r / 1000).toFixed(0)}k</text>`;
       });
 
+      // Threshold labels rendered strictly ABOVE y = pT (34) so lines NEVER touch or poke through text
       let threshLines = '';
-      const threshPills = [];
-      const badgePad = 8;
-      const badgeH = 16;
+      let threshTexts = '';
+      const labels = [];
 
       if (th.rTier && th.rTier >= rMin && th.rTier <= rMax) {
         const x = xOf(th.rTier);
-        const lbl = isNarrow ? `7.5L ₹${(th.rTier / 1000).toFixed(1)}k` : `7.5L: ₹${th.rTier.toLocaleString('en-IN')}`;
-        const bw = Math.round(lbl.length * 6.6 + badgePad);
-        let bx = x - 6 - bw;
-        if (bx < pL + 2) bx = pL + 2;
-        if (bx + bw > W - pR - 2) bx = W - pR - 2 - bw;
-        threshLines += `<line x1="${x.toFixed(1)}" y1="${pT}" x2="${x.toFixed(1)}" y2="${H - pB}" stroke="var(--info)" stroke-opacity="0.65" stroke-dasharray="4 3"/>`;
-        threshPills.push({ id: 'tier', x: bx, y: pT + 2, w: bw, h: badgeH, lbl, color: 'var(--info)' });
+        const lbl = isNarrow ? `₹7.5L ₹${(th.rTier / 1000).toFixed(1)}k` : `₹7.5L from ₹${th.rTier.toLocaleString('en-IN')}`;
+        const approxW = lbl.length * 6.4;
+        let lx = Math.max(pL + approxW / 2, Math.min(W - pR - approxW / 2, x));
+        threshLines += `<line x1="${x.toFixed(1)}" y1="${pT}" x2="${x.toFixed(1)}" y2="${H - pB}" stroke="var(--info)" stroke-opacity="0.6" stroke-dasharray="4 3"/>`;
+        labels.push({ x: lx, w: approxW, y: 24, lbl, color: 'var(--info)' });
       }
-      if (th.rFlip >= rMin && th.rFlip <= rMax) {
-        const x = xOf(th.rFlip);
-        const lbl = isNarrow ? `Max ₹${(th.rFlip / 1000).toFixed(1)}k` : `Max: ₹${th.rFlip.toLocaleString('en-IN')}`;
-        const bw = Math.round(lbl.length * 6.6 + badgePad);
-        let bx = x + 6;
-        if (bx + bw > W - pR - 2) bx = W - pR - 2 - bw;
-        if (bx < pL + 2) bx = pL + 2;
-        let by = pT + 2;
-        if (threshPills.length && threshPills[0].x + threshPills[0].w + 4 > bx && bx + bw + 4 > threshPills[0].x) {
-          by = pT + 20;
+      if (th.rMax >= rMin && th.rMax <= rMax) {
+        const x = xOf(th.rMax);
+        const lbl = isNarrow ? `Max ₹${(th.rMax / 1000).toFixed(1)}k` : `Max from ₹${th.rMax.toLocaleString('en-IN')}`;
+        const approxW = lbl.length * 6.4;
+        let lx = Math.max(pL + approxW / 2, Math.min(W - pR - approxW / 2, x));
+        let ly = 24;
+        if (labels.length) {
+          const prev = labels[0];
+          const minSep = (prev.w + approxW) / 2 + 10;
+          if (Math.abs(lx - prev.x) < minSep) {
+            // Gently nudge apart horizontally first, else stack cleanly above y = pT
+            const shiftL = Math.max(pL + prev.w / 2, prev.x - (minSep - (lx - prev.x)) / 2);
+            const shiftR = Math.min(W - pR - approxW / 2, shiftL + minSep);
+            if (shiftR - shiftL >= minSep - 2) {
+              prev.x = shiftL;
+              lx = shiftR;
+            } else {
+              prev.y = 12;
+              ly = 26;
+            }
+          }
         }
-        threshLines += `<line x1="${x.toFixed(1)}" y1="${pT}" x2="${x.toFixed(1)}" y2="${H - pB}" stroke="var(--accent)" stroke-opacity="0.65" stroke-dasharray="4 3"/>`;
-        threshPills.push({ id: 'flip', x: bx, y: by, w: bw, h: badgeH, lbl, color: 'var(--accent)' });
+        threshLines += `<line x1="${x.toFixed(1)}" y1="${pT}" x2="${x.toFixed(1)}" y2="${H - pB}" stroke="var(--accent)" stroke-opacity="0.6" stroke-dasharray="4 3"/>`;
+        labels.push({ x: lx, w: approxW, y: ly, lbl, color: 'var(--accent)' });
       }
+
+      labels.forEach(l => {
+        threshTexts += `<text x="${l.x.toFixed(1)}" y="${l.y}" text-anchor="middle" fill="${l.color}" font-size="11" font-weight="600" font-family="Outfit,system-ui,sans-serif">${l.lbl}</text>`;
+      });
 
       const cx = xOf(Math.max(rMin, Math.min(rMax, state.R1)));
-      const cy = yOf(data[data.best].saveWalkIn);
-      const calloutTxt = fmtINR(data[data.best].saveWalkIn, true);
-      const pillW = Math.max(78, Math.round(calloutTxt.length * 7.2 + 16));
-      const pillH = 22;
-      let pillX = cx - pillW - 10;
-      let pillY = cy - pillH - 10;
-      if (pillX < pL + 4) {
-        pillX = Math.min(W - pR - pillW - 2, cx + 10);
-      }
-      if (pillY < pT + 2) {
-        if (cx + 10 + pillW <= W - pR) {
-          pillX = cx + 10;
-          pillY = Math.min(H - pB - pillH - 4, cy + 12);
-        } else {
-          pillX = Math.max(pL + 4, cx - pillW - 12);
-          pillY = pT + 4;
-        }
-      }
-      const rectsOverlap = (ax, ay, aw, ah, bx, by, bw, bh, gap = 4) =>
-        ax < bx + bw + gap && ax + aw + gap > bx && ay < by + bh + gap && ay + ah + gap > by;
-      const maxThreshBottom = threshPills.reduce((m, p) => Math.max(m, p.y + p.h), pT);
-      if (threshPills.some(p => rectsOverlap(pillX, pillY, pillW, pillH, p.x, p.y, p.w, p.h))) {
-        const belowY = Math.min(H - pB - pillH - 4, maxThreshBottom + 4);
-        if (belowY + pillH < cy - 4) {
-          pillY = belowY;
-        } else if (cx + 10 + pillW <= W - pR && !threshPills.some(p => rectsOverlap(cx + 10, Math.min(H - pB - pillH - 4, cy + 12), pillW, pillH, p.x, p.y, p.w, p.h))) {
-          pillX = cx + 10;
-          pillY = Math.min(H - pB - pillH - 4, cy + 12);
-        } else {
-          pillY = belowY;
-        }
-      }
-
-      const threshLabelsHtml = threshPills.map(p => `
-        <g class="thresh-pill" data-thresh="${p.id}">
-          <rect x="${p.x.toFixed(1)}" y="${p.y.toFixed(1)}" width="${p.w}" height="${p.h}" rx="3" fill="var(--surface)" fill-opacity="0.95"/>
-          <text x="${(p.x + p.w / 2).toFixed(1)}" y="${(p.y + 11.5).toFixed(1)}" text-anchor="middle" fill="${p.color}" font-size="11" font-weight="600" font-family="JetBrains Mono,monospace">${p.lbl}</text>
-        </g>`).join('');
+      const cy = yOf(win.saveWalkIn);
 
       svg.innerHTML = `
         ${grid}
         ${threshLines}
+        ${threshTexts}
         <path d="${pathOf('s1')}" fill="none" stroke="var(--warn)" stroke-width="2"/>
         <path d="${pathOf('s2')}" fill="none" stroke="var(--info)" stroke-width="2.2"/>
-        <path d="${pathOf('s3')}" fill="none" stroke="var(--accent)" stroke-width="2.6"/>
-        <line x1="${cx.toFixed(1)}" y1="${pT}" x2="${cx.toFixed(1)}" y2="${H - pB}" stroke="var(--text)" stroke-opacity="0.4" stroke-width="1.2"/>
-        ${threshLabelsHtml}
-        <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>
-        <g class="callout-pill">
-          <rect x="${pillX.toFixed(1)}" y="${pillY.toFixed(1)}" width="${pillW}" height="${pillH}" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.2"/>
-          <text x="${(pillX + pillW / 2).toFixed(1)}" y="${(pillY + 15).toFixed(1)}" text-anchor="middle" fill="var(--text)" font-size="11.5" font-weight="700" font-family="JetBrains Mono,monospace">${calloutTxt}</text>
-        </g>`;
+        <path d="${pathOf('s3')}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+        <line x1="${cx.toFixed(1)}" y1="${pT}" x2="${cx.toFixed(1)}" y2="${H - pB}" stroke="var(--text)" stroke-opacity="0.35" stroke-width="1.2"/>
+        <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>`;
       svg.dataset.meta = JSON.stringify({ W, pL, pR, rMin, rMax });
 
+      // Rate Table (Calm 4-col Hairline Ledger on Mobile, Clean Table on Desktop)
       const rates = [10500, 11000, state.R0, 12000, 12400, 12750, 13000, 13400, 13715, 14000, 14500, 15000, 16000];
       if (!rates.includes(state.R1)) rates.push(state.R1);
       rates.sort((a, b) => a - b);
 
       matrixCache = new Map();
-      let mobileHtml = '';
+      let mobileHtml = `<div class="ml-head"><span>Rate</span><span>Best plan</span><span>Net</span><span>Saved</span></div>`;
       let desktopHtml = '';
 
       rates.forEach(r => {
         const d = evalAt(r);
         matrixCache.set(r, d);
         const cur = r === state.R1;
-        const winLabel = d.best === 'S1' ? 'S1' : (d.best === 'S2' ? 'S2' : 'S3');
-        const oldPill = d.recOldSell ? ' + Old' : '';
-        const bCls = d.best === 'S3' ? 'tag-pos' : (d.best === 'S2' ? 'tag-info' : 'tag-warn');
-
-        const mkCell = (k, lbl, s) => {
-          const isW = s.id === d.best;
-          const dc = s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
-          return `
-            <button type="button" class="mrate-cell ${isW ? 'is-win' : ''}" data-mr="${r}" data-ms="${k}">
-              <span class="mrate-k">${lbl}</span>
-              <span class="mrate-v mono">${s.net < 0 ? '+' + fmtK(-s.net) : fmtK(s.net)}</span>
-              <span class="mrate-d mono ${dc}">${s.isWalkIn ? 'Base' : fmtK(s.saveWalkIn, true)}</span>
-            </button>`;
-        };
+        const wStrat = d[d.best];
+        const bestName = planShortName(d.best, d);
+        const bestCls = planColorCls(d.best);
+        const netTxt = wStrat.net < 0 ? '+' + fmtK(-wStrat.net) : fmtK(wStrat.net);
+        const saveTxt = fmtK(wStrat.saveWalkIn, true);
+        const saveCls = wStrat.saveWalkIn > 0 ? 'c-pos' : 'c-muted';
 
         mobileHtml += `
-          <div class="mrate-row ${cur ? 'is-current' : ''}">
-            <div class="mrate-top">
-              <span class="mrate-price mono">₹${r.toLocaleString('en-IN')}${cur ? '<span class="tag tag-pos" style="height:20px;padding:0 6px;">NOW</span>' : ''}</span>
-              <span class="tag ${bCls}">${winLabel}${oldPill}</span>
-            </div>
-            <div class="mrate-grid">
-              ${mkCell('S0', 'Walk', d.S0)}
-              ${mkCell('S1', 'S1', d.S1)}
-              ${mkCell('S2', 'S2', d.S2)}
-              ${mkCell('S3', 'S3', d.S3)}
-            </div>
-          </div>`;
+          <button type="button" class="ml-row ${cur ? 'is-current' : ''}" data-mr="${r}" data-ms="BEST">
+            <span class="ml-rate mono">₹${r.toLocaleString('en-IN')}</span>
+            <span class="ml-plan">
+              <span class="ml-plan-main ${bestCls}">${bestName}</span>
+              ${d.recOldSell ? '<span class="ml-plan-sub">+ sell old 24g</span>' : ''}
+            </span>
+            <span class="ml-num mono ${wStrat.net < 0 ? 'c-pos' : ''}">${netTxt}</span>
+            <span class="ml-num mono ${saveCls}">${saveTxt}</span>
+          </button>`;
 
         const tblCell = (k, s) => {
           const dc = s.saveWalkIn > 0 ? 'c-pos' : (s.saveWalkIn < 0 ? 'c-neg' : 'c-muted');
-          return `<td class="num"><button type="button" class="tbl-btn" data-mr="${r}" data-ms="${k}"><div>${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</div><div class="${dc}" style="font-size:11.5px;">${s.isWalkIn ? 'Base' : fmtINR(s.saveWalkIn, true)}</div></button></td>`;
+          return `<td class="num"><button type="button" class="tbl-btn" data-mr="${r}" data-ms="${k}"><div class="mono">${s.net < 0 ? '+' + fmtINR(-s.net) : fmtINR(s.net)}</div><div class="${s.isWalkIn ? '' : 'mono '}${dc}" style="font-size:11px;">${s.isWalkIn ? 'Base' : fmtINR(s.saveWalkIn, true)}</div></button></td>`;
         };
 
         desktopHtml += `
           <tr class="${cur ? 'is-current' : ''}">
-            <td class="fw-700"><span style="display:inline-flex;align-items:center;gap:6px;">₹${r.toLocaleString('en-IN')}${cur ? '<span class="tag tag-pos" style="height:20px;padding:0 6px;">NOW</span>' : ''}</span></td>
+            <td class="mono fw-700">₹${r.toLocaleString('en-IN')}</td>
             ${tblCell('S0', d.S0)}
             ${tblCell('S1', d.S1)}
             ${tblCell('S2', d.S2)}
             ${tblCell('S3', d.S3)}
-            <td><button type="button" class="tbl-btn" data-mr="${r}" data-ms="BEST"><span class="tag ${bCls}">${winLabel}${oldPill}</span></button></td>
+            <td>
+              <button type="button" class="tbl-btn left" data-mr="${r}" data-ms="BEST">
+                <div class="fw-600 ${bestCls}" style="font-size:12.5px;">${bestName}</div>
+                ${d.recOldSell ? '<div class="c-muted" style="font-size:11px;">+ old 24g</div>' : ''}
+              </button>
+            </td>
           </tr>`;
       });
 
       document.getElementById('matrixMobile').innerHTML = mobileHtml;
       document.getElementById('matrixBody').innerHTML = desktopHtml;
+      document.getElementById('rateEqBar').innerHTML =
+        `<span>Hover any figure below to inspect exact math · Click to open full receipt</span>`;
     }
 
     function escapeAttr(s) {
@@ -2757,7 +2920,6 @@
       const keepW = items.filter(it => it.intent === 'keep').reduce((a, it) => a + it.w, 0);
       const sellW = items.filter(it => it.intent === 'sell').reduce((a, it) => a + it.w, 0);
 
-      // Qualification for ₹7.5L discount tier
       let qual = 0;
       if (state.basis === 'gold') {
         let remQ = state.W_MAX;
@@ -2782,7 +2944,6 @@
       const shortG = hits75 ? 0 : Math.max(0, (THRESH_75 - qual) / unitQual);
       const excessQualG = hits75 ? Math.max(0, (qual - THRESH_75) / unitQual) : 0;
 
-      // Allocate booked weight cap to Keep pieces first, then Sell pieces
       const order = [...items.filter(it => it.intent === 'keep'), ...items.filter(it => it.intent === 'sell')];
       let remBook = state.W_MAX;
       const costsById = new Map();
@@ -2805,7 +2966,7 @@
           const walkMcPct = it.hasMc ? it.mcVal : state.mcStd;
           walkInKeptBill += itemCost(it.w, state.R1, walkMcPct / 100, 0, false).total;
         }
-        costsById.set(it.id, { ...c, effMcPct, overCapG, resale, flipPL: resale - c.total });
+        costsById.set(it.id, { ...c, effMcPct, overCapG, resale, resaleGain: resale - c.total });
       });
 
       const extraDisc = Math.max(0, Number(extraDiscInput) || 0);
@@ -2816,7 +2977,7 @@
       const cash = Math.min(MAX_CASH, payNow);
       const bank = Math.max(0, payNow - MAX_CASH);
       const sellResale = sellW * data.resaleRate;
-      const flipPL = sellResale - sellCost;
+      const resaleGain = sellResale - sellCost;
       const net = bill - sellResale - data.oldProc;
       const walkInNet = walkInKeptBill - data.oldProc;
       const saveW = walkInNet - net;
@@ -2831,7 +2992,7 @@
       return {
         items, costsById, totalW, keepW, sellW, hits75, shortG, excessQualG,
         rawBill, extraDisc, bill, advApplied, payNow, cash, bank, budget,
-        sellResale, sellCost, flipPL, net, walkInNet, saveW,
+        sellResale, sellCost, resaleGain, net, walkInNet, saveW,
         remCap, overCap, onePctMcVal, uBookedDisc, uBookedStd, marginPerGDisc, clause2Risk
       };
     }
@@ -2853,127 +3014,110 @@
       return cloned;
     }
 
-    function buildSmartMoves(ev, data, th) {
-      const moves = [];
+    function findPrimarySuggestion(ev, data, th) {
       const sim = (nextItems) => evaluateShopTray(nextItems, state.shop.budget, state.shop.extraDisc, data);
 
       if (ev.totalW < 0.01) {
-        const bestLabel = data.best === 'S1' ? '32g Keep' : (data.best === 'S2' ? `₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX.toFixed(1)}g`);
-        moves.push({
+        return {
           tone: 'pos',
-          title: `Load optimal tray: ${bestLabel}`,
-          sub: `Saves ${fmtINR(data[data.best].saveWalkIn, true)} vs walk-in at ₹${state.R1.toLocaleString('en-IN')}/g`,
-          val: fmtINR(data[data.best].saveWalkIn, true),
-          act: 'Load',
+          title: `Load optimal plan for ₹${state.R1.toLocaleString('en-IN')}/g`,
+          sub: `Saves ${fmtINR(data[data.best].saveWalkIn, true)} vs walk-in`,
+          act: 'Load optimal',
           action: { type: 'preset', preset: data.best === 'S1' ? 'wedding' : (data.best === 'S2' ? 'tier75' : 'max') }
-        });
-        return moves;
+        };
       }
 
-      // 1. Over booking cap (102.433g)
+      // 1. Over booking limit
       if (ev.overCap > 0.05) {
         if (ev.sellW > 0.05) {
           const cutG = Math.min(ev.overCap, ev.sellW);
-          const after = sim(trimSellItems(state.shop.items, cutG));
-          const gain = after.saveW - ev.saveW;
-          moves.push({
+          return {
             tone: 'neg',
-            title: `Trim ${cutG.toFixed(1)}g over ${state.W_MAX.toFixed(1)}g cap`,
-            sub: `Unbooked grams lose MC + GST + cut`,
-            val: gain > 0 ? `+${fmtINR(gain)}` : 'Fix cap',
-            act: 'Trim',
-            actCls: 'neg',
+            title: `Trim ${cutG.toFixed(1)}g resale over ${state.W_MAX.toFixed(1)}g limit`,
+            sub: `Unbooked grams lose making, GST, and shop cut`,
+            act: 'Trim excess',
             action: { type: 'trim', grams: cutG }
-          });
-        } else {
-          moves.push({
-            tone: 'warn',
-            title: `${ev.overCap.toFixed(1)}g exceeds ${state.W_MAX.toFixed(1)}g cap`,
-            sub: `Overflow bills at full ₹${state.R1.toLocaleString('en-IN')}/g (no lock)`,
-            val: 'No lock'
-          });
+          };
         }
+        return {
+          tone: 'warn',
+          title: `${ev.overCap.toFixed(1)}g exceeds your ${state.W_MAX.toFixed(1)}g booking limit`,
+          sub: `Overflow bills at full ₹${state.R1.toLocaleString('en-IN')}/g without rate lock`
+        };
       }
 
-      // 2. Over optional pay-now budget
+      // 2. Over optional pay-now budget (note: exact overage amount is already shown ONCE in eyebrow)
       if (ev.budget !== null && ev.payNow > ev.budget + 100) {
         const over = ev.payNow - ev.budget;
         if (data.effectiveOld === 'keep' && data.recOldSell && data.oldSale >= over) {
-          moves.push({
+          return {
             tone: 'pos',
-            title: `Sell old 24g first to fit budget`,
-            sub: `Frees ${fmtL(data.oldSale)} cash · covers ${fmtK(over)} overage`,
-            val: `+${fmtL(data.oldSale)}`,
-            act: 'Sell 24g',
+            title: `Sell old 24g chain first to fit budget`,
+            sub: `Frees ${fmtL(data.oldSale)} cash toward your counter payment`,
+            act: 'Sell old 24g',
             action: { type: 'setOld', val: 'sell' }
-          });
-        } else if (ev.sellW > 0.1) {
+          };
+        }
+        if (ev.sellW > 0.1) {
           let cutG = Math.min(ev.sellW, Math.ceil((over / ev.uBookedDisc) * 10) / 10);
           for (let k = 0; k < 10 && cutG < ev.sellW; k++) {
             const testA = sim(trimSellItems(state.shop.items, cutG));
             if (testA.payNow <= ev.budget + 100) break;
             cutG = Math.min(ev.sellW, Number((cutG + Math.max(0.5, (testA.payNow - ev.budget) / ev.uBookedDisc)).toFixed(1)));
           }
-          moves.push({
+          return {
             tone: 'neg',
-            title: `Trim ${cutG.toFixed(1)}g resale to fit ${fmtL(ev.budget)}`,
-            sub: `Currently over pay-now budget by ${fmtINR(over)}`,
-            val: `-${fmtK(over)}`,
+            title: `Trim ${cutG.toFixed(1)}g resale for ${fmtL(ev.budget)} budget`,
+            sub: `Fits counter payment inside your limit`,
             act: 'Fit budget',
-            actCls: 'neg',
             action: { type: 'trim', grams: cutG }
-          });
-        } else {
-          moves.push({
-            tone: 'neg',
-            title: `Over ${fmtL(ev.budget)} budget by ${fmtINR(over)}`,
-            sub: data.effectiveOld === 'sell' && ev.payNow - data.oldSale <= ev.budget
-              ? `Fits if old 24g (${fmtL(data.oldSale)}) sold before billing`
-              : `Lower weight or raise counter limit`,
-            val: `-${fmtK(over)}`
-          });
+          };
         }
+        return {
+          tone: 'neg',
+          title: `Keep items exceed your ${fmtL(ev.budget)} budget`,
+          sub: data.effectiveOld === 'sell' && ev.payNow - data.oldSale <= ev.budget
+            ? `Fits if old 24g (${fmtL(data.oldSale)}) is sold before billing`
+            : `Lower tray weight or raise pay-now budget`
+        };
       }
 
-      // 3. Below ₹7.5L tier arbitrage check
-      if (!ev.hits75 && ev.shortG > 0.05 && ev.totalW + ev.shortG <= state.W_MAX + 0.05) {
-        const addG = Number((ev.shortG + 0.05).toFixed(2));
-        const nextItems = [...state.shop.items, { id: 'sim_t', name: 'Extra', w: addG, mc: '', intent: 'sell', isRing: false }];
-        const after = sim(nextItems);
-        const gain = after.saveW - ev.saveW;
-        const cashNeed = Math.max(0, after.payNow - ev.payNow);
-        if (gain > 200) {
-          const fitsB = ev.budget === null || after.payNow <= ev.budget + 100;
-          if (fitsB) {
-            moves.push({
-              tone: 'pos',
-              title: `Add +${addG.toFixed(1)}g resale for ${state.mcDisc}% MC`,
-              sub: `Crosses ₹7.5L · needs +${fmtL(cashNeed)} counter`,
-              val: fmtINR(gain, true),
-              act: '+ Add',
-              action: { type: 'addSell', grams: addG, name: '₹7.5L Extra' }
-            });
-          } else {
-            moves.push({
-              tone: 'info',
-              title: `₹7.5L tier needs +${fmtK(after.payNow - ev.budget)} more budget`,
-              sub: `Adding ${addG.toFixed(1)}g would save ${fmtINR(gain, true)}`,
-              val: fmtINR(gain, true)
-            });
-          }
-        } else if (ev.sellW < 0.1) {
-          moves.push({
+      // 3. High-making resale piece alert
+      const highSell = ev.items.find(it => it.intent === 'sell' && it.w > 0 && it.hasMc && it.mcVal > state.mcDisc + 0.05);
+      if (highSell) {
+        const swapSave = highSell.w * state.R1 * ((highSell.mcVal - state.mcDisc) / 100) * (1 + GST);
+        if (swapSave > 150) {
+          return {
             tone: 'warn',
-            title: `Skip ₹7.5L push at ₹${state.R1.toLocaleString('en-IN')}/g`,
-            sub: `Extra ${addG.toFixed(1)}g resale loses ${fmtINR(-gain)} net`,
-            val: fmtINR(gain, true)
-          });
+            title: `Use ${state.mcDisc}% making on ${highSell.name || 'resale piece'}`,
+            sub: `Avoids losing ${fmtINR(swapSave)} on gold meant for resale`,
+            act: `Use ${state.mcDisc}% making`,
+            action: { type: 'clearMc', id: highSell.id }
+          };
         }
       }
 
-      // 4. Fill remaining profitable booking cap (respecting optional budget)
-      if (ev.marginPerGDisc > 5 && ev.remCap > 0.5 && ev.overCap < 0.05) {
-        const needTierFirst = !ev.hits75 && ev.shortG > 0.05;
+      // 4. Trim unprofitable excess resale gold
+      if (ev.marginPerGDisc < -5 && ev.sellW > 0.2) {
+        const trimTarget = ev.hits75 ? Math.min(ev.sellW, Math.max(0, ev.excessQualG - 0.05)) : ev.sellW;
+        if (trimTarget >= 0.5) {
+          const cutG = Math.floor(trimTarget * 100) / 100;
+          const after = sim(trimSellItems(state.shop.items, cutG));
+          const gain = after.saveW - ev.saveW;
+          if (gain > 200) {
+            return {
+              tone: 'warn',
+              title: ev.hits75 ? `Trim ${cutG.toFixed(1)}g excess resale past ₹7.5L` : `Drop ${cutG.toFixed(1)}g unprofitable resale gold`,
+              sub: `Resale loses ₹${Math.round(-ev.marginPerGDisc)}/g · saves ${fmtINR(gain, true)}`,
+              act: 'Trim excess',
+              action: { type: 'trim', grams: cutG }
+            };
+          }
+        }
+      }
+
+      // 5. Fill remaining profitable booking limit (respecting optional budget)
+      if (ev.marginPerGDisc > 5 && ev.remCap > 0.5) {
         let maxAdd = ev.remCap;
         let budgetCapped = false;
         if (ev.budget !== null) {
@@ -2985,105 +3129,63 @@
             if (byB < maxAdd) { maxAdd = byB; budgetCapped = true; }
           }
         }
-        if (maxAdd >= 0.5 && (!needTierFirst || maxAdd > ev.shortG + 1)) {
-          const addG = Number(maxAdd.toFixed(2));
-          const after = sim([...state.shop.items, { id: 'sim_f', name: 'Cap Extra', w: addG, mc: '', intent: 'sell', isRing: false }]);
+        if (maxAdd >= 0.5) {
+          const addG = Number(maxAdd.toFixed(3));
+          const after = sim([...state.shop.items, { id: 'sim_f', name: 'Resale gold', w: addG, mc: '', intent: 'sell', isRing: false }]);
           const gain = after.saveW - ev.saveW;
           const cashNeed = Math.max(0, after.payNow - ev.payNow);
           if (gain > 300) {
-            moves.push({
+            return {
               tone: 'pos',
-              title: budgetCapped ? `Add +${addG.toFixed(1)}g inside ${fmtL(ev.budget)} budget` : `Fill +${addG.toFixed(1)}g to ${state.W_MAX.toFixed(1)}g cap`,
-              sub: `Needs +${fmtL(cashNeed)} · +₹${Math.round(ev.marginPerGDisc)}/g profit`,
-              val: fmtINR(gain, true),
-              act: budgetCapped ? '+ Add' : 'Fill cap',
-              action: { type: 'addSell', grams: addG, name: 'Cap Extra' }
-            });
-          }
-        } else if (ev.budget !== null && ev.remCap >= 1) {
-          const afterFull = sim([...state.shop.items, { id: 'sim_u', name: 'Cap', w: ev.remCap, mc: '', intent: 'sell', isRing: false }]);
-          const upside = afterFull.saveW - ev.saveW;
-          if (upside > 500) {
-            moves.push({
-              tone: 'info',
-              title: `${ev.remCap.toFixed(1)}g cap unused (above budget)`,
-              sub: `Extra +${fmtL(afterFull.payNow - ev.budget)} bank earns <span class="nowrap">${fmtINR(upside, true)}</span>`,
-              val: fmtINR(upside, true)
-            });
+              title: budgetCapped
+                ? `Add ${addG.toFixed(1)}g resale for ${fmtL(ev.budget)} budget`
+                : `Add ${addG.toFixed(1)}g resale for ${state.W_MAX.toFixed(1)}g limit`,
+              sub: `Needs +${fmtL(cashNeed)} counter · saves ${fmtINR(gain, true)}`,
+              act: budgetCapped ? 'Add resale' : 'Fill limit',
+              action: { type: 'addSell', grams: addG, name: 'Resale gold' }
+            };
           }
         }
       }
 
-      // 5. Trim unprofitable excess resale gold (keep 0.05g buffer above ₹7.5L cliff)
-      if (ev.marginPerGDisc < -5 && ev.sellW > 0.2 && ev.overCap < 0.05) {
-        const trimTarget = ev.hits75 ? Math.min(ev.sellW, Math.max(0, ev.excessQualG - 0.05)) : ev.sellW;
-        if (trimTarget >= 0.5) {
-          const cutG = Math.floor(trimTarget * 100) / 100;
-          const after = sim(trimSellItems(state.shop.items, cutG));
-          const gain = after.saveW - ev.saveW;
-          if (gain > 200) {
-            moves.push({
-              tone: 'warn',
-              title: ev.hits75 ? `Trim ${cutG.toFixed(1)}g excess past ₹7.5L` : `Drop ${cutG.toFixed(1)}g resale gold`,
-              sub: `Resale loses ₹${Math.round(-ev.marginPerGDisc)}/g at today's rate`,
-              val: fmtINR(gain, true),
-              act: 'Trim',
-              actCls: 'warn',
-              action: { type: 'trim', grams: cutG }
-            });
-          }
+      // 6. Below ₹7.5L tier unlock check (when max limit wasn't already offered)
+      if (!ev.hits75 && ev.shortG > 0.05 && ev.totalW + ev.shortG <= state.W_MAX + 0.05) {
+        const addG = Number((ev.shortG + 0.05).toFixed(2));
+        const after = sim([...state.shop.items, { id: 'sim_t', name: 'Resale gold', w: addG, mc: '', intent: 'sell', isRing: false }]);
+        const gain = after.saveW - ev.saveW;
+        const cashNeed = Math.max(0, after.payNow - ev.payNow);
+        if (gain > 200 && (ev.budget === null || after.payNow <= ev.budget + 100)) {
+          return {
+            tone: 'pos',
+            title: `Add ${addG.toFixed(1)}g resale to unlock ${state.mcDisc}% making`,
+            sub: `Needs +${fmtL(cashNeed)} counter · saves ${fmtINR(gain, true)}`,
+            act: `Unlock ${state.mcDisc}%`,
+            action: { type: 'addSell', grams: addG, name: 'Resale gold' }
+          };
         }
       }
 
-      // 6. High-MC resale piece swap alert
-      const highSell = ev.items.find(it => it.intent === 'sell' && it.w > 0 && it.hasMc && it.mcVal > state.mcDisc + 0.05);
-      if (highSell) {
-        const swapSave = highSell.w * state.R1 * ((highSell.mcVal - state.mcDisc) / 100) * (1 + GST);
-        if (swapSave > 150) {
-          moves.push({
-            tone: 'warn',
-            title: `Swap ${highSell.name || 'Sell item'} (${highSell.mcVal}% to ${state.mcDisc}%)`,
-            sub: `Never buy high-MC pieces just for resale`,
-            val: `+${fmtINR(swapSave)}`,
-            act: `Set ${state.mcDisc}%`,
-            actCls: 'warn',
-            action: { type: 'clearMc', id: highSell.id }
-          });
-        }
-      }
-
-      // 7. Old 24g chain alignment
-      if (data.recOldSell && data.effectiveOld === 'keep' && !moves.some(m => m.action?.type === 'setOld')) {
-        moves.push({
+      // 7. Old 24g alignment
+      if (data.recOldSell && data.effectiveOld === 'keep') {
+        return {
           tone: 'pos',
           title: `Sell old 24g chain`,
-          sub: `Beats paid by ${fmtINR(data.oldHistPL, true)} · frees ${fmtL(data.oldSale)}`,
-          val: `+${fmtL(data.oldSale)}`,
-          act: 'Sell',
+          sub: `Beats paid bill by ${fmtINR(data.oldHistPL, true)} · frees ${fmtL(data.oldSale)}`,
+          act: 'Sell old 24g',
           action: { type: 'setOld', val: 'sell' }
-        });
-      } else if (!data.recOldSell && data.effectiveOld === 'sell') {
-        moves.push({
+        };
+      }
+      if (!data.recOldSell && data.effectiveOld === 'sell') {
+        return {
           tone: 'warn',
-          title: `Keep old 24g chain`,
-          sub: `Resale is ${fmtINR(-data.oldHistPL)} below paid (BE ${fmtINR(th.rOldSellRec)}/g)`,
-          val: fmtINR(data.oldHistPL, true),
-          act: 'Keep',
-          actCls: 'warn',
+          title: `Keep old 24g chain untouched`,
+          sub: `Resale is ${fmtINR(-data.oldHistPL)} below paid (breakeven ${fmtINR(th.rOldSellRec)}/g)`,
+          act: 'Keep old 24g',
           action: { type: 'setOld', val: 'keep' }
-        });
+        };
       }
 
-      if (!moves.length) {
-        moves.push({
-          tone: 'pos',
-          title: `Counter tray is optimal`,
-          sub: `No better move at ₹${state.R1.toLocaleString('en-IN')}/g · ${state.cut}% cut`,
-          val: fmtINR(ev.saveW, true)
-        });
-      }
-
-      return moves.slice(0, 4);
+      return null;
     }
 
     function applyShopAction(act, data) {
@@ -3093,14 +3195,20 @@
         return;
       }
       if (act.type === 'addSell') {
-        state.shop.items.push({
-          id: 'i' + (++nextItemSeq),
-          name: act.name || 'Extra',
-          w: Number(act.grams.toFixed(2)),
-          mc: '',
-          intent: 'sell',
-          isRing: false
-        });
+        // If there is already a plain Auto-MC sell row, top it up cleanly; else append
+        const existing = state.shop.items.find(x => x.intent === 'sell' && x.mc === '' && !x.isRing);
+        if (existing) {
+          existing.w = Number(((Number(existing.w) || 0) + act.grams).toFixed(3));
+        } else {
+          state.shop.items.push({
+            id: 'i' + (++nextItemSeq),
+            name: act.name || 'Resale gold',
+            w: Number(act.grams.toFixed(3)),
+            mc: '',
+            intent: 'sell',
+            isRing: false
+          });
+        }
       } else if (act.type === 'trim') {
         state.shop.items = trimSellItems(state.shop.items, act.grams);
       } else if (act.type === 'clearMc') {
@@ -3120,22 +3228,18 @@
           { id: 'i' + (++nextItemSeq), name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true }
         ];
       } else if (preset === 'tier75') {
-        const ex = Number(data.S2.wEx.toFixed(2));
+        const ex = Math.ceil(data.S2.wEx * 100) / 100;
         state.shop.items = [
           { id: 'i' + (++nextItemSeq), name: 'Chain', w: 24, mc: '', intent: 'keep', isRing: false },
           { id: 'i' + (++nextItemSeq), name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true },
-          ...(ex > 0.05 ? [{ id: 'i' + (++nextItemSeq), name: '₹7.5L Extra', w: ex, mc: '', intent: 'sell', isRing: false }] : [])
+          ...(ex > 0.05 ? [{ id: 'i' + (++nextItemSeq), name: 'Resale gold', w: ex, mc: '', intent: 'sell', isRing: false }] : [])
         ];
       } else if (preset === 'max') {
-        const ex = Number(data.S3.wEx.toFixed(2));
+        const ex = Number(data.S3.wEx.toFixed(3));
         state.shop.items = [
           { id: 'i' + (++nextItemSeq), name: 'Chain', w: 24, mc: '', intent: 'keep', isRing: false },
           { id: 'i' + (++nextItemSeq), name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true },
-          ...(ex > 0.05 ? [{ id: 'i' + (++nextItemSeq), name: 'Resale Gold', w: ex, mc: '', intent: 'sell', isRing: false }] : [])
-        ];
-      } else if (preset === 'single') {
-        state.shop.items = [
-          { id: 'i' + (++nextItemSeq), name: 'Gold', w: 32, mc: '', intent: 'keep', isRing: false }
+          ...(ex > 0.05 ? [{ id: 'i' + (++nextItemSeq), name: 'Resale gold', w: ex, mc: '', intent: 'sell', isRing: false }] : [])
         ];
       }
       lastTraySig = '';
@@ -3144,84 +3248,87 @@
 
     function renderShop(data, th) {
       const ev = evaluateShopTray(state.shop.items, state.shop.budget, state.shop.extraDisc, data);
-      const moves = buildSmartMoves(ev, data, th);
+      const sug = findPrimarySuggestion(ev, data, th);
       const autoMc = ev.hits75 ? state.mcDisc : state.mcStd;
+      const win = data[data.best];
 
-      // Status Tags & Optional Budget Pill
-      document.getElementById('shopStatusTags').innerHTML = ev.totalW < 0.01
-        ? `<span class="tag tag-warn">Empty tray</span>`
-        : `<span class="tag ${ev.hits75 ? 'tag-pos' : 'tag-warn'}">${ev.hits75 ? `₹7.5L met · ${state.mcDisc}% MC` : `+${ev.shortG.toFixed(1)}g to ₹7.5L`}</span>
-           <span class="tag ${ev.overCap > 0.05 ? 'tag-neg' : 'tag-info'} mono">${ev.totalW.toFixed(1)} / ${state.W_MAX.toFixed(1)}g</span>`;
-
-      const bTag = document.getElementById('shopBudgetTag');
-      if (ev.budget !== null) {
-        const diffB = ev.budget - ev.payNow;
-        bTag.classList.remove('hidden');
-        bTag.className = 'tag mono ' + (diffB >= -100 ? 'tag-pos' : 'tag-neg');
-        bTag.textContent = diffB >= -100 ? `${fmtK(Math.max(0, diffB))} left` : `Over ${fmtK(-diffB)}`;
+      // Plain Typographic Status Eyebrow (ZERO Pills, stated ONCE!)
+      const eyeEl = document.getElementById('shopEyebrow');
+      if (ev.totalW < 0.01) {
+        eyeEl.innerHTML = `Your counter tray · <span class="c-warn">Empty</span>`;
+      } else if (ev.budget !== null && ev.payNow > ev.budget + 100) {
+        const over = ev.payNow - ev.budget;
+        eyeEl.innerHTML = `Tray ${ev.totalW.toFixed(1)}g · <span class="c-neg">Over ${fmtL(ev.budget)} budget by ${fmtINR(over)}</span>`;
+      } else if (ev.overCap > 0.05) {
+        eyeEl.innerHTML = `Your counter tray · ${ev.totalW.toFixed(1)} / ${state.W_MAX.toFixed(1)}g · <span class="c-neg">Over limit by ${ev.overCap.toFixed(1)}g</span>`;
+      } else if (ev.hits75) {
+        const bPart = ev.budget !== null ? ` · ${fmtK(Math.max(0, ev.budget - ev.payNow))} left` : '';
+        eyeEl.innerHTML = `Your counter tray · ${ev.totalW.toFixed(1)} / ${state.W_MAX.toFixed(1)}g · <span class="c-pos">${state.mcDisc}% tier active</span>${bPart}`;
       } else {
-        bTag.classList.add('hidden');
+        eyeEl.innerHTML = `Your counter tray · ${ev.totalW.toFixed(1)} / ${state.W_MAX.toFixed(1)}g · <span class="c-warn">+${ev.shortG.toFixed(1)}g to ₹7.5L tier</span>`;
       }
 
-      // 2x2 Counter Output Ledger
-      const netLbl = ev.keepW < 0.01 ? 'Pure resale P/L' : `Net (${ev.keepW.toFixed(0)}g kept)`;
-      document.getElementById('shopLedger').innerHTML = `
-        <div class="ledger-cell">
-          <span class="figure-lbl">Pay now at counter</span>
-          <span class="figure-val mono">${fmtINR(ev.payNow)}</span>
-          <span class="figure-sub">Bank ${fmtL(ev.bank)} · ${fmtL(ev.cash)} cash</span>
-        </div>
-        <div class="ledger-cell">
-          <span class="figure-lbl">Total bill (${ev.totalW.toFixed(1)}g)</span>
-          <span class="figure-val mono">${fmtINR(ev.bill)}</span>
-          <span class="figure-sub">Adv -${fmtL(ev.advApplied)}${ev.extraDisc > 0 ? ` · Off -${fmtK(ev.extraDisc)}` : ''}</span>
-        </div>
-        <div class="ledger-cell">
-          <span class="figure-lbl">${netLbl}</span>
-          <span class="figure-val mono ${ev.net < 0 ? 'c-pos' : ''}">${ev.net < 0 ? '+' + fmtINR(-ev.net) : fmtINR(ev.net)}</span>
-          <span class="figure-sub">${ev.sellW > 0 ? `Resale ${fmtL(ev.sellResale)}` : `No resale`}${data.oldProc > 0 ? ` + Old ${fmtL(data.oldProc)}` : ''}</span>
-        </div>
-        <div class="ledger-cell">
-          <span class="figure-lbl">${ev.keepW < 0.01 ? 'Net profit' : 'Saved vs walk-in'}</span>
-          <span class="figure-val mono ${ev.saveW >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(ev.saveW, true)}</span>
-          <span class="figure-sub">${ev.sellW > 0 ? `Flip ${fmtK(ev.flipPL, true)}` : `Keep ${ev.keepW.toFixed(0)}g`}</span>
-        </div>`;
+      // Single Hero Figure + Right-Aligned Savings Anchor
+      document.getElementById('shopPayVal').textContent = fmtINR(ev.payNow);
+      document.getElementById('shopSaveLbl').textContent = ev.keepW < 0.01 ? 'Resale net gain' : 'Saved vs walk-in';
+      const saveEl = document.getElementById('shopSaveVal');
+      saveEl.textContent = fmtINR(ev.saveW, true);
+      saveEl.className = 'shop-save-val mono ' + (ev.saveW >= 0 ? 'c-pos' : 'c-neg');
 
-      // Negotiation & Margin Chips
-      let chipsHtml = '';
-      if (ev.totalW > 0.01) {
-        chipsHtml += `<span class="stat-chip">-1% MC = +${fmtK(ev.onePctMcVal)}</span>`;
-        chipsHtml += `<span class="stat-chip ${ev.marginPerGDisc >= 0 ? 'c-pos' : 'c-warn'}">Extra g: ${fmtINR(ev.marginPerGDisc, true)}/g</span>`;
-        if (ev.clause2Risk > 500) chipsHtml += `<span class="stat-chip c-warn">Advance risk: ${fmtK(ev.clause2Risk)}</span>`;
+      // Quiet Hairline Meta Row
+      const netStr = ev.net < 0 ? `Net profit +${fmtINR(-ev.net)}` : `Net ${fmtINR(ev.net)}`;
+      const discStr = ev.extraDisc > 0 ? ` · Discount -${fmtK(ev.extraDisc)}` : '';
+      const gap = win.saveWalkIn - ev.saveW;
+      const gapNote = !sug && ev.keepW > 0.1 && Math.abs(gap) > 500
+        ? (gap > 0 ? ` · <span class="c-muted">${fmtINR(gap)} below uncapped optimal</span>` : ` · <span class="c-pos">${fmtINR(-gap)} above optimal</span>`)
+        : '';
+      document.getElementById('shopMetaRow').innerHTML =
+        `<span class="nowrap">Bank ${fmtL(ev.bank)} + Cash ${fmtL(ev.cash)}</span><span>·</span><span class="nowrap">Gross ${fmtL(ev.bill)}${discStr}</span><span>·</span><span class="nowrap">${netStr}</span>${gapNote}`;
+
+      // Collapsible 1-line Negotiation & Advance Notes (Clean Hairline Rows, ZERO Pills!)
+      const notesAcc = document.getElementById('shopNotesAcc');
+      if (ev.totalW < 0.01) {
+        notesAcc.classList.add('hidden');
+      } else {
+        notesAcc.classList.remove('hidden');
+        document.getElementById('shopNotesBody').innerHTML = `
+          <div class="kv-list" style="border-top:0;padding-top:0;">
+            <div class="kv"><span>Each 1% making charge discount</span><span class="mono fw-600 c-pos">+${fmtINR(ev.onePctMcVal)}</span></div>
+            <div class="kv"><span>Extra gram resale margin (${state.mcDisc}% making)</span><span class="mono fw-600 ${ev.marginPerGDisc >= 0 ? 'c-pos' : 'c-warn'}">${fmtINR(ev.marginPerGDisc, true)}/g</span></div>
+            ${ev.sellW > 0.01 ? `<div class="kv"><span>Tray resale proceeds (${ev.sellW.toFixed(1)}g)</span><span class="mono fw-600">${fmtINR(ev.sellResale)}</span></div>` : ''}
+            ${ev.clause2Risk > 500 ? `<div class="kv"><span>Pro-rata advance risk</span><span class="mono fw-600 c-warn">${fmtINR(ev.clause2Risk)}</span></div>` : ''}
+          </div>`;
       }
-      document.getElementById('shopChips').innerHTML = chipsHtml;
 
-      // Smart Moves Panel
-      const hasAction = moves.some(m => m.action);
-      const mBadge = document.getElementById('shopMovesBadge');
-      mBadge.className = 'tag mono ' + (hasAction ? 'tag-info' : 'tag-pos');
-      mBadge.textContent = hasAction ? `${moves.length} ${moves.length === 1 ? 'move' : 'moves'}` : 'Optimal';
-
-      document.getElementById('shopMoves').innerHTML = moves.map((m, idx) => `
-        <div class="move-row">
-          <div class="move-left">
-            <i class="move-dot ${m.tone}" aria-hidden="true"></i>
-            <div class="move-copy">
-              <span class="move-title">${m.title}</span>
-              <span class="move-sub mono">${m.sub}</span>
-            </div>
+      // Single Inline Suggestion Strip (Completely Hidden when optimal!)
+      const sugEl = document.getElementById('shopSuggestion');
+      if (!sug) {
+        sugEl.classList.add('hidden');
+        sugEl.innerHTML = '';
+      } else {
+        sugEl.className = `suggestion-strip tone-${sug.tone}`;
+        sugEl.innerHTML = `
+          <div class="sug-copy">
+            <span class="sug-title">${sug.title}</span>
+            <span class="sug-sub">${sug.sub}</span>
           </div>
-          <div class="move-right">
-            <span class="move-val mono ${m.tone === 'pos' ? 'c-pos' : (m.tone === 'neg' ? 'c-neg' : (m.tone === 'warn' ? 'c-warn' : 'c-info'))}">${m.val}</span>
-            ${m.act ? `<button type="button" class="btn-act ${m.actCls || ''}" data-move-idx="${idx}" data-agent="shop-move-${idx}">${m.act}</button>` : ''}
-          </div>
-        </div>`).join('');
+          ${sug.act ? `<button type="button" class="btn-sug tone-${sug.tone}" id="shopSugBtn" data-agent="shop-move-0">${sug.act}</button>` : ''}`;
+        const sBtn = document.getElementById('shopSugBtn');
+        if (sBtn && sug.action) {
+          sBtn.addEventListener('click', () => applyShopAction(sug.action, data));
+        }
+      }
 
-      document.querySelectorAll('[data-move-idx]').forEach(btn => {
-        btn.addEventListener('click', () => applyShopAction(moves[Number(btn.dataset.moveIdx)].action, data));
+      // Highlight matching inline preset link
+      const isWedding = Math.abs(ev.totalW - 32) < 0.15 && ev.sellW < 0.05;
+      const isTier75 = Math.abs(ev.totalW - data.S2.totalW) < 0.25 && ev.sellW > 0.05;
+      const isMax = Math.abs(ev.totalW - state.W_MAX) < 0.15 && ev.sellW > 0.05;
+      document.querySelectorAll('[data-tray]').forEach(btn => {
+        const t = btn.dataset.tray;
+        btn.classList.toggle('active', (t === 'wedding' && isWedding) || (t === 'tier75' && isTier75) || (t === 'max' && isMax));
       });
 
-      // Tray List (Focus-preserving DOM diff!)
+      // Jewellery Tray (Focus-Preserving DOM Diff)
       const sig = state.shop.items.map(it => `${it.id}:${it.intent}`).join('|');
       const listEl = document.getElementById('trayList');
       if (sig !== lastTraySig) {
@@ -3231,20 +3338,20 @@
             <div class="tray-top">
               <input class="tray-name" type="text" data-field="name" data-id="${it.id}" value="${escapeAttr(it.name)}" placeholder="Item ${i + 1}" aria-label="Item name" />
               <button type="button" class="intent-btn ${it.intent}" data-toggle-intent="${it.id}" data-agent="shop-intent-${it.id}">${it.intent === 'keep' ? 'Keep' : 'Sell'}</button>
-              <button type="button" class="del-btn" data-del-item="${it.id}" aria-label="Remove item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+              <button type="button" class="del-btn" data-del-item="${it.id}" aria-label="Remove item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
             </div>
             <div class="tray-nums">
               <div class="num-pill num-w">
-                <input type="number" inputmode="decimal" step="0.01" min="0" data-field="w" data-id="${it.id}" value="${it.w}" placeholder="0" aria-label="Weight in grams" />
+                <input type="number" inputmode="decimal" step="0.001" min="0" data-field="w" data-id="${it.id}" value="${it.w}" placeholder="0" aria-label="Weight in grams" />
                 <span class="num-unit">g</span>
               </div>
               <div class="num-pill num-mc">
                 <input type="number" inputmode="decimal" step="0.1" min="0" max="40" data-field="mc" data-id="${it.id}" value="${escapeAttr(it.mc)}" placeholder="Auto ${autoMc}" aria-label="Making charge percent" />
                 <span class="num-unit">%</span>
               </div>
-              <div class="tray-cost mono" data-row-cost="${it.id}"></div>
+              <div class="tray-cost" data-row-cost="${it.id}"></div>
             </div>
-          </div>`).join('') : `<div class="c-muted" style="font-size:12.5px;padding:8px 0;">Tap + Keep, + Sell, or a preset above.</div>`;
+          </div>`).join('') : `<div class="c-muted" style="font-size:12.5px;padding:10px 0;">Tap + Keep, + Sell, or a preset above.</div>`;
 
         listEl.querySelectorAll('input[data-field]').forEach(inp => {
           inp.addEventListener('input', (e) => {
@@ -3276,18 +3383,17 @@
         });
       }
 
-      // Update per-row live cost & dynamic Auto MC placeholders in-place
+      // In-place per-row live costs & dynamic Auto MC placeholders
       state.shop.items.forEach(it => {
         const c = ev.costsById.get(it.id);
         const costEl = listEl.querySelector(`[data-row-cost="${it.id}"]`);
         if (costEl && c) {
-          costEl.innerHTML = `<div class="tray-cost-main">${fmtINR(c.total)}</div><div class="tray-cost-sub">${c.overCapG > 0.05 ? 'Over cap' : `${c.effMcPct}% MC`}</div>`;
+          costEl.innerHTML = `<div class="tray-cost-main mono">${fmtINR(c.total)}</div><div class="tray-cost-sub">${c.overCapG > 0.05 ? 'Over limit' : `${c.effMcPct}% making`}</div>`;
         }
         const mcInp = listEl.querySelector(`input[data-field="mc"][data-id="${it.id}"]`);
         if (mcInp) mcInp.placeholder = `Auto ${autoMc}`;
       });
 
-      // Sync optional budget / discount inputs & summary chip
       const bInp = document.getElementById('inpShopBudget');
       const dInp = document.getElementById('inpShopDisc');
       if (document.activeElement !== bInp) bInp.value = state.shop.budget;
@@ -3295,34 +3401,31 @@
 
       const optParts = [];
       if (ev.budget !== null) optParts.push(`Budget ${fmtL(ev.budget)}`);
-      if (ev.extraDisc > 0) optParts.push(`Off ${fmtK(ev.extraDisc)}`);
+      if (ev.extraDisc > 0) optParts.push(`Discount ${fmtK(ev.extraDisc)}`);
       document.getElementById('shopOptSummary').textContent = optParts.length ? optParts.join(' · ') : 'Optional';
-      document.querySelectorAll('[data-budget]').forEach(b => {
-        b.classList.toggle('active', String(state.shop.budget) === b.dataset.budget);
-      });
     }
 
     function renderChecklist(data) {
       const win = data[data.best];
-      const bestTxt = data.best === 'S1' ? 'Buy 32g' : (data.best === 'S2' ? `₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX.toFixed(1)}g`);
+      const bestTxt = data.best === 'S1' ? 'Booked 32g' : (data.best === 'S2' ? `₹7.5L Tier (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX.toFixed(1)}g`);
       const items = [
-        { id: 'c1', t: 'Check morning 916 rate', m: `₹${state.R1.toLocaleString('en-IN')}/g: ${bestTxt} <span class="nowrap">(${fmtINR(win.saveWalkIn, true)})</span>` },
-        { id: 'c2', t: 'Confirm resale shop cut', m: `Target ${state.cut}% <span class="nowrap">(${fmtINR(data.resaleRate)}/g)</span>` },
-        { id: 'c3', t: 'Confirm full advance & ₹7.5L rule', m: `Full ${fmtL(state.ADVANCE)} closure · ${state.ringCounts ? '8g ring counts' : '8g ring excluded'}` },
-        { id: 'c4', t: 'Ready bank transfer funds', m: `<span class="nowrap">Cash ${fmtL(win.cash)}</span> + <span class="nowrap">Bank ${fmtL(win.bank)}</span>` },
-        { id: 'c5', t: 'Plain 916 HUID pieces only', m: 'No gold coins, stones, or special-price items' },
-        { id: 'c6', t: 'Old 24g chain decision', m: data.recOldSell ? `Sell &amp; swap <span class="nowrap">(${fmtINR(data.oldHistPL, true)} vs paid)</span>` : `Keep untouched <span class="nowrap">(${fmtINR(data.oldHistPL, true)} vs paid)</span>` }
+        { id: 'c1', t: 'Check morning 916 rate', m: `₹${state.R1.toLocaleString('en-IN')}/g: ${bestTxt} (${fmtINR(win.saveWalkIn, true)} saved)` },
+        { id: 'c2', t: 'Confirm resale shop cut', m: `Target ${state.cut}% (${fmtINR(data.resaleRate)}/g buyback)` },
+        { id: 'c3', t: 'Confirm full advance & ₹7.5L rule', m: `Full ${fmtL(state.ADVANCE)} adjustment · ${state.ringCounts ? '8g ring counts' : '8g ring excluded'}` },
+        { id: 'c4', t: 'Ready bank transfer funds', m: `Cash ${fmtL(win.cash)} + Bank ${fmtL(win.bank)}` },
+        { id: 'c5', t: 'Plain BIS-hallmarked (HUID) 916 jewellery only', m: 'No gold coins, stones, or special-price items' },
+        { id: 'c6', t: 'Old 24g chain decision', m: data.recOldSell ? `Sell &amp; swap (${fmtINR(data.oldHistPL, true)} vs paid bill)` : `Keep untouched (${fmtINR(data.oldHistPL, true)} vs paid bill)` }
       ];
 
       const done = items.filter(i => state.checks[i.id]).length;
-      document.getElementById('checkProgress').textContent = `${done}/${items.length}`;
+      document.getElementById('checkProgress').textContent = `${done} of ${items.length}`;
 
       document.getElementById('checklistBox').innerHTML = items.map(it => `
         <label class="check-row ${state.checks[it.id] ? 'is-done' : ''}">
           <input type="checkbox" data-chk="${it.id}" ${state.checks[it.id] ? 'checked' : ''} />
           <span class="check-copy">
             <span class="check-title">${it.t}</span>
-            <span class="check-meta mono">${it.m}</span>
+            <span class="check-meta">${it.m}</span>
           </span>
         </label>`).join('');
 
@@ -3414,8 +3517,7 @@
     document.getElementById('stepUp').addEventListener('click', () => setRate(Math.min(25000, state.R1 + 50)));
     document.getElementById('slimDown').addEventListener('click', () => setRate(Math.max(8000, state.R1 - 50)));
     document.getElementById('slimUp').addEventListener('click', () => setRate(Math.min(25000, state.R1 + 50)));
-
-    document.querySelectorAll('.preset-btn[data-preset]').forEach(b => b.addEventListener('click', () => setRate(b.dataset.preset)));
+    document.getElementById('bookedScaleBtn').addEventListener('click', () => setRate(state.R0));
 
     document.querySelectorAll('.seg-opt[data-group]').forEach(b => {
       b.addEventListener('click', () => {
@@ -3468,13 +3570,6 @@
       renderShop(evalAt(state.R1), calcThresholds());
       saveState();
     });
-    document.querySelectorAll('[data-budget]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.shop.budget = btn.dataset.budget;
-        renderShop(evalAt(state.R1), calcThresholds());
-        saveState();
-      });
-    });
 
     document.getElementById('resetBtn').addEventListener('click', () => {
       if (!resetArmed) {
@@ -3506,16 +3601,12 @@
       setRate(Math.round((meta.rMin + frac * (meta.rMax - meta.rMin)) / 25) * 25);
     });
 
-    // Modal & Desktop Hover Popover
-    const popEl = document.getElementById('hoverPopover');
-    function hideHover() { activeHoverKey = ''; popEl.classList.add('hidden'); }
-
+    // Modal & Non-Blocking Desktop Docked Equation Bar
     function openMathModal(r, sKey) {
       const d = matrixCache.get(r);
       if (!d) return;
       modalRate = r;
-      document.getElementById('modalTitle').textContent = `Math @ ₹${r.toLocaleString('en-IN')}/g`;
-      document.getElementById('modalBody').innerHTML = buildMathSheetHTML(r, d, sKey, false);
+      renderModalContent(r, d, sKey);
       document.getElementById('mathModal').classList.remove('hidden');
       document.getElementById('appMain').setAttribute('aria-hidden', 'true');
       document.getElementById('modalCloseBtn').focus();
@@ -3526,33 +3617,28 @@
       document.getElementById('appMain').removeAttribute('aria-hidden');
     }
 
+    const eqBarEl = document.getElementById('rateEqBar');
     const matrixBodyEl = document.getElementById('matrixBody');
-    matrixBodyEl.addEventListener('mousemove', (e) => {
-      if (window.matchMedia('(hover: none)').matches) return;
-      const btn = e.target.closest('[data-mr][data-ms]');
-      if (!btn) { hideHover(); return; }
-      const r = Number(btn.dataset.mr), sKey = btn.dataset.ms, key = `${r}:${sKey}`;
-      if (key !== activeHoverKey) {
-        const d = matrixCache.get(r);
-        if (!d) return;
-        popEl.innerHTML = buildMathSheetHTML(r, d, sKey, true);
-        popEl.classList.remove('hidden');
-        activeHoverKey = key;
-      }
-      const pad = 14, rect = popEl.getBoundingClientRect();
-      let left = e.clientX + pad, top = e.clientY + pad;
-      if (left + rect.width + 12 > window.innerWidth) left = Math.max(12, e.clientX - rect.width - pad);
-      if (top + rect.height + 12 > window.innerHeight) top = Math.max(12, e.clientY - rect.height - pad);
-      popEl.style.left = left + 'px';
-      popEl.style.top = top + 'px';
+
+    const updateEqFromTarget = (target) => {
+      const btn = target && target.closest ? target.closest('[data-mr][data-ms]') : null;
+      if (!btn) return;
+      const r = Number(btn.dataset.mr);
+      const d = matrixCache.get(r);
+      if (!d) return;
+      eqBarEl.innerHTML = buildEquationBarHTML(r, d, btn.dataset.ms);
+    };
+
+    matrixBodyEl.addEventListener('mouseover', (e) => updateEqFromTarget(e.target));
+    matrixBodyEl.addEventListener('mouseenter', (e) => updateEqFromTarget(e.target), true);
+    matrixBodyEl.addEventListener('focusin', (e) => updateEqFromTarget(e.target));
+    matrixBodyEl.addEventListener('mouseleave', () => {
+      eqBarEl.innerHTML = `<span>Hover any figure below to inspect exact math · Click to open full receipt</span>`;
     });
-    matrixBodyEl.addEventListener('mouseleave', hideHover);
-    window.addEventListener('scroll', hideHover, true);
 
     matrixBodyEl.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-mr][data-ms]');
       if (!btn) return;
-      hideHover();
       openMathModal(Number(btn.dataset.mr), btn.dataset.ms);
     });
 
@@ -3579,9 +3665,9 @@
       closeMathModal();
     });
 
-    // Delegate clicks on numeric input wrappers (including units/padding) to focus inner input
+    // Delegate clicks on numeric wrappers to focus inner input
     document.addEventListener('click', (e) => {
-      const box = e.target.closest('.rate-field, .slim-rate-box, .num-pill');
+      const box = e.target.closest('.rate-center, .slim-rate-box, .num-pill');
       if (box && e.target.tagName !== 'INPUT') {
         const inp = box.querySelector('input');
         if (inp) inp.focus();
