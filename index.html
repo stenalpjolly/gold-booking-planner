@@ -1034,14 +1034,7 @@
     }
     .tbl-btn:hover { background: var(--border); }
 
-    /* TAB 4: Pieces & Old 24g */
-    .pieces-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-    @media (min-width: 680px) { .pieces-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-
+    /* TAB 2: Live Shop Counter Assistant */
     .ledger-2x2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1059,6 +1052,193 @@
     .ledger-cell:nth-child(odd) { padding-right: 12px; border-right: 1px solid var(--border); }
     .ledger-cell:nth-child(even) { padding-left: 12px; }
     .ledger-cell:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 2px; }
+
+    .move-list { display: flex; flex-direction: column; }
+    .move-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      min-width: 0;
+    }
+    .move-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .move-row:first-child { padding-top: 2px; }
+    .move-left { display: flex; align-items: flex-start; gap: 8px; min-width: 0; flex: 1; }
+    .move-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .move-dot.pos  { background: var(--pos); }
+    .move-dot.warn { background: var(--warn); }
+    .move-dot.neg  { background: var(--neg); }
+    .move-dot.info { background: var(--info); }
+    .move-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .move-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .move-sub { font-size: 11px; color: var(--text-muted); line-height: 1.35; }
+    .move-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .move-val { font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+    .btn-act {
+      height: 26px;
+      padding: 0 9px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s var(--ease), color 0.15s var(--ease), transform 0.1s var(--ease);
+    }
+    .btn-act:hover { background: var(--accent); color: var(--accent-fg); }
+    .btn-act:active { transform: scale(0.96); }
+    .btn-act.warn { border-color: var(--warn); background: var(--warn-bg); color: var(--warn); }
+    .btn-act.neg  { border-color: var(--neg); background: var(--neg-bg); color: var(--neg); }
+
+    .tray-presets {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tray-presets::-webkit-scrollbar { display: none; }
+
+    .tray-list { display: flex; flex-direction: column; }
+    .tray-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+    .tray-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .tray-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto 30px;
+      gap: 6px;
+      align-items: center;
+    }
+    .tray-name {
+      height: 32px;
+      padding: 0 9px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      min-width: 0;
+    }
+    .tray-name:focus { border-color: var(--accent); outline: none; }
+    .intent-btn {
+      height: 32px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease), transform 0.1s var(--ease);
+    }
+    .intent-btn:active { transform: scale(0.96); }
+    .intent-btn.keep { background: var(--pos-bg); border-color: var(--pos); color: var(--pos); }
+    .intent-btn.sell { background: var(--info-bg); border-color: var(--info); color: var(--info); }
+    .del-btn {
+      width: 30px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .del-btn:hover { background: var(--neg-bg); color: var(--neg); }
+
+    .tray-nums {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+      gap: 6px;
+      align-items: center;
+    }
+    .num-pill {
+      height: 34px;
+      padding: 0 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+    }
+    .num-pill:focus-within { border-color: var(--accent); }
+    .num-pill input {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 0;
+    }
+    .num-pill input:focus-visible { outline: none; }
+    .num-pill input::placeholder { color: var(--text-muted); font-weight: 500; font-size: 11.5px; }
+    .num-unit { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+    .tray-cost {
+      text-align: right;
+      min-width: 78px;
+    }
+    .tray-cost-main { font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .tray-cost-sub { font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
+
+    details.panel-acc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+    }
+    details.panel-acc summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+    details.panel-acc summary::-webkit-details-marker { display: none; }
+    .acc-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .acc-sign { font-family: var(--font-mono); font-size: 15px; color: var(--text-muted); }
+    details.panel-acc[open] .acc-sign::before { content: "-"; }
+    details.panel-acc:not([open]) .acc-sign::before { content: "+"; }
+    .panel-acc-body {
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
     /* TAB 5: Checklist & Accordions */
     .check-list { display: flex; flex-direction: column; }
@@ -1426,11 +1606,101 @@
     <!-- RIGHT WORKSPACE ON DESKTOP / FULL-SCREEN TABS 2-5 ON MOBILE -->
     <div class="detail-col">
       <nav class="desktop-nav" role="tablist" aria-label="Detail views">
+        <button class="dnav-btn" data-tab="shop" data-agent="dtab-shop" role="tab" type="button">Live Shop</button>
         <button class="dnav-btn" data-tab="bills" data-agent="dtab-bills" role="tab" type="button">Bills &amp; Receipt</button>
         <button class="dnav-btn" data-tab="rates" data-agent="dtab-rates" role="tab" type="button">Chart &amp; Rates</button>
-        <button class="dnav-btn" data-tab="pieces" data-agent="dtab-pieces" role="tab" type="button">Pieces &amp; Old 24g</button>
         <button class="dnav-btn" data-tab="check" data-agent="dtab-check" role="tab" type="button">Checklist</button>
       </nav>
+
+      <!-- TAB 2: LIVE SHOP COUNTER ASSISTANT -->
+      <section id="view-shop" class="view-pane view-anim hidden" aria-label="Live shop counter assistant">
+        <div class="panel">
+          <div class="panel-head">
+            <div id="shopStatusTags" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <span id="shopBudgetTag" class="tag hidden mono"></span>
+          </div>
+          <div id="shopLedger" class="ledger-2x2"></div>
+          <div id="shopChips" class="chip-strip mono"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-h2">Smart moves</h2>
+            <span id="shopMovesBadge" class="tag tag-pos mono"></span>
+          </div>
+          <div id="shopMoves" class="move-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2 class="panel-h2">Jewellery tray</h2>
+            <div style="display:flex;gap:6px;">
+              <button id="addKeepBtn" data-agent="shop-add-keep" class="btn-ghost" style="height:30px;padding:0 9px;font-size:12px;" type="button">+ Keep</button>
+              <button id="addSellBtn" data-agent="shop-add-sell" class="btn-ghost" style="height:30px;padding:0 9px;font-size:12px;" type="button">+ Sell</button>
+            </div>
+          </div>
+
+          <div class="tray-presets" role="group" aria-label="Quick tray presets">
+            <button class="preset-btn" data-tray="wedding" type="button">32g Keep</button>
+            <button class="preset-btn" data-tray="tier75" type="button">₹7.5L Tier</button>
+            <button class="preset-btn" data-tray="max" type="button">102.4g Max</button>
+            <button class="preset-btn" data-tray="single" type="button">1 Item Only</button>
+          </div>
+
+          <div id="trayList" class="tray-list"></div>
+        </div>
+
+        <details id="shopOptDetails" class="panel-acc">
+          <summary>
+            <span>Budget &amp; counter offers</span>
+            <span class="acc-right">
+              <span id="shopOptSummary" class="mono c-muted" style="font-size:11.5px;font-weight:500;">Optional</span>
+              <span class="acc-sign" aria-hidden="true"></span>
+            </span>
+          </summary>
+          <div class="panel-acc-body">
+            <div class="input-2col">
+              <div class="field">
+                <label for="inpShopBudget">Pay-now budget (₹)</label>
+                <input id="inpShopBudget" data-agent="shop-budget" type="number" inputmode="numeric" autocomplete="off" placeholder="Optional" step="10000" />
+              </div>
+              <div class="field">
+                <label for="inpShopDisc">Extra flat off (₹)</label>
+                <input id="inpShopDisc" data-agent="shop-discount" type="number" inputmode="numeric" autocomplete="off" placeholder="0" step="500" />
+              </div>
+            </div>
+            <div class="tray-presets" role="group" aria-label="Quick pay-now budgets">
+              <button class="preset-btn" data-budget="400000" type="button">₹4L</button>
+              <button class="preset-btn" data-budget="600000" type="button">₹6L</button>
+              <button class="preset-btn" data-budget="800000" type="button">₹8L</button>
+              <button class="preset-btn" data-budget="1000000" type="button">₹10L</button>
+              <button class="preset-btn" data-budget="" type="button">No limit</button>
+            </div>
+            <div class="param-row">
+              <div class="param-head"><span>Old 24g chain</span><span id="shopOldHint" class="mono c-muted"></span></div>
+              <div class="seg-group" role="group" aria-label="Old 24g in shop">
+                <button class="seg-opt" data-group="old" data-val="auto" type="button">Auto</button>
+                <button class="seg-opt" data-group="old" data-val="keep" type="button">Keep</button>
+                <button class="seg-opt" data-group="old" data-val="sell" type="button">Sell</button>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel-acc">
+          <summary>
+            <span>Existing 24g breakevens</span>
+            <span class="acc-right">
+              <span id="oldSalePill" class="tag tag-info mono"></span>
+              <span class="acc-sign" aria-hidden="true"></span>
+            </span>
+          </summary>
+          <div class="panel-acc-body">
+            <div id="oldChainSub" class="mono c-muted" style="font-size:11.5px;"></div>
+            <div id="oldLedger" class="kv-list" style="border-top:0;padding-top:0;"></div>
+          </div>
+        </details>
+      </section>
 
       <!-- TAB 2: BILLS & COUNTER RECEIPT -->
       <section id="view-bills" class="view-pane view-anim hidden" aria-label="Bills and receipt">
@@ -1498,35 +1768,6 @@
         </div>
       </section>
 
-      <!-- TAB 4: PIECES & OLD 24G -->
-      <section id="view-pieces" class="view-pane view-anim hidden" aria-label="Showroom pieces">
-        <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-h2">Showroom tag weights</h2>
-            <div id="piecesTags" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
-          </div>
-
-          <div class="pieces-grid">
-            <div class="field"><label for="pwChain">Chain (g)</label><input id="pwChain" type="number" step="0.01" value="24" /></div>
-            <div class="field"><label for="pwRing">Ring 18% (g)</label><input id="pwRing" type="number" step="0.01" value="8" /></div>
-            <div class="field"><label for="pwEx1">Extra 1 (g)</label><input id="pwEx1" type="number" step="0.01" value="20" /></div>
-            <div class="field"><label for="pwEx2">Extra 2 (g)</label><input id="pwEx2" type="number" step="0.01" value="13" /></div>
-            <div class="field"><label for="pwEx3">Extra 3 (g)</label><input id="pwEx3" type="number" step="0.01" value="0" /></div>
-          </div>
-
-          <div id="piecesLedger" class="ledger-2x2"></div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <h2 class="panel-h2">Existing 24g chain</h2>
-            <span id="oldSalePill" class="tag tag-info mono"></span>
-          </div>
-          <div id="oldChainSub" class="mono c-muted" style="font-size:11.5px;"></div>
-          <div id="oldLedger" class="kv-list" style="border-top:0;padding-top:0;"></div>
-        </div>
-      </section>
-
       <!-- TAB 5: CHECKLIST & RULES -->
       <section id="view-check" class="view-pane view-anim hidden" aria-label="Counter checklist">
         <div class="panel">
@@ -1571,6 +1812,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
       <span>Decide</span>
     </button>
+    <button class="mnav-btn" data-tab="shop" data-agent="mtab-shop" role="tab" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span>Shop</span>
+    </button>
     <button class="mnav-btn" data-tab="bills" data-agent="mtab-bills" role="tab" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/></svg>
       <span>Bills</span>
@@ -1578,10 +1823,6 @@
     <button class="mnav-btn" data-tab="rates" data-agent="mtab-rates" role="tab" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></svg>
       <span>Rates</span>
-    </button>
-    <button class="mnav-btn" data-tab="pieces" data-agent="mtab-pieces" role="tab" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      <span>Pieces</span>
     </button>
     <button class="mnav-btn" data-tab="check" data-agent="mtab-check" role="tab" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -1611,7 +1852,14 @@
     const MC_RING = 0.18;
     const MAX_CASH = 190000;
     const THRESH_75 = 750000;
-    const STORE_KEY = 'gold916_ledger_v3';
+    const STORE_KEY = 'gold916_ledger_v4';
+
+    const DEFAULT_SHOP_ITEMS = [
+      { id: 'i1', name: 'Chain', w: 24, mc: '', intent: 'keep', isRing: false },
+      { id: 'i2', name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true },
+      { id: 'i3', name: 'Extra 1', w: 20, mc: '', intent: 'sell', isRing: false },
+      { id: 'i4', name: 'Extra 2', w: 13, mc: '', intent: 'sell', isRing: false }
+    ];
 
     const DEFAULT_STATE = {
       R0: 11715,
@@ -1627,10 +1875,14 @@
       oldGold: 275000,
       oldMc: 11,
       tab: 'decide',
-      desktopTab: 'bills',
+      desktopTab: 'shop',
       inspect: 'S3',
       pinnedInspect: false,
-      pieces: { c: 24, r: 8, e1: 20, e2: 13, e3: 0 },
+      shop: {
+        items: structuredClone(DEFAULT_SHOP_ITEMS),
+        budget: '',
+        extraDisc: ''
+      },
       checks: {},
       theme: 'light'
     };
@@ -1640,9 +1892,20 @@
         const raw = localStorage.getItem(STORE_KEY);
         if (!raw) return structuredClone(DEFAULT_STATE);
         const p = JSON.parse(raw);
-        const s = { ...structuredClone(DEFAULT_STATE), ...p, pieces: { ...DEFAULT_STATE.pieces, ...(p.pieces || {}) }, checks: { ...(p.checks || {}) } };
-        if (!['decide', 'bills', 'rates', 'pieces', 'check'].includes(s.tab)) s.tab = 'decide';
-        if (!['bills', 'rates', 'pieces', 'check'].includes(s.desktopTab)) s.desktopTab = 'bills';
+        const shopRaw = p.shop || {};
+        const items = Array.isArray(shopRaw.items) ? shopRaw.items : structuredClone(DEFAULT_SHOP_ITEMS);
+        const s = {
+          ...structuredClone(DEFAULT_STATE),
+          ...p,
+          shop: {
+            items,
+            budget: shopRaw.budget ?? '',
+            extraDisc: shopRaw.extraDisc ?? ''
+          },
+          checks: { ...(p.checks || {}) }
+        };
+        if (!['decide', 'shop', 'bills', 'rates', 'check'].includes(s.tab)) s.tab = 'decide';
+        if (!['shop', 'bills', 'rates', 'check'].includes(s.desktopTab)) s.desktopTab = 'shop';
         return s;
       } catch {
         return structuredClone(DEFAULT_STATE);
@@ -1654,6 +1917,8 @@
     let modalRate = null;
     let activeHoverKey = '';
     let lastMobile = window.innerWidth < 960;
+    let lastTraySig = '';
+    let nextItemSeq = 20;
 
     function saveState() {
       try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {}
@@ -1793,7 +2058,7 @@
       const activeDetail = desktop ? state.desktopTab : state.tab;
 
       document.getElementById('view-decide').classList.toggle('hidden', !desktop && state.tab !== 'decide');
-      ['bills', 'rates', 'pieces', 'check'].forEach(t => {
+      ['shop', 'bills', 'rates', 'check'].forEach(t => {
         document.getElementById('view-' + t).classList.toggle('hidden', activeDetail !== t);
       });
 
@@ -2198,64 +2463,576 @@
       document.getElementById('matrixBody').innerHTML = desktopHtml;
     }
 
-    function renderPieces(data, th) {
-      const wC = state.pieces.c, wR = state.pieces.r, wE = state.pieces.e1 + state.pieces.e2 + state.pieces.e3;
-      const wTot = wC + wR + wE;
+    function escapeAttr(s) {
+      return String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function evaluateShopTray(rawItems, budgetInput, extraDiscInput, data) {
+      const items = rawItems.map((it, idx) => ({
+        ...it,
+        idx,
+        w: Math.max(0, Number(it.w) || 0),
+        hasMc: it.mc !== '' && it.mc !== null && it.mc !== undefined && !Number.isNaN(Number(it.mc)),
+        mcVal: Number(it.mc) || 0
+      }));
+
       const eff = Math.min(state.R0, state.R1);
       const mcD = state.mcDisc / 100;
+      const mcS = state.mcStd / 100;
+      const totalW = items.reduce((a, it) => a + it.w, 0);
+      const keepW = items.filter(it => it.intent === 'keep').reduce((a, it) => a + it.w, 0);
+      const sellW = items.filter(it => it.intent === 'sell').reduce((a, it) => a + it.w, 0);
 
+      // Qualification for ₹7.5L discount tier
       let qual = 0;
-      if (state.basis === 'gold') qual = (wC + wE + (state.ringCounts ? wR : 0)) * eff;
-      else qual = itemCost(wC + wE, state.R1, mcD, state.W_MAX, true).total + (state.ringCounts ? itemCost(wR, state.R1, MC_RING, Math.max(0, state.W_MAX - wC - wE), true).total : 0);
+      if (state.basis === 'gold') {
+        let remQ = state.W_MAX;
+        items.forEach(it => {
+          const wB = Math.min(it.w, remQ);
+          const wO = Math.max(0, it.w - wB);
+          remQ = Math.max(0, remQ - it.w);
+          if (state.ringCounts || !it.isRing) qual += wB * eff + wO * state.R1;
+        });
+      } else {
+        let remQ = state.W_MAX;
+        items.forEach(it => {
+          const mcTry = it.hasMc ? it.mcVal / 100 : mcD;
+          const c = itemCost(it.w, state.R1, mcTry, remQ, true);
+          remQ = Math.max(0, remQ - it.w);
+          if (state.ringCounts || !it.isRing) qual += c.total;
+        });
+      }
+
       const hits75 = qual >= THRESH_75 - 1;
-      const inCap = wTot <= state.W_MAX + 0.001;
-      const shortG = hits75 ? 0 : Math.max(0, (THRESH_75 - qual) / (state.basis === 'gold' ? eff : (eff + mcD * state.R1) * (1 + GST)));
+      const unitQual = state.basis === 'gold' ? eff : (eff + mcD * state.R1) * (1 + GST);
+      const shortG = hits75 ? 0 : Math.max(0, (THRESH_75 - qual) / unitQual);
+      const excessQualG = hits75 ? Math.max(0, (qual - THRESH_75) / unitQual) : 0;
 
-      const mcUse = hits75 ? mcD : state.mcStd / 100;
-      let rem = state.W_MAX;
-      const ci = itemCost(wC, state.R1, mcUse, rem, true); rem = Math.max(0, rem - wC);
-      const ri = itemCost(wR, state.R1, MC_RING, rem, true); rem = Math.max(0, rem - wR);
-      const ei = itemCost(wE, state.R1, mcUse, rem, true);
-      const bill = ci.total + ri.total + ei.total;
-      const bal = Math.max(0, bill - state.ADVANCE);
-      const cash = Math.min(MAX_CASH, bal);
-      const bank = Math.max(0, bal - MAX_CASH);
-      const exRes = wE * data.resaleRate;
-      const flipPL = exRes - ei.total;
-      const net = bill - exRes - data.oldProc;
-      const walkInC = itemCost(wC, state.R1, state.mcStd / 100, 0, false).total + itemCost(wR, state.R1, MC_RING, 0, false).total - data.oldProc;
-      const saveW = walkInC - net;
+      // Allocate booked weight cap to Keep pieces first, then Sell pieces
+      const order = [...items.filter(it => it.intent === 'keep'), ...items.filter(it => it.intent === 'sell')];
+      let remBook = state.W_MAX;
+      const costsById = new Map();
+      let rawBill = 0, bookedGoldVal = 0, sellCost = 0, walkInKeptBill = 0;
 
-      document.getElementById('piecesTags').innerHTML = `
-        <span class="tag ${hits75 ? 'tag-pos' : 'tag-warn'}">${hits75 ? `₹7.5L met` : `+${shortG.toFixed(1)}g needed`}</span>
-        <span class="tag ${inCap ? 'tag-info' : 'tag-neg'} mono">${wTot.toFixed(1)}g / ${state.W_MAX}g</span>`;
+      order.forEach(it => {
+        const autoPct = hits75 ? state.mcDisc : state.mcStd;
+        const effMcPct = it.hasMc ? it.mcVal : autoPct;
+        const wBooked = Math.min(it.w, remBook);
+        const c = itemCost(it.w, state.R1, effMcPct / 100, remBook, true);
+        remBook = Math.max(0, remBook - it.w);
+        const overCapG = Math.max(0, it.w - wBooked);
+        const resale = it.intent === 'sell' ? it.w * data.resaleRate : 0;
 
-      document.getElementById('piecesLedger').innerHTML = `
+        rawBill += c.total;
+        bookedGoldVal += wBooked * eff;
+        if (it.intent === 'sell') {
+          sellCost += c.total;
+        } else {
+          const walkMcPct = it.hasMc ? it.mcVal : state.mcStd;
+          walkInKeptBill += itemCost(it.w, state.R1, walkMcPct / 100, 0, false).total;
+        }
+        costsById.set(it.id, { ...c, effMcPct, overCapG, resale, flipPL: resale - c.total });
+      });
+
+      const extraDisc = Math.max(0, Number(extraDiscInput) || 0);
+      const budget = budgetInput !== '' && budgetInput !== null && Number(budgetInput) > 0 ? Number(budgetInput) : null;
+      const bill = Math.max(0, rawBill - extraDisc);
+      const advApplied = totalW > 0 ? Math.min(state.ADVANCE, bill) : 0;
+      const payNow = Math.max(0, bill - advApplied);
+      const cash = Math.min(MAX_CASH, payNow);
+      const bank = Math.max(0, payNow - MAX_CASH);
+      const sellResale = sellW * data.resaleRate;
+      const flipPL = sellResale - sellCost;
+      const net = bill - sellResale - data.oldProc;
+      const walkInNet = walkInKeptBill - data.oldProc;
+      const saveW = walkInNet - net;
+      const remCap = Math.max(0, state.W_MAX - totalW);
+      const overCap = Math.max(0, totalW - state.W_MAX);
+      const onePctMcVal = totalW * state.R1 * 0.01 * (1 + GST);
+      const uBookedDisc = (eff + mcD * state.R1) * (1 + GST);
+      const uBookedStd = (eff + mcS * state.R1) * (1 + GST);
+      const marginPerGDisc = data.resaleRate - uBookedDisc;
+      const clause2Risk = totalW > 0 ? Math.max(0, state.ADVANCE - 0.10 * bookedGoldVal) : 0;
+
+      return {
+        items, costsById, totalW, keepW, sellW, hits75, shortG, excessQualG,
+        rawBill, extraDisc, bill, advApplied, payNow, cash, bank, budget,
+        sellResale, sellCost, flipPL, net, walkInNet, saveW,
+        remCap, overCap, onePctMcVal, uBookedDisc, uBookedStd, marginPerGDisc, clause2Risk
+      };
+    }
+
+    function trimSellItems(items, gramsToCut) {
+      let left = gramsToCut;
+      const cloned = items.map(it => ({ ...it }));
+      for (let i = cloned.length - 1; i >= 0 && left > 0.001; i--) {
+        if (cloned[i].intent !== 'sell') continue;
+        const w = Math.max(0, Number(cloned[i].w) || 0);
+        if (w <= left + 0.001) {
+          left -= w;
+          cloned.splice(i, 1);
+        } else {
+          cloned[i].w = Number((w - left).toFixed(2));
+          left = 0;
+        }
+      }
+      return cloned;
+    }
+
+    function buildSmartMoves(ev, data, th) {
+      const moves = [];
+      const sim = (nextItems) => evaluateShopTray(nextItems, state.shop.budget, state.shop.extraDisc, data);
+
+      if (ev.totalW < 0.01) {
+        const bestLabel = data.best === 'S1' ? '32g Keep' : (data.best === 'S2' ? `₹7.5L (${data.S2.totalW.toFixed(1)}g)` : `Max ${state.W_MAX}g`);
+        moves.push({
+          tone: 'pos',
+          title: `Load optimal tray: ${bestLabel}`,
+          sub: `Saves ${fmtINR(data[data.best].saveWalkIn, true)} vs walk-in at ₹${state.R1.toLocaleString('en-IN')}/g`,
+          val: fmtINR(data[data.best].saveWalkIn, true),
+          act: 'Load',
+          action: { type: 'preset', preset: data.best === 'S1' ? 'wedding' : (data.best === 'S2' ? 'tier75' : 'max') }
+        });
+        return moves;
+      }
+
+      // 1. Over booking cap (102.433g)
+      if (ev.overCap > 0.05) {
+        if (ev.sellW > 0.05) {
+          const cutG = Math.min(ev.overCap, ev.sellW);
+          const after = sim(trimSellItems(state.shop.items, cutG));
+          const gain = after.saveW - ev.saveW;
+          moves.push({
+            tone: 'neg',
+            title: `Trim ${cutG.toFixed(1)}g over ${state.W_MAX}g cap`,
+            sub: `Unbooked grams lose MC + GST + cut`,
+            val: gain > 0 ? `+${fmtINR(gain)}` : 'Fix cap',
+            act: 'Trim',
+            actCls: 'neg',
+            action: { type: 'trim', grams: cutG }
+          });
+        } else {
+          moves.push({
+            tone: 'warn',
+            title: `${ev.overCap.toFixed(1)}g exceeds ${state.W_MAX}g cap`,
+            sub: `Overflow bills at full ₹${state.R1.toLocaleString('en-IN')}/g (no lock)`,
+            val: 'No lock'
+          });
+        }
+      }
+
+      // 2. Over optional pay-now budget
+      if (ev.budget !== null && ev.payNow > ev.budget + 100) {
+        const over = ev.payNow - ev.budget;
+        if (data.effectiveOld === 'keep' && data.recOldSell && data.oldSale >= over) {
+          moves.push({
+            tone: 'pos',
+            title: `Sell old 24g first to fit budget`,
+            sub: `Frees ${fmtL(data.oldSale)} cash · covers ${fmtK(over)} overage`,
+            val: `+${fmtL(data.oldSale)}`,
+            act: 'Sell 24g',
+            action: { type: 'setOld', val: 'sell' }
+          });
+        } else if (ev.sellW > 0.1) {
+          let cutG = Math.min(ev.sellW, Math.ceil((over / ev.uBookedDisc) * 10) / 10);
+          for (let k = 0; k < 10 && cutG < ev.sellW; k++) {
+            const testA = sim(trimSellItems(state.shop.items, cutG));
+            if (testA.payNow <= ev.budget + 100) break;
+            cutG = Math.min(ev.sellW, Number((cutG + Math.max(0.5, (testA.payNow - ev.budget) / ev.uBookedDisc)).toFixed(1)));
+          }
+          moves.push({
+            tone: 'neg',
+            title: `Trim ${cutG.toFixed(1)}g resale to fit ${fmtL(ev.budget)}`,
+            sub: `Currently over pay-now budget by ${fmtINR(over)}`,
+            val: `-${fmtK(over)}`,
+            act: 'Fit budget',
+            actCls: 'neg',
+            action: { type: 'trim', grams: cutG }
+          });
+        } else {
+          moves.push({
+            tone: 'neg',
+            title: `Over ${fmtL(ev.budget)} budget by ${fmtINR(over)}`,
+            sub: data.effectiveOld === 'sell' && ev.payNow - data.oldSale <= ev.budget
+              ? `Fits if old 24g (${fmtL(data.oldSale)}) sold before billing`
+              : `Lower weight or raise counter limit`,
+            val: `-${fmtK(over)}`
+          });
+        }
+      }
+
+      // 3. Below ₹7.5L tier arbitrage check
+      if (!ev.hits75 && ev.shortG > 0.05 && ev.totalW + ev.shortG <= state.W_MAX + 0.05) {
+        const addG = Number((ev.shortG + 0.05).toFixed(2));
+        const nextItems = [...state.shop.items, { id: 'sim_t', name: 'Extra', w: addG, mc: '', intent: 'sell', isRing: false }];
+        const after = sim(nextItems);
+        const gain = after.saveW - ev.saveW;
+        const cashNeed = Math.max(0, after.payNow - ev.payNow);
+        if (gain > 200) {
+          const fitsB = ev.budget === null || after.payNow <= ev.budget + 100;
+          if (fitsB) {
+            moves.push({
+              tone: 'pos',
+              title: `Add +${addG.toFixed(1)}g resale for ${state.mcDisc}% MC`,
+              sub: `Crosses ₹7.5L · needs +${fmtL(cashNeed)} counter`,
+              val: fmtINR(gain, true),
+              act: '+ Add',
+              action: { type: 'addSell', grams: addG, name: '₹7.5L Extra' }
+            });
+          } else {
+            moves.push({
+              tone: 'info',
+              title: `₹7.5L tier needs +${fmtK(after.payNow - ev.budget)} more budget`,
+              sub: `Adding ${addG.toFixed(1)}g would save ${fmtINR(gain, true)}`,
+              val: fmtINR(gain, true)
+            });
+          }
+        } else if (ev.sellW < 0.1) {
+          moves.push({
+            tone: 'warn',
+            title: `Skip ₹7.5L push at ₹${state.R1.toLocaleString('en-IN')}/g`,
+            sub: `Extra ${addG.toFixed(1)}g resale loses ${fmtINR(-gain)} net`,
+            val: fmtINR(gain, true)
+          });
+        }
+      }
+
+      // 4. Fill remaining profitable booking cap (respecting optional budget)
+      if (ev.marginPerGDisc > 5 && ev.remCap > 0.5 && ev.overCap < 0.05) {
+        const needTierFirst = !ev.hits75 && ev.shortG > 0.05;
+        let maxAdd = ev.remCap;
+        let budgetCapped = false;
+        if (ev.budget !== null) {
+          const room = ev.budget - ev.payNow;
+          if (room <= ev.uBookedDisc * 0.5) {
+            maxAdd = 0;
+          } else {
+            const byB = Math.floor((room / ev.uBookedDisc) * 10) / 10;
+            if (byB < maxAdd) { maxAdd = byB; budgetCapped = true; }
+          }
+        }
+        if (maxAdd >= 0.5 && (!needTierFirst || maxAdd > ev.shortG + 1)) {
+          const addG = Number(maxAdd.toFixed(2));
+          const after = sim([...state.shop.items, { id: 'sim_f', name: 'Cap Extra', w: addG, mc: '', intent: 'sell', isRing: false }]);
+          const gain = after.saveW - ev.saveW;
+          const cashNeed = Math.max(0, after.payNow - ev.payNow);
+          if (gain > 300) {
+            moves.push({
+              tone: 'pos',
+              title: budgetCapped ? `Add +${addG.toFixed(1)}g inside ${fmtL(ev.budget)} budget` : `Fill +${addG.toFixed(1)}g to ${state.W_MAX}g cap`,
+              sub: `Needs +${fmtL(cashNeed)} · +₹${Math.round(ev.marginPerGDisc)}/g profit`,
+              val: fmtINR(gain, true),
+              act: budgetCapped ? '+ Add' : 'Fill cap',
+              action: { type: 'addSell', grams: addG, name: 'Cap Extra' }
+            });
+          }
+        } else if (ev.budget !== null && ev.remCap >= 1) {
+          const afterFull = sim([...state.shop.items, { id: 'sim_u', name: 'Cap', w: ev.remCap, mc: '', intent: 'sell', isRing: false }]);
+          const upside = afterFull.saveW - ev.saveW;
+          if (upside > 500) {
+            moves.push({
+              tone: 'info',
+              title: `${ev.remCap.toFixed(1)}g cap unused (above budget)`,
+              sub: `Extra +${fmtL(afterFull.payNow - ev.budget)} bank earns <span class="nowrap">${fmtINR(upside, true)}</span>`,
+              val: fmtINR(upside, true)
+            });
+          }
+        }
+      }
+
+      // 5. Trim unprofitable excess resale gold (keep 0.05g buffer above ₹7.5L cliff)
+      if (ev.marginPerGDisc < -5 && ev.sellW > 0.2 && ev.overCap < 0.05) {
+        const trimTarget = ev.hits75 ? Math.min(ev.sellW, Math.max(0, ev.excessQualG - 0.05)) : ev.sellW;
+        if (trimTarget >= 0.5) {
+          const cutG = Math.floor(trimTarget * 100) / 100;
+          const after = sim(trimSellItems(state.shop.items, cutG));
+          const gain = after.saveW - ev.saveW;
+          if (gain > 200) {
+            moves.push({
+              tone: 'warn',
+              title: ev.hits75 ? `Trim ${cutG.toFixed(1)}g excess past ₹7.5L` : `Drop ${cutG.toFixed(1)}g resale gold`,
+              sub: `Resale loses ₹${Math.round(-ev.marginPerGDisc)}/g at today's rate`,
+              val: fmtINR(gain, true),
+              act: 'Trim',
+              actCls: 'warn',
+              action: { type: 'trim', grams: cutG }
+            });
+          }
+        }
+      }
+
+      // 6. High-MC resale piece swap alert
+      const highSell = ev.items.find(it => it.intent === 'sell' && it.w > 0 && it.hasMc && it.mcVal > state.mcDisc + 0.05);
+      if (highSell) {
+        const swapSave = highSell.w * state.R1 * ((highSell.mcVal - state.mcDisc) / 100) * (1 + GST);
+        if (swapSave > 150) {
+          moves.push({
+            tone: 'warn',
+            title: `Swap ${highSell.name || 'Sell item'} (${highSell.mcVal}% -> ${state.mcDisc}%)`,
+            sub: `Never buy high-MC pieces just for resale`,
+            val: `+${fmtINR(swapSave)}`,
+            act: `Set ${state.mcDisc}%`,
+            actCls: 'warn',
+            action: { type: 'clearMc', id: highSell.id }
+          });
+        }
+      }
+
+      // 7. Old 24g chain alignment
+      if (data.recOldSell && data.effectiveOld === 'keep' && !moves.some(m => m.action?.type === 'setOld')) {
+        moves.push({
+          tone: 'pos',
+          title: `Sell old 24g chain`,
+          sub: `Beats paid by ${fmtINR(data.oldHistPL, true)} · frees ${fmtL(data.oldSale)}`,
+          val: `+${fmtL(data.oldSale)}`,
+          act: 'Sell',
+          action: { type: 'setOld', val: 'sell' }
+        });
+      } else if (!data.recOldSell && data.effectiveOld === 'sell') {
+        moves.push({
+          tone: 'warn',
+          title: `Keep old 24g chain`,
+          sub: `Resale is ${fmtINR(-data.oldHistPL)} below paid (BE ${fmtINR(th.rOldSellRec)}/g)`,
+          val: fmtINR(data.oldHistPL, true),
+          act: 'Keep',
+          actCls: 'warn',
+          action: { type: 'setOld', val: 'keep' }
+        });
+      }
+
+      if (!moves.length) {
+        moves.push({
+          tone: 'pos',
+          title: `Counter tray is optimal`,
+          sub: `No better move at ₹${state.R1.toLocaleString('en-IN')}/g · ${state.cut}% cut`,
+          val: fmtINR(ev.saveW, true)
+        });
+      }
+
+      return moves.slice(0, 4);
+    }
+
+    function applyShopAction(act, data) {
+      if (!act) return;
+      if (act.type === 'preset') {
+        loadShopPreset(act.preset, data);
+        return;
+      }
+      if (act.type === 'addSell') {
+        state.shop.items.push({
+          id: 'i' + (++nextItemSeq),
+          name: act.name || 'Extra',
+          w: Number(act.grams.toFixed(2)),
+          mc: '',
+          intent: 'sell',
+          isRing: false
+        });
+      } else if (act.type === 'trim') {
+        state.shop.items = trimSellItems(state.shop.items, act.grams);
+      } else if (act.type === 'clearMc') {
+        const it = state.shop.items.find(x => x.id === act.id);
+        if (it) it.mc = '';
+      } else if (act.type === 'setOld') {
+        state.old = act.val;
+      }
+      lastTraySig = '';
+      update();
+    }
+
+    function loadShopPreset(preset, data) {
+      if (preset === 'wedding') {
+        state.shop.items = [
+          { id: 'i' + (++nextItemSeq), name: 'Chain', w: 24, mc: '', intent: 'keep', isRing: false },
+          { id: 'i' + (++nextItemSeq), name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true }
+        ];
+      } else if (preset === 'tier75') {
+        const ex = Number(data.S2.wEx.toFixed(2));
+        state.shop.items = [
+          { id: 'i' + (++nextItemSeq), name: 'Chain', w: 24, mc: '', intent: 'keep', isRing: false },
+          { id: 'i' + (++nextItemSeq), name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true },
+          ...(ex > 0.05 ? [{ id: 'i' + (++nextItemSeq), name: '₹7.5L Extra', w: ex, mc: '', intent: 'sell', isRing: false }] : [])
+        ];
+      } else if (preset === 'max') {
+        const ex = Number(data.S3.wEx.toFixed(2));
+        state.shop.items = [
+          { id: 'i' + (++nextItemSeq), name: 'Chain', w: 24, mc: '', intent: 'keep', isRing: false },
+          { id: 'i' + (++nextItemSeq), name: 'Ring', w: 8, mc: '18', intent: 'keep', isRing: true },
+          ...(ex > 0.05 ? [{ id: 'i' + (++nextItemSeq), name: 'Resale Gold', w: ex, mc: '', intent: 'sell', isRing: false }] : [])
+        ];
+      } else if (preset === 'single') {
+        state.shop.items = [
+          { id: 'i' + (++nextItemSeq), name: 'Gold', w: 32, mc: '', intent: 'keep', isRing: false }
+        ];
+      }
+      lastTraySig = '';
+      update();
+    }
+
+    function renderShop(data, th) {
+      const ev = evaluateShopTray(state.shop.items, state.shop.budget, state.shop.extraDisc, data);
+      const moves = buildSmartMoves(ev, data, th);
+      const autoMc = ev.hits75 ? state.mcDisc : state.mcStd;
+
+      // Status Tags & Optional Budget Pill
+      document.getElementById('shopStatusTags').innerHTML = ev.totalW < 0.01
+        ? `<span class="tag tag-warn">Empty tray</span>`
+        : `<span class="tag ${ev.hits75 ? 'tag-pos' : 'tag-warn'}">${ev.hits75 ? `₹7.5L met · ${state.mcDisc}% MC` : `+${ev.shortG.toFixed(1)}g to ₹7.5L`}</span>
+           <span class="tag ${ev.overCap > 0.05 ? 'tag-neg' : 'tag-info'} mono">${ev.totalW.toFixed(1)}g / ${state.W_MAX}g</span>`;
+
+      const bTag = document.getElementById('shopBudgetTag');
+      if (ev.budget !== null) {
+        const diffB = ev.budget - ev.payNow;
+        bTag.classList.remove('hidden');
+        bTag.className = 'tag mono ' + (diffB >= -100 ? 'tag-pos' : 'tag-neg');
+        bTag.textContent = diffB >= -100 ? `${fmtK(Math.max(0, diffB))} left` : `Over ${fmtK(-diffB)}`;
+      } else {
+        bTag.classList.add('hidden');
+      }
+
+      // 2x2 Counter Output Ledger
+      const netLbl = ev.keepW < 0.01 ? 'Pure resale P/L' : `Net (${ev.keepW.toFixed(0)}g kept)`;
+      document.getElementById('shopLedger').innerHTML = `
         <div class="ledger-cell">
-          <span class="figure-lbl">Bill (${wTot.toFixed(1)}g)</span>
-          <span class="figure-val mono">${fmtINR(bill)}</span>
-          <span class="figure-sub mono">Bank ${fmtL(bank)} + ${fmtL(cash)}</span>
+          <span class="figure-lbl">Pay now at counter</span>
+          <span class="figure-val mono">${fmtINR(ev.payNow)}</span>
+          <span class="figure-sub mono">Bank ${fmtL(ev.bank)} +${(ev.cash / 100000).toFixed(1)}L</span>
         </div>
         <div class="ledger-cell">
-          <span class="figure-lbl">Resell (${wE.toFixed(1)}g)</span>
-          <span class="figure-val mono">${fmtINR(exRes)}</span>
-          <span class="figure-sub mono ${flipPL >= 0 ? 'c-pos' : 'c-warn'}">Flip ${fmtINR(flipPL, true)}</span>
+          <span class="figure-lbl">Total bill (${ev.totalW.toFixed(1)}g)</span>
+          <span class="figure-val mono">${fmtINR(ev.bill)}</span>
+          <span class="figure-sub mono">Adv -${fmtL(ev.advApplied)}${ev.extraDisc > 0 ? ` · Off -${fmtK(ev.extraDisc)}` : ''}</span>
         </div>
         <div class="ledger-cell">
-          <span class="figure-lbl">Net (${(wC + wR).toFixed(0)}g kept)</span>
-          <span class="figure-val mono ${net < 0 ? 'c-pos' : ''}">${net < 0 ? '+' + fmtINR(-net) : fmtINR(net)}</span>
-          <span class="figure-sub mono">Walk-in ${fmtL(walkInC)}</span>
+          <span class="figure-lbl">${netLbl}</span>
+          <span class="figure-val mono ${ev.net < 0 ? 'c-pos' : ''}">${ev.net < 0 ? '+' + fmtINR(-ev.net) : fmtINR(ev.net)}</span>
+          <span class="figure-sub mono">${ev.sellW > 0 ? `Resale ${fmtL(ev.sellResale)}` : `No resale`}${data.oldProc > 0 ? ` + Old` : ''}</span>
         </div>
         <div class="ledger-cell">
-          <span class="figure-lbl">Saved vs walk-in</span>
-          <span class="figure-val mono ${saveW >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(saveW, true)}</span>
-          <span class="figure-sub mono">${hits75 ? `${state.mcDisc}% MC` : `${state.mcStd}% MC`}</span>
+          <span class="figure-lbl">${ev.keepW < 0.01 ? 'Net profit' : 'Saved vs walk-in'}</span>
+          <span class="figure-val mono ${ev.saveW >= 0 ? 'c-pos' : 'c-neg'}">${fmtINR(ev.saveW, true)}</span>
+          <span class="figure-sub mono">${ev.sellW > 0 ? `Flip ${fmtK(ev.flipPL, true)}` : `Keep ${ev.keepW.toFixed(0)}g`}</span>
         </div>`;
 
+      // Negotiation & Margin Chips
+      let chipsHtml = '';
+      if (ev.totalW > 0.01) {
+        chipsHtml += `<span class="stat-chip">-1% MC = +${fmtK(ev.onePctMcVal)}</span>`;
+        chipsHtml += `<span class="stat-chip ${ev.marginPerGDisc >= 0 ? 'c-pos' : 'c-warn'}">Extra g: ${fmtINR(ev.marginPerGDisc, true)}/g</span>`;
+        if (ev.remCap > 0.5) chipsHtml += `<span class="stat-chip">Cap left: ${ev.remCap.toFixed(1)}g</span>`;
+        if (ev.clause2Risk > 500) chipsHtml += `<span class="stat-chip c-warn">Clause 2: ${fmtK(ev.clause2Risk)}</span>`;
+      }
+      document.getElementById('shopChips').innerHTML = chipsHtml;
+
+      // Smart Moves Panel
+      const hasAction = moves.some(m => m.action);
+      const mBadge = document.getElementById('shopMovesBadge');
+      mBadge.className = 'tag mono ' + (hasAction ? 'tag-info' : 'tag-pos');
+      mBadge.textContent = hasAction ? `${moves.length} ${moves.length === 1 ? 'move' : 'moves'}` : 'Optimal';
+
+      document.getElementById('shopMoves').innerHTML = moves.map((m, idx) => `
+        <div class="move-row">
+          <div class="move-left">
+            <i class="move-dot ${m.tone}" aria-hidden="true"></i>
+            <div class="move-copy">
+              <span class="move-title">${m.title}</span>
+              <span class="move-sub mono">${m.sub}</span>
+            </div>
+          </div>
+          <div class="move-right">
+            <span class="move-val mono ${m.tone === 'pos' ? 'c-pos' : (m.tone === 'neg' ? 'c-neg' : (m.tone === 'warn' ? 'c-warn' : 'c-info'))}">${m.val}</span>
+            ${m.act ? `<button type="button" class="btn-act ${m.actCls || ''}" data-move-idx="${idx}" data-agent="shop-move-${idx}">${m.act}</button>` : ''}
+          </div>
+        </div>`).join('');
+
+      document.querySelectorAll('[data-move-idx]').forEach(btn => {
+        btn.addEventListener('click', () => applyShopAction(moves[Number(btn.dataset.moveIdx)].action, data));
+      });
+
+      // Tray List (Focus-preserving DOM diff!)
+      const sig = state.shop.items.map(it => `${it.id}:${it.intent}`).join('|');
+      const listEl = document.getElementById('trayList');
+      if (sig !== lastTraySig) {
+        lastTraySig = sig;
+        listEl.innerHTML = state.shop.items.length ? state.shop.items.map((it, i) => `
+          <div class="tray-item" data-item-id="${it.id}">
+            <div class="tray-top">
+              <input class="tray-name" type="text" data-field="name" data-id="${it.id}" value="${escapeAttr(it.name)}" placeholder="Item ${i + 1}" aria-label="Item name" />
+              <button type="button" class="intent-btn ${it.intent}" data-toggle-intent="${it.id}" data-agent="shop-intent-${it.id}">${it.intent === 'keep' ? 'Keep' : 'Sell'}</button>
+              <button type="button" class="del-btn" data-del-item="${it.id}" aria-label="Remove item">x</button>
+            </div>
+            <div class="tray-nums">
+              <div class="num-pill">
+                <input type="number" inputmode="decimal" step="0.01" min="0" data-field="w" data-id="${it.id}" value="${it.w}" placeholder="0" aria-label="Weight in grams" />
+                <span class="num-unit">g</span>
+              </div>
+              <div class="num-pill">
+                <input type="number" inputmode="decimal" step="0.1" min="0" max="40" data-field="mc" data-id="${it.id}" value="${escapeAttr(it.mc)}" placeholder="Auto ${autoMc}%" aria-label="Making charge percent" />
+                <span class="num-unit">%</span>
+              </div>
+              <div class="tray-cost mono" data-row-cost="${it.id}"></div>
+            </div>
+          </div>`).join('') : `<div class="c-muted" style="font-size:12.5px;padding:8px 0;">Tap + Keep, + Sell, or a preset above.</div>`;
+
+        listEl.querySelectorAll('input[data-field]').forEach(inp => {
+          inp.addEventListener('input', (e) => {
+            const it = state.shop.items.find(x => x.id === e.target.dataset.id);
+            if (!it) return;
+            const f = e.target.dataset.field;
+            if (f === 'name') it.name = e.target.value;
+            else if (f === 'w') it.w = e.target.value === '' ? '' : Math.max(0, Number(e.target.value));
+            else if (f === 'mc') it.mc = e.target.value;
+            renderShop(evalAt(state.R1), calcThresholds());
+            saveState();
+          });
+        });
+
+        listEl.querySelectorAll('[data-toggle-intent]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const it = state.shop.items.find(x => x.id === btn.dataset.toggleIntent);
+            if (!it) return;
+            it.intent = it.intent === 'keep' ? 'sell' : 'keep';
+            update();
+          });
+        });
+
+        listEl.querySelectorAll('[data-del-item]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            state.shop.items = state.shop.items.filter(x => x.id !== btn.dataset.delItem);
+            update();
+          });
+        });
+      }
+
+      // Update per-row live cost & dynamic Auto MC placeholders in-place
+      state.shop.items.forEach(it => {
+        const c = ev.costsById.get(it.id);
+        const costEl = listEl.querySelector(`[data-row-cost="${it.id}"]`);
+        if (costEl && c) {
+          costEl.innerHTML = `<div class="tray-cost-main">${fmtINR(c.total)}</div><div class="tray-cost-sub">${c.overCapG > 0.05 ? 'Over cap' : `${c.effMcPct}% MC`}</div>`;
+        }
+        const mcInp = listEl.querySelector(`input[data-field="mc"][data-id="${it.id}"]`);
+        if (mcInp) mcInp.placeholder = `Auto ${autoMc}%`;
+      });
+
+      // Sync optional budget / discount inputs & summary chip
+      const bInp = document.getElementById('inpShopBudget');
+      const dInp = document.getElementById('inpShopDisc');
+      if (document.activeElement !== bInp) bInp.value = state.shop.budget;
+      if (document.activeElement !== dInp) dInp.value = state.shop.extraDisc;
+
+      const optParts = [];
+      if (ev.budget !== null) optParts.push(`Budget ${fmtL(ev.budget)}`);
+      if (ev.extraDisc > 0) optParts.push(`Off ${fmtK(ev.extraDisc)}`);
+      document.getElementById('shopOptSummary').textContent = optParts.length ? optParts.join(' · ') : 'Optional';
+      document.getElementById('shopOldHint').textContent = data.effectiveOld === 'sell' ? `Selling (+${fmtL(data.oldSale)})` : 'Keeping untouched';
+      document.querySelectorAll('[data-budget]').forEach(b => {
+        b.classList.toggle('active', String(state.shop.budget) === b.dataset.budget && b.dataset.budget !== '');
+      });
+
+      // Existing 24g Chain Breakevens Accordion
       const plStd = data.oldSale - data.S1.chain.total;
       const plDisc = data.oldSale - data.S3.chain.total;
       const net4c = data.S3.bill - (state.W_MAX - W_RING) * data.resaleRate;
-
       document.getElementById('oldChainSub').textContent = `Paid ${fmtINR(data.oldC.totalPaid)} (${fmtINR(data.oldC.totalPaid / W_CHAIN)}/g all-in)`;
       document.getElementById('oldSalePill').textContent = `Sale ${fmtINR(data.oldSale)}`;
       document.getElementById('oldLedger').innerHTML = `
@@ -2304,9 +3081,9 @@
       if (!state.pinnedInspect) state.inspect = data.best;
       syncControls(data);
       renderDecide(data, th);
+      renderShop(data, th);
       renderBills(data);
       renderRatesAndChart(data, th);
-      renderPieces(data, th);
       renderChecklist(data);
       syncViews();
       saveState();
@@ -2390,10 +3167,34 @@
     bindNum('inpOldMc', 'oldMc', 0, 30);
 
     document.getElementById('chkRingCounts').addEventListener('change', (e) => { state.ringCounts = e.target.checked; update(); });
-    [['pwChain', 'c'], ['pwRing', 'r'], ['pwEx1', 'e1'], ['pwEx2', 'e2'], ['pwEx3', 'e3']].forEach(([id, k]) => {
-      document.getElementById(id).addEventListener('input', (e) => {
-        const v = Number(e.target.value);
-        if (!Number.isNaN(v) && v >= 0) { state.pieces[k] = v; update(); }
+
+    // Live Shop Counter Event Wiring
+    document.getElementById('addKeepBtn').addEventListener('click', () => {
+      state.shop.items.push({ id: 'i' + (++nextItemSeq), name: '', w: 8, mc: '', intent: 'keep', isRing: false });
+      update();
+    });
+    document.getElementById('addSellBtn').addEventListener('click', () => {
+      state.shop.items.push({ id: 'i' + (++nextItemSeq), name: '', w: 16, mc: '', intent: 'sell', isRing: false });
+      update();
+    });
+    document.querySelectorAll('[data-tray]').forEach(btn => {
+      btn.addEventListener('click', () => loadShopPreset(btn.dataset.tray, evalAt(state.R1)));
+    });
+    document.getElementById('inpShopBudget').addEventListener('input', (e) => {
+      state.shop.budget = e.target.value;
+      renderShop(evalAt(state.R1), calcThresholds());
+      saveState();
+    });
+    document.getElementById('inpShopDisc').addEventListener('input', (e) => {
+      state.shop.extraDisc = e.target.value;
+      renderShop(evalAt(state.R1), calcThresholds());
+      saveState();
+    });
+    document.querySelectorAll('[data-budget]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.shop.budget = btn.dataset.budget;
+        renderShop(evalAt(state.R1), calcThresholds());
+        saveState();
       });
     });
 
@@ -2401,6 +3202,7 @@
       const t = state.theme;
       state = structuredClone(DEFAULT_STATE);
       state.theme = t;
+      lastTraySig = '';
       update();
     });
 
